@@ -1,6 +1,6 @@
 import React, { CSSProperties } from "react";
 import styles from "./Button.module.css";
-import colors from "@/app/styles/colors";
+import colors from "@/styles/colors";
 
 export type ButtonMode = "sm" | "xs" | "lg" | "md" | undefined;
 
