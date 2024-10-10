@@ -4,9 +4,10 @@
 }
 
 .button:hover {
-  background-color: #fff;
-  border: 1px solid transparent;
-  color: #1428a0;
+  background-color: #ecf8fd !important;
+  border: 1px solid #025497;
+  color: #025497;
+  transition: all 0.1s ease;
 }
 
 .sm {

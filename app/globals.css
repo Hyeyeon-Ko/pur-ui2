@@ -1,8 +1,6 @@
 :root {
   /* sm Button */
-  --sm-width: 80px;
   --sm-height: 40px;
-  --sm-backgroundColor: #0075ff;
   --sm-color: #ffffff;
   --sm-borderRadius: 5px;
   --sm-border: none;
@@ -17,9 +15,7 @@
   --sm-padding: 10px;
 
   /* Es Button */
-  --xs-width: 60px;
   --xs-height: 30px;
-  --xs-backgroundColor: #28a745;
   --xs-color: #ffffff;
   --xs-borderRadius: 5px;
   --xs-border: none;
@@ -34,9 +30,7 @@
   --xs-padding: 8px;
 
   /* Lg Button */
-  --md-width: 100px;
   --md-height: 40px;
-  --md-backgroundColor: yellow;
   --md-color: #ffffff;
   --md-borderRadius: 5px;
   --md-border: none;
@@ -48,12 +42,10 @@
   --md-fontSize: 14px;
   --md-margin: 5px;
   --md-justifyContent: center;
-  --md-padding: 10px;
+  --md-padding: 20px;
 
   /* Lg Button */
-  --lg-width: 120px;
   --lg-height: 50px;
-  --lg-backgroundColor: #ff5722;
   --lg-color: #ffffff;
   --lg-borderRadius: 5px;
   --lg-border: none;
@@ -65,5 +57,5 @@
   --lg-fontSize: 16px;
   --lg-margin: 5px;
   --lg-justifyContent: center;
-  --lg-padding: 12px;
+  --lg-padding: 20px 28px;
 }

@@ -1,0 +1,83 @@
+.button {
+  transition: all 0.1s ease;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #ecf8fd !important;
+  border: 1px solid #025497;
+  color: #025497;
+  transition: all 0.1s ease;
+}
+
+.sm {
+  width: var(--sm-width);
+  height: var(--sm-height);
+  background-color: var(--sm-backgroundColor);
+  color: var(--sm-color);
+  border-radius: var(--sm-borderRadius);
+  border: var(--sm-border);
+  text-align: var(--sm-textAlign);
+  font-weight: var(--sm-fontWeight);
+  display: var(--sm-display);
+  line-height: var(--sm-lineHeight);
+  align-items: var(--sm-alignItems);
+  font-size: var(--sm-fontSize);
+  margin: var(--sm-margin);
+  justify-content: var(--sm-justifyContent);
+  padding: var(--sm-padding);
+}
+
+.xs {
+  width: var(--xs-width);
+  height: var(--xs-height);
+  background-color: var(--xs-backgroundColor);
+  color: var(--xs-color);
+  border-radius: var(--xs-borderRadius);
+  border: var(--xs-border);
+  text-align: var(--xs-textAlign);
+  font-weight: var(--xs-fontWeight);
+  display: var(--xs-display);
+  line-height: var(--xs-lineHeight);
+  align-items: var(--xs-alignItems);
+  font-size: var(--xs-fontSize);
+  margin: var(--xs-margin);
+  justify-content: var(--xs-justifyContent);
+  padding: var(--xs-padding);
+}
+
+.md {
+  width: var(--md-width);
+  height: var(--md-height);
+  background-color: var(--md-backgroundColor);
+  color: var(--md-color);
+  border-radius: var(--md-borderRadius);
+  border: var(--md-border);
+  text-align: var(--md-textAlign);
+  font-weight: var(--md-fontWeight);
+  display: var(--md-display);
+  line-height: var(--md-lineHeight);
+  align-items: var(--md-alignItems);
+  font-size: var(--md-fontSize);
+  margin: var(--md-margin);
+  justify-content: var(--md-justifyContent);
+  padding: var(--md-padding);
+}
+
+.lg {
+  width: var(--lg-width);
+  height: var(--lg-height);
+  background-color: var(--lg-backgroundColor);
+  color: var(--lg-color);
+  border-radius: var(--lg-borderRadius);
+  border: var(--lg-border);
+  text-align: var(--lg-textAlign);
+  font-weight: var(--lg-fontWeight);
+  display: var(--lg-display);
+  line-height: var(--lg-lineHeight);
+  align-items: var(--lg-alignItems);
+  font-size: var(--lg-fontSize);
+  margin: var(--lg-margin);
+  justify-content: var(--lg-justifyContent);
+  padding: var(--lg-padding);
+}
