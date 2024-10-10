@@ -20,7 +20,7 @@
   --xs-borderRadius: 5px;
   --xs-border: none;
   --xs-textAlign: center;
-  --xs-fontWeight: 500;
+  --xs-fontWeight: 400;
   --xs-display: flex;
   --xs-lineHeight: 1.5;
   --xs-alignItems: center;
@@ -29,17 +29,17 @@
   --xs-justifyContent: center;
   --xs-padding: 8px;
 
-  /* Lg Button */
+  /* md Button */
   --md-height: 40px;
   --md-color: #ffffff;
   --md-borderRadius: 5px;
   --md-border: none;
   --md-textAlign: center;
-  --md-fontWeight: 500;
+  --md-fontWeight: 700;
   --md-display: flex;
   --md-lineHeight: 1.5;
   --md-alignItems: center;
-  --md-fontSize: 14px;
+  --md-fontSize: 16px;
   --md-margin: 5px;
   --md-justifyContent: center;
   --md-padding: 20px;
@@ -50,11 +50,11 @@
   --lg-borderRadius: 5px;
   --lg-border: none;
   --lg-textAlign: center;
-  --lg-fontWeight: 500;
+  --lg-fontWeight: 700;
   --lg-display: flex;
   --lg-lineHeight: 1.5;
   --lg-alignItems: center;
-  --lg-fontSize: 16px;
+  --lg-fontSize: 18px;
   --lg-margin: 5px;
   --lg-justifyContent: center;
   --lg-padding: 20px 28px;

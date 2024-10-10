@@ -21,3 +21,5 @@ npx create-next-app@latest
 ```
 npm run dev
 ```
+
+- 실행포트: localhost:3000

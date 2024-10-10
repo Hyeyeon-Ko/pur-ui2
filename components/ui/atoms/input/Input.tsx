@@ -1,5 +1,5 @@
 import React, { CSSProperties } from "react";
-import styles from "./Input.module.css";
+import styles from "./input.module.css";
 import colors from "@/styles/colors";
 
 export type InputMode = "sm" | "xs" | "lg" | "md" | undefined;
@@ -9,7 +9,6 @@ interface InputProps {
   color?: keyof typeof colors;
   customStyle?: CSSProperties;
   placeholder?: string;
-  onClick?: () => void;
 }
 
 const Input: React.FC<InputProps> = ({

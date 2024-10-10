@@ -1,0 +1,27 @@
+.label {
+  color: #000000;
+}
+
+.sm {
+  font-weight: var(--sm-fontWeight);
+  font-size: var(--sm-fontSize);
+  margin: var(--sm-margin);
+}
+
+.xs {
+  font-weight: var(--xs-fontWeight);
+  font-size: var(--xs-fontSize);
+  margin: var(--xs-margin);
+}
+
+.md {
+  font-weight: var(--md-fontWeight);
+  font-size: var(--md-fontSize);
+  margin: var(--md-margin);
+}
+
+.lg {
+  font-weight: var(--lg-fontWeight);
+  font-size: var(--lg-fontSize);
+  margin: var(--lg-margin);
+}
