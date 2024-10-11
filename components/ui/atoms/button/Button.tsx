@@ -20,7 +20,7 @@ const Button: React.FC<ButtonProps> = ({
   onClick,
 }) => {
   const modeClass = styles[mode];
-  const backgroundColor = color ? colors[color] : "initial";
+  const backgroundColor = color ? colors[color] : "#025497";
 
   return (
     <button
