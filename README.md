@@ -4,7 +4,7 @@
 
 ### 프로젝트 설명
 
-> NextJS, TypeScript, ModuleCSS
+> NextJS, TypeScript, Tailwind
 
 ### 프로젝트 생성
 
@@ -17,6 +17,10 @@ npx create-next-app@latest
 ```
 
 ### 프로젝트 실행 방법
+
+```
+npm i
+```
 
 ```
 npm run dev
