@@ -6,13 +6,9 @@ import Label from "@/components/ui/atoms/label/Label";
 import SendInput from "@/components/ui/molcules/inputs/SendInput";
 
 const MainPage = () => {
-  const handleClick = () => {
-    console.log("Button Clicked");
-  };
-
   return (
     <div>
-      <Button
+      {/* <Button
         mode="xs"
         content="xs버튼"
         customStyle={{ margin: "10px" }}
@@ -39,6 +35,24 @@ const MainPage = () => {
         color="Blue_B_Default"
         customStyle={{ margin: "10px" }}
         onClick={handleClick}
+      /> */}
+      <Button
+        mode="sm"
+        color="Blue_B_Default"
+        content="Small Button"
+        onClick={() => alert("Clicked!")}
+      />
+      <Button
+        mode="md"
+        color="Blue_B_Default"
+        content="Medium Button"
+        onClick={() => alert("Clicked!")}
+      />
+      <Button
+        mode="lg"
+        color="Blue_B_Default"
+        content="Large Button"
+        onClick={() => alert("Clicked!")}
       />
       <Input
         mode="xs"
@@ -98,9 +112,6 @@ const MainPage = () => {
           padding: "10px",
         }}
       />
-      <button className="bg-sky-700 px-4 py-2 text-white hover:bg-sky-800 sm:px-8 sm:py-3">
-        ...
-      </button>
     </div>
   );
 };

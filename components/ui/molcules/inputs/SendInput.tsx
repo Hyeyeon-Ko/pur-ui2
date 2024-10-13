@@ -32,12 +32,7 @@ const SendInput: React.FC<SendInputProps> = ({
       }}
     >
       <Input mode={mode} placeholder={placeholder} />
-      <Button
-        mode={mode}
-        content={content}
-        onClick={onClick}
-        customStyle={{ backgroundColor: "black" }}
-      />
+      <Button mode={mode} content={content} onClick={onClick} color="accent" />
     </div>
   );
 };

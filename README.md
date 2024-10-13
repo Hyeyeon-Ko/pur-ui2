@@ -2,6 +2,18 @@
 
 <br/>
 
+## 프로젝트 실행 방법
+
+```
+npm i
+```
+
+```
+npm run dev
+```
+
+- 실행포트: localhost:3000
+
 ### 프로젝트 설명
 
 > NextJS, TypeScript, Tailwind
@@ -16,14 +28,63 @@ cf) https://nextjs.org/docs/app/api-reference/cli/create-next-app
 npx create-next-app@latest
 ```
 
-### 프로젝트 실행 방법
+### Tailwind 설정
 
 ```
-npm i
+npm install -D tailwindcss
+npx tailwindcss init
 ```
 
+- tailwind.config.js
+
 ```
-npm run dev
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
+  theme: {
+    screens: {
+      sm: "480px",
+      md: "768px",
+      lg: "976px",
+      xl: "1440px",
+    },
+    colors: {
+      blue: "#1fb6ff",
+      purple: "#7e5bef",
+      pink: "#ff49db",
+      orange: "#ff7849",
+      green: "#13ce66",
+      yellow: "#ffc82c",
+      "gray-dark": "#273444",
+      gray: "#8492a6",
+      "gray-light": "#d3dce6",
+    },
+    fontFamily: {
+      sans: ["Graphik", "sans-serif"],
+      serif: ["Merriweather", "serif"],
+    },
+    extend: {
+      spacing: {
+        128: "32rem",
+        144: "36rem",
+      },
+      borderRadius: {
+        "4xl": "2rem",
+      },
+    },
+  },
+  plugins: [],
+};
 ```
 
-- 실행포트: localhost:3000
+- global.css
+
+```
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
