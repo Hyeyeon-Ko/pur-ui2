@@ -1,5 +1,4 @@
 import React, { CSSProperties } from "react";
-import styles from "./sendInput.module.css";
 import colors from "@/styles/colors";
 import Input from "../../atoms/input/Input";
 import Button from "../../atoms/button/Button";
@@ -9,6 +8,9 @@ export type SendInputMode = "sm" | "xs" | "lg" | "md" | undefined;
 interface SendInputProps {
   mode?: SendInputMode;
   color?: keyof typeof colors;
+  buttonColor?: keyof typeof colors;
+  fontColor?: keyof typeof colors;
+  borderColor?: keyof typeof colors;
   customStyle?: CSSProperties;
   content?: string;
   onClick?: () => void;
@@ -17,16 +19,17 @@ interface SendInputProps {
 
 const SendInput: React.FC<SendInputProps> = ({
   mode = "md",
+  buttonColor = "Button_Default",
+  fontColor = "white",
+  borderColor,
   customStyle,
   content = "버튼내용",
   onClick,
   placeholder = "placeholder내용",
 }) => {
-  const modeClass = styles[mode];
-
   return (
     <div
-      className={`${styles.sendInput} ${modeClass}`}
+      className={`flex ${mode === "xs" ? "space-x-1" : "space-x-1"}`}
       style={{
         ...customStyle,
       }}
@@ -35,8 +38,10 @@ const SendInput: React.FC<SendInputProps> = ({
       <Button
         mode={mode}
         content={content}
+        color={buttonColor}
+        fontColor={fontColor}
+        borderColor={borderColor}
         onClick={onClick}
-        customStyle={{ backgroundColor: "black" }}
       />
     </div>
   );
