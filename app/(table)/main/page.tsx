@@ -1,14 +1,51 @@
 "use client";
 
 import Button from "@/components/ui/atoms/button/Button";
+import Filter from "@/components/ui/atoms/filter/Filter";
 import Input from "@/components/ui/atoms/input/Input";
 import Label from "@/components/ui/atoms/label/Label";
+import Table from "@/components/ui/atoms/table/Table";
 import LabelInput from "@/components/ui/molecules/inputs/LabelInput";
 import SendInput from "@/components/ui/molecules/inputs/SendInput";
 import { useState } from "react";
 
+const data = [
+  { data1: "The Sliding Mr. Bones", data2: "Malcolm Lockyer", data3: "1961" },
+  { data1: "Witchy Woman", data2: "The Eagles", data3: "1972" },
+  { data1: "Shining Star", data2: "Earth, Wind, and Fire", data3: "1975" },
+  { data1: "The Sliding Mr. Bones", data2: "Malcolm Lockyer", data3: "1961" },
+  { data1: "Witchy Woman", data2: "The Eagles", data3: "1972" },
+  { data1: "Shining Star", data2: "Earth, Wind, and Fire", data3: "1975" },
+  { data1: "The Sliding Mr. Bones", data2: "Malcolm Lockyer", data3: "1961" },
+  { data1: "Witchy Woman", data2: "The Eagles", data3: "1972" },
+  { data1: "Shining Star", data2: "Earth, Wind, and Fire", data3: "1975" },
+  { data1: "The Sliding Mr. Bones", data2: "Malcolm Lockyer", data3: "1961" },
+  { data1: "Witchy Woman", data2: "The Eagles", data3: "1972" },
+  { data1: "Shining Star", data2: "Earth, Wind, and Fire", data3: "1975" },
+  { data1: "The Sliding Mr. Bones", data2: "Malcolm Lockyer", data3: "1961" },
+  { data1: "Witchy Woman", data2: "The Eagles", data3: "1972" },
+  { data1: "Shining Star", data2: "Earth, Wind, and Fire", data3: "1975" },
+  { data1: "The Sliding Mr. Bones", data2: "Malcolm Lockyer", data3: "1961" },
+  { data1: "Witchy Woman", data2: "The Eagles", data3: "1972" },
+  { data1: "Shining Star", data2: "Earth, Wind, and Fire", data3: "1975" },
+  { data1: "The Sliding Mr. Bones", data2: "Malcolm Lockyer", data3: "1961" },
+  { data1: "Witchy Woman", data2: "The Eagles", data3: "1972" },
+  { data1: "Shining Star", data2: "Earth, Wind, and Fire", data3: "1975" },
+  { data1: "The Sliding Mr. Bones", data2: "Malcolm Lockyer", data3: "1961" },
+  { data1: "Witchy Woman", data2: "The Eagles", data3: "1972" },
+  { data1: "Shining Star", data2: "Earth, Wind, and Fire", data3: "1975" },
+];
+
+const columns = ["data1", "data2", "data3"];
+
 const MainPage = () => {
   const [inputValue, setInputValue] = useState<string>("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedOption, setSelectedOption] = useState("");
+  const [selectedRange, setSelectedRange] = useState({
+    startDate: new Date(),
+    endDate: new Date(),
+  });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -155,6 +192,15 @@ const MainPage = () => {
         onChange={(e) => setInputValue(e.target.value)}
         customStyle={{ marginBottom: "20px" }}
       />
+      <Filter
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+        selectedOption={selectedOption}
+        setSelectedOption={setSelectedOption}
+        selectedRange={selectedRange}
+        setSelectedRange={setSelectedRange}
+      />
+      <Table data={data} columns={columns} />
     </div>
   );
 };
