@@ -200,7 +200,10 @@ const MainPage = () => {
         selectedRange={selectedRange}
         setSelectedRange={setSelectedRange}
       />
+      {/* 체크박스 무 */}
       <Table data={data} columns={columns} />
+      {/* 체크박스 유 */}
+      <Table data={data} columns={columns} showCheckbox={true} />
     </div>
   );
 };

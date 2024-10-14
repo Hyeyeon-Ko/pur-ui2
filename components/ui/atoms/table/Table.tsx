@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import Button from "../button/Button";
 
 interface TableProps {
   data: Array<{ [key: string]: string }>;
   columns: string[];
+  showCheckbox?: boolean;
 }
 
-const Table: React.FC<TableProps> = ({ data, columns }) => {
+const Table: React.FC<TableProps> = ({ data, columns, showCheckbox }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
   const [rowsPerPage] = useState(10);
@@ -29,37 +29,33 @@ const Table: React.FC<TableProps> = ({ data, columns }) => {
     );
   };
 
-  const downloadCSV = () => {
-    console.log("csv다운로드");
+  //   더블클릭시 새창
+  const handleRowDoubleClick = (row: { [key: string]: string }) => {
+    const url = `path?data=${encodeURIComponent(JSON.stringify(row))}`;
+    window.open(url, "_blank", "noopener,noreferrer");
   };
 
   return (
     <div className="container mx-auto">
-      <div className="mt-4">
-        <Button
-          mode="sm"
-          color="Button_Default"
-          content="엑셀 다운로드"
-          onClick={downloadCSV}
-        />
-      </div>
       {/* 테이블 */}
       <div className="overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-200 table-auto">
           <thead className="bg-gray-100">
             <tr>
-              <th className="px-4 py-2">
-                <input
-                  type="checkbox"
-                  onChange={(e) =>
-                    setSelectedRows(
-                      e.target.checked
-                        ? data.map((_, index) => String(index))
-                        : []
-                    )
-                  }
-                />
-              </th>
+              {showCheckbox && (
+                <th className="px-4 py-2">
+                  <input
+                    type="checkbox"
+                    onChange={(e) =>
+                      setSelectedRows(
+                        e.target.checked
+                          ? data.map((_, index) => String(index))
+                          : []
+                      )
+                    }
+                  />
+                </th>
+              )}
               {columns.map((column) => (
                 <th
                   key={column}
@@ -72,18 +68,24 @@ const Table: React.FC<TableProps> = ({ data, columns }) => {
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
             {currentData.map((row, index) => (
-              <tr key={index} className="hover:bg-gray-100 cursor-pointer">
-                <td className="px-4 py-2">
-                  <input
-                    type="checkbox"
-                    checked={selectedRows.includes(
-                      String(indexOfFirstRow + index)
-                    )}
-                    onChange={() =>
-                      handleRowSelect(String(indexOfFirstRow + index))
-                    }
-                  />
-                </td>
+              <tr
+                onDoubleClick={() => handleRowDoubleClick(row)}
+                key={index}
+                className="hover:bg-gray-100 cursor-pointer"
+              >
+                {showCheckbox && (
+                  <td className="px-4 py-2">
+                    <input
+                      type="checkbox"
+                      checked={selectedRows.includes(
+                        String(indexOfFirstRow + index)
+                      )}
+                      onChange={() =>
+                        handleRowSelect(String(indexOfFirstRow + index))
+                      }
+                    />
+                  </td>
+                )}
                 {columns.map((column) => (
                   <td key={column} className="px-4 py-2">
                     {row[column]}
