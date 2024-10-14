@@ -6,6 +6,8 @@ export type ButtonMode = "sm" | "xs" | "lg" | "md" | undefined;
 interface ButtonProps {
   mode?: ButtonMode;
   color?: keyof typeof colors;
+  fontColor?: keyof typeof colors;
+  borderColor?: keyof typeof colors;
   customStyle?: CSSProperties;
   content?: string;
   onClick?: () => void;
@@ -14,6 +16,8 @@ interface ButtonProps {
 const Button: React.FC<ButtonProps> = ({
   mode = "md",
   color,
+  fontColor = "white",
+  borderColor,
   customStyle,
   content,
   onClick,
@@ -25,7 +29,9 @@ const Button: React.FC<ButtonProps> = ({
     lg: "text-lg px-6 py-3",
   };
 
-  const backgroundColor = color ? colors[color] : "#025497";
+  const backgroundColor = color ? colors[color] : "#2563EB";
+  const textColor = fontColor ? colors[fontColor] : "white";
+  const border = borderColor ? colors[borderColor] : "white";
 
   return (
     <button
@@ -33,12 +39,13 @@ const Button: React.FC<ButtonProps> = ({
       style={{
         ...customStyle,
         backgroundColor,
-        color: "white",
+        color: textColor,
+        border: `1px solid ${border}`,
         filter: "saturate(1)",
       }}
       onClick={onClick}
       onMouseEnter={(e) => {
-        e.currentTarget.style.filter = "saturate(0.5)";
+        e.currentTarget.style.filter = "saturate(0.7)";
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.filter = "saturate(1)";

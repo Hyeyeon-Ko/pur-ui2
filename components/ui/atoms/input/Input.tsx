@@ -1,5 +1,4 @@
 import React, { CSSProperties } from "react";
-import styles from "./input.module.css";
 import colors from "@/styles/colors";
 
 export type InputMode = "sm" | "xs" | "lg" | "md" | undefined;
@@ -9,6 +8,9 @@ interface InputProps {
   color?: keyof typeof colors;
   customStyle?: CSSProperties;
   placeholder?: string;
+  value?: string;
+  type?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -16,18 +18,30 @@ const Input: React.FC<InputProps> = ({
   color,
   customStyle,
   placeholder,
+  value,
+  type = "text",
+  onChange,
 }) => {
-  const modeClass = styles[mode];
-  const borderColor = color ? colors[color] : "initial";
+  const modeClasses = {
+    sm: "text-sm px-3 py-2",
+    xs: "text-xs px-2 py-1",
+    md: "text-base px-4 py-2.5",
+    lg: "text-lg px-5 py-3",
+  };
+
+  const borderColor = color ? colors[color] : "#2563EB";
 
   return (
     <input
-      className={`${styles.input} ${modeClass}`}
+      className={`m-1 border rounded transition-all duration-150 ease-in-out focus:outline-none ${modeClasses[mode]}`}
       style={{
         ...customStyle,
         borderColor,
       }}
+      type={type}
       placeholder={placeholder}
+      value={value}
+      onChange={onChange}
     />
   );
 };

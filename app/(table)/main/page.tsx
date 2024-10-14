@@ -3,86 +3,99 @@
 import Button from "@/components/ui/atoms/button/Button";
 import Input from "@/components/ui/atoms/input/Input";
 import Label from "@/components/ui/atoms/label/Label";
-import SendInput from "@/components/ui/molcules/inputs/SendInput";
+import LabelInput from "@/components/ui/molecules/inputs/LabelInput";
+import SendInput from "@/components/ui/molecules/inputs/SendInput";
+import { useState } from "react";
 
 const MainPage = () => {
+  const [inputValue, setInputValue] = useState<string>("");
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+  };
   return (
     <div>
-      {/* <Button
+      <Button
         mode="xs"
-        content="xs버튼"
-        customStyle={{ margin: "10px" }}
-        color="Blue_B_Default"
-        onClick={handleClick}
+        color="Button_Default"
+        content="XSmall Button"
+        onClick={() => alert("Clicked!")}
       />
       <Button
         mode="sm"
-        content="sm버튼"
-        customStyle={{ margin: "10px" }}
-        color="Blue_B_Default"
-        onClick={handleClick}
-      />
-      <Button
-        mode="md"
-        content="md버튼"
-        customStyle={{ margin: "10px" }}
-        color="Blue_B_Default"
-        onClick={handleClick}
-      />
-      <Button
-        mode="lg"
-        content="lg버튼"
-        color="Blue_B_Default"
-        customStyle={{ margin: "10px" }}
-        onClick={handleClick}
-      /> */}
-      <Button
-        mode="sm"
-        color="Blue_B_Default"
+        color="Button_Default"
         content="Small Button"
         onClick={() => alert("Clicked!")}
       />
       <Button
         mode="md"
-        color="Blue_B_Default"
+        color="Button_Default"
         content="Medium Button"
         onClick={() => alert("Clicked!")}
       />
       <Button
         mode="lg"
-        color="Blue_B_Default"
+        color="Button_Default"
         content="Large Button"
         onClick={() => alert("Clicked!")}
       />
-      <Input
+      <Button
         mode="xs"
-        color="Blue_B_Default"
-        customStyle={{ margin: "10px" }}
-        placeholder="xs인풋창"
+        color="white"
+        fontColor="Button_Default"
+        borderColor="Button_Default"
+        content="XSmall Button"
+        onClick={() => alert("Clicked!")}
       />
-      <Input
+      <Button
         mode="sm"
-        color="Blue_B_Default"
-        customStyle={{ margin: "10px" }}
-        placeholder="sm인풋창"
+        color="white"
+        fontColor="Button_Default"
+        borderColor="Button_Default"
+        content="Small Button"
+        onClick={() => alert("Clicked!")}
       />
-      <Input
+      <Button
         mode="md"
-        color="Blue_B_Default"
-        customStyle={{ margin: "10px" }}
-        placeholder="md인풋창"
+        color="white"
+        fontColor="Button_Default"
+        borderColor="Button_Default"
+        content="Medium Button"
+        onClick={() => alert("Clicked!")}
       />
-      <Input
+      <Button
         mode="lg"
-        color="Blue_B_Default"
-        customStyle={{ margin: "10px" }}
-        placeholder="lg인풋창"
+        color="white"
+        fontColor="Button_Default"
+        borderColor="Button_Default"
+        content="Large Button"
+        onClick={() => alert("Clicked!")}
       />
       <div>
-        <Label mode="xs" content="xs 라벨" />
-        <Label mode="sm" content="sm 라벨" />
-        <Label mode="md" content="md 라벨" />
-        <Label mode="lg" content="lg 라벨" />
+        <Input
+          mode="xs"
+          value={inputValue}
+          onChange={handleChange}
+          color="black"
+          placeholder="x-small Input"
+        />
+        <Input mode="xs" placeholder="x-small Input" />
+        <Input mode="sm" placeholder="small size input" />
+        <Input mode="md" placeholder="medium size input" />
+        <Input mode="lg" placeholder="large size input" />
+        <Input mode="lg" color="negative" placeholder="large size input" />
+      </div>
+      <div className="flex flex-col">
+        <Label
+          mode="xs"
+          content="x-small bold 레이블입니다."
+          color="primary"
+          fontWeight="bold"
+          customStyle={{ marginBottom: "8px" }}
+        />
+        <Label mode="sm" content="small normal 레이블입니다." />
+        <Label mode="md" content="medium normal 레이블입니다" />
+        <Label mode="lg" content="large normal 레이블입니다" />
       </div>
       <SendInput
         mode="xs"
@@ -91,7 +104,6 @@ const MainPage = () => {
         onClick={() => alert("짜잔")}
         customStyle={{
           padding: "10px",
-          display: "flex",
         }}
       />
       <SendInput
@@ -107,10 +119,41 @@ const MainPage = () => {
         mode="sm"
         content="버튼"
         placeholder="placeholder"
+        buttonColor="info"
         onClick={() => alert("짜잔")}
         customStyle={{
           padding: "10px",
         }}
+      />
+      <LabelInput
+        labelMode="sm"
+        labelContent="사번"
+        labelColor="primary"
+        labelFontWeight="bold"
+        inputMode="sm"
+        inputColor="Button_Default"
+        inputType="text"
+        placeholder="사번을 입력하세요"
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
+        customStyle={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-start",
+        }}
+      />
+      <LabelInput
+        labelMode="sm"
+        labelContent="비밀번호"
+        labelColor="primary"
+        labelFontWeight="bold"
+        inputMode="sm"
+        inputColor="Button_Default"
+        inputType="password"
+        placeholder="비밀번호를 입력하세요"
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
+        customStyle={{ marginBottom: "20px" }}
       />
     </div>
   );
