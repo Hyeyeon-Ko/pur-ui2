@@ -1,65 +1,68 @@
-import React, { useState } from "react";
+import React from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { ko } from "date-fns/locale";
 
-const DateRangePicker = () => {
-  const today = new Date();
-  const lastMonth = new Date(today);
-  lastMonth.setMonth(today.getMonth() - 1);
+interface DateRangePickerProps {
+  startDate: Date | undefined;
+  endDate: Date | undefined;
+  onStartDateChange: (date: Date | undefined) => void;
+  onEndDateChange: (date: Date | undefined) => void;
+  minDate?: Date;
+  maxDate?: Date;
+  startLabel?: string;
+  endLabel?: string;
+}
 
-  const [startDate, setStartDate] = useState<Date | undefined>(lastMonth);
-  const [endDate, setEndDate] = useState<Date | undefined>(today);
-
+const DateRangePicker: React.FC<DateRangePickerProps> = ({
+  startDate,
+  endDate,
+  onStartDateChange,
+  onEndDateChange,
+  minDate = new Date("2000-01-01"),
+  maxDate = new Date(),
+  startLabel = "Start Date",
+  endLabel = "End Date",
+}) => {
   return (
-    <div className="flex p-4 gap-2">
+    <div className="flex p-4 gap-4">
       <div>
-        <label className="block text-sm font-medium text-gray-700">
-          Start Date
+        <label className="block text-sm font-medium text-gray-700 mb-1">
+          {startLabel}
         </label>
         <DatePicker
+          showIcon
           dateFormat="yyyy.MM.dd"
           selected={startDate}
-          onChange={(date: Date | null) => {
-            if (date) {
-              setStartDate(date);
-              if (endDate && date > endDate) {
-                setEndDate(undefined);
-              }
-            } else {
-              setStartDate(undefined);
-            }
-          }}
+          onChange={(date: Date | null) => onStartDateChange(date || undefined)}
           selectsStart
           startDate={startDate}
           endDate={endDate}
-          minDate={new Date("2000-01-01")}
-          maxDate={today}
-          locale="ko"
+          minDate={minDate}
+          maxDate={maxDate}
+          locale={ko}
           className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-500"
+          calendarClassName="custom-calendar"
         />
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700">
-          End Date
+        <label className="block text-sm font-medium text-gray-700 mb-1">
+          {endLabel}
         </label>
         <DatePicker
+          showIcon
           dateFormat="yyyy.MM.dd"
           selected={endDate}
-          onChange={(date: Date | null) => {
-            if (date) {
-              setEndDate(date);
-            } else {
-              setEndDate(undefined);
-            }
-          }}
+          onChange={(date: Date | null) => onEndDateChange(date || undefined)}
           selectsEnd
           startDate={startDate}
           endDate={endDate}
-          minDate={startDate}
-          maxDate={today}
-          locale="ko"
+          minDate={startDate || minDate}
+          maxDate={maxDate}
+          locale={ko}
           className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-500"
+          calendarClassName="custom-calendar"
         />
       </div>
     </div>

@@ -1,8 +1,7 @@
 import React, { useRef } from "react";
-import Input from "../input/Input";
+import Input from "../../atoms/input/Input";
 
-import Button from "../button/Button";
-import DateRangePicker from "../datepicker/DateRangePicker";
+import Button from "../../atoms/button/Button";
 
 interface FilterProps {
   searchTerm: string;
@@ -29,7 +28,6 @@ const Filter: React.FC<FilterProps> = ({
 
   return (
     <div>
-      <DateRangePicker />
       <div className="flex gap-2">
         {/* 시작일 선택 */}
 

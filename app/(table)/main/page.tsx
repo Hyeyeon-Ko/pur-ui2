@@ -213,6 +213,7 @@ const MainPage = () => {
       <Button
         mode="lg"
         variant="outline"
+        disabled
         color="Button_Default"
         content="Large Button"
         onClick={() => alert("Clicked!")}

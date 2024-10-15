@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import Pagination from "../pagination/Pagination";
+import Checkbox from "../../atoms/checkbox/Checkbox";
 
 interface TableProps {
   data: Array<{ [key: string]: string }>;
@@ -21,18 +23,16 @@ const Table: React.FC<TableProps> = ({
   const totalPages = Math.ceil(data.length / rowsPerPage);
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
 
-  // 페이지에 따른 데이터 계산
   const indexOfLastRow = currentPage * rowsPerPage;
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
   const currentData = pagination
     ? data.slice(indexOfFirstRow, indexOfLastRow)
     : data;
 
-  // 전체 선택 처리
   const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
     const checked = e.target.checked;
     const newSelectedRows = checked
-      ? data.map((_, index) => String(index)) // 전체 데이터 기준으로 선택
+      ? data.map((_, index) => String(index))
       : [];
 
     setSelectedRows(newSelectedRows);
@@ -46,7 +46,6 @@ const Table: React.FC<TableProps> = ({
         ? prev.filter((id) => id !== rowId)
         : [...prev, rowId];
 
-      // 선택된 행이 있을 때만 콜백 호출
       onRowSelect?.(newSelectedRows);
       return newSelectedRows;
     });
@@ -57,11 +56,6 @@ const Table: React.FC<TableProps> = ({
     selectedRows.includes(String(index))
   );
 
-  // 선택된 행 출력 (디버깅 용도)
-  useEffect(() => {
-    console.log("선택된 행:", selectedRows);
-  }, [selectedRows]);
-
   return (
     <div className="container mx-auto">
       <div className="overflow-x-auto">
@@ -70,8 +64,8 @@ const Table: React.FC<TableProps> = ({
             <tr>
               {showCheckbox && (
                 <th className="px-4 py-2">
-                  <input
-                    type="checkbox"
+                  <Checkbox
+                    mode="sm"
                     checked={isAllSelected}
                     onChange={handleSelectAll}
                   />
@@ -92,8 +86,8 @@ const Table: React.FC<TableProps> = ({
               <tr key={index} className="hover:bg-gray-100 cursor-pointer">
                 {showCheckbox && (
                   <td className="px-4 py-2">
-                    <input
-                      type="checkbox"
+                    <Checkbox
+                      mode="sm"
                       checked={selectedRows.includes(
                         String(indexOfFirstRow + index)
                       )}
@@ -114,45 +108,12 @@ const Table: React.FC<TableProps> = ({
         </table>
       </div>
 
-      {/* 페이지네이션 */}
       {pagination && (
-        <div className="flex items-center justify-center mt-4">
-          <button
-            onClick={() => setCurrentPage(currentPage - 1)}
-            disabled={currentPage === 1}
-            className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
-          >
-            &lt;
-          </button>
-
-          <div className="flex items-center">
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-              <div key={page} className="relative flex items-center mx-1">
-                <button
-                  onClick={() => setCurrentPage(page)}
-                  className={`flex items-center justify-center w-8 h-8 rounded-full ${
-                    currentPage === page
-                      ? "bg-gray-200 text-blue-500 font-bold"
-                      : "bg-gray-200 text-gray-500"
-                  }`}
-                >
-                  {page}
-                </button>
-                {currentPage === page && (
-                  <span className="absolute w-4 h-4 bg-blue-500 rounded-full top-1 left-1" />
-                )}
-              </div>
-            ))}
-          </div>
-
-          <button
-            onClick={() => setCurrentPage(currentPage + 1)}
-            disabled={currentPage === totalPages}
-            className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
-          >
-            &gt;
-          </button>
-        </div>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />
       )}
     </div>
   );

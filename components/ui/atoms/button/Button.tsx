@@ -30,21 +30,20 @@ const Button: React.FC<ButtonProps> = ({
     lg: "text-lg px-6 py-3",
   };
 
-  const backgroundColor = disabled
-    ? "gray"
-    : variant === "outline"
-    ? "transparent"
-    : color
-    ? colors[color]
-    : "#2563EB";
-  const textColor = disabled
-    ? "lightgray"
-    : variant === "outline"
-    ? color
-      ? colors[color]
-      : "black"
-    : "white";
-  const border = disabled ? "lightgray" : color ? colors[color] : "transparent";
+  const palette = () => {
+    if (variant === "outline")
+      return {
+        backgroundColor: "transparent",
+        color: color ? colors[color] : "black",
+        border: `1px solid ${color ? colors[color] : "transparent"}`,
+      };
+
+    return {
+      backgroundColor: "#2563EB",
+      color: "white",
+      border: "1px solid transparent",
+    };
+  };
 
   return (
     <button
@@ -53,19 +52,19 @@ const Button: React.FC<ButtonProps> = ({
       } ${disabled ? "cursor-not-allowed" : "cursor-pointer"}`}
       style={{
         ...customStyle,
-        backgroundColor,
-        color: textColor,
-        border: `1px solid ${border}`,
-        filter: disabled ? "saturate(0.5)" : "saturate(1)",
+        ...palette(),
+        opacity: disabled ? 0.5 : 1,
       }}
       onClick={!disabled ? onClick : undefined}
       onMouseEnter={(e) => {
         if (!disabled) {
-          e.currentTarget.style.filter = "saturate(0.7)";
+          e.currentTarget.style.opacity = "0.7";
         }
       }}
       onMouseLeave={(e) => {
-        e.currentTarget.style.filter = "saturate(1)";
+        if (!disabled) {
+          e.currentTarget.style.opacity = "1";
+        }
       }}
       disabled={disabled}
     >
