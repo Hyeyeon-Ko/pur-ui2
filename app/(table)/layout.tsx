@@ -1,4 +1,5 @@
 // import Image from "next/image";
+// import Navbar from "@/components/layouts/Navbar";
 import SideMenu from "@/components/layouts/SideMenu";
 import Link from "next/link";
 

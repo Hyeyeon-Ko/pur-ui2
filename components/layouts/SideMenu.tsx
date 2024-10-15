@@ -3,25 +3,25 @@ const menuItems = [
     title: "MENU",
     items: [
       {
-        icon: "/",
+        icon: "/images/home.png",
         label: "Home",
         href: "/",
         visible: ["admin", "master", "admin"],
       },
       {
-        icon: "/",
+        icon: "/images/home.png",
         label: "Menu1",
         href: "/main",
         visible: ["admin", "master"],
       },
       {
-        icon: "/",
+        icon: "/images/home.png",
         label: "Menu2",
-        href: "/",
+        href: "/menu1",
         visible: ["admin", "master"],
       },
       {
-        icon: "/",
+        icon: "/images/home.png",
         label: "Menu3",
         href: "/",
         visible: ["admin", "master"],
@@ -32,19 +32,19 @@ const menuItems = [
     title: "OTHER",
     items: [
       {
-        icon: "/",
+        icon: "/images/home.png",
         label: "Profile",
         href: "/profile",
         visible: ["admin", "master", "admin"],
       },
       {
-        icon: "/",
+        icon: "/images/setting.png",
         label: "Settings",
         href: "/settings",
         visible: ["admin", "master", "admin"],
       },
       {
-        icon: "/",
+        icon: "/images/logout.png",
         label: "Logout",
         href: "/logout",
         visible: ["admin", "master", "admin"],

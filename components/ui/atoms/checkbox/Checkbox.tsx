@@ -1,5 +1,4 @@
 import React, { CSSProperties } from "react";
-import styles from "./checkbox.module.css";
 import colors from "@/styles/colors";
 
 export type CheckboxMode = "sm" | "xs" | "lg" | "md" | undefined;
@@ -14,6 +13,7 @@ interface CheckboxProps {
   disabled?: boolean;
   className?: string;
   name?: string;
+  id?: string;
 }
 
 const Checkbox: React.FC<CheckboxProps> = ({
@@ -26,26 +26,43 @@ const Checkbox: React.FC<CheckboxProps> = ({
   disabled = false,
   className,
   name,
+  id,
 }) => {
-  const modeClass = styles[mode];
+  const sizeClasses = {
+    sm: "w-4 h-4",
+    xs: "w-3 h-3",
+    md: "w-5 h-5",
+    lg: "w-6 h-6",
+  };
+
   const borderColor = color ? colors[color] : "initial";
+  const modeClass = sizeClasses[mode] || sizeClasses["md"];
 
   return (
-    <div className={styles.layout}>
-      <label style={{ cursor: disabled ? "not-allowed" : "pointer" }}>
+    <div className="flex items-center">
+      <label
+        style={{ cursor: disabled ? "not-allowed" : "pointer" }}
+        className="flex items-center"
+      >
         <input
           type="checkbox"
-          className={`${styles.input} ${modeClass} ${className}`}
+          className={`form-checkbox rounded ${modeClass} ${className}`}
           style={{
             ...customStyle,
             borderColor,
+            accentColor: borderColor,
           }}
           checked={checked}
           name={name}
           onChange={onChange}
           disabled={disabled}
+          id={id}
         />
-        {label && <span className={styles.label}>{label}</span>}
+        {label && (
+          <span className={`ml-2 ${disabled ? "text-gray-400" : "text-black"}`}>
+            {label}
+          </span>
+        )}
       </label>
     </div>
   );

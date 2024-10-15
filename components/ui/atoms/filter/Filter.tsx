@@ -1,9 +1,8 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import Input from "../input/Input";
-import { DateRange } from "react-date-range";
-import "react-date-range/dist/styles.css";
-import "react-date-range/dist/theme/default.css";
+
 import Button from "../button/Button";
+import DateRangePicker from "../datepicker/DateRangePicker";
 
 interface FilterProps {
   searchTerm: string;
@@ -19,51 +18,8 @@ const Filter: React.FC<FilterProps> = ({
   setSearchTerm,
   selectedOption,
   setSelectedOption,
-  selectedRange,
-  setSelectedRange,
 }) => {
-  const [isStartDatePickerOpen, setIsStartDatePickerOpen] = useState(false);
-  const [isEndDatePickerOpen, setIsEndDatePickerOpen] = useState(false);
-
-  const startDateRef = useRef<HTMLDivElement>(null);
   const endDateRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        startDateRef.current &&
-        !startDateRef.current.contains(event.target as Node) &&
-        endDateRef.current &&
-        !endDateRef.current.contains(event.target as Node)
-      ) {
-        setIsStartDatePickerOpen(false);
-        setIsEndDatePickerOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
-  // 시작일 변경 핸들러
-  const handleStartDateChange = (ranges: any) => {
-    setSelectedRange({
-      startDate: ranges.selection.startDate,
-      endDate: selectedRange.endDate,
-    });
-    setIsStartDatePickerOpen(false);
-  };
-
-  // 종료일 변경 핸들러
-  const handleEndDateChange = (ranges: any) => {
-    setSelectedRange({
-      startDate: selectedRange.startDate,
-      endDate: ranges.selection.endDate,
-    });
-    setIsEndDatePickerOpen(false);
-  };
 
   const options = [
     { value: "", label: "All" },
@@ -71,76 +27,14 @@ const Filter: React.FC<FilterProps> = ({
     { value: "option2", label: "Option 2" },
   ];
 
-  const toggleStartDatePicker = () => {
-    setIsStartDatePickerOpen((prev) => {
-      if (isEndDatePickerOpen) {
-        setIsEndDatePickerOpen(false);
-      }
-      return !prev;
-    });
-  };
-
-  const toggleEndDatePicker = () => {
-    setIsEndDatePickerOpen((prev) => {
-      if (isStartDatePickerOpen) {
-        setIsStartDatePickerOpen(false);
-      }
-      return !prev;
-    });
-  };
-
   return (
-    <div className="m-20 w-[90%] p-6 bg-red-100 rounded-lg shadow-lg space-y-4 border-gray-300">
+    <div>
+      <DateRangePicker />
       <div className="flex gap-2">
         {/* 시작일 선택 */}
-        <div className="relative" ref={startDateRef}>
-          <button
-            onClick={toggleStartDatePicker}
-            className="px-4 py-2 bg-white border border-gray-300 rounded-lg w-full text-left shadow-sm hover:bg-gray-100 focus:outline-none focus:ring focus:ring-blue-200"
-          >
-            {`${selectedRange.startDate.toLocaleDateString()}`}
-          </button>
-          {isStartDatePickerOpen && (
-            <div className="absolute z-10 mt-2">
-              <DateRange
-                ranges={[
-                  {
-                    startDate: selectedRange.startDate,
-                    endDate: selectedRange.startDate,
-                    key: "selection",
-                  },
-                ]}
-                onChange={handleStartDateChange}
-                rangeColors={["#3b82f6"]}
-              />
-            </div>
-          )}
-        </div>
 
         {/* 종료일 선택 */}
-        <div className="relative" ref={endDateRef}>
-          <button
-            onClick={toggleEndDatePicker}
-            className="px-4 py-2 bg-white border border-gray-300 rounded-lg w-full text-left shadow-sm hover:bg-gray-100 focus:outline-none focus:ring focus:ring-blue-200"
-          >
-            {`${selectedRange.endDate.toLocaleDateString()}`}
-          </button>
-          {isEndDatePickerOpen && (
-            <div className="absolute z-10 mt-2">
-              <DateRange
-                ranges={[
-                  {
-                    startDate: selectedRange.endDate,
-                    endDate: selectedRange.endDate,
-                    key: "selection",
-                  },
-                ]}
-                onChange={handleEndDateChange}
-                rangeColors={["#3b82f6"]}
-              />
-            </div>
-          )}
-        </div>
+        <div className="relative" ref={endDateRef}></div>
       </div>
       <div className="flex space-x-4 items-center">
         <select

@@ -2,24 +2,25 @@ import React, { CSSProperties } from "react";
 import colors from "@/styles/colors";
 
 export type ButtonMode = "sm" | "xs" | "lg" | "md" | undefined;
+export type ButtonVariant = "inline" | "outline";
 
 interface ButtonProps {
   mode?: ButtonMode;
   color?: keyof typeof colors;
-  fontColor?: keyof typeof colors;
-  borderColor?: keyof typeof colors;
   customStyle?: CSSProperties;
   content?: string;
+  disabled?: boolean;
+  variant?: ButtonVariant;
   onClick?: () => void;
 }
 
 const Button: React.FC<ButtonProps> = ({
   mode = "md",
   color,
-  fontColor = "white",
-  borderColor,
   customStyle,
+  disabled = false,
   content,
+  variant = "inline",
   onClick,
 }) => {
   const modeClasses = {
@@ -29,27 +30,44 @@ const Button: React.FC<ButtonProps> = ({
     lg: "text-lg px-6 py-3",
   };
 
-  const backgroundColor = color ? colors[color] : "#2563EB";
-  const textColor = fontColor ? colors[fontColor] : "white";
-  const border = borderColor ? colors[borderColor] : "white";
+  const backgroundColor = disabled
+    ? "gray"
+    : variant === "outline"
+    ? "transparent"
+    : color
+    ? colors[color]
+    : "#2563EB";
+  const textColor = disabled
+    ? "lightgray"
+    : variant === "outline"
+    ? color
+      ? colors[color]
+      : "black"
+    : "white";
+  const border = disabled ? "lightgray" : color ? colors[color] : "transparent";
 
   return (
     <button
-      className={`m-1 transition-all duration-100 ease-in-out cursor-pointer rounded ${modeClasses[mode]}`}
+      className={`m-1 transition-all duration-100 ease-in-out rounded ${
+        modeClasses[mode]
+      } ${disabled ? "cursor-not-allowed" : "cursor-pointer"}`}
       style={{
         ...customStyle,
         backgroundColor,
         color: textColor,
         border: `1px solid ${border}`,
-        filter: "saturate(1)",
+        filter: disabled ? "saturate(0.5)" : "saturate(1)",
       }}
-      onClick={onClick}
+      onClick={!disabled ? onClick : undefined}
       onMouseEnter={(e) => {
-        e.currentTarget.style.filter = "saturate(0.7)";
+        if (!disabled) {
+          e.currentTarget.style.filter = "saturate(0.7)";
+        }
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.filter = "saturate(1)";
       }}
+      disabled={disabled}
     >
       {content}
     </button>
