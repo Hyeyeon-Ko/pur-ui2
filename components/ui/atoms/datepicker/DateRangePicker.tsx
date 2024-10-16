@@ -27,9 +27,7 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({
   return (
     <div className="flex p-4 gap-4">
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
-          {startLabel}
-        </label>
+        <label className="block text-xs text-gray-700">{startLabel}</label>
         <DatePicker
           showIcon
           dateFormat="yyyy.MM.dd"
@@ -47,9 +45,7 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
-          {endLabel}
-        </label>
+        <label className="block text-xs text-gray-700">{endLabel}</label>
         <DatePicker
           showIcon
           dateFormat="yyyy.MM.dd"
