@@ -39,19 +39,22 @@ const Pagination: React.FC<PaginationProps> = ({
   return (
     <div className="flex items-center justify-center mt-6">
       <div className="flex items-center gap-2">
-        {currentPage > 1 && (
-          <button
-            onClick={handleFirstPage}
-            className="py-1 bg-gray-200 rounded disabled:opacity-50"
-          >
-            {"<<"}
-          </button>
-        )}
+        <button
+          onClick={handleFirstPage}
+          disabled={currentPage === 1}
+          className={`py-1 bg-gray-200 rounded ${
+            currentPage === 1 ? "disabled:opacity-50" : ""
+          }`}
+        >
+          {"<<"}
+        </button>
 
         <button
           onClick={handlePrevious}
           disabled={currentPage === 1}
-          className="px-4 py-1 bg-gray-200 rounded disabled:opacity-50"
+          className={`px-4 py-1 bg-gray-200 rounded ${
+            currentPage === 1 ? "disabled:opacity-50" : ""
+          }`}
         >
           &lt;
         </button>
@@ -79,19 +82,22 @@ const Pagination: React.FC<PaginationProps> = ({
         <button
           onClick={handleNext}
           disabled={currentPage === totalPages}
-          className="px-4 py-1 bg-gray-200 rounded disabled:opacity-50"
+          className={`px-4 py-1 bg-gray-200 rounded ${
+            currentPage === totalPages ? "disabled:opacity-50" : ""
+          }`}
         >
           &gt;
         </button>
 
-        {currentPage < totalPages && (
-          <button
-            onClick={handleLastPage}
-            className="py-1 bg-gray-200 rounded disabled:opacity-50"
-          >
-            {">>"}
-          </button>
-        )}
+        <button
+          onClick={handleLastPage}
+          disabled={currentPage === totalPages}
+          className={`py-1 bg-gray-200 rounded ${
+            currentPage === totalPages ? "disabled:opacity-50" : ""
+          }`}
+        >
+          {">>"}
+        </button>
       </div>
     </div>
   );

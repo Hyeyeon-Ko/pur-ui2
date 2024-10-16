@@ -1,6 +1,23 @@
 export type RowData = {
   id: string;
-  data1: string;
-  data2: string;
-  data3: string;
+  센터: string;
+  입찰번호: string;
+  누리장터: string;
+  계약종류: string;
+  낙찰방법: string;
+  계정명: string;
+  공고구분: string;
+  입찰명: string;
+  공고일: string;
+  마감일: string;
+  응찰일: string;
+  낙찰자: string;
+  낙찰기준가: string;
+  낙찰금액: string;
+  입찰결과: string;
+  입찰증권: string;
+  입찰품의번호: string;
+  담당자: string;
+  기타: string;
+  열람: string;
 };

@@ -57,14 +57,14 @@ const Table: React.FC<TableProps> = ({
 
   const handleRowDoubleClick = (row: { [key: string]: string }) => {
     const url = `path?data=${encodeURIComponent(JSON.stringify(row))}`;
-    window.open(url, "_blank", "noopener,noreferrer");
+    window.open(url, "_blank", "noopener,noreferrer,width=1000,height=800");
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <div className="m-2">
+    <div className="mx-5">
+      <div className="pb-2">
         <span
-          className="p-2 text-sm font-bold"
+          className="text-sm font-bold ml-2"
           style={{ color: colors.Button_Default }}
         >
           {showCheckbox && `선택된 데이터 ${selectedRows.length} 개 / `}총
@@ -73,15 +73,15 @@ const Table: React.FC<TableProps> = ({
       </div>
       <div
         style={{ borderColor: "transparent" }}
-        className="overflow-x-auto rounded-lg shadow-lg border"
+        className="mx-auto rounded-lg shadow-lg border w-[100%]"
       >
-        <table className="w-full text-sm text-left text-gray-500">
+        <table className="table-auto text-xs text-left text-gray-500 w-[100%]">
           <thead
             style={{
               backgroundColor: colors["Blue_C_Lighten-6"],
               color: colors["Grey_Darken-3"],
             }}
-            className="text-xs uppercase"
+            className="text-xs uppercase text-center"
           >
             <tr>
               {showCheckbox && (
@@ -94,7 +94,7 @@ const Table: React.FC<TableProps> = ({
                 </th>
               )}
               {columns.map((column) => (
-                <th key={column} className="px-4 py-3 font-semibold">
+                <th key={column} className="px-1 py-3 font-semibold">
                   {column}
                 </th>
               ))}
@@ -112,7 +112,7 @@ const Table: React.FC<TableProps> = ({
                   color: colors["Grey_Darken-4"],
                   borderBottom: `1px solid ${colors["Grey_Lighten-2"]}`,
                 }}
-                className="transition duration-150 ease-in-out cursor-pointer hover:bg-gray-200 hover:shadow-md"
+                className="text-center transition duration-150 ease-in-out cursor-pointer hover:bg-gray-200 hover:shadow-md"
               >
                 {showCheckbox && (
                   <td className="px-4 py-2">
@@ -128,7 +128,7 @@ const Table: React.FC<TableProps> = ({
                   </td>
                 )}
                 {columns.map((column) => (
-                  <td key={column} className="px-4 py-2 text-gray-700">
+                  <td key={column} className="py-2 text-gray-700">
                     {row[column]}
                   </td>
                 ))}

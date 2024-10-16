@@ -8,8 +8,10 @@ import useExcelFileHandler from "@/hooks/useExcelFileHandler";
 import React, { useRef, useState } from "react";
 import colors from "@/styles/colors";
 import { data, columns } from "@/lib/data";
+import VerticalTable from "@/components/ui/molecules/verticalTable/VerticalTable";
 
 const MenuPage = () => {
+  const [downloadOption, setDownloadOption] = useState("");
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
   const { handleFileUpload, handleDownloadOptionChange, handleFileDownload } =
     useExcelFileHandler(data, selectedRows);
@@ -33,12 +35,13 @@ const MenuPage = () => {
       const selectedData = selectedRows
         .map((rowId) => {
           const rowData = data.find((row) => row.id === rowId);
-          return rowData ? [rowData.data1, rowData.data2, rowData.data3] : null;
+          // Ensure you return rowData as an array of values
+          return rowData ? Object.values(rowData) : null;
         })
         .filter((row) => row !== null);
 
       if (selectedData.length > 0) {
-        handleFileDownload(selectedData);
+        handleFileDownload(selectedData); // Pass selectedData directly
       } else {
         alert("선택된 데이터가 없습니다.");
       }
@@ -47,9 +50,42 @@ const MenuPage = () => {
     }
   };
 
+  const vertical = [
+    {
+      id: 0,
+      title: "제목1",
+      contents: "체크박스 여러개",
+    },
+    {
+      id: 1,
+      title: "제목1",
+      contents: "체크박스 여러개",
+    },
+    {
+      id: 2,
+      title: "제목1",
+      contents: "체크박스 여러개",
+    },
+    {
+      id: 3,
+      title: "제목1",
+      contents: "체크박스 여러개",
+    },
+    {
+      id: 4,
+      title: "제목1",
+      contents: "체크박스 여러개",
+    },
+    {
+      id: 5,
+      title: "제목1",
+      contents: "체크박스 여러개",
+    },
+  ];
+
   return (
     <div className="flex flex-col mb-4">
-      <div className="mb-2">
+      <div className="flex justify-end mr-6 mt-10">
         <input
           type="file"
           accept=".xls,.xlsx"
@@ -73,7 +109,11 @@ const MenuPage = () => {
         <SelectBox
           mode="xs"
           placeholder="엑셀다운로드"
-          onChange={handleDownloadOptionChange}
+          value={downloadOption}
+          onChange={(e) => {
+            setDownloadOption(e.target.value);
+            handleDownloadOptionChange(e);
+          }}
           options={[
             { value: "all", label: "전체 다운로드" },
             { value: "selected", label: "선택 다운로드" },
@@ -107,6 +147,7 @@ const MenuPage = () => {
         startLabel="시작 날짜"
         endLabel="종료 날짜"
       />
+      <VerticalTable data={vertical} />
     </div>
   );
 };
