@@ -24,43 +24,75 @@ const Pagination: React.FC<PaginationProps> = ({
     }
   };
 
+  const handleFirstPage = () => {
+    if (currentPage !== 1) {
+      onPageChange(1);
+    }
+  };
+
+  const handleLastPage = () => {
+    if (currentPage !== totalPages) {
+      onPageChange(totalPages);
+    }
+  };
+
   return (
-    <div className="flex items-center justify-center gap-3 mt-6">
-      <button
-        onClick={handlePrevious}
-        disabled={currentPage === 1}
-        className="px-6 py-4 bg-gray-200 disabled:opacity-50"
-      >
-        &lt;
-      </button>
-
+    <div className="flex items-center justify-center mt-6">
       <div className="flex items-center gap-2">
-        {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+        {currentPage > 1 && (
           <button
-            key={page}
-            onClick={() => onPageChange(page)}
-            style={{
-              backgroundColor:
-                currentPage === page ? colors.Button_Default : "transparent",
-              color: currentPage === page ? "white" : "gray",
-              borderRadius: currentPage === page ? "12px" : "none",
-            }}
-            className={`px-3 py-1 transition-colors duration-200 ${
-              currentPage === page ? "font-bold" : "hover:opacity-90"
-            }`}
+            onClick={handleFirstPage}
+            className="py-1 bg-gray-200 rounded disabled:opacity-50"
           >
-            {page}
+            {"<<"}
           </button>
-        ))}
-      </div>
+        )}
 
-      <button
-        onClick={handleNext}
-        disabled={currentPage === totalPages}
-        className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
-      >
-        &gt;
-      </button>
+        <button
+          onClick={handlePrevious}
+          disabled={currentPage === 1}
+          className="px-4 py-1 bg-gray-200 rounded disabled:opacity-50"
+        >
+          &lt;
+        </button>
+
+        <div className="flex items-center gap-2">
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+            <button
+              key={page}
+              onClick={() => onPageChange(page)}
+              style={{
+                backgroundColor:
+                  currentPage === page ? colors.Button_Default : "transparent",
+                color: currentPage === page ? "white" : "gray",
+                borderRadius: currentPage === page ? "12px" : "none",
+              }}
+              className={`px-3 py-1 transition-colors duration-200 ${
+                currentPage === page ? "font-bold" : "hover:opacity-90"
+              }`}
+            >
+              {page}
+            </button>
+          ))}
+        </div>
+
+        <button
+          onClick={handleNext}
+          disabled={currentPage === totalPages}
+          className="px-4 py-1 bg-gray-200 rounded disabled:opacity-50"
+        >
+          &gt;
+        </button>
+
+        {currentPage < totalPages && (
+          <button
+            onClick={handleLastPage}
+            className="py-1 bg-gray-200 rounded disabled:opacity-50"
+          >
+            {">>"}
+          </button>
+        )}
+      </div>
     </div>
   );
 };

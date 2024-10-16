@@ -71,9 +71,18 @@ const Table: React.FC<TableProps> = ({
           데이터 {data.length} 개
         </span>
       </div>
-      <div className="overflow-x-auto rounded-lg shadow-lg border border-gray-200">
+      <div
+        style={{ borderColor: "transparent" }}
+        className="overflow-x-auto rounded-lg shadow-lg border"
+      >
         <table className="w-full text-sm text-left text-gray-500">
-          <thead className="bg-gray-50 text-xs uppercase text-gray-700">
+          <thead
+            style={{
+              backgroundColor: colors["Blue_C_Lighten-6"],
+              color: colors["Grey_Darken-3"],
+            }}
+            className="text-xs uppercase"
+          >
             <tr>
               {showCheckbox && (
                 <th className="px-4 py-3">
@@ -85,20 +94,24 @@ const Table: React.FC<TableProps> = ({
                 </th>
               )}
               {columns.map((column) => (
-                <th
-                  key={column}
-                  className="px-4 py-3 font-semibold text-gray-600"
-                >
+                <th key={column} className="px-4 py-3 font-semibold">
                   {column}
                 </th>
               ))}
             </tr>
           </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
+          <tbody
+            style={{ borderBottom: `1px solid ${colors["Grey_Lighten-4"]}` }}
+            className="divide-y"
+          >
             {currentData.map((row, index) => (
               <tr
                 onDoubleClick={() => handleRowDoubleClick(row)}
                 key={index}
+                style={{
+                  color: colors["Grey_Darken-4"],
+                  borderBottom: `1px solid ${colors["Grey_Lighten-2"]}`,
+                }}
                 className="transition duration-150 ease-in-out cursor-pointer hover:bg-gray-200 hover:shadow-md"
               >
                 {showCheckbox && (
