@@ -16,8 +16,10 @@ import useFormatHandler from "@/hooks/useFormatHandler";
 const MenuPage = () => {
   const [downloadOption, setDownloadOption] = useState("");
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
-  const { handleFileUpload, handleDownloadOptionChange, handleFileDownload } =
-    useExcelFileHandler(data, selectedRows);
+  const { handleFileUpload, downloadCsv } = useExcelFileHandler(
+    data,
+    selectedRows
+  );
 
   const [startDate, setStartDate] = useState<Date | undefined>(new Date());
   const [endDate, setEndDate] = useState<Date | undefined>(new Date());
@@ -52,32 +54,78 @@ const MenuPage = () => {
   }, [selectedRows]);
 
   const handleDownloadSelected = () => {
-    console.log("Selected Rows for Download:", selectedRows);
     if (selectedRows.length > 0) {
       const selectedData = selectedRows
         .map((rowId) => {
-          const rowData = data.find((row) => row.id === rowId);
-          console.log("Row Data:", rowData);
-          if (rowData) {
-            return {
-              ...rowData,
-              센터: rowData.센터.join(", "),
-            };
-          }
-          return null;
+          const row = data.find((item) => item.id === rowId);
+          return row
+            ? {
+                ...row,
+                센터: formatCenterData(row.센터) || "-",
+                공고일: formatDate(row.공고일) || "-",
+                마감일: formatDate(row.마감일) || "-",
+                응찰일: formatDate(row.응찰일) || "-",
+                낙찰기준가: formatCurrency(row.낙찰기준가) || "-",
+                낙찰금액: formatCurrency(row.낙찰금액) || "-",
+                열람: row.열람 || "-",
+                누리장터: row.누리장터 || "-",
+              }
+            : null;
         })
-        .filter((row) => row !== null);
+        .filter(Boolean);
 
-      console.log("Formatted Selected Data:", selectedData);
+      downloadCsv(selectedData, "download.csv");
+    } else {
+      alert("선택된 데이터가 없습니다.");
+    }
+  };
+
+  const handleDownloadOptionChange = (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const option = e.target.value;
+
+    if (option === "selected") {
+      // Handle selected download
+      const selectedData = selectedRows
+        .map((rowId) => {
+          const row = data.find((item) => item.id === rowId);
+          return row
+            ? {
+                ...row,
+                센터: formatCenterData(row.센터) || "-",
+                공고일: formatDate(row.공고일) || "-",
+                마감일: formatDate(row.마감일) || "-",
+                응찰일: formatDate(row.응찰일) || "-",
+                낙찰기준가: formatCurrency(row.낙찰기준가) || "-",
+                낙찰금액: formatCurrency(row.낙찰금액) || "-",
+                열람: row.열람 || "-",
+                누리장터: row.누리장터 || "-",
+              }
+            : null;
+        })
+        .filter(Boolean);
 
       if (selectedData.length > 0) {
-        const formattedData = selectedData.map((item) => Object.values(item));
-        handleFileDownload(formattedData);
+        downloadCsv(selectedData, "selected_download.csv");
       } else {
         alert("선택된 데이터가 없습니다.");
       }
-    } else {
-      alert("선택된 데이터가 없습니다.");
+    } else if (option === "all") {
+      // Handle all download
+      const allData = data.map((row) => ({
+        ...row,
+        센터: formatCenterData(row.센터) || "-",
+        공고일: formatDate(row.공고일) || "-",
+        마감일: formatDate(row.마감일) || "-",
+        응찰일: formatDate(row.응찰일) || "-",
+        낙찰기준가: formatCurrency(row.낙찰기준가) || "-",
+        낙찰금액: formatCurrency(row.낙찰금액) || "-",
+        열람: row.열람 || "-",
+        누리장터: row.누리장터 || "-",
+      }));
+
+      downloadCsv(allData, "all_download.csv");
     }
   };
 

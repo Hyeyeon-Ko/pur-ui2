@@ -30,10 +30,9 @@ const Table: React.FC<TableProps> = ({
   const totalPages = Math.ceil(data.length / rowsPerPage);
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
 
-  // onRowSelect을 useEffect 안에서 처리
   useEffect(() => {
     onRowSelect?.(selectedRows);
-  }, [selectedRows]);
+  }, [selectedRows, onRowSelect]);
 
   const indexOfLastRow = currentPage * rowsPerPage;
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
@@ -46,18 +45,15 @@ const Table: React.FC<TableProps> = ({
     const newSelectedRows = checked
       ? data.map((_, index) => String(index))
       : [];
-
-    // 상태 업데이트
     setSelectedRows(newSelectedRows);
   };
 
   const handleRowSelect = (rowId: string) => {
-    setSelectedRows((prev) => {
-      const newSelectedRows = prev.includes(rowId)
+    setSelectedRows((prev) =>
+      prev.includes(rowId)
         ? prev.filter((id) => id !== rowId)
-        : [...prev, rowId];
-      return newSelectedRows; // 상태 업데이트만 수행
-    });
+        : [...prev, rowId]
+    );
   };
 
   const isAllSelected = data.every((_, index) =>
