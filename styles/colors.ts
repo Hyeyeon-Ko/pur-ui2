@@ -6,6 +6,7 @@ const colors = {
   negative: "#e30000",
   info: "#00cd52",
   warning: "#f2c037",
+  signature: "#2E3192",
   Button_Default: "#2563EB",
   "Red_Darken-5": "#220000",
   "Red_Darken-4": "#440000",

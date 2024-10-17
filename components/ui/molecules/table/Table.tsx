@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Pagination from "../pagination/Pagination";
 import Checkbox from "../../atoms/checkbox/Checkbox";
 import colors from "@/styles/colors";
@@ -24,6 +24,10 @@ const Table: React.FC<TableProps> = ({
   const totalPages = Math.ceil(data.length / rowsPerPage);
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
 
+  useEffect(() => {
+    onRowSelect?.(selectedRows);
+  }, [selectedRows, onRowSelect]);
+
   const indexOfLastRow = currentPage * rowsPerPage;
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
   const currentData = pagination
@@ -37,7 +41,6 @@ const Table: React.FC<TableProps> = ({
       : [];
 
     setSelectedRows(newSelectedRows);
-    onRowSelect?.(newSelectedRows);
   };
 
   const handleRowSelect = (rowId: string) => {
@@ -45,9 +48,7 @@ const Table: React.FC<TableProps> = ({
       const newSelectedRows = prev.includes(rowId)
         ? prev.filter((id) => id !== rowId)
         : [...prev, rowId];
-
-      onRowSelect?.(newSelectedRows);
-      return newSelectedRows;
+      return newSelectedRows; // 상태 업데이트만 수행
     });
   };
 

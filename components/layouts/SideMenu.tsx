@@ -1,29 +1,34 @@
+"use client";
+
+import React from "react";
+import { HiMenuAlt3 } from "react-icons/hi";
+import { MdCalculate } from "react-icons/md";
+import { RiLogoutBoxRFill, RiSettings5Fill } from "react-icons/ri";
+import { FaFileContract } from "react-icons/fa";
+import { ImHome } from "react-icons/im";
+import Link from "next/link";
+import colors from "@/styles/colors";
+
 const menuItems = [
   {
     title: "MENU",
     items: [
       {
-        icon: "/images/home.png",
-        label: "Home",
+        icon: ImHome,
+        label: "HOME",
         href: "/",
         visible: ["admin", "master", "admin"],
       },
       {
-        icon: "/images/home.png",
-        label: "Menu1",
+        icon: MdCalculate,
+        label: "ELEMENTS",
         href: "/main",
         visible: ["admin", "master"],
       },
       {
-        icon: "/images/home.png",
-        label: "Menu2",
+        icon: FaFileContract,
+        label: "TABLE",
         href: "/menu1",
-        visible: ["admin", "master"],
-      },
-      {
-        icon: "/images/home.png",
-        label: "Menu3",
-        href: "/",
         visible: ["admin", "master"],
       },
     ],
@@ -32,20 +37,14 @@ const menuItems = [
     title: "OTHER",
     items: [
       {
-        icon: "/images/home.png",
-        label: "Profile",
-        href: "/profile",
-        visible: ["admin", "master", "admin"],
-      },
-      {
-        icon: "/images/setting.png",
-        label: "Settings",
+        icon: RiSettings5Fill,
+        label: "SETTINGS",
         href: "/settings",
         visible: ["admin", "master", "admin"],
       },
       {
-        icon: "/images/logout.png",
-        label: "Logout",
+        icon: RiLogoutBoxRFill,
+        label: "LOGOUT",
         href: "/logout",
         visible: ["admin", "master", "admin"],
       },
@@ -53,30 +52,123 @@ const menuItems = [
   },
 ];
 
-import Image from "next/image";
-import Link from "next/link";
-import React from "react";
-
-const SideMenu = () => {
+const SideMenu = ({
+  isOpen,
+  toggleSidebar,
+}: {
+  isOpen: boolean;
+  toggleSidebar: () => void;
+}) => {
   return (
-    <div className="mt-4 text-sm">
-      {menuItems.map((index) => (
-        <div className="flex flex-col gap-2" key={index.title}>
-          <span className="hidden lg:block text-gray-400 font-light my-4">
-            {index.title}
-          </span>
-          {index.items.map((item) => (
-            <Link
-              href={item.href}
-              key={item.label}
-              className="flex items-center justify-center lg:justify-start gap-4 text-gray-500 py-2"
+    <div
+      style={{ backgroundColor: colors["Blue_C_Lighten-6"] }}
+      className={`rounded-tr-lg rounded-br-lg min-h-screen ${
+        isOpen ? "w-60" : "w-16"
+      } duration-300 transition-all relative`}
+    >
+      <div className="p-3 flex justify-end">
+        <HiMenuAlt3
+          size={26}
+          style={{ fill: colors["Grey_Darken-3"], cursor: "pointer" }}
+          onClick={toggleSidebar}
+        />
+      </div>
+
+      <div className="mt-4 flex flex-col gap-4">
+        {menuItems.map((section) => (
+          <div className="flex flex-col gap-2" key={section.title}>
+            <span
+              style={{ color: colors.Grey_Default }}
+              className={`text-[#ffffff] m-4 ${isOpen ? "block" : "hidden"}`}
             >
-              <Image src={item.icon} alt="" width={20} height={20} />
-              <span className="hidden lg:block">{item.label}</span>
-            </Link>
-          ))}
-        </div>
-      ))}
+              {section.title}
+            </span>
+
+            {section.items.map((item) => (
+              <Link
+                href={item.href}
+                key={item.label}
+                className={`relative flex items-center justify-start text-gray-500 py-2 mx-2 rounded-md group transition-colors duration-200 ${
+                  isOpen ? `hover:bg-[${colors.signature}]` : ""
+                }`}
+                style={{
+                  ...(isOpen && {
+                    transition: "background-color 1s",
+                  }),
+                }}
+                onMouseEnter={(e) => {
+                  if (isOpen) {
+                    e.currentTarget.style.backgroundColor = colors.signature;
+                    const svgElement = e.currentTarget.querySelector("svg");
+                    const spanElement = e.currentTarget.querySelector("span");
+
+                    if (svgElement) {
+                      svgElement.style.fill = colors["Blue_C_Lighten-6"];
+                    }
+
+                    if (spanElement) {
+                      spanElement.style.color = colors["Blue_C_Lighten-6"];
+                    }
+                  } else {
+                    const svgElement = e.currentTarget.querySelector("svg");
+
+                    if (svgElement) {
+                      svgElement.style.fill = colors.signature;
+                    }
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (isOpen) {
+                    e.currentTarget.style.backgroundColor = "transparent";
+                    const svgElement = e.currentTarget.querySelector("svg");
+                    const spanElement = e.currentTarget.querySelector("span");
+
+                    if (svgElement) {
+                      svgElement.style.fill = colors.Grey_Default;
+                    }
+
+                    if (spanElement) {
+                      spanElement.style.color = colors["Grey_Darken-3"];
+                    }
+                  } else {
+                    const svgElement = e.currentTarget.querySelector("svg");
+
+                    if (svgElement) {
+                      svgElement.style.fill = colors.Grey_Default;
+                    }
+                  }
+                }}
+              >
+                <item.icon
+                  size={20}
+                  style={{ fill: colors.Grey_Default }}
+                  className={`transition-transform duration-300 cursor-pointer ${
+                    isOpen ? "m-2" : "mx-auto"
+                  }`}
+                />
+
+                <span
+                  style={{
+                    color: colors["Grey_Darken-3"],
+                    fontWeight: "500",
+                  }}
+                  className={`p-1 mt-1 text-[#ffffff] ${
+                    isOpen ? "inline-block" : "hidden"
+                  }`}
+                >
+                  {item.label}
+                </span>
+
+                {!isOpen && (
+                  <span className="absolute left-20 bg-white text-black shadow-lg rounded-md p-1 opacity-0 whitespace-nowrap">
+                    {item.label}
+                  </span>
+                )}
+              </Link>
+            ))}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
