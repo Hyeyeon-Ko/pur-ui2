@@ -11,6 +11,7 @@ import { data, columns } from "@/lib/data";
 import VerticalTable from "@/components/ui/molecules/verticalTable/VerticalTable";
 import SingleDatePicker from "@/components/ui/atoms/datepicker/DatePicker";
 import FileUploadButton from "@/components/ui/molecules/buttons/FileUploadButton";
+import useFormatHandler from "@/hooks/useFormatHandler";
 
 const MenuPage = () => {
   const [downloadOption, setDownloadOption] = useState("");
@@ -24,6 +25,25 @@ const MenuPage = () => {
     new Date()
   );
 
+  const { formatCenterData, formatDate, formatCurrency } = useFormatHandler();
+
+  /* 보여지는 데이터 형식에 맞춰 formatting한 데이터 
+   서버에서 받아온 데이터를 한 번 가공한 데이터로
+   Table 컴포넌트 data = {formattedData} 이런식으로 데이터를 받아오면 됨
+   cc. format형식은 훅으로 만들어 놨음(useFormatHandler.ts)
+   */
+  const formattedData = data.map((item) => ({
+    ...item,
+    센터: formatCenterData(item.센터) || "-",
+    공고일: formatDate(item.공고일),
+    마감일: formatDate(item.마감일),
+    응찰일: formatDate(item.응찰일),
+    낙찰기준가: formatCurrency(item.낙찰기준가),
+    낙찰금액: formatCurrency(item.낙찰금액),
+    열람: `<button>${item.열람}</button>`,
+    누리장터: item.누리장터 || "-",
+  }));
+
   const handleRowSelect = (selectedRowIds: string[]) => {
     setSelectedRows(selectedRowIds);
   };
@@ -33,12 +53,19 @@ const MenuPage = () => {
       const selectedData = selectedRows
         .map((rowId) => {
           const rowData = data.find((row) => row.id === rowId);
-          return rowData ? Object.values(rowData) : null;
+          if (rowData) {
+            return {
+              ...rowData,
+              센터: rowData.센터.join(", "),
+            };
+          }
+          return null;
         })
         .filter((row) => row !== null);
 
       if (selectedData.length > 0) {
-        handleFileDownload(selectedData);
+        const formattedData = selectedData.map((item) => Object.values(item));
+        handleFileDownload(formattedData);
       } else {
         alert("선택된 데이터가 없습니다.");
       }
@@ -46,7 +73,6 @@ const MenuPage = () => {
       alert("선택된 데이터가 없습니다.");
     }
   };
-
   const vertical = [
     {
       id: 0,
@@ -78,14 +104,7 @@ const MenuPage = () => {
     {
       id: 3,
       title: "계약종류",
-      contents: [
-        "일반계약",
-        "단가계약",
-        "임대계약",
-        "공사계약",
-        "일반계약",
-        "기타계약",
-      ],
+      contents: ["일반계약", "단가계약", "임대계약", "공사계약", "기타계약"],
     },
     {
       id: 4,
@@ -218,7 +237,7 @@ const MenuPage = () => {
         />
       </div>
       <Table
-        data={data}
+        data={formattedData}
         columns={columns}
         onRowSelect={handleRowSelect}
         showCheckbox={true}
@@ -226,14 +245,18 @@ const MenuPage = () => {
       />
       <div>
         <Table
-          data={data}
+          data={formattedData}
           columns={columns}
           onRowSelect={handleRowSelect}
           pagination={true}
         />
       </div>
       <div>
-        <Table data={data} columns={columns} onRowSelect={handleRowSelect} />
+        <Table
+          data={formattedData}
+          columns={columns}
+          onRowSelect={handleRowSelect}
+        />
       </div>
       <DateRangePicker
         startDate={startDate}

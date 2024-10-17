@@ -1,6 +1,6 @@
 export type RowData = {
   id: string;
-  센터: string;
+  센터: string[];
   입찰번호: string;
   누리장터: string;
   계약종류: string;
