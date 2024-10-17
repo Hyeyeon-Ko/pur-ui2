@@ -20,8 +20,6 @@ interface SendInputProps {
 const SendInput: React.FC<SendInputProps> = ({
   mode = "md",
   buttonColor = "Button_Default",
-  fontColor = "white",
-  borderColor,
   customStyle,
   content = "버튼내용",
   onClick,
@@ -39,8 +37,6 @@ const SendInput: React.FC<SendInputProps> = ({
         mode={mode}
         content={content}
         color={buttonColor}
-        fontColor={fontColor}
-        borderColor={borderColor}
         onClick={onClick}
       />
     </div>

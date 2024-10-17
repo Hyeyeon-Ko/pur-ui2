@@ -5,7 +5,7 @@ import DateRangePicker from "@/components/ui/atoms/datepicker/DateRangePicker";
 import SelectBox from "@/components/ui/atoms/selectBox/Select";
 import Table from "@/components/ui/molecules/table/Table";
 import useExcelFileHandler from "@/hooks/useExcelFileHandler";
-import React, { useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import colors from "@/styles/colors";
 import { data, columns } from "@/lib/data";
 import VerticalTable from "@/components/ui/molecules/verticalTable/VerticalTable";
@@ -27,11 +27,6 @@ const MenuPage = () => {
 
   const { formatCenterData, formatDate, formatCurrency } = useFormatHandler();
 
-  /* 보여지는 데이터 형식에 맞춰 formatting한 데이터 
-   서버에서 받아온 데이터를 한 번 가공한 데이터로
-   Table 컴포넌트 data = {formattedData} 이런식으로 데이터를 받아오면 됨
-   cc. format형식은 훅으로 만들어 놨음(useFormatHandler.ts)
-   */
   const formattedData = data.map((item) => ({
     ...item,
     센터: formatCenterData(item.센터) || "-",
@@ -44,15 +39,25 @@ const MenuPage = () => {
     누리장터: item.누리장터 || "-",
   }));
 
-  const handleRowSelect = (selectedRowIds: string[]) => {
-    setSelectedRows(selectedRowIds);
-  };
+  const handleRowSelect = useCallback((selectedRowIds: string[]) => {
+    // 이전 상태와 선택된 행을 결합하고 중복을 제거
+    const uniqueSelectedRows = Array.from(new Set(selectedRowIds));
+
+    // 상태를 업데이트
+    setSelectedRows(uniqueSelectedRows);
+  }, []);
+
+  useEffect(() => {
+    console.log("Selected Rows:", selectedRows);
+  }, [selectedRows]);
 
   const handleDownloadSelected = () => {
+    console.log("Selected Rows for Download:", selectedRows);
     if (selectedRows.length > 0) {
       const selectedData = selectedRows
         .map((rowId) => {
           const rowData = data.find((row) => row.id === rowId);
+          console.log("Row Data:", rowData);
           if (rowData) {
             return {
               ...rowData,
@@ -62,6 +67,8 @@ const MenuPage = () => {
           return null;
         })
         .filter((row) => row !== null);
+
+      console.log("Formatted Selected Data:", selectedData);
 
       if (selectedData.length > 0) {
         const formattedData = selectedData.map((item) => Object.values(item));
@@ -73,6 +80,7 @@ const MenuPage = () => {
       alert("선택된 데이터가 없습니다.");
     }
   };
+
   const vertical = [
     {
       id: 0,

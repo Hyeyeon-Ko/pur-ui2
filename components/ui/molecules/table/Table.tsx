@@ -2,7 +2,13 @@ import React, { useEffect, useState } from "react";
 import Pagination from "../pagination/Pagination";
 import Checkbox from "../../atoms/checkbox/Checkbox";
 import colors from "@/styles/colors";
-
+/**
+ * 가로형 테이블 (일반 테이블)
+ * 기능1. 체크박스 true/false : showCheckbox ->
+ * showCheckbox가 true인 경우 테이블 상단에 선택된 데이터의 개수를 표시하도록 커스텀 함
+ * showCheckbox가 true인 경우 다중선택, 개별선택 기능이 가능, 또한 전체선택 다운로드 / 선택항목 다운로드 구현완료
+ * 기능2. 페이지네이션 true/false : pagination
+ */
 interface TableProps {
   data: Array<{ [key: string]: string }>;
   columns: string[];
@@ -24,9 +30,10 @@ const Table: React.FC<TableProps> = ({
   const totalPages = Math.ceil(data.length / rowsPerPage);
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
 
+  // onRowSelect을 useEffect 안에서 처리
   useEffect(() => {
     onRowSelect?.(selectedRows);
-  }, [selectedRows, onRowSelect]);
+  }, [selectedRows]);
 
   const indexOfLastRow = currentPage * rowsPerPage;
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
@@ -40,6 +47,7 @@ const Table: React.FC<TableProps> = ({
       ? data.map((_, index) => String(index))
       : [];
 
+    // 상태 업데이트
     setSelectedRows(newSelectedRows);
   };
 
