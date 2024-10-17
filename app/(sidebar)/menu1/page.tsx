@@ -5,30 +5,24 @@ import DateRangePicker from "@/components/ui/atoms/datepicker/DateRangePicker";
 import SelectBox from "@/components/ui/atoms/selectBox/Select";
 import Table from "@/components/ui/molecules/table/Table";
 import useExcelFileHandler from "@/hooks/useExcelFileHandler";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import colors from "@/styles/colors";
 import { data, columns } from "@/lib/data";
 import VerticalTable from "@/components/ui/molecules/verticalTable/VerticalTable";
 import SingleDatePicker from "@/components/ui/atoms/datepicker/DatePicker";
+import FileUploadButton from "@/components/ui/molecules/buttons/FileUploadButton";
 
 const MenuPage = () => {
   const [downloadOption, setDownloadOption] = useState("");
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
   const { handleFileUpload, handleDownloadOptionChange, handleFileDownload } =
     useExcelFileHandler(data, selectedRows);
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const [startDate, setStartDate] = useState<Date | undefined>(new Date());
   const [endDate, setEndDate] = useState<Date | undefined>(new Date());
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(
     new Date()
   );
-
-  const handleUploadClick = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
-    }
-  };
 
   const handleRowSelect = (selectedRowIds: string[]) => {
     setSelectedRows(selectedRowIds);
@@ -39,13 +33,12 @@ const MenuPage = () => {
       const selectedData = selectedRows
         .map((rowId) => {
           const rowData = data.find((row) => row.id === rowId);
-          // Ensure you return rowData as an array of values
           return rowData ? Object.values(rowData) : null;
         })
         .filter((row) => row !== null);
 
       if (selectedData.length > 0) {
-        handleFileDownload(selectedData); // Pass selectedData directly
+        handleFileDownload(selectedData);
       } else {
         alert("선택된 데이터가 없습니다.");
       }
@@ -173,42 +166,22 @@ const MenuPage = () => {
       id: 13,
       title: "입찰품의",
       contents: (
-        <>
-          <input
-            type="file"
-            accept=".xls,.xlsx"
-            onChange={handleFileUpload}
-            ref={fileInputRef}
-            style={{ display: "none" }}
-          />
-          <Button
-            mode="xs"
-            content="파일업로드"
-            color="Button_Default"
-            onClick={handleUploadClick}
-          />
-        </>
+        <FileUploadButton
+          onFileUpload={handleFileUpload}
+          buttonText="입찰품의 업로드"
+          accept="*"
+        />
       ),
     },
     {
       id: 14,
       title: "입찰공고문",
       contents: (
-        <>
-          <input
-            type="file"
-            accept=".xls,.xlsx"
-            onChange={handleFileUpload}
-            ref={fileInputRef}
-            style={{ display: "none" }}
-          />
-          <Button
-            mode="xs"
-            content="파일업로드"
-            color="Button_Default"
-            onClick={handleUploadClick}
-          />
-        </>
+        <FileUploadButton
+          onFileUpload={handleFileUpload}
+          buttonText="입찰공고문 업로드"
+          accept="*"
+        />
       ),
     },
   ];
@@ -218,18 +191,9 @@ const MenuPage = () => {
       <VerticalTable data={vertical} />
 
       <div className="flex justify-end mr-6 mt-10">
-        <input
-          type="file"
-          accept=".xls,.xlsx"
-          onChange={handleFileUpload}
-          ref={fileInputRef}
-          style={{ display: "none" }}
-        />
-        <Button
-          mode="xs"
-          content="엑셀업로드"
-          color="Button_Default"
-          onClick={handleUploadClick}
+        <FileUploadButton
+          onFileUpload={handleFileUpload}
+          buttonText="엑셀업로드"
         />
         <Button
           mode="xs"
