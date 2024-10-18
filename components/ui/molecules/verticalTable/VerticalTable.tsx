@@ -18,49 +18,35 @@ const VerticalTable: React.FC<VerticalTableProps> = ({ data }) => {
   );
   const [isNationalChecked, setIsNationalChecked] = useState(false);
 
-  const handleChipClick = (label: string, contents: string[]) => {
+  const handleChipClick = (label: string) => {
     setCheckedItems((prev) => {
       const newCheckedItems = {
         ...prev,
         [label]: !prev[label],
       };
 
-      if (!newCheckedItems[label]) {
-        setIsNationalChecked(false);
+      if (label === "전국") {
+        const isChecked = !prev[label];
+        setIsNationalChecked(isChecked);
+        Object.keys(newCheckedItems).forEach((key) => {
+          if (key !== "전국") {
+            newCheckedItems[key] = false;
+          }
+        });
       } else {
-        const checkedCount =
-          Object.values(newCheckedItems).filter(Boolean).length;
-        const totalCount = contents.length;
-        setIsNationalChecked(checkedCount === totalCount);
-      }
+        if (isNationalChecked) {
+          newCheckedItems["전국"] = false;
+          setIsNationalChecked(false);
+        }
 
-      const checkedCount =
-        Object.values(newCheckedItems).filter(Boolean).length;
-      const totalCount = contents.length;
-      if (checkedCount !== totalCount) {
-        setIsNationalChecked(false);
+        if (!newCheckedItems[label]) {
+          newCheckedItems["전국"] = true;
+          setIsNationalChecked(true);
+        }
       }
 
       return newCheckedItems;
     });
-  };
-
-  // 전국 Chip 클릭 시 전체 선택/해제
-  const handleSelectAll = (contents: string[], isChecked: boolean) => {
-    const allChecked = contents.reduce(
-      (acc: { [key: string]: boolean }, content) => {
-        acc[content] = isChecked;
-        return acc;
-      },
-      {}
-    );
-
-    setCheckedItems((prev) => ({
-      ...prev,
-      ...allChecked,
-    }));
-
-    setIsNationalChecked(isChecked);
   };
 
   const renderContent = (row: {
@@ -71,21 +57,13 @@ const VerticalTable: React.FC<VerticalTableProps> = ({ data }) => {
       return (
         <div className="flex space-x-2">
           {row.contents.map((content: string, index: number) => {
-            const isNational = content === "전국";
             return (
               <div key={index}>
                 <Chip
                   mode="xs"
                   content={content}
                   variant={checkedItems[content] ? "inline" : "outline"}
-                  onClick={() =>
-                    isNational
-                      ? handleSelectAll(
-                          row.contents as string[],
-                          !isNationalChecked
-                        )
-                      : handleChipClick(content, row.contents as string[])
-                  }
+                  onClick={() => handleChipClick(content)}
                 />
               </div>
             );
