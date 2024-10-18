@@ -256,12 +256,10 @@ const MenuPage = () => {
     <div className="flex flex-col mb-4">
       <PageTitle pageTitle="입찰조회" mode="xl" fontWeight="bold" />
 
-      <VerticalTable data={vertical} />
-
       <div>
         <SearchFilter />
       </div>
-      <div className="flex justify-end mr-6 mt-10">
+      <div className="flex justify-end mr-6">
         <FileUploadButton
           onFileUpload={handleFileUpload}
           buttonText="엑셀업로드"
@@ -323,6 +321,7 @@ const MenuPage = () => {
         onDateChange={setSelectedDate}
         label="날짜선택"
       />
+      <VerticalTable data={vertical} />
     </div>
   );
 };

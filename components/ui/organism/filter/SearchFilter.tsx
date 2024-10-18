@@ -32,7 +32,10 @@ const SearchFilter = () => {
   };
 
   return (
-    <div className="mx-auto rounded-lg shadow-lg w-[70%] bg-white">
+    <div
+      style={{ borderColor: colors["Grey_Lighten-4"] }}
+      className="border-t mx-auto rounded-lg shadow-lg w-[70%] bg-white"
+    >
       <div>
         <div className="grid grid-cols-5">
           <div
