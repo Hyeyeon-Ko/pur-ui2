@@ -89,44 +89,44 @@ const SideMenu = ({
                 href={item.href}
                 key={item.label}
                 className={`relative flex items-center justify-start text-gray-500 py-2 mx-2 rounded-md transition-colors duration-200`}
-                style={{ backgroundColor: "transparent" }} // Default background
+                style={{ backgroundColor: "transparent" }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = colors.sub; // Change background color on hover
+                  e.currentTarget.style.backgroundColor = colors.sub;
                   const svgElement = e.currentTarget.querySelector("svg");
                   const spanElement = e.currentTarget.querySelector("span");
 
                   if (svgElement) {
-                    svgElement.style.fill = colors.signature; // Change icon color on hover
+                    svgElement.style.fill = colors.signature;
                   }
 
                   if (spanElement) {
-                    spanElement.style.color = colors.signature; // Change text color on hover
+                    spanElement.style.color = colors.signature;
                   }
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = "transparent"; // Reset background color
+                  e.currentTarget.style.backgroundColor = "transparent";
                   const svgElement = e.currentTarget.querySelector("svg");
                   const spanElement = e.currentTarget.querySelector("span");
 
                   if (svgElement) {
-                    svgElement.style.fill = colors.sub; // Reset icon color
+                    svgElement.style.fill = colors.sub;
                   }
 
                   if (spanElement) {
-                    spanElement.style.color = colors.sub; // Reset text color
+                    spanElement.style.color = colors.sub;
                   }
                 }}
               >
                 <item.icon
                   size={20}
-                  style={{ fill: colors.sub }} // Default icon color
+                  style={{ fill: colors.sub }}
                   className={`transition-transform duration-300 cursor-pointer ${
                     isOpen ? "m-2" : "mx-auto"
                   }`}
                 />
 
                 <span
-                  style={{ color: colors.sub, fontWeight: "500" }} // Default text color
+                  style={{ color: colors.sub, fontWeight: "500" }}
                   className={`p-1 mt-1 text-[#ffffff] ${
                     isOpen ? "inline-block" : "hidden"
                   }`}
