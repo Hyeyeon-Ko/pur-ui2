@@ -1,7 +1,7 @@
 import React, { CSSProperties } from "react";
 import colors from "@/styles/colors";
 
-export type LabelMode = "sm" | "xs" | "lg" | "md" | undefined;
+export type LabelMode = "sm" | "xs" | "lg" | "md" | "xl" | undefined;
 
 interface LabelProps {
   mode?: LabelMode;
@@ -23,6 +23,7 @@ const Label: React.FC<LabelProps> = ({
     xs: "text-xs",
     md: "text-base",
     lg: "text-lg",
+    xl: "text-3xl",
   };
 
   const textColor = color ? colors[color] : "black";

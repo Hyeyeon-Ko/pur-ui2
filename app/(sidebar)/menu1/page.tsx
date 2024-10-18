@@ -13,6 +13,7 @@ import SingleDatePicker from "@/components/ui/atoms/datepicker/DatePicker";
 import FileUploadButton from "@/components/ui/molecules/buttons/FileUploadButton";
 import useFormatHandler from "@/hooks/useFormatHandler";
 import SearchFilter from "@/components/ui/organism/filter/SearchFilter";
+import PageTitle from "@/components/ui/molecules/titles/PageTitle";
 
 const MenuPage = () => {
   const [downloadOption, setDownloadOption] = useState("");
@@ -253,6 +254,8 @@ const MenuPage = () => {
 
   return (
     <div className="flex flex-col mb-4">
+      <PageTitle pageTitle="입찰조회" mode="xl" fontWeight="bold" />
+
       <VerticalTable data={vertical} />
 
       <div>
