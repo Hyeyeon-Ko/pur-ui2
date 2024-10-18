@@ -5,7 +5,7 @@ import DateRangePicker from "@/components/ui/atoms/datepicker/DateRangePicker";
 import SelectBox from "@/components/ui/atoms/selectBox/Select";
 import Table from "@/components/ui/molecules/table/Table";
 import useExcelFileHandler from "@/hooks/useExcelFileHandler";
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import colors from "@/styles/colors";
 import { data, columns } from "@/lib/data";
 import VerticalTable from "@/components/ui/molecules/verticalTable/VerticalTable";
@@ -16,10 +16,7 @@ import useFormatHandler from "@/hooks/useFormatHandler";
 const MenuPage = () => {
   const [downloadOption, setDownloadOption] = useState("");
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
-  const { handleFileUpload, downloadCsv } = useExcelFileHandler(
-    data,
-    selectedRows
-  );
+  const { handleFileUpload, downloadCsv } = useExcelFileHandler();
 
   const [startDate, setStartDate] = useState<Date | undefined>(new Date());
   const [endDate, setEndDate] = useState<Date | undefined>(new Date());
@@ -42,16 +39,10 @@ const MenuPage = () => {
   }));
 
   const handleRowSelect = useCallback((selectedRowIds: string[]) => {
-    // 이전 상태와 선택된 행을 결합하고 중복을 제거
     const uniqueSelectedRows = Array.from(new Set(selectedRowIds));
 
-    // 상태를 업데이트
     setSelectedRows(uniqueSelectedRows);
   }, []);
-
-  useEffect(() => {
-    console.log("Selected Rows:", selectedRows);
-  }, [selectedRows]);
 
   const handleDownloadSelected = () => {
     if (selectedRows.length > 0) {
@@ -86,7 +77,6 @@ const MenuPage = () => {
     const option = e.target.value;
 
     if (option === "selected") {
-      // Handle selected download
       const selectedData = selectedRows
         .map((rowId) => {
           const row = data.find((item) => item.id === rowId);
@@ -112,7 +102,6 @@ const MenuPage = () => {
         alert("선택된 데이터가 없습니다.");
       }
     } else if (option === "all") {
-      // Handle all download
       const allData = data.map((row) => ({
         ...row,
         센터: formatCenterData(row.센터) || "-",

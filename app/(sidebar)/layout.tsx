@@ -36,7 +36,7 @@ export default function DashboardLayout({
     <div className="h-screen flex">
       {/* 사이드바 */}
       <div
-        style={{ backgroundColor: colors["Blue_C_Lighten-6"] }}
+        style={{ backgroundColor: colors.signature }}
         className={`transition-all duration-300 pl-1 border-r ${
           isSidebarOpen ? "w-60" : "w-16"
         }`}

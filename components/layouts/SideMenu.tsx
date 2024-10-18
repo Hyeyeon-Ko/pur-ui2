@@ -61,7 +61,7 @@ const SideMenu = ({
 }) => {
   return (
     <div
-      style={{ backgroundColor: colors["Blue_C_Lighten-6"] }}
+      style={{ backgroundColor: colors.signature }}
       className={`rounded-tr-lg rounded-br-lg min-h-screen ${
         isOpen ? "w-60" : "w-16"
       } duration-300 transition-all relative`}
@@ -69,7 +69,7 @@ const SideMenu = ({
       <div className="p-3 flex justify-end">
         <HiMenuAlt3
           size={26}
-          style={{ fill: colors["Grey_Darken-3"], cursor: "pointer" }}
+          style={{ fill: colors.white, cursor: "pointer" }}
           onClick={toggleSidebar}
         />
       </div>
@@ -78,7 +78,7 @@ const SideMenu = ({
         {menuItems.map((section) => (
           <div className="flex flex-col gap-2" key={section.title}>
             <span
-              style={{ color: colors.Grey_Default }}
+              style={{ color: colors.white }}
               className={`text-[#ffffff] m-4 ${isOpen ? "block" : "hidden"}`}
             >
               {section.title}
@@ -88,70 +88,45 @@ const SideMenu = ({
               <Link
                 href={item.href}
                 key={item.label}
-                className={`relative flex items-center justify-start text-gray-500 py-2 mx-2 rounded-md group transition-colors duration-200 ${
-                  isOpen ? `hover:bg-[${colors.signature}]` : ""
-                }`}
-                style={{
-                  ...(isOpen && {
-                    transition: "background-color 1s",
-                  }),
-                }}
+                className={`relative flex items-center justify-start text-gray-500 py-2 mx-2 rounded-md transition-colors duration-200`}
+                style={{ backgroundColor: "transparent" }} // Default background
                 onMouseEnter={(e) => {
-                  if (isOpen) {
-                    e.currentTarget.style.backgroundColor = colors.signature;
-                    const svgElement = e.currentTarget.querySelector("svg");
-                    const spanElement = e.currentTarget.querySelector("span");
+                  e.currentTarget.style.backgroundColor = colors.sub; // Change background color on hover
+                  const svgElement = e.currentTarget.querySelector("svg");
+                  const spanElement = e.currentTarget.querySelector("span");
 
-                    if (svgElement) {
-                      svgElement.style.fill = colors["Blue_C_Lighten-6"];
-                    }
+                  if (svgElement) {
+                    svgElement.style.fill = colors.signature; // Change icon color on hover
+                  }
 
-                    if (spanElement) {
-                      spanElement.style.color = colors["Blue_C_Lighten-6"];
-                    }
-                  } else {
-                    const svgElement = e.currentTarget.querySelector("svg");
-
-                    if (svgElement) {
-                      svgElement.style.fill = colors.signature;
-                    }
+                  if (spanElement) {
+                    spanElement.style.color = colors.signature; // Change text color on hover
                   }
                 }}
                 onMouseLeave={(e) => {
-                  if (isOpen) {
-                    e.currentTarget.style.backgroundColor = "transparent";
-                    const svgElement = e.currentTarget.querySelector("svg");
-                    const spanElement = e.currentTarget.querySelector("span");
+                  e.currentTarget.style.backgroundColor = "transparent"; // Reset background color
+                  const svgElement = e.currentTarget.querySelector("svg");
+                  const spanElement = e.currentTarget.querySelector("span");
 
-                    if (svgElement) {
-                      svgElement.style.fill = colors.Grey_Default;
-                    }
+                  if (svgElement) {
+                    svgElement.style.fill = colors.sub; // Reset icon color
+                  }
 
-                    if (spanElement) {
-                      spanElement.style.color = colors["Grey_Darken-3"];
-                    }
-                  } else {
-                    const svgElement = e.currentTarget.querySelector("svg");
-
-                    if (svgElement) {
-                      svgElement.style.fill = colors.Grey_Default;
-                    }
+                  if (spanElement) {
+                    spanElement.style.color = colors.sub; // Reset text color
                   }
                 }}
               >
                 <item.icon
                   size={20}
-                  style={{ fill: colors.Grey_Default }}
+                  style={{ fill: colors.sub }} // Default icon color
                   className={`transition-transform duration-300 cursor-pointer ${
                     isOpen ? "m-2" : "mx-auto"
                   }`}
                 />
 
                 <span
-                  style={{
-                    color: colors["Grey_Darken-3"],
-                    fontWeight: "500",
-                  }}
+                  style={{ color: colors.sub, fontWeight: "500" }} // Default text color
                   className={`p-1 mt-1 text-[#ffffff] ${
                     isOpen ? "inline-block" : "hidden"
                   }`}
