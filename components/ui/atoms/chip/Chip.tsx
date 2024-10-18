@@ -16,7 +16,7 @@ interface ChipProps {
 
 const Chip: React.FC<ChipProps> = ({
   mode = "md",
-  color = "Button_Default",
+  color = "signature",
   customStyle,
   disabled = false,
   content,
@@ -50,7 +50,7 @@ const Chip: React.FC<ChipProps> = ({
 
   return (
     <button
-      className={`transition-all duration-100 ease-in-out rounded-full p-2 ${
+      className={`transition-all duration-100 ease-in-out rounded-full p-2 shadow-sm ${
         modeClasses[mode]
       } ${disabled ? "cursor-not-allowed" : "cursor-pointer"}`}
       style={{
