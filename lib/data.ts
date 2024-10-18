@@ -485,3 +485,111 @@ export const columns: (keyof RowData)[] = [
   "기타",
   "열람",
 ];
+
+export const bidListcolumns = [
+  { id: 0, title: "센터명" },
+  { id: 1, title: "입찰번호" },
+  { id: 2, title: "공고구분" },
+  { id: 3, title: "계약종류" },
+  { id: 4, title: "입찰종류" },
+  { id: 5, title: "낙찰방법" },
+  { id: 6, title: "계정명" },
+  { id: 7, title: "입찰명" },
+  { id: 8, title: "공고일" },
+  { id: 9, title: "마감일" },
+  { id: 10, title: "응찰일" },
+  { id: 11, title: "낙찰기준가" },
+  { id: 12, title: "입찰품의번호" },
+  { id: 13, title: "입찰품의" },
+  { id: 14, title: "입찰공고문" },
+];
+
+export const bidListData = [
+  {
+    id: 0,
+    contents: [
+      "전국",
+      "재단",
+      "본원",
+      "광화문",
+      "여의도",
+      "강남",
+      "수원",
+      "대구",
+      "부산",
+      "광주",
+      "제주",
+    ],
+  },
+  {
+    id: 1,
+    contents: "",
+  },
+  {
+    id: 2,
+    contents: "",
+  },
+  {
+    id: 3,
+    contents: ["일반계약", "단가계약", "임대계약", "공사계약", "기타계약"],
+  },
+  {
+    id: 4,
+    contents: ["일반경쟁", "제한경쟁", "지명경쟁"],
+  },
+  {
+    id: 5,
+    contents: ["최저가격", "2단계경쟁", "협상에의한계약"],
+  },
+  {
+    id: 6,
+    contents: [
+      "의약품",
+      "항정신성의약품",
+      "장비소모품",
+      "인쇄물",
+      "시약",
+      "백신",
+      "의료비품",
+      "의료장비",
+      "위생용품",
+      "피복",
+      "사무용품",
+      "일반비품",
+      "전산용품",
+      "기타",
+    ],
+  },
+  {
+    id: 7,
+    contents: "",
+  },
+  {
+    id: 8,
+    contents: "date", // 상태 관리와 함께 사용할 수 있도록 변경
+  },
+  {
+    id: 9,
+    contents: "date", // 상태 관리와 함께 사용할 수 있도록 변경
+  },
+  {
+    id: 10,
+    contents: "date", // 상태 관리와 함께 사용할 수 있도록 변경
+  },
+  {
+    id: 11,
+    contents: "",
+  },
+  {
+    id: 12,
+    contents: "",
+  },
+  {
+    id: 13,
+    contents: "upload", // FileUploadButton과 함께 사용할 수 있도록 변경
+  },
+  {
+    id: 14,
+    contents: "upload", // FileUploadButton과 함께 사용할 수 있도록 변경
+  },
+];

@@ -12,6 +12,7 @@ import VerticalTable from "@/components/ui/molecules/verticalTable/VerticalTable
 import SingleDatePicker from "@/components/ui/atoms/datepicker/DatePicker";
 import FileUploadButton from "@/components/ui/molecules/buttons/FileUploadButton";
 import useFormatHandler from "@/hooks/useFormatHandler";
+import SearchFilter from "@/components/ui/organism/filter/SearchFilter";
 
 const MenuPage = () => {
   const [downloadOption, setDownloadOption] = useState("");
@@ -254,6 +255,9 @@ const MenuPage = () => {
     <div className="flex flex-col mb-4">
       <VerticalTable data={vertical} />
 
+      <div>
+        <SearchFilter />
+      </div>
       <div className="flex justify-end mr-6 mt-10">
         <FileUploadButton
           onFileUpload={handleFileUpload}

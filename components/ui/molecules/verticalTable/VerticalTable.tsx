@@ -16,32 +16,28 @@ const VerticalTable: React.FC<VerticalTableProps> = ({ data }) => {
   const [checkedItems, setCheckedItems] = useState<{ [key: string]: boolean }>(
     {}
   );
-  const [isNationalChecked, setIsNationalChecked] = useState(false);
 
-  const handleChipClick = (label: string) => {
+  const handleChipClick = (label: string, title: string) => {
     setCheckedItems((prev) => {
-      const newCheckedItems = {
-        ...prev,
-        [label]: !prev[label],
-      };
+      const newCheckedItems = { ...prev };
 
-      if (label === "전국") {
-        const isChecked = !prev[label];
-        setIsNationalChecked(isChecked);
-        Object.keys(newCheckedItems).forEach((key) => {
-          if (key !== "전국") {
-            newCheckedItems[key] = false;
+      newCheckedItems[label] = !prev[label];
+
+      if (title === "센터명") {
+        if (label === "전국") {
+          // "전국"이 체크된 경우, 다른 모든 센터명 하위 항목을 해제
+          if (newCheckedItems[label]) {
+            Object.keys(newCheckedItems).forEach((key) => {
+              if (key !== "전국" && key.startsWith("센터명")) {
+                newCheckedItems[key] = false;
+              }
+            });
           }
-        });
-      } else {
-        if (isNationalChecked) {
-          newCheckedItems["전국"] = false;
-          setIsNationalChecked(false);
-        }
-
-        if (!newCheckedItems[label]) {
-          newCheckedItems["전국"] = true;
-          setIsNationalChecked(true);
+        } else {
+          // 하위 항목이 체크되면 "전국" 해제
+          if (newCheckedItems[label]) {
+            newCheckedItems["전국"] = false;
+          }
         }
       }
 
@@ -63,7 +59,7 @@ const VerticalTable: React.FC<VerticalTableProps> = ({ data }) => {
                   mode="xs"
                   content={content}
                   variant={checkedItems[content] ? "inline" : "outline"}
-                  onClick={() => handleChipClick(content)}
+                  onClick={() => handleChipClick(content, row.title)}
                 />
               </div>
             );

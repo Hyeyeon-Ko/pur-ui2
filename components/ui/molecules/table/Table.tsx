@@ -62,7 +62,7 @@ const Table: React.FC<TableProps> = ({
 
   const handleRowDoubleClick = (row: { [key: string]: string }) => {
     const url = `path?data=${encodeURIComponent(JSON.stringify(row))}`;
-    window.open(url, "_blank", "noopener,noreferrer,width=1000,height=800");
+    window.open(url, "_blank", "noopener,noreferrer,width=1920,height=1080");
   };
 
   return (

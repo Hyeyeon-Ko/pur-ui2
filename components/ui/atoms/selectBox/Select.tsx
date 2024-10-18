@@ -9,6 +9,7 @@ interface SelectProps {
   customStyle?: CSSProperties;
   placeholder?: string;
   value?: string;
+  name?: string;
   onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   options: Array<{ value: string; label: string }>;
   disabled?: boolean;
@@ -20,6 +21,7 @@ const SelectBox: React.FC<SelectProps> = ({
   customStyle,
   placeholder,
   value,
+  name,
   onChange,
   options,
   disabled = false,
@@ -43,6 +45,7 @@ const SelectBox: React.FC<SelectProps> = ({
         borderColor,
       }}
       value={value}
+      name={name}
       onChange={!disabled ? onChange : undefined}
       disabled={disabled}
     >

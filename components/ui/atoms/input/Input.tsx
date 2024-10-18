@@ -14,7 +14,9 @@ interface InputProps {
   readOnly?: boolean;
   value?: string;
   accept?: string;
+  name?: string;
   type?: string;
+  onFocus?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   validation?: (value: string) => { isValid: boolean; message: string };
 }
@@ -28,6 +30,7 @@ const Input: React.FC<InputProps> = ({
   placeholder,
   value,
   accept,
+  name,
   type = "text",
   onChange,
   validation,
@@ -82,6 +85,7 @@ const Input: React.FC<InputProps> = ({
           ...customStyle,
           borderColor,
         }}
+        name={name}
         accept={accept}
         type={type}
         placeholder={placeholder}
