@@ -1,30 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, { CSSProperties, useEffect, useState } from "react";
 import Pagination from "../pagination/Pagination";
 import Checkbox from "../../atoms/checkbox/Checkbox";
 import colors from "@/styles/colors";
-/**
- * 가로형 테이블 (일반 테이블)
- * 기능1. 체크박스 true/false : showCheckbox ->
- * showCheckbox가 true인 경우 테이블 상단에 선택된 데이터의 개수를 표시하도록 커스텀 함
- * showCheckbox가 true인 경우 다중선택, 개별선택 기능이 가능, 또한 전체선택 다운로드 / 선택항목 다운로드 구현완료
- * 기능2. 페이지네이션 true/false : pagination
- */
+
 interface TableProps {
+  customStyle?: CSSProperties;
   data: Array<{ [key: string]: string }>;
   columns: string[];
   showCheckbox?: boolean;
   rowsPerPage?: number;
   pagination?: boolean;
   onRowSelect?: (selectedRows: string[]) => void;
+  onRowDoubleClick?: (row: { [key: string]: string }) => void; // 함수로 경로를 전달받음
 }
 
 const Table: React.FC<TableProps> = ({
+  customStyle,
   data,
   columns,
   showCheckbox,
   rowsPerPage = 10,
   pagination = false,
   onRowSelect,
+  onRowDoubleClick,
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(data.length / rowsPerPage);
@@ -61,12 +59,13 @@ const Table: React.FC<TableProps> = ({
   );
 
   const handleRowDoubleClick = (row: { [key: string]: string }) => {
-    const url = `path?data=${encodeURIComponent(JSON.stringify(row))}`;
-    window.open(url, "_blank", "noopener,noreferrer,width=1920,height=1080");
+    if (onRowDoubleClick) {
+      onRowDoubleClick(row); // 외부에서 함수로 전달받은 동작을 수행
+    }
   };
 
   return (
-    <div className="mx-5">
+    <div className="mx-5" style={{ ...customStyle }}>
       <div className="pb-2">
         <span
           className="text-sm font-bold ml-2"

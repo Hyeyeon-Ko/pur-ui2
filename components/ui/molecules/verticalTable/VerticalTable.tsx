@@ -1,83 +1,44 @@
-import colors from "@/styles/colors";
-import React, { useState } from "react";
+import React from "react";
 import Input from "../../atoms/input/Input";
 import SelectBox from "../../atoms/selectBox/Select";
 import Chip from "../../atoms/chip/Chip";
+import SingleDatePicker from "../../atoms/datepicker/DatePicker";
+import FileUploadButton from "../buttons/FileUploadButton";
+import colors from "@/styles/colors";
 
 interface VerticalTableProps {
   data: Array<{
     id: number;
     title: string;
-    contents: string | string[] | React.ReactNode;
+    type?: string; // 'input', 'select', 'chip', 'datepicker', 'upload' 등, 없는 경우도 있으므로 optional로 설정
+    contents?: string | string[] | null; // 필드 값 (input, select, chip 등) 역시 선택적 필드로 설정
+    options?: Array<{ value: string; label: string }>; // selectBox 용 옵션
+    component?: React.ReactNode; // 커스텀 컴포넌트를 직접 넣을 수 있도록 선택적으로 설정
   }>;
+  onChipClick?: (label: string, title: string) => void; // Chip 클릭 핸들러 추가
+  checkedItems?: { [key: string]: boolean };
 }
 
-const VerticalTable: React.FC<VerticalTableProps> = ({ data }) => {
-  const [checkedItems, setCheckedItems] = useState<{ [key: string]: boolean }>(
-    {}
-  );
-
-  const handleChipClick = (label: string, title: string) => {
-    setCheckedItems((prev) => {
-      const newCheckedItems = { ...prev };
-
-      newCheckedItems[label] = !prev[label];
-
-      if (title === "센터명") {
-        if (label === "전국") {
-          // "전국"이 체크된 경우, 다른 모든 센터명 하위 항목을 해제
-          if (newCheckedItems[label]) {
-            Object.keys(newCheckedItems).forEach((key) => {
-              if (key !== "전국" && key.startsWith("센터명")) {
-                newCheckedItems[key] = false;
-              }
-            });
-          }
-        } else {
-          // 하위 항목이 체크되면 "전국" 해제
-          if (newCheckedItems[label]) {
-            newCheckedItems["전국"] = false;
-          }
-        }
-      }
-
-      return newCheckedItems;
-    });
-  };
-
+const VerticalTable: React.FC<VerticalTableProps> = ({
+  data,
+  onChipClick,
+  checkedItems,
+}) => {
   const renderContent = (row: {
     title: string;
-    contents: string | string[] | React.ReactNode;
+    type?: string; // type을 선택적으로 설정
+    contents?: string | string[] | null;
+    options?: Array<{ value: string; label: string }>;
+    component?: React.ReactNode;
   }) => {
-    if (Array.isArray(row.contents)) {
-      return (
-        <div className="flex space-x-2">
-          {row.contents.map((content: string, index: number) => {
-            return (
-              <div key={index}>
-                <Chip
-                  mode="xs"
-                  content={content}
-                  variant={checkedItems[content] ? "inline" : "outline"}
-                  onClick={() => handleChipClick(content, row.title)}
-                />
-              </div>
-            );
-          })}
-        </div>
-      );
-    } else if (typeof row.contents === "string") {
-      if (
-        row.title === "입찰명" ||
-        row.title === "입찰번호" ||
-        row.title === "낙찰기준가" ||
-        row.title === "입찰품의번호"
-      ) {
+    switch (row.type) {
+      case "input":
         return (
           <Input
             mode="sm"
             color="transparent"
-            placeholder={`${row.title}`}
+            placeholder={row.title}
+            value={row.contents as string}
             customStyle={{
               padding: 0,
               margin: 0,
@@ -88,26 +49,61 @@ const VerticalTable: React.FC<VerticalTableProps> = ({ data }) => {
             }}
           />
         );
-      } else if (row.title === "공고구분") {
+      case "select":
         return (
           <SelectBox
             mode="xs"
             color="transparent"
-            options={[
-              { value: "본공고", label: "본공고" },
-              { value: "재공고", label: "재공고" },
-            ]}
-            placeholder="공고구분"
+            options={row.options || []}
+            placeholder={row.contents as string}
           />
         );
-      }
-    } else if (React.isValidElement(row.contents)) {
-      return <div>{row.contents}</div>;
+      case "chip":
+        return (
+          <div className="flex space-x-2">
+            {Array.isArray(row.contents) &&
+              row.contents.map((content, index) => (
+                <Chip
+                  key={index}
+                  mode="xs"
+                  content={content}
+                  variant={checkedItems?.[content] ? "inline" : "outline"} // checkedItems가 undefined일 수 있으므로 optional chaining 사용
+                  onClick={() => onChipClick?.(content, row.title)} // 클릭 시 핸들러 호출
+                />
+              ))}
+          </div>
+        );
+      case "datepicker":
+        return (
+          <SingleDatePicker
+            selectedDate={
+              row.contents ? new Date(row.contents as string) : null
+            } // contents가 null인 경우 처리
+            onDateChange={(date) => console.log("Date selected:", date)}
+          />
+        );
+      case "upload":
+        return (
+          <div>
+            <FileUploadButton
+              onFileUpload={(event) => {
+                const file = event.target.files?.[0];
+                if (file) {
+                  console.log("File uploaded:", file.name);
+                }
+              }}
+              buttonText="파일 업로드"
+            />
+            {row.contents === null && <span>파일명여기에 쓸껀지</span>}{" "}
+          </div>
+        );
+      default:
+        return row.component || null;
     }
   };
 
   return (
-    <div className="m-5 rounded-lg shadow-lg">
+    <div className="mx-5 rounded-lg shadow-lg">
       <table className="table-auto w-full">
         <tbody className="divide-x">
           {data.map((row) => (

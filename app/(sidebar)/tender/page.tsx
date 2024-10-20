@@ -1,15 +1,12 @@
 "use client";
 
 import Button from "@/components/ui/atoms/button/Button";
-import DateRangePicker from "@/components/ui/atoms/datepicker/DateRangePicker";
 import SelectBox from "@/components/ui/atoms/selectBox/Select";
 import Table from "@/components/ui/molecules/table/Table";
 import useExcelFileHandler from "@/hooks/useExcelFileHandler";
 import React, { useState, useCallback } from "react";
 import colors from "@/styles/colors";
 import { data, columns } from "@/lib/data";
-import VerticalTable from "@/components/ui/molecules/verticalTable/VerticalTable";
-import SingleDatePicker from "@/components/ui/atoms/datepicker/DatePicker";
 import FileUploadButton from "@/components/ui/molecules/buttons/FileUploadButton";
 import useFormatHandler from "@/hooks/useFormatHandler";
 import SearchFilter from "@/components/ui/organism/filter/SearchFilter";
@@ -18,41 +15,10 @@ import PageTitle from "@/components/ui/molecules/titles/PageTitle";
 const MenuPage = () => {
   const [downloadOption, setDownloadOption] = useState("");
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
-  // 체크박스 버튼
-  const [checkedItems, setCheckedItems] = useState<{ [key: string]: boolean }>(
-    {}
-  );
+
   const { handleFileUpload, downloadCsv } = useExcelFileHandler();
 
-  const [startDate, setStartDate] = useState<Date | undefined>(new Date());
-  const [endDate, setEndDate] = useState<Date | undefined>(new Date());
-  const [selectedDate, setSelectedDate] = useState<Date | undefined>(
-    new Date()
-  );
-
   const { formatCenterData, formatDate, formatCurrency } = useFormatHandler();
-
-  // 체크박스 버튼 핸들러
-  const handleChipClick = (label: string, title: string) => {
-    setCheckedItems((prev) => {
-      const newCheckedItems = { ...prev };
-      newCheckedItems[label] = !prev[label];
-
-      if (title === "센터명" && label === "전국") {
-        if (newCheckedItems[label]) {
-          Object.keys(newCheckedItems).forEach((key) => {
-            if (key !== "전국" && key.startsWith("센터명")) {
-              newCheckedItems[key] = false;
-            }
-          });
-        }
-      } else if (title === "센터명") {
-        newCheckedItems["전국"] = false;
-      }
-
-      return newCheckedItems;
-    });
-  };
 
   const formattedData = data.map((item) => ({
     ...item,
@@ -146,126 +112,6 @@ const MenuPage = () => {
     }
   };
 
-  const vertical = [
-    {
-      id: 0,
-      title: "센터명",
-      type: "chip",
-      contents: [
-        "전국",
-        "재단",
-        "본원",
-        "광화문",
-        "여의도",
-        "강남",
-        "수원",
-        "대구",
-        "부산",
-        "광주",
-        "제주",
-      ],
-    },
-    {
-      id: 1,
-      title: "입찰번호",
-      type: "input",
-      contents: "",
-    },
-    {
-      id: 2,
-      title: "공고구분",
-      type: "input",
-      contents: "",
-    },
-    {
-      id: 3,
-      title: "계약종류",
-      type: "chip",
-      contents: ["일반계약", "단가계약", "임대계약", "공사계약", "기타계약"],
-    },
-    {
-      id: 4,
-      title: "입찰종류",
-      type: "chip",
-      contents: ["일반경쟁", "제한경쟁", "지명경쟁"],
-    },
-    {
-      id: 5,
-      title: "낙찰방법",
-      type: "chip",
-      contents: ["최저가격", "2단계경쟁", "협상에의한계약"],
-    },
-    {
-      id: 6,
-      title: "계정명",
-      type: "chip",
-      contents: [
-        "의약품",
-        "항정신성의약품",
-        "장비소모품",
-        "인쇄물",
-        "시약",
-        "백신",
-        "의료비품",
-        "의료장비",
-        "위생용품",
-        "피복",
-        "사무용품",
-        "일반비품",
-        "전산용품",
-        "기타",
-      ],
-    },
-    {
-      id: 7,
-      title: "입찰명",
-      type: "input",
-      contents: "",
-    },
-    {
-      id: 8,
-      title: "공고일",
-      type: "datepicker",
-      contents: "2024-10-10",
-    },
-    {
-      id: 9,
-      title: "마감일",
-      type: "datepicker",
-      contents: "2024-10-10",
-    },
-    {
-      id: 10,
-      title: "응찰일",
-      type: "datepicker",
-      contents: "2024-10-10",
-    },
-    {
-      id: 11,
-      title: "낙찰기준가",
-      type: "input",
-      contents: "",
-    },
-    {
-      id: 12,
-      title: "입찰품의번호",
-      type: "input",
-      contents: "",
-    },
-    {
-      id: 13,
-      title: "입찰품의",
-      type: "upload",
-      contents: null,
-    },
-    {
-      id: 14,
-      title: "입찰공고문",
-      type: "upload",
-      contents: null,
-    },
-  ];
-
   return (
     <div className="flex flex-col mb-4">
       <PageTitle pageTitle="입찰조회" mode="xl" fontWeight="bold" />
@@ -306,39 +152,6 @@ const MenuPage = () => {
         onRowSelect={handleRowSelect}
         showCheckbox={true}
         pagination={true}
-      />
-      <div>
-        <Table
-          data={formattedData}
-          columns={columns}
-          onRowSelect={handleRowSelect}
-          pagination={true}
-        />
-      </div>
-      <div>
-        <Table
-          data={formattedData}
-          columns={columns}
-          onRowSelect={handleRowSelect}
-        />
-      </div>
-      <DateRangePicker
-        startDate={startDate}
-        endDate={endDate}
-        onStartDateChange={setStartDate}
-        onEndDateChange={setEndDate}
-        startLabel="시작 날짜"
-        endLabel="종료 날짜"
-      />
-      <SingleDatePicker
-        selectedDate={selectedDate}
-        onDateChange={setSelectedDate}
-        label="날짜선택"
-      />
-      <VerticalTable
-        data={vertical}
-        onChipClick={handleChipClick}
-        checkedItems={checkedItems}
       />
     </div>
   );

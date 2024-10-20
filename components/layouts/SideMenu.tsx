@@ -21,14 +21,14 @@ const menuItems = [
       },
       {
         icon: MdCalculate,
-        label: "ELEMENTS",
-        href: "/main",
+        label: "입찰조회",
+        href: "/tender",
         visible: ["admin", "master"],
       },
       {
         icon: FaFileContract,
-        label: "TABLE",
-        href: "/menu1",
+        label: "계약조회",
+        href: "/contract",
         visible: ["admin", "master"],
       },
     ],
@@ -96,11 +96,11 @@ const SideMenu = ({
                   const spanElement = e.currentTarget.querySelector("span");
 
                   if (svgElement) {
-                    svgElement.style.fill = colors.signature;
+                    svgElement.style.fill = colors.white;
                   }
 
                   if (spanElement) {
-                    spanElement.style.color = colors.signature;
+                    spanElement.style.color = colors.white;
                   }
                 }}
                 onMouseLeave={(e) => {
@@ -109,24 +109,24 @@ const SideMenu = ({
                   const spanElement = e.currentTarget.querySelector("span");
 
                   if (svgElement) {
-                    svgElement.style.fill = colors.sub;
+                    svgElement.style.fill = colors.white;
                   }
 
                   if (spanElement) {
-                    spanElement.style.color = colors.sub;
+                    spanElement.style.color = colors.white;
                   }
                 }}
               >
                 <item.icon
                   size={20}
-                  style={{ fill: colors.sub }}
+                  style={{ fill: colors.white }}
                   className={`transition-transform duration-300 cursor-pointer ${
                     isOpen ? "m-2" : "mx-auto"
                   }`}
                 />
 
                 <span
-                  style={{ color: colors.sub, fontWeight: "500" }}
+                  style={{ color: colors.white, fontWeight: "500" }}
                   className={`p-1 mt-1 text-[#ffffff] ${
                     isOpen ? "inline-block" : "hidden"
                   }`}
