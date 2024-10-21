@@ -856,3 +856,13 @@ export const downloadOptions = [
   { value: "계약서", label: "계약서 내려받기" },
   { value: "품의서", label: "품의서 내려받기" },
 ];
+
+export const contractType = [
+  { value: "", label: "계약종류" },
+  { value: "일반계약", label: "일반계약" },
+  { value: "단가계약", label: "단가계약" },
+  { value: "임대계약", label: "임대계약" },
+  { value: "공사계약", label: "공사계약" },
+  { value: "매각계약", label: "매각계약" },
+  { value: "기타계약", label: "기타계약" },
+];

@@ -77,12 +77,20 @@ const Table: React.FC<TableProps> = ({
 
   const renderContent = (row: { [key: string]: any }, column: string) => {
     const { id } = row;
+    console.log(id);
 
     if (column === "입찰번호") {
       return (
         <span
           className="text-blue cursor-pointer border-b"
-          onClick={() => window.open(`/bid/${row[column]}`, "_blank")}
+          onClick={() => {
+            const newWindow = window.open(
+              `/tender/${row[column]}`,
+              "newwindow",
+              "fullscreen"
+            );
+            if (newWindow) newWindow.opener = null;
+          }}
         >
           {row[column]}
         </span>
@@ -93,7 +101,14 @@ const Table: React.FC<TableProps> = ({
       return (
         <span
           className="text-blue cursor-pointer border-b"
-          onClick={() => window.open(`/contract/${row[column]}`, "_blank")}
+          onClick={() => {
+            const newWindow = window.open(
+              `/contract/${row[column]}`,
+              "newwindow",
+              "fullscreen"
+            );
+            if (newWindow) newWindow.opener = null;
+          }}
         >
           {row[column]}
         </span>
@@ -120,34 +135,6 @@ const Table: React.FC<TableProps> = ({
 
     return row[column];
   };
-  const handleExport = () => {
-    let selectedData;
-    if (downloadOption === "selected") {
-      selectedData = selectedRows.map((rowId) => {
-        const rowIndex = Number(rowId);
-        return data[rowIndex];
-      });
-    } else {
-      selectedData = data; // 전체 다운로드
-    }
-
-    // Convert selected data to CSV format
-    const csvContent = [
-      columns.join(","), // header row
-      ...selectedData.map((row) =>
-        columns.map((column) => row[column]).join(",")
-      ),
-    ].join("\n");
-
-    // Create a blob for CSV download
-    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.setAttribute("download", "selected_rows.csv");
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
 
   return (
     <div className="mx-5" style={{ ...customStyle }}>
@@ -159,14 +146,6 @@ const Table: React.FC<TableProps> = ({
           {showCheckbox && `선택된 데이터 ${selectedRows.length} 개 / `}총
           데이터 {data.length} 개
         </span>
-        {selectedRows.length > 0 && (
-          <button
-            onClick={handleExport}
-            className="ml-4 px-3 py-1 bg-blue-500 text-white rounded"
-          >
-            Export Selected
-          </button>
-        )}
       </div>
       <div
         style={{ borderColor: "transparent" }}
@@ -206,7 +185,7 @@ const Table: React.FC<TableProps> = ({
                   color: colors["Grey_Darken-4"],
                   borderBottom: `1px solid ${colors["Grey_Lighten-2"]}`,
                 }}
-                className="text-center transition duration-150 ease-in-out cursor-pointer hover:bg-gray-200 hover:shadow-md"
+                className="text-center transition duration-150 ease-in-out hover:bg-gray-200 hover:shadow-md"
               >
                 {showCheckbox && (
                   <td className="px-4 py-2">
@@ -223,7 +202,7 @@ const Table: React.FC<TableProps> = ({
                 )}
                 {columns.map((column) => (
                   <td key={column} className="py-2 text-gray-700">
-                    {renderContent(row, column)} {/* Pass column name */}
+                    {renderContent(row, column)}
                   </td>
                 ))}
               </tr>

@@ -6,11 +6,47 @@ import Table from "@/components/ui/molecules/table/Table";
 import useExcelFileHandler from "@/hooks/useExcelFileHandler";
 import React, { useState, useCallback } from "react";
 import colors from "@/styles/colors";
-import { contractData, contractColumns } from "@/lib/data";
+import {
+  contractData,
+  contractColumns,
+  centerOptions,
+  accountOptions,
+  contractOptions,
+  contractType,
+} from "@/lib/data";
 import FileUploadButton from "@/components/ui/molecules/buttons/FileUploadButton";
 import useFormatHandler from "@/hooks/useFormatHandler";
-import SearchFilter from "@/components/ui/organism/filter/SearchFilter";
+import SearchFilter, {
+  FieldConfig,
+} from "@/components/ui/organism/filter/SearchFilter";
 import PageTitle from "@/components/ui/molecules/titles/PageTitle";
+
+const fieldsConfig: FieldConfig[] = [
+  { name: "center", type: "select", options: centerOptions, label: "센터" },
+  {
+    name: "contractType",
+    type: "select",
+    options: contractType,
+    label: "계약종류",
+  },
+  {
+    name: "accountName",
+    type: "select",
+    options: accountOptions,
+    label: "계정명",
+  },
+  {
+    name: "contractMethod",
+    type: "select",
+    options: contractOptions,
+    label: "계약방법",
+  },
+  { name: "contractDate", type: "date", label: "계약일자" },
+  { name: "startDate", type: "date", label: "계약시작일" },
+  { name: "endDate", type: "date", label: "계약완료일" },
+  { name: "sn", type: "input", label: "S/N" },
+  { name: "contractName", type: "input", label: "계약명" },
+];
 
 const MenuPage = () => {
   const [downloadOption, setDownloadOption] = useState("");
@@ -115,7 +151,7 @@ const MenuPage = () => {
       <PageTitle pageTitle="계약조회" mode="xl" fontWeight="bold" />
 
       <div>
-        <SearchFilter />
+        <SearchFilter fieldsConfig={fieldsConfig} />
       </div>
       <div className="flex justify-end mr-6">
         <FileUploadButton

@@ -53,6 +53,7 @@ const TenderDetail: React.FC<TenderDetailProps> = ({ params }) => {
   const { formatCenterData, formatDate, formatCurrency } = useFormatHandler();
 
   const { id } = params; // params에서 ID 가져오기
+  console.log(id);
   // const [tenderData, setTenderData] = useState(null);
   // const [loading, setLoading] = useState(true);
 
