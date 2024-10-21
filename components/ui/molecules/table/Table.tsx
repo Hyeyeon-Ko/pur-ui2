@@ -2,6 +2,15 @@ import React, { CSSProperties, useEffect, useState } from "react";
 import Pagination from "../pagination/Pagination";
 import Checkbox from "../../atoms/checkbox/Checkbox";
 import colors from "@/styles/colors";
+import SelectBox from "../../atoms/selectBox/Select";
+/**
+ * 가로형 테이블 (일반 테이블)
+ * 기능1. 체크박스 true/false : showCheckbox ->
+ * showCheckbox가 true인 경우 테이블 상단에 선택된 데이터의 개수를 표시하도록 커스텀 함
+ * showCheckbox가 true인 경우 다중선택, 개별선택 기능이 가능, 또한 전체선택 다운로드 / 선택항목 다운로드 구현완료
+ * 기능2. 페이지네이션 true/false : pagination
+ */
+type TableType = "default" | "download";
 
 interface TableProps {
   customStyle?: CSSProperties;
@@ -11,7 +20,8 @@ interface TableProps {
   rowsPerPage?: number;
   pagination?: boolean;
   onRowSelect?: (selectedRows: string[]) => void;
-  onRowDoubleClick?: (row: { [key: string]: string }) => void; // 함수로 경로를 전달받음
+  onRowDoubleClick?: (row: { [key: string]: string }) => void;
+  type?: TableType;
 }
 
 const Table: React.FC<TableProps> = ({
@@ -27,6 +37,7 @@ const Table: React.FC<TableProps> = ({
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(data.length / rowsPerPage);
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
+  const [downloadOption, setDownloadOption] = useState<string>("");
 
   useEffect(() => {
     onRowSelect?.(selectedRows);
@@ -60,8 +71,82 @@ const Table: React.FC<TableProps> = ({
 
   const handleRowDoubleClick = (row: { [key: string]: string }) => {
     if (onRowDoubleClick) {
-      onRowDoubleClick(row); // 외부에서 함수로 전달받은 동작을 수행
+      onRowDoubleClick(row);
     }
+  };
+
+  const renderContent = (row: { [key: string]: any }, column: string) => {
+    const { id } = row;
+
+    if (column === "입찰번호") {
+      return (
+        <span
+          className="text-blue cursor-pointer border-b"
+          onClick={() => window.open(`/bid/${row[column]}`, "_blank")}
+        >
+          {row[column]}
+        </span>
+      );
+    }
+
+    if (column === "계약번호") {
+      return (
+        <span
+          className="text-blue cursor-pointer border-b"
+          onClick={() => window.open(`/contract/${row[column]}`, "_blank")}
+        >
+          {row[column]}
+        </span>
+      );
+    }
+
+    if (column === "열람" && row[column] === "저장") {
+      return (
+        <SelectBox
+          mode="xs"
+          placeholder="다운로드"
+          value={downloadOption}
+          onChange={(e) => {
+            setDownloadOption(e.target.value);
+          }}
+          options={[
+            { value: "contract", label: "계약서 다운로드" },
+            { value: "approve", label: "품의서 다운로드" },
+          ]}
+          customStyle={{ color: colors.Button_Default }}
+        />
+      );
+    }
+
+    return row[column];
+  };
+  const handleExport = () => {
+    let selectedData;
+    if (downloadOption === "selected") {
+      selectedData = selectedRows.map((rowId) => {
+        const rowIndex = Number(rowId);
+        return data[rowIndex];
+      });
+    } else {
+      selectedData = data; // 전체 다운로드
+    }
+
+    // Convert selected data to CSV format
+    const csvContent = [
+      columns.join(","), // header row
+      ...selectedData.map((row) =>
+        columns.map((column) => row[column]).join(",")
+      ),
+    ].join("\n");
+
+    // Create a blob for CSV download
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.setAttribute("download", "selected_rows.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (
@@ -74,6 +159,14 @@ const Table: React.FC<TableProps> = ({
           {showCheckbox && `선택된 데이터 ${selectedRows.length} 개 / `}총
           데이터 {data.length} 개
         </span>
+        {selectedRows.length > 0 && (
+          <button
+            onClick={handleExport}
+            className="ml-4 px-3 py-1 bg-blue-500 text-white rounded"
+          >
+            Export Selected
+          </button>
+        )}
       </div>
       <div
         style={{ borderColor: "transparent" }}
@@ -104,10 +197,7 @@ const Table: React.FC<TableProps> = ({
               ))}
             </tr>
           </thead>
-          <tbody
-            style={{ borderBottom: `1px solid ${colors["Grey_Lighten-4"]}` }}
-            className="divide-y"
-          >
+          <tbody>
             {currentData.map((row, index) => (
               <tr
                 onDoubleClick={() => handleRowDoubleClick(row)}
@@ -133,7 +223,7 @@ const Table: React.FC<TableProps> = ({
                 )}
                 {columns.map((column) => (
                   <td key={column} className="py-2 text-gray-700">
-                    {row[column]}
+                    {renderContent(row, column)} {/* Pass column name */}
                   </td>
                 ))}
               </tr>

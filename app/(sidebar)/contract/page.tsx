@@ -28,7 +28,9 @@ const MenuPage = () => {
     계약완료일: formatDate(item.계약완료일),
     낙찰기준가: formatCurrency(item.낙찰기준가),
     계약금액: formatCurrency(item.계약금액),
-    열람: `<button>${item.열람}</button>`,
+    입찰번호: item.입찰번호,
+    계약번호: item.계약번호,
+    열람: item.열람,
   }));
 
   const handleRowSelect = useCallback((selectedRowIds: string[]) => {
@@ -146,15 +148,7 @@ const MenuPage = () => {
         data={formattedData}
         columns={contractColumns}
         onRowSelect={handleRowSelect}
-        onRowDoubleClick={(row) => {
-          const id = row.id;
-          const url = `/contract/${id}`;
-          window.open(
-            url,
-            "_blank",
-            "noopener,noreferrer,width=1920,height=1080"
-          );
-        }}
+        onRowDoubleClick={() => {}}
         showCheckbox={true}
         pagination={true}
       />

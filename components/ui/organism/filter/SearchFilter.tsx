@@ -4,6 +4,12 @@ import Input from "../../atoms/input/Input";
 import Button from "../../atoms/button/Button";
 import SingleDatePicker from "../../atoms/datepicker/DatePicker";
 import colors from "@/styles/colors";
+import {
+  accountOptions,
+  bidOptions,
+  bidResultOptions,
+  centerOptions,
+} from "@/lib/data";
 
 const SearchFilter = () => {
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(
@@ -47,11 +53,7 @@ const SearchFilter = () => {
               name="center"
               value={searchData.center}
               onChange={handleChange}
-              options={[
-                { value: "", label: "센터" },
-                { value: "전국", label: "전국" },
-                { value: "재단", label: "재단" },
-              ]}
+              options={centerOptions}
               color="transparent"
               customStyle={{ width: "100%", margin: "0" }}
             />
@@ -65,11 +67,7 @@ const SearchFilter = () => {
               name="bidType"
               value={searchData.bidType}
               onChange={handleChange}
-              options={[
-                { value: "", label: "입찰종류" },
-                { value: "일반경쟁", label: "일반경쟁" },
-                { value: "제한경쟁", label: "제한경쟁" },
-              ]}
+              options={bidOptions}
               color="transparent"
               customStyle={{ width: "100%", margin: "0" }}
             />
@@ -83,10 +81,7 @@ const SearchFilter = () => {
               name="accountName"
               value={searchData.accountName}
               onChange={handleChange}
-              options={[
-                { value: "", label: "계정명" },
-                { value: "의약품", label: "의약품" },
-              ]}
+              options={accountOptions}
               color="transparent"
               customStyle={{ width: "100%", margin: "0" }}
             />
@@ -100,11 +95,7 @@ const SearchFilter = () => {
               mode="sm"
               value={searchData.bidResult}
               onChange={handleChange}
-              options={[
-                { value: "", label: "입찰결과" },
-                { value: "낙찰", label: "낙찰" },
-                { value: "유찰", label: "유찰" },
-              ]}
+              options={bidResultOptions}
               color="transparent"
               customStyle={{ width: "100%", margin: "0" }}
             />

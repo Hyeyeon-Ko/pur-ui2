@@ -52,8 +52,5 @@ export type contractRowData = {
   규격?: string;
   제조사?: string;
   수량?: string;
-  낙찰기준단가?: string;
-  낙찰기준가격?: string;
   계약단가?: string;
-  계약가격?: string;
 };

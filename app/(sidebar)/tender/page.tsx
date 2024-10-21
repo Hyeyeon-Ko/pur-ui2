@@ -28,7 +28,6 @@ const MenuPage = () => {
     응찰일: formatDate(item.응찰일),
     낙찰기준가: formatCurrency(item.낙찰기준가),
     낙찰금액: formatCurrency(item.낙찰금액),
-    열람: `<button>${item.열람}</button>`,
     누리장터: item.누리장터 || "-",
   }));
 
@@ -150,6 +149,15 @@ const MenuPage = () => {
         data={formattedData}
         columns={columns}
         onRowSelect={handleRowSelect}
+        onRowDoubleClick={(row) => {
+          const id = row.id;
+          const url = `/tender/${id}`;
+          window.open(
+            url,
+            "_blank",
+            "noopener,noreferrer,width=1920,height=1080"
+          );
+        }}
         showCheckbox={true}
         pagination={true}
       />

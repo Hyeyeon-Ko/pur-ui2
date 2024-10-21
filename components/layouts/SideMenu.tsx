@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { MdCalculate } from "react-icons/md";
 import { RiLogoutBoxRFill, RiSettings5Fill } from "react-icons/ri";
@@ -18,18 +18,21 @@ const menuItems = [
         label: "HOME",
         href: "/",
         visible: ["admin", "master", "admin"],
+        tooltip: "HOME",
       },
       {
         icon: MdCalculate,
         label: "입찰조회",
         href: "/tender",
         visible: ["admin", "master"],
+        tooltip: "입찰조회",
       },
       {
         icon: FaFileContract,
         label: "계약조회",
         href: "/contract",
         visible: ["admin", "master"],
+        tooltip: "계약조회",
       },
     ],
   },
@@ -41,12 +44,14 @@ const menuItems = [
         label: "SETTINGS",
         href: "/settings",
         visible: ["admin", "master", "admin"],
+        tooltip: "설정",
       },
       {
         icon: RiLogoutBoxRFill,
         label: "LOGOUT",
         href: "/logout",
         visible: ["admin", "master", "admin"],
+        tooltip: "로그아웃",
       },
     ],
   },
@@ -59,6 +64,8 @@ const SideMenu = ({
   isOpen: boolean;
   toggleSidebar: () => void;
 }) => {
+  const [hoveredLabel, setHoveredLabel] = useState<string | null>(null);
+
   return (
     <div
       style={{ backgroundColor: colors.signature }}
@@ -85,61 +92,89 @@ const SideMenu = ({
             </span>
 
             {section.items.map((item) => (
-              <Link
-                href={item.href}
+              <div
                 key={item.label}
-                className={`relative flex items-center justify-start text-gray-500 py-2 mx-2 rounded-md transition-colors duration-200`}
-                style={{ backgroundColor: "transparent" }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = colors.sub;
-                  const svgElement = e.currentTarget.querySelector("svg");
-                  const spanElement = e.currentTarget.querySelector("span");
-
-                  if (svgElement) {
-                    svgElement.style.fill = colors.white;
-                  }
-
-                  if (spanElement) {
-                    spanElement.style.color = colors.white;
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = "transparent";
-                  const svgElement = e.currentTarget.querySelector("svg");
-                  const spanElement = e.currentTarget.querySelector("span");
-
-                  if (svgElement) {
-                    svgElement.style.fill = colors.white;
-                  }
-
-                  if (spanElement) {
-                    spanElement.style.color = colors.white;
-                  }
-                }}
+                className="relative"
+                onMouseEnter={() => setHoveredLabel(item.label)}
+                onMouseLeave={() => setHoveredLabel(null)}
               >
-                <item.icon
-                  size={20}
-                  style={{ fill: colors.white }}
-                  className={`transition-transform duration-300 cursor-pointer ${
-                    isOpen ? "m-2" : "mx-auto"
-                  }`}
-                />
+                <Link
+                  href={item.href}
+                  className={`relative flex items-center justify-start text-gray-500 py-2 mx-2 rounded-md transition-colors duration-200`}
+                  style={{ backgroundColor: "transparent" }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = colors.sub;
+                    const svgElement = e.currentTarget.querySelector("svg");
+                    const spanElement = e.currentTarget.querySelector("span");
 
-                <span
-                  style={{ color: colors.white, fontWeight: "500" }}
-                  className={`p-1 mt-1 text-[#ffffff] ${
-                    isOpen ? "inline-block" : "hidden"
-                  }`}
+                    if (svgElement) {
+                      svgElement.style.fill = colors.white;
+                    }
+
+                    if (spanElement) {
+                      spanElement.style.color = colors.white;
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = "transparent";
+                    const svgElement = e.currentTarget.querySelector("svg");
+                    const spanElement = e.currentTarget.querySelector("span");
+
+                    if (svgElement) {
+                      svgElement.style.fill = colors.white;
+                    }
+
+                    if (spanElement) {
+                      spanElement.style.color = colors.white;
+                    }
+                  }}
                 >
-                  {item.label}
-                </span>
+                  <item.icon
+                    size={20}
+                    style={{ fill: colors.white }}
+                    className={`transition-transform duration-300 cursor-pointer ${
+                      isOpen ? "m-2" : "mx-auto"
+                    }`}
+                  />
 
-                {!isOpen && (
-                  <span className="absolute left-20 bg-white text-black shadow-lg rounded-md p-1 opacity-0 whitespace-nowrap">
+                  <span
+                    style={{ color: colors.white, fontWeight: "500" }}
+                    className={`p-1 mt-1 text-[#ffffff] ${
+                      isOpen ? "inline-block" : "hidden"
+                    }`}
+                  >
                     {item.label}
                   </span>
-                )}
-              </Link>
+
+                  {!isOpen && hoveredLabel === item.label && (
+                    <span
+                      style={{
+                        backgroundColor: colors.sub,
+                        color: colors.white,
+                        fontSize: "12px",
+                        padding: "4px 8px",
+                        borderRadius: "8px",
+                        position: "absolute",
+                        left: "68px",
+                        top: "50%",
+                        transform: "translateY(-50%)",
+                        width: "65px",
+                        textAlign: "center",
+                      }}
+                      className="tooltip-bubble relative"
+                    >
+                      {item.tooltip}
+
+                      <span
+                        className="absolute left-[-10px] top-1/2 transform -translate-y-1/2 w-0 h-0 border-l-[8px] border-l-transparent border-b-[8px] border-b-transparent border-r-[8px] border-r-sub"
+                        style={{
+                          borderColor: `transparent transparent transparent ${colors.sub}`,
+                        }}
+                      ></span>
+                    </span>
+                  )}
+                </Link>
+              </div>
             ))}
           </div>
         ))}

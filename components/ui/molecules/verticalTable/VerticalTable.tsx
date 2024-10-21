@@ -26,7 +26,7 @@ const VerticalTable: React.FC<VerticalTableProps> = ({
 }) => {
   const renderContent = (row: {
     title: string;
-    type?: string; // type을 선택적으로 설정
+    type?: string;
     contents?: string | string[] | null;
     options?: Array<{ value: string; label: string }>;
     component?: React.ReactNode;
