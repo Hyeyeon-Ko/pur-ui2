@@ -7,6 +7,8 @@ import Label from "@/components/ui/atoms/label/Label";
 import SelectBox from "@/components/ui/atoms/selectBox/Select";
 import LabelInput from "@/components/ui/molecules/inputs/LabelInput";
 import SendInput from "@/components/ui/molecules/inputs/SendInput";
+import Modal from "@/components/ui/organism/modal/Modal";
+import useModal from "@/hooks/useModal";
 import useValidations from "@/hooks/useValidations";
 import { useEffect, useState } from "react";
 
@@ -16,6 +18,8 @@ const MainPage = () => {
   const [selectedValue, setSelectedValue] = useState("");
   const [selectAll, setSelectAll] = useState(false); // 그룹체크박스
   const { IdValidate, passwordValidation } = useValidations();
+  const { isOpen, openModal, closeModal } = useModal();
+
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -81,6 +85,11 @@ const MainPage = () => {
       selectAllCheckbox.indeterminate = false;
     }
   }, [checkedItems]);
+
+  
+  const handleConfirm = () => {
+    closeModal();
+  };
 
   return (
     <div>
@@ -302,6 +311,18 @@ const MainPage = () => {
         onChange={(e) => setInputValue(e.target.value)}
         customStyle={{ marginBottom: "20px" }}
       />
+            <div>
+        <Button mode="lg" content="modal" onClick={openModal} />
+        <Modal
+          isOpen={isOpen}
+          closeModal={closeModal}
+          title="진짜제목"
+          onCancelClick={handleConfirm}
+          onConfirmClick={handleConfirm}
+        >
+          <p>모달 내부에 추가적인 내용</p>
+        </Modal>
+      </div>
     </div>
   );
 };
