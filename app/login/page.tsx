@@ -29,7 +29,6 @@ const LoginPage = () => {
   }));
 
   const handleConfirm = () => {
-    console.log("확인 버튼 클릭됨");
     closeModal();
   };
 

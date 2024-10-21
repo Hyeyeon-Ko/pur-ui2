@@ -2,7 +2,7 @@ import React from "react";
 import Input from "../../atoms/input/Input";
 import SelectBox from "../../atoms/selectBox/Select";
 import Chip from "../../atoms/chip/Chip";
-import SingleDatePicker from "../../atoms/datepicker/DatePicker";
+import SingleDatePicker from "../../atoms/datepicker/SingleDatePicker";
 import FileUploadButton from "../buttons/FileUploadButton";
 import colors from "@/styles/colors";
 
@@ -15,7 +15,7 @@ interface VerticalTableProps {
     options?: Array<{ value: string; label: string }>; // selectBox 용 옵션
     component?: React.ReactNode; // 커스텀 컴포넌트를 직접 넣을 수 있도록 선택적으로 설정
   }>;
-  onChipClick?: (label: string, title: string) => void; // Chip 클릭 핸들러 추가
+  onChipClick?: (label: string, title: string) => void; // Chip 클릭 핸들러
   checkedItems?: { [key: string]: boolean };
 }
 

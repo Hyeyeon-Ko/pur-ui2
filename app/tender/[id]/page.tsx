@@ -31,10 +31,12 @@ const TenderDetail: React.FC<TenderDetailProps> = ({ params }) => {
   const handleChipClick = (label: string, title: string) => {
     setCheckedItems((prev) => {
       const newCheckedItems = { ...prev };
-      newCheckedItems[label] = !prev[label];
+      const isChecked = !prev[label];
+
+      newCheckedItems[label] = isChecked;
 
       if (title === "센터명" && label === "전국") {
-        if (newCheckedItems[label]) {
+        if (isChecked) {
           Object.keys(newCheckedItems).forEach((key) => {
             if (key !== "전국" && key.startsWith("센터명")) {
               newCheckedItems[key] = false;
@@ -45,6 +47,25 @@ const TenderDetail: React.FC<TenderDetailProps> = ({ params }) => {
         newCheckedItems["전국"] = false;
       }
 
+      if (isChecked) {
+        Object.keys(newCheckedItems).forEach((key) => {
+          if (
+            (title === "계약종류" &&
+              key.startsWith("계약종류") &&
+              key !== label) ||
+            (title === "입찰종류" &&
+              key.startsWith("입찰종류") &&
+              key !== label) ||
+            (title === "낙찰방법" &&
+              key.startsWith("낙찰방법") &&
+              key !== label)
+          ) {
+            newCheckedItems[key] = false;
+          }
+        });
+      }
+
+      console.log("Updated checked items:", newCheckedItems);
       return newCheckedItems;
     });
   };
@@ -53,7 +74,6 @@ const TenderDetail: React.FC<TenderDetailProps> = ({ params }) => {
   const { formatCenterData, formatDate, formatCurrency } = useFormatHandler();
 
   const { id } = params; // params에서 ID 가져오기
-  console.log(id);
   // const [tenderData, setTenderData] = useState(null);
   // const [loading, setLoading] = useState(true);
 
@@ -271,7 +291,6 @@ const TenderDetail: React.FC<TenderDetailProps> = ({ params }) => {
     응찰일: formatDate(item.응찰일),
     낙찰기준가: formatCurrency(item.낙찰기준가),
     낙찰금액: formatCurrency(item.낙찰금액),
-    열람: `<button>${item.열람}</button>`,
     누리장터: item.누리장터 || "-",
   }));
 

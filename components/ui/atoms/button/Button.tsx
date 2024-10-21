@@ -1,6 +1,14 @@
 import React, { CSSProperties } from "react";
 import colors from "@/styles/colors";
 
+/**
+ * mode: 버튼 사이즈
+ * color: 버튼 색상
+ * disabled: 활성/ 비활성(초깃값 false)
+ * variant: 버튼 형태 - 채워진 버튼 / 비어있는 버튼
+ * onClick: 클릭이벤트
+ */
+
 export type ButtonMode = "sm" | "xs" | "lg" | "md" | undefined;
 export type ButtonVariant = "inline" | "outline";
 
@@ -47,6 +55,7 @@ const Button: React.FC<ButtonProps> = ({
   const border = disabled ? "lightgray" : color ? colors[color] : "transparent";
 
   return (
+    // hover효과를 onMouseEnter, onMouseLeave로 구분하고 있음
     <button
       className={`m-1 transition-all duration-100 ease-in-out rounded ${
         modeClasses[mode]

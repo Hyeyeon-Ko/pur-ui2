@@ -1,6 +1,15 @@
 import React, { CSSProperties } from "react";
 import colors from "@/styles/colors";
 
+/**
+ * mode: 체크박스 크기
+ * color: 색상
+ * checked: 체크된 상태 초깃값: false
+ * onChange함수
+ * label: 체크박스 라벨
+ * disabled 비활성화 초깃값 false
+ */
+
 export type CheckboxMode = "sm" | "xs" | "lg" | "md" | undefined;
 
 interface CheckboxProps {

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import SelectBox from "../../atoms/selectBox/Select";
 import Input from "../../atoms/input/Input";
 import Button from "../../atoms/button/Button";
-import SingleDatePicker from "../../atoms/datepicker/DatePicker";
+import SingleDatePicker from "../../atoms/datepicker/SingleDatePicker";
 import colors from "@/styles/colors";
 import Label from "../../atoms/label/Label";
 

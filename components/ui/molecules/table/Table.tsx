@@ -77,9 +77,8 @@ const Table: React.FC<TableProps> = ({
 
   const renderContent = (row: { [key: string]: any }, column: string) => {
     const { id } = row;
-    console.log(id);
 
-    if (column === "입찰번호") {
+    if (column === "입찰번호" && row["계약번호"]) {
       return (
         <span
           className="text-blue cursor-pointer border-b"
