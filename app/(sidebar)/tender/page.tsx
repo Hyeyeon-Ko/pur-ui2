@@ -6,10 +6,19 @@ import Table from "@/components/ui/molecules/table/Table";
 import useExcelFileHandler from "@/hooks/useExcelFileHandler";
 import React, { useState, useCallback } from "react";
 import colors from "@/styles/colors";
-import { data, columns, centerOptions, bidOptions, accountOptions, bidResultOptions } from "@/lib/data";
+import {
+  data,
+  columns,
+  centerOptions,
+  bidOptions,
+  accountOptions,
+  bidResultOptions,
+} from "@/lib/data";
 import FileUploadButton from "@/components/ui/molecules/buttons/FileUploadButton";
 import useFormatHandler from "@/hooks/useFormatHandler";
-import SearchFilter, { FieldConfig } from "@/components/ui/organism/filter/SearchFilter";
+import SearchFilter, {
+  FieldConfig,
+} from "@/components/ui/organism/filter/SearchFilter";
 import PageTitle from "@/components/ui/molecules/titles/PageTitle";
 
 const fieldsConfig: FieldConfig[] = [
@@ -26,9 +35,12 @@ const fieldsConfig: FieldConfig[] = [
 const MenuPage = () => {
   const [downloadOption, setDownloadOption] = useState("");
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
+  const [sorter, setSorter] = useState<{
+    field: string;
+    order: "ascend" | "descend" | undefined;
+  } | null>(null);
 
   const { handleFileUpload, downloadCsv } = useExcelFileHandler();
-
   const { formatCenterData, formatDate, formatCurrency } = useFormatHandler();
 
   const formattedData = data.map((item) => ({
@@ -44,7 +56,6 @@ const MenuPage = () => {
 
   const handleRowSelect = useCallback((selectedRowIds: string[]) => {
     const uniqueSelectedRows = Array.from(new Set(selectedRowIds));
-
     setSelectedRows(uniqueSelectedRows);
   }, []);
 
@@ -171,6 +182,8 @@ const MenuPage = () => {
         }}
         showCheckbox={true}
         pagination={true}
+        sorter={sorter}
+        setSorter={setSorter}
       />
     </div>
   );

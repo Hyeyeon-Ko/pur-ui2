@@ -15,10 +15,13 @@ export type FieldConfig = {
 
 type SearchFilterProps = {
   fieldsConfig: FieldConfig[];
+  onSearch?: (searchData: { [key: string]: string | Date | undefined }) => void;
 };
 
-const SearchFilter: React.FC<SearchFilterProps> = ({ fieldsConfig }) => {
-  // 날짜 필드의 초기값을 오늘 날짜로 설정
+const SearchFilter: React.FC<SearchFilterProps> = ({
+  fieldsConfig,
+  onSearch,
+}) => {
   const [searchData, setSearchData] = useState<{
     [key: string]: string | Date | undefined;
   }>(
@@ -44,7 +47,7 @@ const SearchFilter: React.FC<SearchFilterProps> = ({ fieldsConfig }) => {
   };
 
   const handleSearch = () => {
-    console.log(searchData);
+    onSearch(searchData);
   };
 
   const renderField = (field: FieldConfig) => {

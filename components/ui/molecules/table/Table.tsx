@@ -3,6 +3,7 @@ import Pagination from "../pagination/Pagination";
 import Checkbox from "../../atoms/checkbox/Checkbox";
 import colors from "@/styles/colors";
 import SelectBox from "../../atoms/selectBox/Select";
+
 /**
  * 가로형 테이블 (일반 테이블)
  * 기능1. 체크박스 true/false : showCheckbox ->
@@ -11,6 +12,11 @@ import SelectBox from "../../atoms/selectBox/Select";
  * 기능2. 페이지네이션 true/false : pagination
  */
 type TableType = "default" | "download";
+
+interface Sorter {
+  field: string;
+  order: "ascend" | "descend" | undefined;
+}
 
 interface TableProps {
   customStyle?: CSSProperties;
@@ -22,6 +28,8 @@ interface TableProps {
   onRowSelect?: (selectedRows: string[]) => void;
   onRowDoubleClick?: (row: { [key: string]: string }) => void;
   type?: TableType;
+  sorter?: Sorter | null;
+  setSorter?: React.Dispatch<React.SetStateAction<Sorter | null>>;
 }
 
 const Table: React.FC<TableProps> = ({
@@ -33,11 +41,18 @@ const Table: React.FC<TableProps> = ({
   pagination = false,
   onRowSelect,
   onRowDoubleClick,
+  sorter = null,
+  setSorter,
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(data.length / rowsPerPage);
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
   const [downloadOption, setDownloadOption] = useState<string>("");
+
+  const isDate = (value: string) => {
+    const datePattern = /^\d{2}\.\d{2}\.\d{2}$/;
+    return datePattern.test(value.trim());
+  };
 
   useEffect(() => {
     onRowSelect?.(selectedRows);
@@ -45,9 +60,28 @@ const Table: React.FC<TableProps> = ({
 
   const indexOfLastRow = currentPage * rowsPerPage;
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
+
+  // 정렬된 데이터
+  const sortedData = React.useMemo(() => {
+    const sorted = [...data];
+    if (sorter) {
+      sorted.sort((a, b) => {
+        const aValue = a[sorter.field];
+        const bValue = b[sorter.field];
+        if (sorter.order === "ascend") {
+          return aValue > bValue ? 1 : -1;
+        } else if (sorter.order === "descend") {
+          return aValue < bValue ? 1 : -1;
+        }
+        return 0;
+      });
+    }
+    return sorted;
+  }, [data, sorter]);
+
   const currentData = pagination
-    ? data.slice(indexOfFirstRow, indexOfLastRow)
-    : data;
+    ? sortedData.slice(indexOfFirstRow, indexOfLastRow)
+    : sortedData;
 
   const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
     const checked = e.target.checked;
@@ -76,8 +110,6 @@ const Table: React.FC<TableProps> = ({
   };
 
   const renderContent = (row: { [key: string]: any }, column: string) => {
-    const { id } = row;
-
     if (column === "입찰번호" && row["계약번호"]) {
       return (
         <span
@@ -152,13 +184,7 @@ const Table: React.FC<TableProps> = ({
         className="mx-auto rounded-lg shadow-lg border w-[100%]"
       >
         <table className="table-auto text-xs text-left text-gray-500 w-[100%]">
-          <thead
-            style={{
-              backgroundColor: colors.Table_header,
-              color: colors["Grey_Darken-3"],
-            }}
-            className="text-xs uppercase text-center"
-          >
+          <thead>
             <tr>
               {showCheckbox && (
                 <th className="px-4 py-3">
@@ -170,12 +196,36 @@ const Table: React.FC<TableProps> = ({
                 </th>
               )}
               {columns.map((column) => (
-                <th key={column} className="px-1 py-3 font-semibold">
+                <th key={column} className="text-center">
                   {column}
+                  {setSorter && (
+                    <span
+                      className="cursor-pointer"
+                      onClick={() => {
+                        if (sorter?.field === column) {
+                          const newOrder =
+                            sorter.order === "ascend" ? "descend" : "ascend";
+                          setSorter({ field: column, order: newOrder });
+                        } else {
+                          setSorter({ field: column, order: "ascend" });
+                        }
+                      }}
+                    >
+                      {isDate(data[0][column])
+                        ? sorter?.field === column && sorter.order === "ascend"
+                          ? " ▲"
+                          : sorter?.field === column &&
+                            sorter.order === "descend"
+                          ? " ▼"
+                          : " ▲"
+                        : null}
+                    </span>
+                  )}
                 </th>
               ))}
             </tr>
           </thead>
+
           <tbody>
             {currentData.map((row, index) => (
               <tr
