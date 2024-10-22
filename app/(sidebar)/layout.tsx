@@ -1,5 +1,6 @@
 "use client";
 
+import Navbar from "@/components/layouts/Navbar";
 import SideMenu from "@/components/layouts/SideMenu";
 import colors from "@/styles/colors";
 import { useState, useEffect } from "react";
@@ -44,13 +45,12 @@ export default function DashboardLayout({
         <SideMenu isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
       </div>
 
-      {/* 컨텐츠 영역 */}
-      <div
-        className={`transition-all duration-300 ${
-          isSidebarOpen ? "w-[calc(100%-15rem)]" : "w-[calc(100%-4rem)]"
-        } bg-white overflow-scroll`}
-      >
-        {children}
+      <div className="flex flex-col flex-1">
+        {/* 네비게이션 바 */}
+        <Navbar />
+
+        {/* 컨텐츠 영역 */}
+        <div className="flex-1 bg-white overflow-auto">{children}</div>
       </div>
     </div>
   );

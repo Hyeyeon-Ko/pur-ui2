@@ -13,6 +13,7 @@ export type ButtonMode = "sm" | "xs" | "lg" | "md" | undefined;
 export type ButtonVariant = "inline" | "outline";
 
 interface ButtonProps {
+  type?: "button" | "submit" | "reset";
   mode?: ButtonMode;
   color?: keyof typeof colors;
   customStyle?: CSSProperties;
@@ -20,9 +21,11 @@ interface ButtonProps {
   disabled?: boolean;
   variant?: ButtonVariant;
   onClick?: () => void;
+  children?: React.ReactNode;
 }
 
 const Button: React.FC<ButtonProps> = ({
+  type = "button",
   mode = "md",
   color,
   customStyle,
@@ -30,6 +33,7 @@ const Button: React.FC<ButtonProps> = ({
   content,
   variant = "inline",
   onClick,
+  children,
 }) => {
   const modeClasses = {
     sm: "text-sm px-4 py-2",
@@ -45,6 +49,7 @@ const Button: React.FC<ButtonProps> = ({
     : color
     ? colors[color]
     : "#2563EB";
+
   const textColor = disabled
     ? "lightgray"
     : variant === "outline"
@@ -52,10 +57,10 @@ const Button: React.FC<ButtonProps> = ({
       ? colors[color]
       : "black"
     : "white";
+
   const border = disabled ? "lightgray" : color ? colors[color] : "transparent";
 
   return (
-    // hover효과를 onMouseEnter, onMouseLeave로 구분하고 있음
     <button
       className={`m-1 transition-all duration-100 ease-in-out rounded ${
         modeClasses[mode]
@@ -77,8 +82,9 @@ const Button: React.FC<ButtonProps> = ({
         e.currentTarget.style.filter = "saturate(1)";
       }}
       disabled={disabled}
+      type={type}
     >
-      {content}
+      {content} {children}
     </button>
   );
 };

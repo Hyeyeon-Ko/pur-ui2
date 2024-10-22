@@ -1,32 +1,54 @@
+import { useEffect, useState } from "react";
+import Button from "../ui/atoms/button/Button";
 import Link from "next/link";
-import Image from "next/image";
-import Menu from "./Menu";
-import SearchBar from "./SearchBar";
+import Label from "../ui/atoms/label/Label";
+import { RiLogoutCircleRLine } from "react-icons/ri";
 
 const Navbar = () => {
+  const [user, setUser] = useState(null);
+
+  // 클라이언트에서만 실행되는 코드
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+
+  const handleLogout = () => {
+    // 로컬스토리지에서 사용자 정보 삭제
+    localStorage.removeItem("user");
+    // 사용자 상태 업데이트
+    setUser(null);
+  };
+
   return (
-    <div className="h-20 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 relative">
-      <div className="h-full flex items-center justify-between md:hidden">
-        <Link href="/">
-          <div className="text-2xl tracking-wide">Nav</div>
+    <nav className="p-1 mx-4 flex justify-end items-center">
+      {user ? (
+        <div className="flex gap-4 items-center">
+          <Label content={user.employeeId} mode="lg" />
+          <Button
+            mode="sm"
+            color="signature"
+            onClick={handleLogout}
+            customStyle={{
+              borderRadius: "25px",
+              marginRight: "20px",
+              display: "flex",
+              gap: "4px",
+              alignItems: "center",
+            }}
+          >
+            <span>로그아웃</span>
+            <RiLogoutCircleRLine className="my-1" />
+          </Button>
+        </div>
+      ) : (
+        <Link href="/login">
+          <Button mode="xs" content="로그인" color="signature" />
         </Link>
-        <Menu />
-      </div>
-      <div className="hidden md:flex items-center justify-between gap-8 h-full">
-        <div className="w-1/3 xl:w-1/2 flex items-center gap-12">
-          <Link href="/" className="flex items-center gap-3">
-            <Image src="/logo.png" alt="" width={24} height={24} />
-            <div className="text-2xl tracking-wide">Nav</div>
-          </Link>
-          <div className="hidden xl:flex gap-4">
-            <Link href="/">Home</Link>
-          </div>
-        </div>
-        <div className="w-2/3 xl:w-1/2 flex items-center justify-between gap-8">
-          <SearchBar />
-        </div>
-      </div>
-    </div>
+      )}
+    </nav>
   );
 };
 

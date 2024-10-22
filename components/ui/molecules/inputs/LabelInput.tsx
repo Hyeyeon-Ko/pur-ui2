@@ -33,10 +33,7 @@ const LabelInput: React.FC<LabelInputProps> = ({
   customStyle,
 }) => {
   return (
-    <div
-      className="m-1 w-[18%] justify-between flex items-center"
-      style={customStyle}
-    >
+    <div className="m-1 justify-between flex items-center" style={customStyle}>
       <Label
         mode={labelMode}
         color={labelColor}
@@ -51,6 +48,7 @@ const LabelInput: React.FC<LabelInputProps> = ({
         placeholder={placeholder}
         value={value}
         onChange={onChange}
+        customStyle={{ width: "320px" }}
       />
     </div>
   );

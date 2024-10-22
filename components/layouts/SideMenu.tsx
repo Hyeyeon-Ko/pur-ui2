@@ -3,9 +3,8 @@
 import React, { useState } from "react";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { MdCalculate } from "react-icons/md";
-import { RiLogoutBoxRFill, RiSettings5Fill } from "react-icons/ri";
+import { RiSettings5Fill } from "react-icons/ri";
 import { FaFileContract } from "react-icons/fa";
-import { ImHome } from "react-icons/im";
 import Link from "next/link";
 import colors from "@/styles/colors";
 
@@ -13,13 +12,6 @@ const menuItems = [
   {
     title: "MENU",
     items: [
-      {
-        icon: ImHome,
-        label: "HOME",
-        href: "/",
-        visible: ["admin", "master", "admin"],
-        tooltip: "HOME",
-      },
       {
         icon: MdCalculate,
         label: "입찰조회",
@@ -45,13 +37,6 @@ const menuItems = [
         href: "/settings",
         visible: ["admin", "master", "admin"],
         tooltip: "설정",
-      },
-      {
-        icon: RiLogoutBoxRFill,
-        label: "LOGOUT",
-        href: "/logout",
-        visible: ["admin", "master", "admin"],
-        tooltip: "로그아웃",
       },
     ],
   },

@@ -1,9 +1,11 @@
-import React from "react";
+"use client";
+
+import LoginForm from "@/components/ui/templates/LoginForm";
 
 const LoginPage = () => {
   return (
     <>
-      <div className="flex justify-center"></div>
+      <LoginForm />
     </>
   );
 };
