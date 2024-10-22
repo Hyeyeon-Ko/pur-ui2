@@ -7,13 +7,33 @@ import Table from "@/components/ui/molecules/table/Table";
 import useExcelFileHandler from "@/hooks/useExcelFileHandler";
 import React, { useState, useCallback } from "react";
 import colors from "@/styles/colors";
-import { data, columns } from "@/lib/data";
+import {
+  data,
+  columns,
+  centerOptions,
+  bidOptions,
+  accountOptions,
+  bidResultOptions,
+} from "@/lib/data";
 import VerticalTable from "@/components/ui/molecules/verticalTable/VerticalTable";
-import SingleDatePicker from "@/components/ui/atoms/datepicker/DatePicker";
+import SingleDatePicker from "@/components/ui/atoms/datepicker/SingleDatePicker";
 import FileUploadButton from "@/components/ui/molecules/buttons/FileUploadButton";
 import useFormatHandler from "@/hooks/useFormatHandler";
-import SearchFilter from "@/components/ui/organism/filter/SearchFilter";
+import SearchFilter, {
+  FieldConfig,
+} from "@/components/ui/organism/filter/SearchFilter";
 import PageTitle from "@/components/ui/molecules/titles/PageTitle";
+
+const fieldsConfig: FieldConfig[] = [
+  { name: "center", type: "select", options: centerOptions },
+  { name: "bidType", type: "select", options: bidOptions },
+  { name: "accountName", type: "select", options: accountOptions },
+  { name: "bidResult", type: "select", options: bidResultOptions },
+  { name: "winner", type: "input", label: "낙찰자" },
+  { name: "bidName", type: "input", label: "입찰명" },
+  { name: "announcementDate", type: "date", label: "공고일" },
+  { name: "dueDate", type: "date", label: "마감일" },
+];
 
 const MenuPage = () => {
   const [downloadOption, setDownloadOption] = useState("");
@@ -271,7 +291,7 @@ const MenuPage = () => {
       <PageTitle pageTitle="입찰조회" mode="xl" fontWeight="bold" />
 
       <div>
-        <SearchFilter />
+        <SearchFilter fieldsConfig={fieldsConfig} />
       </div>
       <div className="flex justify-end mr-6">
         <FileUploadButton

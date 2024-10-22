@@ -33,7 +33,7 @@ const SelectBox: React.FC<SelectProps> = ({
     lg: "text-lg px-5 py-3",
   };
 
-  const borderColor = color ? colors[color] : "#2563EB";
+  const borderColor = color ? colors[color] : colors.Button_Default;
 
   return (
     <select

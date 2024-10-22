@@ -113,7 +113,7 @@ const VerticalTable: React.FC<VerticalTableProps> = ({
             >
               <th
                 style={{
-                  backgroundColor: colors["Blue_C_Lighten-6"],
+                  backgroundColor: colors.Table_header,
                   color: colors["Grey_Darken-3"],
                   borderBottom: `1px solid ${colors["Grey_Lighten-4"]}`,
                   borderLeft: "1px solid transparent",

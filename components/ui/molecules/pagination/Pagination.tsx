@@ -60,7 +60,7 @@ const Pagination: React.FC<PaginationProps> = ({
               onClick={() => handlePageChange(page)}
               style={{
                 backgroundColor:
-                  currentPage === page ? colors.Button_Default : "transparent",
+                  currentPage === page ? colors.signature : "transparent",
                 color: currentPage === page ? "white" : "gray",
                 borderRadius: currentPage === page ? "12px" : "none",
               }}

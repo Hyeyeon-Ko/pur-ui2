@@ -130,11 +130,16 @@ const SearchFilter: React.FC<SearchFilterProps> = ({ fieldsConfig }) => {
       </div>
       <div className="flex justify-end py-4 w-[95%] mb-10">
         <div className="flex space-x-2">
-          <Button mode="sm" onClick={handleSearch} content="조회" />
+          <Button
+            mode="sm"
+            onClick={handleSearch}
+            color="signature"
+            content="조회"
+          />
           <Button
             mode="sm"
             variant="outline"
-            color="Button_Default"
+            color="signature"
             content="초기화"
             onClick={() =>
               setSearchData(

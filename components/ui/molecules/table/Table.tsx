@@ -127,7 +127,8 @@ const Table: React.FC<TableProps> = ({
             { value: "contract", label: "계약서 다운로드" },
             { value: "approve", label: "품의서 다운로드" },
           ]}
-          customStyle={{ color: colors.Button_Default }}
+          color="signature"
+          customStyle={{ color: colors.signature }}
         />
       );
     }
@@ -140,7 +141,7 @@ const Table: React.FC<TableProps> = ({
       <div className="pb-2">
         <span
           className="text-sm font-bold ml-2"
-          style={{ color: colors.Button_Default }}
+          style={{ color: colors.signature }}
         >
           {showCheckbox && `선택된 데이터 ${selectedRows.length} 개 / `}총
           데이터 {data.length} 개
@@ -153,7 +154,7 @@ const Table: React.FC<TableProps> = ({
         <table className="table-auto text-xs text-left text-gray-500 w-[100%]">
           <thead
             style={{
-              backgroundColor: colors["Blue_C_Lighten-6"],
+              backgroundColor: colors.Table_header,
               color: colors["Grey_Darken-3"],
             }}
             className="text-xs uppercase text-center"
