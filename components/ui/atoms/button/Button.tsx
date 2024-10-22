@@ -43,7 +43,7 @@ const Button: React.FC<ButtonProps> = ({
   };
 
   const backgroundColor = disabled
-    ? "gray"
+    ? "lightgray"
     : variant === "outline"
     ? "transparent"
     : color
@@ -51,7 +51,7 @@ const Button: React.FC<ButtonProps> = ({
     : "#2563EB";
 
   const textColor = disabled
-    ? "lightgray"
+    ? "gray"
     : variant === "outline"
     ? color
       ? colors[color]
@@ -64,23 +64,18 @@ const Button: React.FC<ButtonProps> = ({
     <button
       className={`m-1 transition-all duration-100 ease-in-out rounded ${
         modeClasses[mode]
-      } ${disabled ? "cursor-not-allowed" : "cursor-pointer"}`}
+      } ${
+        disabled
+          ? "cursor-not-allowed opacity-50"
+          : "cursor-pointer hover:opacity-80"
+      }`}
       style={{
         ...customStyle,
         backgroundColor,
         color: textColor,
         border: `1px solid ${border}`,
-        filter: disabled ? "saturate(0.5)" : "saturate(1)",
       }}
       onClick={!disabled ? onClick : undefined}
-      onMouseEnter={(e) => {
-        if (!disabled) {
-          e.currentTarget.style.filter = "saturate(0.7)";
-        }
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.filter = "saturate(1)";
-      }}
       disabled={disabled}
       type={type}
     >
