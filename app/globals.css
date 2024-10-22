@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+.dark {
+  --background: var(--black);
+  --foreground: var(--white);
+
+  --primary: 210 40% 98%;
+  --primary-foreground: 222.2 47.4% 11.2%;
+}
+
 .react-datepicker__input-container > input {
   border: 1px dotted #888888;
   color: #051d36;
