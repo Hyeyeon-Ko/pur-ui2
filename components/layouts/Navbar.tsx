@@ -1,20 +1,21 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useTheme } from "next-themes";
 import Button from "../ui/atoms/button/Button";
 import Link from "next/link";
 import Label from "../ui/atoms/label/Label";
 import { RiLogoutCircleRLine } from "react-icons/ri";
+import { FaMoon } from "react-icons/fa";
+import { FaSun } from "react-icons/fa";
+import colors from "@/styles/colors";
 
 const Navbar = () => {
-  const { theme, setTheme } = useTheme();
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
+  const { systemTheme, theme, setTheme } = useTheme();
+  const currentTheme = theme === "system" ? systemTheme : theme;
+  const [user, setUser] = useState(() => {
+    // 초기 상태에서 로컬 스토리지에서 사용자 정보를 가져옴
     const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-  }, []);
+    return storedUser ? JSON.parse(storedUser) : null;
+  });
 
   const handleLogout = () => {
     localStorage.removeItem("user");
@@ -22,12 +23,11 @@ const Navbar = () => {
   };
 
   const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
+    setTheme(currentTheme === "dark" ? "light" : "dark");
   };
 
   return (
     <nav className="p-1 mx-4 flex justify-end items-center">
-      <Button mode="lg" onClick={toggleTheme} content="모드변경" />
       {user ? (
         <div className="flex gap-4 items-center">
           <Label content={user.employeeId} mode="lg" />
@@ -38,7 +38,6 @@ const Navbar = () => {
               onClick={handleLogout}
               customStyle={{
                 borderRadius: "25px",
-                marginRight: "20px",
                 display: "flex",
                 gap: "4px",
                 alignItems: "center",
@@ -57,7 +56,6 @@ const Navbar = () => {
             color="signature"
             customStyle={{
               borderRadius: "25px",
-              marginRight: "20px",
               display: "flex",
               gap: "4px",
               alignItems: "center",
@@ -65,6 +63,18 @@ const Navbar = () => {
           />
         </Link>
       )}
+      <Button
+        mode="xs"
+        onClick={toggleTheme}
+        color="transparent"
+        hoverEffect={false}
+      >
+        {currentTheme === "dark" ? (
+          <FaSun size={20} />
+        ) : (
+          <FaMoon size={20} style={{ color: colors.Button_Default }} />
+        )}
+      </Button>
     </nav>
   );
 };

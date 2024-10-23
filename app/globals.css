@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 .dark {
-  --background: var(--black);
-  --foreground: var(--white);
+  --background: var(--red);
+  /* --foreground: var(--white); */
 
   --primary: 210 40% 98%;
   --primary-foreground: 222.2 47.4% 11.2%;

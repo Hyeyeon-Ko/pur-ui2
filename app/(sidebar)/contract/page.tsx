@@ -147,7 +147,7 @@ const MenuPage = () => {
   };
 
   return (
-    <div className="prose dark:prose-invert flex flex-col mb-4">
+    <div className="flex flex-col mb-4">
       <PageTitle pageTitle="계약조회" mode="xl" fontWeight="bold" />
 
       <div>

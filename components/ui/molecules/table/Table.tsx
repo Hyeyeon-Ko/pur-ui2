@@ -184,7 +184,7 @@ const Table: React.FC<TableProps> = ({
         className="mx-auto rounded-lg shadow-lg border w-[100%]"
       >
         <table className="table-auto text-xs text-left text-gray-500 w-[100%]">
-          <thead>
+          <thead style={{ backgroundColor: colors.Table_header }}>
             <tr>
               {showCheckbox && (
                 <th className="px-4 py-3">

@@ -7,6 +7,7 @@ import colors from "@/styles/colors";
  * disabled: 활성/ 비활성(초깃값 false)
  * variant: 버튼 형태 - 채워진 버튼 / 비어있는 버튼
  * onClick: 클릭이벤트
+ * hoverEffect: hover 효과 활성화 여부
  */
 
 export type ButtonMode = "sm" | "xs" | "lg" | "md" | undefined;
@@ -22,6 +23,7 @@ interface ButtonProps {
   variant?: ButtonVariant;
   onClick?: () => void;
   children?: React.ReactNode;
+  hoverEffect?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -34,6 +36,7 @@ const Button: React.FC<ButtonProps> = ({
   variant = "inline",
   onClick,
   children,
+  hoverEffect = true,
 }) => {
   const modeClasses = {
     sm: "text-sm px-4 py-2",
@@ -64,10 +67,8 @@ const Button: React.FC<ButtonProps> = ({
     <button
       className={`m-1 transition-all duration-100 ease-in-out rounded ${
         modeClasses[mode]
-      } ${
-        disabled
-          ? "cursor-not-allowed opacity-50"
-          : "cursor-pointer hover:opacity-80"
+      } ${disabled ? "cursor-not-allowed opacity-50" : ""} ${
+        hoverEffect && !disabled ? "hover:opacity-80 cursor-pointer" : ""
       }`}
       style={{
         ...customStyle,
