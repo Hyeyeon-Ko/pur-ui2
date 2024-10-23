@@ -34,7 +34,7 @@ export default function DashboardLayout({
   }, []);
 
   return (
-    <div className="h-screen flex dark:bg-black">
+    <div className="h-screen flex :bg-black">
       {/* 사이드바 */}
       <div
         style={{ backgroundColor: colors.signature }}

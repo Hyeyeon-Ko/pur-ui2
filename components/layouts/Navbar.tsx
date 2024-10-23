@@ -3,6 +3,7 @@ import Button from "../ui/atoms/button/Button";
 import Link from "next/link";
 import Label from "../ui/atoms/label/Label";
 import { RiLogoutCircleRLine } from "react-icons/ri";
+import ThemeToggle from "../ui/molecules/buttons/ThemeToggle";
 
 const Navbar = () => {
   const [user, setUser] = useState(null);
@@ -61,6 +62,7 @@ const Navbar = () => {
           />
         </Link>
       )}
+      <ThemeToggle />
     </nav>
   );
 };

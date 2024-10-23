@@ -11,9 +11,9 @@
   font-size: 14px;
 }
 
-.dark .react-datepicker__input-container > input {
+/* .dark .react-datepicker__input-container > input {
   color: #cccccc;
-}
+} */
 
 .react-datepicker__input-container > svg {
   padding: 12px !important;
