@@ -175,7 +175,8 @@ const Table: React.FC<TableProps> = ({
 
   const tableHeaderColor = theme === "dark" ? "#2E2E2E" : colors.Table_header; // 다크 모드 색상
   const tableRowColor = theme === "dark" ? "#1F1F1F" : colors["Grey_Lighten-2"];
-  const textColor = theme === "dark" ? "#FFFFFF" : colors["Grey_Darken-4"];
+  const textColor =
+    theme === "dark" ? colors["Grey_Lighten-2"] : colors["Grey_Darken-4"];
 
   return (
     <div className="mx-5" style={{ ...customStyle }}>
@@ -183,8 +184,7 @@ const Table: React.FC<TableProps> = ({
         <span
           className="text-sm font-bold ml-2"
           style={{
-            color:
-              theme === "dark" ? colors["Grey_Lighten-1"] : colors.signature,
+            color: theme === "dark" ? colors.sub : colors.signature,
           }}
         >
           {showCheckbox && `선택된 데이터 ${selectedRows.length} 개 / `}총

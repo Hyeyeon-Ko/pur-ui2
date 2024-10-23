@@ -21,6 +21,7 @@ import SearchFilter, {
 } from "@/components/ui/organism/filter/SearchFilter";
 import PageTitle from "@/components/ui/molecules/titles/PageTitle";
 import { contractRowData } from "@/types/dummyTypes";
+import { useTheme } from "next-themes";
 
 const fieldsConfig: FieldConfig[] = [
   { name: "center", type: "select", options: centerOptions, label: "센터" },
@@ -50,6 +51,7 @@ const fieldsConfig: FieldConfig[] = [
 ];
 
 const MenuPage = () => {
+  const { theme } = useTheme();
   const [downloadOption, setDownloadOption] = useState("");
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
   const [filteredData, setFilteredData] = useState(contractData);

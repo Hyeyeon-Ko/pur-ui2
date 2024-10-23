@@ -21,7 +21,7 @@ const PageTitle: React.FC<TitleProps> = ({
   const { theme } = useTheme(); // 현재 테마 가져오기
   const textColor =
     theme === "dark"
-      ? colors["Grey_Lighten-2"]
+      ? colors.sub
       : color
       ? colors[color]
       : colors.signature;
