@@ -1,6 +1,5 @@
 import colors from "@/styles/colors";
 import React, { CSSProperties } from "react";
-import { useTheme } from "next-themes"; // useTheme 추가
 
 export type ChipMode = "sm" | "xs" | "lg" | "md" | undefined;
 export type ChipVariant = "inline" | "outline";
@@ -24,8 +23,6 @@ const Chip: React.FC<ChipProps> = ({
   variant = "outline",
   onClick,
 }) => {
-  const { theme } = useTheme(); // 현재 테마 가져오기
-
   const modeClasses = {
     sm: "text-sm px-4 py-2",
     xs: "text-xs px-2 py-1",
@@ -37,8 +34,6 @@ const Chip: React.FC<ChipProps> = ({
     ? "gray"
     : variant === "outline"
     ? "transparent"
-    : theme === "dark"
-    ? colors.sub // 다크 모드일 때 colors.sub 사용
     : color
     ? colors[color]
     : "#2563EB";
@@ -46,22 +41,12 @@ const Chip: React.FC<ChipProps> = ({
   const textColor = disabled
     ? "lightgray"
     : variant === "outline"
-    ? theme === "dark"
-      ? colors.Button_Default // 다크 모드에서 outline일 때 폰트 색상
-      : color
+    ? color
       ? colors[color]
       : "black"
-    : "white"; // 일반 모드일 때 텍스트 색상
+    : "white";
 
-  const border = disabled
-    ? "lightgray"
-    : variant === "outline"
-    ? theme === "dark"
-      ? colors.Button_Default // 다크 모드에서 outline일 때 border 색상
-      : color
-      ? colors[color]
-      : "transparent"
-    : "transparent";
+  const border = disabled ? "lightgray" : color ? colors[color] : "transparent";
 
   return (
     <button

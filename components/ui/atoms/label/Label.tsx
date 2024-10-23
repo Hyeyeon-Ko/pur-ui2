@@ -1,6 +1,5 @@
 import React, { CSSProperties } from "react";
 import colors from "@/styles/colors";
-import { useTheme } from "next-themes";
 
 export type LabelMode = "sm" | "xs" | "lg" | "md" | "xl" | undefined;
 
@@ -19,8 +18,6 @@ const Label: React.FC<LabelProps> = ({
   color,
   fontWeight = "normal",
 }) => {
-  const { theme } = useTheme();
-
   const modeClasses = {
     sm: "text-sm",
     xs: "text-xs",
@@ -28,7 +25,6 @@ const Label: React.FC<LabelProps> = ({
     lg: "text-lg",
     xl: "text-3xl",
   };
-
 
   const textColor = color ? colors[color] : "black";
 
@@ -41,9 +37,7 @@ const Label: React.FC<LabelProps> = ({
 
   return (
     <label
-      className={`${modeClasses[mode]} ${fontWeightClass} ${
-        theme === "dark" ? "text-white" : `text-${textColor.replace("#", "")}`
-      }`} 
+      className={`${modeClasses[mode]} text-${textColor} ${fontWeightClass}`} // 폰트 굵기 클래스 추가
       style={{
         ...customStyle,
       }}

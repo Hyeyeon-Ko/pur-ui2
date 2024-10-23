@@ -20,8 +20,6 @@ import SearchFilter, {
   FieldConfig,
 } from "@/components/ui/organism/filter/SearchFilter";
 import PageTitle from "@/components/ui/molecules/titles/PageTitle";
-import { contractRowData } from "@/types/dummyTypes";
-import { useTheme } from "next-themes";
 
 const fieldsConfig: FieldConfig[] = [
   { name: "center", type: "select", options: centerOptions, label: "센터" },
@@ -51,15 +49,14 @@ const fieldsConfig: FieldConfig[] = [
 ];
 
 const MenuPage = () => {
-  const { theme } = useTheme();
   const [downloadOption, setDownloadOption] = useState("");
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
-  const [filteredData, setFilteredData] = useState(contractData);
 
   const { handleFileUpload, downloadCsv } = useExcelFileHandler();
+
   const { formatCenterData, formatDate, formatCurrency } = useFormatHandler();
 
-  const formattedData = filteredData.map((item) => ({
+  const formattedData = contractData.map((item) => ({
     ...item,
     센터: formatCenterData(item.센터) || "-",
     계약일자: formatDate(item.계약일자),
@@ -74,6 +71,7 @@ const MenuPage = () => {
 
   const handleRowSelect = useCallback((selectedRowIds: string[]) => {
     const uniqueSelectedRows = Array.from(new Set(selectedRowIds));
+
     setSelectedRows(uniqueSelectedRows);
   }, []);
 
@@ -148,53 +146,12 @@ const MenuPage = () => {
     }
   };
 
-  const handleSearch = (searchData: {
-    [key: string]: string | Date | undefined;
-  }) => {
-    console.log("Search Data:", searchData);
-
-    const filtered = contractData.filter((item) => {
-      return Object.entries(searchData).every(([key, value]) => {
-        if (!value) return true;
-
-        if (key in item) {
-          const itemValue = item[key as keyof contractRowData];
-
-          if (key.includes("Date")) {
-            if (typeof itemValue === "string") {
-              return (
-                itemValue &&
-                new Date(itemValue).toDateString() ===
-                  new Date(value as Date).toDateString()
-              );
-            } else if (Array.isArray(itemValue)) {
-              return (
-                itemValue.length > 0 &&
-                new Date(itemValue[0]).toDateString() ===
-                  new Date(value as Date).toDateString()
-              );
-            }
-          } else {
-            return itemValue
-              ?.toString()
-              .toLowerCase()
-              .includes((value as string).toLowerCase()); // 대소문자 구분 없이 포함 여부 확인
-          }
-        }
-        return false;
-      });
-    });
-
-    console.log("Filtered Data:", filtered);
-    setFilteredData(filtered);
-  };
-
   return (
-    <div className="flex flex-col mb-4">
+    <div className="prose dark:prose-invert flex flex-col mb-4">
       <PageTitle pageTitle="계약조회" mode="xl" fontWeight="bold" />
 
       <div>
-        <SearchFilter fieldsConfig={fieldsConfig} onSearch={handleSearch} />
+        <SearchFilter fieldsConfig={fieldsConfig} />
       </div>
       <div className="flex justify-end mr-6">
         <FileUploadButton

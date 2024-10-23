@@ -2,7 +2,6 @@
 
 import React, { CSSProperties, useState } from "react";
 import colors from "@/styles/colors";
-import { useTheme } from "next-themes";
 
 export type InputMode = "sm" | "xs" | "lg" | "md" | undefined;
 
@@ -36,7 +35,6 @@ const Input: React.FC<InputProps> = ({
   onChange,
   validation,
 }) => {
-  const { theme } = useTheme(); // 현재 테마 가져오기
   const [isFocused, setIsFocused] = useState(false);
   const [isValid, setIsValid] = useState<boolean | null>(null); // 유효성 검사 상태
   const [errorMessage, setErrorMessage] = useState<string>(""); // 메시지 상태
@@ -77,14 +75,6 @@ const Input: React.FC<InputProps> = ({
     ? colors[color]
     : "#2563EB";
 
-  const backgroundColor = disabled
-    ? "#E5E7EB" // 다크 모드 비활성화 색상
-    : theme === "dark"
-    ? "transparent" // 다크 모드 배경색
-    : "#FFFFFF"; // 라이트 모드 배경색
-
-  const textColor = theme === "dark" ? "#FFFFFF" : "#000000"; // 텍스트 색상
-
   return (
     <div>
       <input
@@ -94,8 +84,6 @@ const Input: React.FC<InputProps> = ({
         style={{
           ...customStyle,
           borderColor,
-          backgroundColor,
-          color: textColor, // 텍스트 색상 적용
         }}
         name={name}
         accept={accept}

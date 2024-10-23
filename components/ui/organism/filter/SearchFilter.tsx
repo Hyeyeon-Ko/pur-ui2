@@ -5,7 +5,6 @@ import Button from "../../atoms/button/Button";
 import SingleDatePicker from "../../atoms/datepicker/SingleDatePicker";
 import colors from "@/styles/colors";
 import Label from "../../atoms/label/Label";
-import { useTheme } from "next-themes"; // useTheme 추가
 
 export type FieldConfig = {
   name: string;
@@ -21,15 +20,14 @@ type SearchFilterProps = {
 
 const SearchFilter: React.FC<SearchFilterProps> = ({
   fieldsConfig,
-  onSearch = () => {},
+  onSearch,
 }) => {
-  const { theme } = useTheme(); // 현재 테마 가져오기
   const [searchData, setSearchData] = useState<{
     [key: string]: string | Date | undefined;
   }>(
     fieldsConfig.reduce((acc, field) => {
       if (field.type === "date") {
-        acc[field.name] = new Date(); // 기본값 오늘 날짜
+        acc[field.name] = new Date(); // 오늘 날짜
       } else {
         acc[field.name] = "";
       }
@@ -49,12 +47,8 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
   };
 
   const handleSearch = () => {
-    console.log("Search function called"); // 호출 확인
-    console.log("Search Data:", searchData);
     onSearch(searchData);
   };
-
-  console.log("onSearch prop:", onSearch);
 
   const renderField = (field: FieldConfig) => {
     switch (field.type) {
@@ -73,9 +67,6 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
                 width: "100%",
                 margin: "0",
                 height: "40px",
-                color: colors.Button_Default,
-                borderColor:
-                  theme === "dark" ? colors.Button_Default : colors.white,
               }}
             />
           </div>
@@ -96,8 +87,6 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
                 margin: "0",
                 border: "none",
                 height: "40px",
-                backgroundColor: theme === "dark" ? colors.sub : "white", // 다크 모드 배경색
-                color: theme === "dark" ? "white" : "black", // 다크 모드 텍스트 색상
               }}
             />
           </div>
@@ -106,10 +95,7 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
         return (
           <div className="flex flex-col justify-around items-start">
             <Label
-              customStyle={{
-                marginLeft: "4px",
-                color: theme === "dark" ? "white" : "black",
-              }} // 다크 모드 텍스트 색상
+              customStyle={{ marginLeft: "4px" }}
               content={field.label}
               mode="xs"
             />
@@ -128,29 +114,16 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
   return (
     <>
       <div
-        style={{
-          borderColor:
-            theme === "dark"
-              ? colors["Grey_Darken-4"]
-              : colors["Grey_Lighten-4"],
-          backgroundColor: colors.transparent, // 다크 모드 배경색
-          color: theme === "dark" ? colors["Grey_Lighten-4"] : "black", // 다크 모드 텍스트 색상
-        }}
-        className="border-t mx-auto rounded-lg shadow-lg w-[90%]"
+        style={{ borderColor: colors["Grey_Lighten-4"] }}
+        className="border-t mx-auto rounded-lg shadow-lg w-[90%] bg-white"
       >
         <div>
           <div className="flex flex-wrap">
             {fieldsConfig.map((field) => (
               <div
                 key={field.name}
-                className="flex-1 border-b border-r border-l p-2"
-                style={{
-                  borderColor:
-                    theme === "dark"
-                      ? colors["Grey_Darken-4"]
-                      : colors["Grey_Lighten-4"],
-                  backgroundColor: colors.transparent, // 다크 모드 배경색
-                }}
+                className="flex-1 border-b border-r p-2 bg-gray-50"
+                style={{ borderColor: colors["Grey_Lighten-3"] }}
               >
                 {renderField(field)}
               </div>

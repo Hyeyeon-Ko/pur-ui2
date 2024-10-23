@@ -5,7 +5,6 @@ import Chip from "../../atoms/chip/Chip";
 import SingleDatePicker from "../../atoms/datepicker/SingleDatePicker";
 import FileUploadButton from "../buttons/FileUploadButton";
 import colors from "@/styles/colors";
-import { useTheme } from "next-themes";
 
 interface VerticalTableProps {
   data: Array<{
@@ -25,8 +24,6 @@ const VerticalTable: React.FC<VerticalTableProps> = ({
   onChipClick,
   checkedItems,
 }) => {
-  const { theme } = useTheme(); // 현재 테마 가져오기
-
   const renderContent = (row: {
     title: string;
     type?: string;
@@ -49,8 +46,6 @@ const VerticalTable: React.FC<VerticalTableProps> = ({
               outline: "none",
               boxShadow: "none",
               width: "100%",
-              backgroundColor: theme === "dark" ? "#333" : "#fff", // 다크 모드 배경색
-              color: theme === "dark" ? "#fff" : "#000", // 다크 모드 텍스트 색상
             }}
           />
         );
@@ -114,34 +109,20 @@ const VerticalTable: React.FC<VerticalTableProps> = ({
           {data.map((row) => (
             <tr
               key={row.id}
-              style={{
-                borderBottom:
-                  theme === "dark"
-                    ? `1px solid ${colors["Grey_Darken-4"]}`
-                    : `1px solid ${colors["Grey_Lighten-4"]}`,
-              }}
+              style={{ borderBottom: `1px solid ${colors["Grey_Lighten-4"]}` }}
             >
               <th
                 style={{
-                  backgroundColor:
-                    theme === "dark" ? "#2E2E2E" : colors.Table_header, // 다크 모드 색상
-                  color: theme === "dark" ? "#FFFFFF" : colors["Grey_Darken-3"], // 다크 모드 텍스트 색상
-                  borderBottom:
-                    theme === "dark"
-                      ? `1px solid ${colors["Grey_Darken-4"]}`
-                      : `1px solid ${colors["Grey_Lighten-4"]}`,
+                  backgroundColor: colors.Table_header,
+                  color: colors["Grey_Darken-3"],
+                  borderBottom: `1px solid ${colors["Grey_Lighten-4"]}`,
                   borderLeft: "1px solid transparent",
                 }}
                 className="text-xs uppercase text-center"
               >
                 {row.title}
               </th>
-              <td
-                className="px-4 py-2 text-xs"
-                style={{ color: theme === "dark" ? "#FFFFFF" : "#000000" }}
-              >
-                {renderContent(row)}
-              </td>
+              <td className="px-4 py-2 text-xs">{renderContent(row)}</td>
             </tr>
           ))}
         </tbody>
