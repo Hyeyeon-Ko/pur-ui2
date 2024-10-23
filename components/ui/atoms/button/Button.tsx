@@ -1,5 +1,6 @@
 import React, { CSSProperties } from "react";
 import colors from "@/styles/colors";
+import { useTheme } from "next-themes"; // useTheme 추가
 
 /**
  * mode: 버튼 사이즈
@@ -38,6 +39,8 @@ const Button: React.FC<ButtonProps> = ({
   children,
   hoverEffect = true,
 }) => {
+  const { theme } = useTheme();
+
   const modeClasses = {
     sm: "text-sm px-4 py-2",
     xs: "text-xs px-2 py-1",
@@ -49,6 +52,8 @@ const Button: React.FC<ButtonProps> = ({
     ? "lightgray"
     : variant === "outline"
     ? "transparent"
+    : theme === "dark"
+    ? colors.sub
     : color
     ? colors[color]
     : "#2563EB";
@@ -56,12 +61,14 @@ const Button: React.FC<ButtonProps> = ({
   const textColor = disabled
     ? "gray"
     : variant === "outline"
-    ? color
-      ? colors[color]
-      : "black"
+    ? colors.sub
     : "white";
 
-  const border = disabled ? "lightgray" : color ? colors[color] : "transparent";
+  const border = disabled
+    ? "lightgray"
+    : variant === "outline"
+    ? colors.sub
+    : "transparent";
 
   return (
     <button

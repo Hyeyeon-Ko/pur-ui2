@@ -3,6 +3,7 @@ import Pagination from "../pagination/Pagination";
 import Checkbox from "../../atoms/checkbox/Checkbox";
 import colors from "@/styles/colors";
 import SelectBox from "../../atoms/selectBox/Select";
+import { useTheme } from "next-themes";
 
 /**
  * 가로형 테이블 (일반 테이블)
@@ -44,6 +45,7 @@ const Table: React.FC<TableProps> = ({
   sorter = null,
   setSorter,
 }) => {
+  const { theme } = useTheme(); // 현재 테마 가져오기
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(data.length / rowsPerPage);
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
@@ -159,8 +161,11 @@ const Table: React.FC<TableProps> = ({
             { value: "contract", label: "계약서 다운로드" },
             { value: "approve", label: "품의서 다운로드" },
           ]}
-          color="signature"
-          customStyle={{ color: colors.signature }}
+          customStyle={{
+            color: theme === "dark" ? colors.Button_Default : colors.signature,
+            borderColor:
+              theme === "dark" ? colors.Button_Default : colors.signature,
+          }}
         />
       );
     }
@@ -168,12 +173,19 @@ const Table: React.FC<TableProps> = ({
     return row[column];
   };
 
+  const tableHeaderColor = theme === "dark" ? "#2E2E2E" : colors.Table_header; // 다크 모드 색상
+  const tableRowColor = theme === "dark" ? "#1F1F1F" : colors["Grey_Lighten-2"];
+  const textColor = theme === "dark" ? "#FFFFFF" : colors["Grey_Darken-4"];
+
   return (
     <div className="mx-5" style={{ ...customStyle }}>
       <div className="pb-2">
         <span
           className="text-sm font-bold ml-2"
-          style={{ color: colors.signature }}
+          style={{
+            color:
+              theme === "dark" ? colors["Grey_Lighten-1"] : colors.signature,
+          }}
         >
           {showCheckbox && `선택된 데이터 ${selectedRows.length} 개 / `}총
           데이터 {data.length} 개
@@ -183,8 +195,11 @@ const Table: React.FC<TableProps> = ({
         style={{ borderColor: "transparent" }}
         className="mx-auto rounded-lg shadow-lg border w-[100%]"
       >
-        <table className="table-auto text-xs text-left text-gray-500 w-[100%]">
-          <thead style={{ backgroundColor: colors.Table_header }}>
+        <table
+          className="table-auto text-xs text-left w-[100%]"
+          style={{ color: textColor }}
+        >
+          <thead style={{ backgroundColor: tableHeaderColor }}>
             <tr>
               {showCheckbox && (
                 <th className="px-4 py-3">
@@ -232,8 +247,8 @@ const Table: React.FC<TableProps> = ({
                 onDoubleClick={() => handleRowDoubleClick(row)}
                 key={index}
                 style={{
-                  color: colors["Grey_Darken-4"],
-                  borderBottom: `1px solid ${colors["Grey_Lighten-2"]}`,
+                  color: textColor,
+                  borderBottom: `1px solid ${tableRowColor}`,
                 }}
                 className="text-center transition duration-150 ease-in-out hover:bg-gray-200 hover:shadow-md"
               >
