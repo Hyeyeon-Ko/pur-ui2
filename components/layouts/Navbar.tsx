@@ -1,18 +1,13 @@
 import { useEffect, useState } from "react";
-import { useTheme } from "next-themes";
 import Button from "../ui/atoms/button/Button";
 import Link from "next/link";
 import Label from "../ui/atoms/label/Label";
 import { RiLogoutCircleRLine } from "react-icons/ri";
-import { FaMoon } from "react-icons/fa";
-import { FaSun } from "react-icons/fa";
-import colors from "@/styles/colors";
 
 const Navbar = () => {
-  const { systemTheme, theme, setTheme } = useTheme();
-  const currentTheme = theme === "system" ? systemTheme : theme;
   const [user, setUser] = useState(null);
 
+  // 클라이언트에서만 실행되는 코드
   useEffect(() => {
     // 컴포넌트가 마운트될 때 로컬 스토리지에서 사용자 정보를 가져옴
     const storedUser = localStorage.getItem("user");
@@ -22,16 +17,14 @@ const Navbar = () => {
   }, []);
 
   const handleLogout = () => {
+    // 로컬스토리지에서 사용자 정보 삭제
     localStorage.removeItem("user");
+    // 사용자 상태 업데이트
     setUser(null);
   };
 
-  const toggleTheme = () => {
-    setTheme(currentTheme === "dark" ? "light" : "dark");
-  };
-
   return (
-    <nav className="p-4 mx-4 flex justify-end items-center">
+    <nav className="p-1 mx-4 flex justify-end items-center">
       {user ? (
         <div className="flex gap-4 items-center">
           <Label content={user.employeeId} mode="lg" />
@@ -67,16 +60,6 @@ const Navbar = () => {
             }}
           />
         </Link>
-      )}
-
-      {currentTheme === "dark" ? (
-        <FaSun size={20} onClick={toggleTheme} />
-      ) : (
-        <FaMoon
-          size={20}
-          onClick={toggleTheme}
-          style={{ color: colors.Button_Default }}
-        />
       )}
     </nav>
   );

@@ -2,7 +2,11 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+<<<<<<< HEAD
+import { useParams } from "next/navigation";
+=======
 import { useParams } from "next/navigation"; // useParams를 추가
+>>>>>>> 9adb13cf55bbf642c90670a28abd9c532a3ba2ab
 import PageTitle from "@/components/ui/molecules/titles/PageTitle";
 import VerticalTable from "@/components/ui/molecules/verticalTable/VerticalTable";
 import Button from "@/components/ui/atoms/button/Button";
@@ -148,14 +152,12 @@ const AddItemPage = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // 데이터 저장 로직
     const newItem = {
-      id: Math.random().toString(), // 유일한 ID 생성
+      id: Math.random().toString(),
       ...formData,
-      checkedItems, // 체크된 아이템도 포함
+      checkedItems,
     };
 
-    // 비동기 API 호출
     fetch("/api/items", {
       method: "POST",
       headers: {
@@ -175,7 +177,6 @@ const AddItemPage = () => {
       })
       .catch((error) => {
         console.error("저장 중 오류 발생:", error);
-        // 사용자에게 오류 메시지를 표시할 수 있음
       });
   };
 
