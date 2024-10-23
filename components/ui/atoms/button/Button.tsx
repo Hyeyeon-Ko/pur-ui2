@@ -58,7 +58,15 @@ const Button: React.FC<ButtonProps> = ({
       : "black"
     : "white";
 
-  const border = disabled ? "lightgray" : color ? colors[color] : "transparent";
+  const border = disabled
+    ? "lightgray"
+    : variant === "outline"
+    ? color
+      ? colors[color]
+      : "black"
+    : color
+    ? colors[color]
+    : "transparent";
 
   return (
     <button
@@ -68,7 +76,7 @@ const Button: React.FC<ButtonProps> = ({
         disabled
           ? "cursor-not-allowed opacity-50"
           : "cursor-pointer hover:opacity-80"
-      }`}
+      } dark:bg-gray-dark dark:text-white`}
       style={{
         ...customStyle,
         backgroundColor,

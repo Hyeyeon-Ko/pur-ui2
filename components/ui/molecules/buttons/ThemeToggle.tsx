@@ -1,4 +1,10 @@
 import React, { useEffect, useState } from "react";
+import Button from "../../atoms/button/Button";
+
+interface ThemeToggleProps {
+  isDarkMode: boolean;
+  toggleDarkMode: () => void;
+}
 
 const ThemeToggle: React.FC = () => {
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
@@ -21,12 +27,11 @@ const ThemeToggle: React.FC = () => {
   };
 
   return (
-    <button
-      onClick={toggleTheme}
-      className="p-2 border rounded bg-blue-500 text-white dark:bg-dark-blue dark:text-black"
-    >
-      {isDarkMode ? "다크 모드 끄기" : "다크 모드 켜기"}
-    </button>
+    <>
+      <Button onClick={toggleTheme} color={isDarkMode ? "sub" : "signature"}>
+        {isDarkMode ? "다크 모드 끄기" : "다크 모드 켜기"}
+      </Button>
+    </>
   );
 };
 
