@@ -1,5 +1,6 @@
 import React from "react";
 import colors from "@/styles/colors";
+import { useTheme } from "next-themes"; // useTheme 추가
 
 interface PaginationProps {
   currentPage: number;
@@ -24,6 +25,8 @@ const Pagination: React.FC<PaginationProps> = ({
   nextLabel = ">",
   lastLabel = ">>",
 }) => {
+  const { theme } = useTheme(); // 현재 테마 가져오기
+
   const handlePageChange = (page: number) => {
     if (page >= 1 && page <= totalPages) {
       onPageChange(page);
@@ -60,7 +63,11 @@ const Pagination: React.FC<PaginationProps> = ({
               onClick={() => handlePageChange(page)}
               style={{
                 backgroundColor:
-                  currentPage === page ? colors.signature : "transparent",
+                  currentPage === page
+                    ? colors.sub // 현재 페이지일 때 배경색
+                    : theme === "dark"
+                    ? colors.transparent // 다크 모드일 때 기본 배경색
+                    : "transparent", // 라이트 모드일 때 투명
                 color: currentPage === page ? "white" : "gray",
                 borderRadius: currentPage === page ? "12px" : "none",
               }}

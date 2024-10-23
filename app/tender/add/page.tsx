@@ -2,7 +2,11 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+<<<<<<< HEAD
 import { useParams } from "next/navigation";
+=======
+import { useParams } from "next/navigation"; // useParams를 추가
+>>>>>>> 9adb13cf55bbf642c90670a28abd9c532a3ba2ab
 import PageTitle from "@/components/ui/molecules/titles/PageTitle";
 import VerticalTable from "@/components/ui/molecules/verticalTable/VerticalTable";
 import Button from "@/components/ui/atoms/button/Button";

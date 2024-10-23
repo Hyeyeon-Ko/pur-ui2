@@ -1,6 +1,7 @@
 import React, { CSSProperties } from "react";
 import Label from "../../atoms/label/Label";
 import colors from "@/styles/colors";
+import { useTheme } from "next-themes"; // useTheme 추가
 
 interface TitleProps {
   pageTitle: string;
@@ -17,7 +18,13 @@ const PageTitle: React.FC<TitleProps> = ({
   mode = "xl",
   fontWeight = "normal",
 }) => {
-  const textColor = color ? colors[color] : colors.signature;
+  const { theme } = useTheme(); // 현재 테마 가져오기
+  const textColor =
+    theme === "dark"
+      ? colors.sub
+      : color
+      ? colors[color]
+      : colors.signature;
 
   return (
     <div className="p-10 m-2" style={{ ...customStyle, color: textColor }}>

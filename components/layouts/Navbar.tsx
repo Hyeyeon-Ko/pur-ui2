@@ -9,6 +9,7 @@ const Navbar = () => {
 
   // 클라이언트에서만 실행되는 코드
   useEffect(() => {
+    // 컴포넌트가 마운트될 때 로컬 스토리지에서 사용자 정보를 가져옴
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
       setUser(JSON.parse(storedUser));
@@ -34,10 +35,10 @@ const Navbar = () => {
               onClick={handleLogout}
               customStyle={{
                 borderRadius: "25px",
-                marginRight: "20px",
                 display: "flex",
                 gap: "4px",
                 alignItems: "center",
+                marginRight: "12px",
               }}
             >
               <span>로그아웃</span>
@@ -53,7 +54,6 @@ const Navbar = () => {
             color="signature"
             customStyle={{
               borderRadius: "25px",
-              marginRight: "20px",
               display: "flex",
               gap: "4px",
               alignItems: "center",

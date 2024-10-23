@@ -60,7 +60,7 @@ const TenderDetail: React.FC<TenderDetailProps> = ({ params }) => {
   //   if (id) {
   //     const fetchData = async () => {
   //       try {
-  //         const response = await fetch(`/api/tender/${id}`); // API 엔드포인트 예시
+  //         const response = await fetch(`/api/tender/`); // API 엔드포인트 예시
   //         if (!response.ok) {
   //           throw new Error("Network response was not ok");
   //         }

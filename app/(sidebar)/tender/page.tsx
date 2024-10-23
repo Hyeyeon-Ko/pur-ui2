@@ -20,6 +20,7 @@ import SearchFilter, {
   FieldConfig,
 } from "@/components/ui/organism/filter/SearchFilter";
 import PageTitle from "@/components/ui/molecules/titles/PageTitle";
+import Link from "next/link";
 
 const fieldsConfig: FieldConfig[] = [
   { name: "center", type: "select", options: centerOptions },
@@ -133,6 +134,10 @@ const MenuPage = () => {
     }
   };
 
+  const handleOpenAddPage = () => {
+    window.open("/tender/add", "_blank", "noopener,noreferrer,fullscreen");
+  };
+
   return (
     <div className="flex flex-col mb-4">
       <PageTitle pageTitle="입찰조회" mode="xl" fontWeight="bold" />
@@ -141,6 +146,8 @@ const MenuPage = () => {
         <SearchFilter fieldsConfig={fieldsConfig} />
       </div>
       <div className="flex justify-end mr-6">
+        <Button mode="xs" content="추가" onClick={handleOpenAddPage} />
+
         <FileUploadButton
           onFileUpload={handleFileUpload}
           buttonText="엑셀업로드"

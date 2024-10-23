@@ -18,7 +18,8 @@ interface TenderDetailProps {
   };
 }
 
-const TenderDetail: React.FC<TenderDetailProps> = ({ params }) => {
+// TODO: 매개변수로 params 추가할 것
+const TenderDetail: React.FC<TenderDetailProps> = () => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
   const [downloadOption, setDownloadOption] = useState("");
 
@@ -26,6 +27,42 @@ const TenderDetail: React.FC<TenderDetailProps> = ({ params }) => {
   const [checkedItems, setCheckedItems] = useState<{ [key: string]: boolean }>(
     {}
   );
+
+  const { handleFileUpload, downloadCsv } = useExcelFileHandler();
+  const { formatCenterData, formatDate, formatCurrency } = useFormatHandler();
+
+  // const { id } = params; // params에서 ID 가져오기
+  // const [tenderData, setTenderData] = useState(null);
+  // const [loading, setLoading] = useState(true);
+
+  // useEffect(() => {
+  //   if (id) {
+  //     const fetchData = async () => {
+  //       try {
+  //         const response = await fetch(`/api/tender/${id}`); // API 엔드포인트 예시
+  //         if (!response.ok) {
+  //           throw new Error("Network response was not ok");
+  //         }
+  //         const data = await response.json();
+  //         setTenderData(data);
+  //       } catch (error) {
+  //         console.error("Error fetching tender data:", error);
+  //       } finally {
+  //         setLoading(false);
+  //       }
+  //     };
+
+  //     fetchData();
+  //   }
+  // }, [id]);
+
+  // if (loading) {
+  //   return <div>Loading...</div>; // 로딩 상태 표시
+  // }
+
+  // if (!tenderData) {
+  //   return <div>No data found for ID: {id}</div>; // 데이터가 없을 경우 표시
+  // }
 
   // 체크박스 버튼 핸들러
   const handleChipClick = (label: string, title: string) => {
@@ -69,42 +106,6 @@ const TenderDetail: React.FC<TenderDetailProps> = ({ params }) => {
       return newCheckedItems;
     });
   };
-
-  const { handleFileUpload, downloadCsv } = useExcelFileHandler();
-  const { formatCenterData, formatDate, formatCurrency } = useFormatHandler();
-
-  const { id } = params; // params에서 ID 가져오기
-  // const [tenderData, setTenderData] = useState(null);
-  // const [loading, setLoading] = useState(true);
-
-  // useEffect(() => {
-  //   if (id) {
-  //     const fetchData = async () => {
-  //       try {
-  //         const response = await fetch(`/api/tender/${id}`); // API 엔드포인트 예시
-  //         if (!response.ok) {
-  //           throw new Error("Network response was not ok");
-  //         }
-  //         const data = await response.json();
-  //         setTenderData(data);
-  //       } catch (error) {
-  //         console.error("Error fetching tender data:", error);
-  //       } finally {
-  //         setLoading(false);
-  //       }
-  //     };
-
-  //     fetchData();
-  //   }
-  // }, [id]);
-
-  // if (loading) {
-  //   return <div>Loading...</div>; // 로딩 상태 표시
-  // }
-
-  // if (!tenderData) {
-  //   return <div>No data found for ID: {id}</div>; // 데이터가 없을 경우 표시
-  // }
 
   const vertical = [
     {
