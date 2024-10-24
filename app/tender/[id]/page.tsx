@@ -21,7 +21,6 @@ interface TenderDetailProps {
 
 // TODO: 매개변수로 params 추가할 것
 const TenderDetail: React.FC<TenderDetailProps> = () => {
-  const { isDarkMode } = useDarkMode();
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
   const [downloadOption, setDownloadOption] = useState("");
 
@@ -32,6 +31,7 @@ const TenderDetail: React.FC<TenderDetailProps> = () => {
 
   const { handleFileUpload, downloadCsv } = useExcelFileHandler();
   const { formatCenterData, formatDate, formatCurrency } = useFormatHandler();
+  const { toggleDarkMode, isDarkMode } = useDarkMode();
 
   // const { id } = params; // params에서 ID 가져오기
   // const [tenderData, setTenderData] = useState(null);
@@ -383,6 +383,9 @@ const TenderDetail: React.FC<TenderDetailProps> = () => {
         isDarkMode ? "dark:bg-dark-Grey_Darken_5" : "bg-white"
       }`}
     >
+      <Button onClick={toggleDarkMode}>
+        {isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+      </Button>
       <PageTitle pageTitle="입찰상세조회" mode="xl" fontWeight="bold" />
 
       <PageTitle
