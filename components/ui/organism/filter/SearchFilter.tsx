@@ -5,6 +5,7 @@ import Button from "../../atoms/button/Button";
 import SingleDatePicker from "../../atoms/datepicker/SingleDatePicker";
 import colors from "@/styles/colors";
 import Label from "../../atoms/label/Label";
+import { useDarkMode } from "@/context/DarkModeContext";
 
 export type FieldConfig = {
   name: string;
@@ -34,6 +35,8 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
       return acc;
     }, {} as { [key: string]: string | Date | undefined })
   );
+
+  const { isDarkMode } = useDarkMode();
 
   const handleChange = (
     e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
@@ -114,16 +117,24 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
   return (
     <>
       <div
-        style={{ borderColor: colors["Grey_Lighten-4"] }}
-        className="border-t mx-auto rounded-lg shadow-lg w-[90%] bg-white"
+        style={{
+          borderColor: isDarkMode ? colors.sub : colors["Grey_Lighten-4"],
+        }}
+        className="border mx-auto rounded-full shadow-lg w-[90%] bg-white"
       >
         <div>
           <div className="flex flex-wrap">
-            {fieldsConfig.map((field) => (
+            {fieldsConfig.map((field, index) => (
               <div
                 key={field.name}
-                className="flex-1 border-b border-r p-2 bg-gray-50"
-                style={{ borderColor: colors["Grey_Lighten-3"] }}
+                className={`flex-1 p-2 bg-gray-50 ${
+                  index !== fieldsConfig.length - 1 ? "border-r" : ""
+                }`}
+                style={{
+                  borderColor: isDarkMode
+                    ? colors["transparent"]
+                    : colors["Grey_Lighten-4"],
+                }}
               >
                 {renderField(field)}
               </div>
@@ -131,18 +142,18 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
           </div>
         </div>
       </div>
-      <div className="flex justify-end py-4 w-[95%] mb-10">
+      <div className="flex justify-end py-6 w-[92%] mb-10">
         <div className="flex space-x-2">
           <Button
             mode="sm"
-            onClick={handleSearch}
             color="signature"
+            onClick={handleSearch}
             content="조회"
           />
           <Button
             mode="sm"
             variant="outline"
-            color="signature"
+            color="Button_Default"
             content="초기화"
             onClick={() =>
               setSearchData(

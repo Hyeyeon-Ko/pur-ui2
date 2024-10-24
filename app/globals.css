@@ -15,7 +15,7 @@ body {
 }
 
 .dark body {
-  background-color: black;
+  background-color: #222222;
   color: white;
 }
 
@@ -28,9 +28,11 @@ body {
   font-size: 14px;
 }
 
-/* .dark .react-datepicker__input-container > input {
+.dark .react-datepicker__input-container > input {
   color: #cccccc;
-} */
+  border: none;
+  background: #333333;
+}
 
 .react-datepicker__input-container > svg {
   padding: 12px !important;

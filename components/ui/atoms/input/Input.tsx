@@ -2,6 +2,7 @@
 
 import React, { CSSProperties, useState } from "react";
 import colors from "@/styles/colors";
+import { useDarkMode } from "@/context/DarkModeContext";
 
 export type InputMode = "sm" | "xs" | "lg" | "md" | undefined;
 
@@ -39,6 +40,8 @@ const Input: React.FC<InputProps> = ({
   const [isValid, setIsValid] = useState<boolean | null>(null); // 유효성 검사 상태
   const [errorMessage, setErrorMessage] = useState<string>(""); // 메시지 상태
 
+  const { isDarkMode } = useDarkMode();
+
   const modeClasses = {
     sm: "text-sm px-3 py-2",
     xs: "text-xs px-2 py-1",
@@ -75,15 +78,22 @@ const Input: React.FC<InputProps> = ({
     ? colors[color]
     : "#2563EB";
 
+  const backgroundColor = isDarkMode ? colors["transparent"] : "white";
+  const textColor = isDarkMode ? "white" : "black";
+  const disabledColor = isDarkMode ? "#4B5563" : "#D1D5DB";
+  const placeholderColor = isDarkMode ? "white" : "black";
+
   return (
     <div>
       <input
         className={`m-1 border rounded transition-all duration-150 ease-in-out focus:outline-none ${
           modeClasses[mode]
-        } ${disabled ? "bg-gray-200 cursor-not-allowed" : ""}`}
+        } ${disabled ? `bg-${disabledColor} cursor-not-allowed` : ""}`}
         style={{
           ...customStyle,
           borderColor,
+          backgroundColor,
+          color: textColor,
         }}
         name={name}
         accept={accept}
@@ -95,6 +105,10 @@ const Input: React.FC<InputProps> = ({
         readOnly={readOnly}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
+        // placeholder 스타일 추가
+        onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
+          e.target.style.setProperty("::placeholder", placeholderColor);
+        }}
       />
       {/* 유효성 검사 메시지 표시 */}
       {errorMessage && (
@@ -102,7 +116,7 @@ const Input: React.FC<InputProps> = ({
           className={`text-xs ml-2 mt-1 mb-1 ${
             isValid === false ? "!text-red-500" : "!text-green-500"
           }`}
-          style={{ display: "block" }}
+          style={{ display: "block", color: textColor }}
         >
           {errorMessage}
         </label>

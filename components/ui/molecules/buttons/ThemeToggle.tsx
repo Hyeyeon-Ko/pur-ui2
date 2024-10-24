@@ -1,32 +1,32 @@
-import React, { useEffect, useState } from "react";
-import Button from "../../atoms/button/Button";
+import { useDarkMode } from "@/context/DarkModeContext";
+import colors from "@/styles/colors";
+import { CSSProperties } from "react";
+import { FaMoon } from "react-icons/fa";
+import { MdOutlineWbSunny } from "react-icons/md";
 
-const ThemeToggle: React.FC = () => {
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+interface ThemeProps {
+  customStyle?: CSSProperties;
+}
 
-  useEffect(() => {
-    const currentTheme = localStorage.getItem("theme");
-    if (currentTheme === "dark") {
-      setIsDarkMode(true);
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }, []);
-
-  const toggleTheme = () => {
-    setIsDarkMode((prev) => !prev);
-    const newTheme = !isDarkMode ? "dark" : "light";
-    localStorage.setItem("theme", newTheme);
-    document.documentElement.classList.toggle("dark", newTheme === "dark");
-  };
+const ThemeToggle: React.FC<ThemeProps> = ({ customStyle }) => {
+  const { toggleDarkMode, isDarkMode } = useDarkMode();
 
   return (
-    <>
-      <Button onClick={toggleTheme} color={isDarkMode ? "sub" : "signature"}>
-        {isDarkMode ? "다크 모드 끄기" : "다크 모드 켜기"}
-      </Button>
-    </>
+    <div style={{ ...customStyle }}>
+      {isDarkMode ? (
+        <MdOutlineWbSunny
+          size={24}
+          style={{ color: colors.warning }}
+          onClick={toggleDarkMode}
+        />
+      ) : (
+        <FaMoon
+          size={24}
+          style={{ color: colors.Button_Default }}
+          onClick={toggleDarkMode}
+        />
+      )}
+    </div>
   );
 };
 

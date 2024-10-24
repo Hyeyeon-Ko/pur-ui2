@@ -1,27 +1,30 @@
 "use client";
-import React, { useEffect, useState } from "react"; // Import useEffect and useState
+import React, { useEffect, useState } from "react";
 import Button from "../ui/atoms/button/Button";
 import Link from "next/link";
 import Label from "../ui/atoms/label/Label";
 import { RiLogoutCircleRLine } from "react-icons/ri";
 import { useDarkMode } from "@/context/DarkModeContext";
+import { FaMoon } from "react-icons/fa";
+import { MdOutlineWbSunny } from "react-icons/md";
+import colors from "@/styles/colors";
 
 const Navbar: React.FC = () => {
   const { toggleDarkMode, isDarkMode } = useDarkMode();
-  const [user, setUser] = useState<any>(null); // Initialize user state
+  const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
-    setUser(storedUser ? JSON.parse(storedUser) : null); // Set user state from localStorage
-  }, []); // Empty dependency array to run only on mount
+    setUser(storedUser ? JSON.parse(storedUser) : null);
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("user");
-    setUser(null); // Update user state after logout
+    setUser(null);
   };
 
   return (
-    <nav className="p-1 mx-4 flex justify-end items-center">
+    <nav className="p-4 mx-4 flex justify-end items-center">
       {user ? (
         <div className="flex gap-4 items-center">
           <Label content={user.employeeId} mode="lg" />
@@ -58,9 +61,20 @@ const Navbar: React.FC = () => {
           />
         </Link>
       )}
-      <Button onClick={toggleDarkMode}>
-        {isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
-      </Button>
+
+      {isDarkMode ? (
+        <MdOutlineWbSunny
+          size={24}
+          style={{ color: colors.warning }}
+          onClick={toggleDarkMode}
+        />
+      ) : (
+        <FaMoon
+          size={24}
+          style={{ color: colors.Button_Default }}
+          onClick={toggleDarkMode}
+        />
+      )}
     </nav>
   );
 };

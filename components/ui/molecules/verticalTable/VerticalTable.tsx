@@ -5,6 +5,7 @@ import Chip from "../../atoms/chip/Chip";
 import SingleDatePicker from "../../atoms/datepicker/SingleDatePicker";
 import FileUploadButton from "../buttons/FileUploadButton";
 import colors from "@/styles/colors";
+import { useDarkMode } from "@/context/DarkModeContext";
 
 interface VerticalTableProps {
   data: Array<{
@@ -24,6 +25,8 @@ const VerticalTable: React.FC<VerticalTableProps> = ({
   onChipClick,
   checkedItems,
 }) => {
+  const { isDarkMode } = useDarkMode();
+
   const renderContent = (row: {
     title: string;
     type?: string;
@@ -109,20 +112,30 @@ const VerticalTable: React.FC<VerticalTableProps> = ({
           {data.map((row) => (
             <tr
               key={row.id}
-              style={{ borderBottom: `1px solid ${colors["Grey_Lighten-4"]}` }}
+              style={{
+                borderBottom: isDarkMode
+                  ? `1px solid ${colors["Grey_Darken-4"]}`
+                  : `1px solid ${colors["Grey_Lighten-4"]}`,
+              }}
             >
               <th
                 style={{
-                  backgroundColor: colors.Table_header,
-                  color: colors["Grey_Darken-3"],
-                  borderBottom: `1px solid ${colors["Grey_Lighten-4"]}`,
+                  backgroundColor: isDarkMode
+                    ? colors["Grey_Darken-4"]
+                    : colors.Table_header,
+                  color: isDarkMode ? "white" : colors["Grey_Darken-3"],
+                  borderBottom: isDarkMode
+                    ? `1px solid ${colors["Grey_Darken-4"]}`
+                    : `1px solid ${colors["Grey_Lighten-4"]}`,
                   borderLeft: "1px solid transparent",
                 }}
                 className="text-xs uppercase text-center"
               >
                 {row.title}
               </th>
-              <td className="px-4 py-2 text-xs">{renderContent(row)}</td>
+              <td className="w-[92%] px-4 py-2 text-xs">
+                {renderContent(row)}
+              </td>
             </tr>
           ))}
         </tbody>

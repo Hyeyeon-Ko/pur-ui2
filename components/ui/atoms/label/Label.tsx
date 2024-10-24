@@ -1,5 +1,6 @@
 import React, { CSSProperties } from "react";
 import colors from "@/styles/colors";
+import { useDarkMode } from "@/context/DarkModeContext";
 
 export type LabelMode = "sm" | "xs" | "lg" | "md" | "xl" | undefined;
 
@@ -18,6 +19,8 @@ const Label: React.FC<LabelProps> = ({
   color,
   fontWeight = "normal",
 }) => {
+  const { isDarkMode } = useDarkMode(); // 다크 모드 상태 가져오기
+
   const modeClasses = {
     sm: "text-sm",
     xs: "text-xs",
@@ -26,7 +29,11 @@ const Label: React.FC<LabelProps> = ({
     xl: "text-3xl",
   };
 
-  const textColor = color ? colors[color] : "black";
+  // 기본 색상 설정 (커스텀 컬러가 없을 경우 다크 모드에 맞는 기본 색상)
+  const defaultColor = isDarkMode ? "#9CA3AF" : "signature";
+
+  // 최종 텍스트 색상: 사용자가 color를 지정하지 않으면 다크 모드에 따른 기본 색상 사용
+  const textColor = color ? colors[color] : defaultColor;
 
   const fontWeightClass =
     fontWeight === "bold"
@@ -37,9 +44,10 @@ const Label: React.FC<LabelProps> = ({
 
   return (
     <label
-      className={`${modeClasses[mode]} text-${textColor} ${fontWeightClass}`} // 폰트 굵기 클래스 추가
+      className={`${modeClasses[mode]} ${fontWeightClass}`}
       style={{
-        ...customStyle,
+        ...customStyle, // customStyle을 통해 전달된 스타일 적용
+        color: customStyle?.color || textColor, // customStyle에 color가 있으면 덮어쓰기
       }}
     >
       {content}

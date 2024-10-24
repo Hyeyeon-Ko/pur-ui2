@@ -1,5 +1,6 @@
 import colors from "@/styles/colors";
 import React, { CSSProperties } from "react";
+import { useDarkMode } from "@/context/DarkModeContext";
 
 export type ChipMode = "sm" | "xs" | "lg" | "md" | undefined;
 export type ChipVariant = "inline" | "outline";
@@ -23,6 +24,8 @@ const Chip: React.FC<ChipProps> = ({
   variant = "outline",
   onClick,
 }) => {
+  const { isDarkMode } = useDarkMode();
+
   const modeClasses = {
     sm: "text-sm px-4 py-2",
     xs: "text-xs px-2 py-1",
@@ -41,12 +44,24 @@ const Chip: React.FC<ChipProps> = ({
   const textColor = disabled
     ? "lightgray"
     : variant === "outline"
-    ? color
+    ? isDarkMode
+      ? colors.Grey_Default
+      : color
       ? colors[color]
       : "black"
+    : isDarkMode
+    ? "white"
     : "white";
 
-  const border = disabled ? "lightgray" : color ? colors[color] : "transparent";
+  const border = disabled
+    ? "lightgray"
+    : isDarkMode && variant === "inline"
+    ? "transparent"
+    : isDarkMode
+    ? colors.Grey_Default
+    : color
+    ? colors[color]
+    : "transparent";
 
   return (
     <button

@@ -12,7 +12,9 @@ import { columns, data } from "@/lib/data";
 import colors from "@/styles/colors";
 import React, { useCallback, useState } from "react";
 import { useDarkMode } from "@/context/DarkModeContext";
-
+import { FaMoon } from "react-icons/fa";
+import { MdOutlineWbSunny } from "react-icons/md";
+import ThemeToggle from "@/components/ui/molecules/buttons/ThemeToggle";
 interface TenderDetailProps {
   params: {
     id: string; // 동적 파라미터 ID의 타입 정의
@@ -383,9 +385,14 @@ const TenderDetail: React.FC<TenderDetailProps> = () => {
         isDarkMode ? "dark:bg-dark-Grey_Darken_5" : "bg-white"
       }`}
     >
-      <Button onClick={toggleDarkMode}>
-        {isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
-      </Button>
+      <ThemeToggle
+        customStyle={{
+          display: "flex",
+          justifyContent: "end",
+          marginTop: "24px",
+          marginRight: "24px",
+        }}
+      />
       <PageTitle pageTitle="입찰상세조회" mode="xl" fontWeight="bold" />
 
       <PageTitle

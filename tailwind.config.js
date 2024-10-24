@@ -34,6 +34,8 @@ module.exports = {
         Button_Default: "#787586",
         Table_header: "#faf8ff",
         Grey_Darken_5: "#222222",
+        transparent: "transparent",
+        white: "white",
       },
     },
     fontFamily: {
