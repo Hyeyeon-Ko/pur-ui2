@@ -20,7 +20,6 @@ const MainPage = () => {
   const { IdValidate, passwordValidation } = useValidations();
   const { isOpen, openModal, closeModal } = useModal();
 
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
@@ -86,7 +85,6 @@ const MainPage = () => {
     }
   }, [checkedItems]);
 
-  
   const handleConfirm = () => {
     closeModal();
   };
@@ -311,14 +309,15 @@ const MainPage = () => {
         onChange={(e) => setInputValue(e.target.value)}
         customStyle={{ marginBottom: "20px" }}
       />
-            <div>
+      <div>
         <Button mode="lg" content="modal" onClick={openModal} />
         <Modal
           isOpen={isOpen}
           closeModal={closeModal}
-          title="진짜제목"
+          title="파일다운로드"
           onCancelClick={handleConfirm}
           onConfirmClick={handleConfirm}
+          mode="lg"
         >
           <p>모달 내부에 추가적인 내용</p>
         </Modal>

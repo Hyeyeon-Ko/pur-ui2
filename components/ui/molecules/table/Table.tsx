@@ -4,6 +4,9 @@ import Checkbox from "../../atoms/checkbox/Checkbox";
 import colors from "@/styles/colors";
 import SelectBox from "../../atoms/selectBox/Select";
 import { useDarkMode } from "@/context/DarkModeContext";
+import Button from "../../atoms/button/Button";
+import Modal from "../../organism/modal/Modal";
+import useModal from "@/hooks/useModal";
 
 /**
  * 가로형 테이블 (일반 테이블)
@@ -48,7 +51,8 @@ const Table: React.FC<TableProps> = ({
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(data.length / rowsPerPage);
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
-  const [downloadOption, setDownloadOption] = useState<string>("");
+  const { isOpen, openModal, closeModal } = useModal();
+  // const [downloadOption, setDownloadOption] = useState<string>("");
 
   const { isDarkMode } = useDarkMode();
 
@@ -155,20 +159,38 @@ const Table: React.FC<TableProps> = ({
 
     if (column === "열람" && row[column] === "저장") {
       return (
-        <SelectBox
-          mode="xs"
-          placeholder="다운로드"
-          value={downloadOption}
-          onChange={(e) => {
-            setDownloadOption(e.target.value);
-          }}
-          options={[
-            { value: "contract", label: "계약서 다운로드" },
-            { value: "approve", label: "품의서 다운로드" },
-          ]}
-          color="signature"
-          customStyle={{ color: colors.signature }}
-        />
+        // <SelectBox
+        //   mode="xs"
+        //   placeholder="다운로드"
+        //   value={downloadOption}
+        //   onChange={(e) => {
+        //     setDownloadOption(e.target.value);
+        //   }}
+        //   options={[
+        //     { value: "contract", label: "계약서 다운로드" },
+        //     { value: "approve", label: "품의서 다운로드" },
+        //   ]}
+        //   color="signature"
+        //   customStyle={{ color: colors.signature }}
+        // />
+        <div>
+          <Button
+            mode="xs"
+            color="signature"
+            content="다운로드"
+            onClick={openModal}
+          />
+          <Modal
+            isOpen={isOpen}
+            closeModal={closeModal}
+            title="파일 다운로드"
+            onCancelClick={closeModal}
+            onConfirmClick={closeModal}
+            mode="lg"
+          >
+            <p>모달 내부에 추가적인 내용</p>
+          </Modal>
+        </div>
       );
     }
 
