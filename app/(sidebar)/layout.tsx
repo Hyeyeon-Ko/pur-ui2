@@ -4,6 +4,7 @@ import Navbar from "@/components/layouts/Navbar";
 import SideMenu from "@/components/layouts/SideMenu";
 import colors from "@/styles/colors";
 import { useState, useEffect } from "react";
+import { useDarkMode } from "@/context/DarkModeContext"; // 추가
 
 export default function DashboardLayout({
   children,
@@ -11,6 +12,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }>) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const { isDarkMode, toggleDarkMode } = useDarkMode(); // 수정
 
   const toggleSidebar = () => {
     setIsSidebarOpen((prev) => !prev);
@@ -34,7 +36,7 @@ export default function DashboardLayout({
   }, []);
 
   return (
-    <div className="h-screen flex dark:bg-black">
+    <div className={`h-screen flex ${isDarkMode ? "dark:bg-dark-Grey_Darken_5" : "bg-white"}`}>
       {/* 사이드바 */}
       <div
         style={{ backgroundColor: colors.signature }}
@@ -47,10 +49,10 @@ export default function DashboardLayout({
 
       <div className="flex flex-col flex-1">
         {/* 네비게이션 바 */}
-        <Navbar />
+        <Navbar toggleDarkMode={toggleDarkMode} /> {/* isDarkMode는 Navbar에서 사용할 수 있음 */}
 
         {/* 컨텐츠 영역 */}
-        <div className="flex-1 bg-white overflow-auto">{children}</div>
+        <div className="flex-1 overflow-auto">{children}</div>
       </div>
     </div>
   );

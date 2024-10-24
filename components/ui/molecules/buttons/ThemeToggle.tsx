@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Button from "../../atoms/button/Button";
 
-interface ThemeToggleProps {
-  isDarkMode: boolean;
-  toggleDarkMode: () => void;
-}
-
 const ThemeToggle: React.FC = () => {
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
 

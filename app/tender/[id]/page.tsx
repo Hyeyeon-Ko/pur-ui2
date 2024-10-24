@@ -11,6 +11,7 @@ import useFormatHandler from "@/hooks/useFormatHandler";
 import { columns, data } from "@/lib/data";
 import colors from "@/styles/colors";
 import React, { useCallback, useState } from "react";
+import { useDarkMode } from "@/context/DarkModeContext";
 
 interface TenderDetailProps {
   params: {
@@ -20,6 +21,7 @@ interface TenderDetailProps {
 
 // TODO: 매개변수로 params 추가할 것
 const TenderDetail: React.FC<TenderDetailProps> = () => {
+  const { isDarkMode } = useDarkMode();
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
   const [downloadOption, setDownloadOption] = useState("");
 
@@ -376,7 +378,11 @@ const TenderDetail: React.FC<TenderDetailProps> = () => {
   };
 
   return (
-    <div>
+    <div
+      className={`flex-1 ${
+        isDarkMode ? "dark:bg-dark-Grey_Darken_5" : "bg-white"
+      }`}
+    >
       <PageTitle pageTitle="입찰상세조회" mode="xl" fontWeight="bold" />
 
       <PageTitle

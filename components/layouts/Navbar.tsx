@@ -1,27 +1,23 @@
-import { useEffect, useState } from "react";
+"use client";
+import React, { useEffect, useState } from "react"; // Import useEffect and useState
 import Button from "../ui/atoms/button/Button";
 import Link from "next/link";
 import Label from "../ui/atoms/label/Label";
 import { RiLogoutCircleRLine } from "react-icons/ri";
-import ThemeToggle from "../ui/molecules/buttons/ThemeToggle";
+import { useDarkMode } from "@/context/DarkModeContext";
 
-const Navbar = () => {
-  const [user, setUser] = useState(null);
+const Navbar: React.FC = () => {
+  const { toggleDarkMode, isDarkMode } = useDarkMode();
+  const [user, setUser] = useState<any>(null); // Initialize user state
 
-  // 클라이언트에서만 실행되는 코드
   useEffect(() => {
-    // 컴포넌트가 마운트될 때 로컬 스토리지에서 사용자 정보를 가져옴
     const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-  }, []);
+    setUser(storedUser ? JSON.parse(storedUser) : null); // Set user state from localStorage
+  }, []); // Empty dependency array to run only on mount
 
   const handleLogout = () => {
-    // 로컬스토리지에서 사용자 정보 삭제
     localStorage.removeItem("user");
-    // 사용자 상태 업데이트
-    setUser(null);
+    setUser(null); // Update user state after logout
   };
 
   return (
@@ -62,7 +58,9 @@ const Navbar = () => {
           />
         </Link>
       )}
-      <ThemeToggle />
+      <Button onClick={toggleDarkMode}>
+        {isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+      </Button>
     </nav>
   );
 };
