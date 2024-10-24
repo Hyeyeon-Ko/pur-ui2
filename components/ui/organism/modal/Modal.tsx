@@ -91,7 +91,7 @@ const Modal: React.FC<ModalProps> = ({
       className="fixed inset-0 flex items-center justify-center p-20"
     >
       <div
-        style={{ backgroundColor: colors.black, opacity: 0.5 }}
+        style={{ backgroundColor: colors.black, opacity: 0.1 }}
         className="absolute inset-0"
       />
 
@@ -127,7 +127,12 @@ const Modal: React.FC<ModalProps> = ({
             />
           )}
           {showConfirmButton && (
-            <Button mode="sm" onClick={onConfirmClick} content={confirmText} />
+            <Button
+              mode="sm"
+              color="signature"
+              onClick={onConfirmClick}
+              content={confirmText}
+            />
           )}
         </div>
       </div>
