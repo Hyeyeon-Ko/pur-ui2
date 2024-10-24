@@ -2,6 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --color-signature: #2e2e7a;
+  --color-sub: #5454be;
+  --color-Button_Default: #787586;
+  --color-Table_header: #faf8ff;
+  --color-warning: #f2c037;
+}
+
+body {
+  background-color: white;
+}
+
+.dark body {
+  background-color: #222222;
+  color: white;
+}
+
 .react-datepicker__input-container > input {
   border: 1px dotted #888888;
   color: #051d36;
@@ -13,6 +30,8 @@
 
 .dark .react-datepicker__input-container > input {
   color: #cccccc;
+  border: none;
+  background: #333333;
 }
 
 .react-datepicker__input-container > svg {

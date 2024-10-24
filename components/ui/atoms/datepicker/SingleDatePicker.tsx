@@ -2,6 +2,7 @@ import React from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ko } from "date-fns/locale";
+import { useDarkMode } from "@/context/DarkModeContext"; // 다크 모드 컨텍스트 가져오기
 
 interface SingleDatePickerProps {
   selectedDate: Date | undefined;
@@ -18,10 +19,18 @@ const SingleDatePicker: React.FC<SingleDatePickerProps> = ({
   maxDate = new Date(),
   label = "",
 }) => {
+  const { isDarkMode } = useDarkMode(); // 다크 모드 상태 가져오기
+
   return (
     <div className="ml-1 flex">
       <div>
-        <label className="block text-xs text-gray-700">{label}</label>
+        <label
+          className={`block text-xs ${
+            isDarkMode ? "text-white" : "text-gray-700"
+          }`}
+        >
+          {label}
+        </label>
         <DatePicker
           showIcon
           dateFormat="yyyy.MM.dd"
@@ -30,7 +39,11 @@ const SingleDatePicker: React.FC<SingleDatePickerProps> = ({
           minDate={minDate}
           maxDate={maxDate}
           locale={ko}
-          className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-500"
+          className={`m-1 block w-full p-2 border rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-500 ${
+            isDarkMode
+              ? "bg-dark-transparent border-gray-600 text-dark-white"
+              : "bg-white border-gray-300 text-gray-700"
+          }`}
           calendarClassName="custom-calendar"
           label={label}
         />

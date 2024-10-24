@@ -1,5 +1,6 @@
 import React, { CSSProperties } from "react";
 import colors from "@/styles/colors";
+import { useDarkMode } from "@/context/DarkModeContext"; // 다크 모드 컨텍스트 가져오기
 
 /**
  * mode: 체크박스 크기
@@ -37,6 +38,8 @@ const Checkbox: React.FC<CheckboxProps> = ({
   name,
   id,
 }) => {
+  const { isDarkMode } = useDarkMode(); // 다크 모드 상태 가져오기
+
   const sizeClasses = {
     sm: "w-4 h-4",
     xs: "w-3 h-3",
@@ -58,8 +61,8 @@ const Checkbox: React.FC<CheckboxProps> = ({
           className={`form-checkbox rounded ${modeClass} ${className}`}
           style={{
             ...customStyle,
-            borderColor,
-            accentColor: borderColor,
+            borderColor: isDarkMode ? colors.sub : borderColor,
+            accentColor: isDarkMode ? colors.sub : borderColor,
           }}
           checked={checked}
           name={name}
@@ -68,7 +71,15 @@ const Checkbox: React.FC<CheckboxProps> = ({
           id={id}
         />
         {label && (
-          <span className={`ml-2 ${disabled ? "text-gray-400" : "text-black"}`}>
+          <span
+            className={`ml-2 ${
+              disabled
+                ? "text-gray-400"
+                : isDarkMode
+                ? "text-white"
+                : "text-black"
+            }`}
+          >
             {label}
           </span>
         )}

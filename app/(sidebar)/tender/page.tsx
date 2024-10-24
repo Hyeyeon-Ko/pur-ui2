@@ -20,7 +20,6 @@ import SearchFilter, {
   FieldConfig,
 } from "@/components/ui/organism/filter/SearchFilter";
 import PageTitle from "@/components/ui/molecules/titles/PageTitle";
-import Link from "next/link";
 
 const fieldsConfig: FieldConfig[] = [
   { name: "center", type: "select", options: centerOptions },

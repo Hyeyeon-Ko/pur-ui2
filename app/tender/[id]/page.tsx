@@ -11,7 +11,10 @@ import useFormatHandler from "@/hooks/useFormatHandler";
 import { columns, data } from "@/lib/data";
 import colors from "@/styles/colors";
 import React, { useCallback, useState } from "react";
-
+import { useDarkMode } from "@/context/DarkModeContext";
+import { FaMoon } from "react-icons/fa";
+import { MdOutlineWbSunny } from "react-icons/md";
+import ThemeToggle from "@/components/ui/molecules/buttons/ThemeToggle";
 interface TenderDetailProps {
   params: {
     id: string; // 동적 파라미터 ID의 타입 정의
@@ -30,6 +33,7 @@ const TenderDetail: React.FC<TenderDetailProps> = () => {
 
   const { handleFileUpload, downloadCsv } = useExcelFileHandler();
   const { formatCenterData, formatDate, formatCurrency } = useFormatHandler();
+  const { toggleDarkMode, isDarkMode } = useDarkMode();
 
   // const { id } = params; // params에서 ID 가져오기
   // const [tenderData, setTenderData] = useState(null);
@@ -376,7 +380,19 @@ const TenderDetail: React.FC<TenderDetailProps> = () => {
   };
 
   return (
-    <div>
+    <div
+      className={`flex-1 ${
+        isDarkMode ? "dark:bg-dark-Grey_Darken_5" : "bg-white"
+      }`}
+    >
+      <ThemeToggle
+        customStyle={{
+          display: "flex",
+          justifyContent: "end",
+          marginTop: "24px",
+          marginRight: "24px",
+        }}
+      />
       <PageTitle pageTitle="입찰상세조회" mode="xl" fontWeight="bold" />
 
       <PageTitle

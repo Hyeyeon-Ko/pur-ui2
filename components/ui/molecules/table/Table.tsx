@@ -3,6 +3,7 @@ import Pagination from "../pagination/Pagination";
 import Checkbox from "../../atoms/checkbox/Checkbox";
 import colors from "@/styles/colors";
 import SelectBox from "../../atoms/selectBox/Select";
+import { useDarkMode } from "@/context/DarkModeContext";
 
 /**
  * 가로형 테이블 (일반 테이블)
@@ -48,6 +49,8 @@ const Table: React.FC<TableProps> = ({
   const totalPages = Math.ceil(data.length / rowsPerPage);
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
   const [downloadOption, setDownloadOption] = useState<string>("");
+
+  const { isDarkMode } = useDarkMode();
 
   const isDate = (value: string) => {
     const datePattern = /^\d{2}\.\d{2}\.\d{2}$/;
@@ -113,7 +116,9 @@ const Table: React.FC<TableProps> = ({
     if (column === "입찰번호" && row["계약번호"]) {
       return (
         <span
-          className="text-blue cursor-pointer border-b"
+          className={`cursor-pointer border-b ${
+            isDarkMode ? "text-dark-sub" : "text-blue"
+          }`}
           onClick={() => {
             const newWindow = window.open(
               `/tender/${row[column]}`,
@@ -131,7 +136,9 @@ const Table: React.FC<TableProps> = ({
     if (column === "계약번호") {
       return (
         <span
-          className="text-blue cursor-pointer border-b"
+          className={`cursor-pointer border-b ${
+            isDarkMode ? "text-dark-sub" : "text-blue"
+          }`}
           onClick={() => {
             const newWindow = window.open(
               `/contract/${row[column]}`,
@@ -173,7 +180,9 @@ const Table: React.FC<TableProps> = ({
       <div className="pb-2">
         <span
           className="text-sm font-bold ml-2"
-          style={{ color: colors.signature }}
+          style={{
+            color: isDarkMode ? colors["Grey_Lighten-1"] : colors.signature,
+          }}
         >
           {showCheckbox && `선택된 데이터 ${selectedRows.length} 개 / `}총
           데이터 {data.length} 개
@@ -184,7 +193,13 @@ const Table: React.FC<TableProps> = ({
         className="mx-auto rounded-lg shadow-lg border w-[100%]"
       >
         <table className="table-auto text-xs text-left text-gray-500 w-[100%]">
-          <thead>
+          <thead
+            style={{
+              backgroundColor: isDarkMode
+                ? colors["Grey_Darken-4"]
+                : colors.Table_header,
+            }}
+          >
             <tr>
               {showCheckbox && (
                 <th className="px-4 py-3">
@@ -232,7 +247,9 @@ const Table: React.FC<TableProps> = ({
                 onDoubleClick={() => handleRowDoubleClick(row)}
                 key={index}
                 style={{
-                  color: colors["Grey_Darken-4"],
+                  color: isDarkMode
+                    ? colors["Grey_Default"]
+                    : colors["Grey_Darken-4"],
                   borderBottom: `1px solid ${colors["Grey_Lighten-2"]}`,
                 }}
                 className="text-center transition duration-150 ease-in-out hover:bg-gray-200 hover:shadow-md"

@@ -1,5 +1,6 @@
 import React, { CSSProperties } from "react";
 import colors from "@/styles/colors";
+import { useDarkMode } from "@/context/DarkModeContext";
 
 export type SelectMode = "sm" | "xs" | "lg" | "md" | undefined;
 
@@ -17,7 +18,6 @@ interface SelectProps {
 
 const SelectBox: React.FC<SelectProps> = ({
   mode = "md",
-  color,
   customStyle,
   placeholder,
   value,
@@ -26,6 +26,8 @@ const SelectBox: React.FC<SelectProps> = ({
   options,
   disabled = false,
 }) => {
+  const { isDarkMode } = useDarkMode();
+
   const modeClasses = {
     sm: "text-sm px-3 py-2",
     xs: "text-xs px-2 py-1",
@@ -33,16 +35,25 @@ const SelectBox: React.FC<SelectProps> = ({
     lg: "text-lg px-5 py-3",
   };
 
-  const borderColor = color ? colors[color] : colors.Button_Default;
+  const borderColor = isDarkMode
+    ? colors["transparent"]
+    : colors["transparent"];
+  const backgroundColor = isDarkMode ? colors["transparent"] : "white";
+  const textColor = isDarkMode ? "#9CA3AF" : "black";
+  const optionBackgroundColor = isDarkMode ? colors["sub"] : "white";
+  const optionTextColor = isDarkMode ? "white" : "black";
+  const disabledColor = "gray-200";
 
   return (
     <select
       className={`m-1 border rounded transition-all duration-150 ease-in-out focus:outline-none ${
         modeClasses[mode]
-      } ${disabled ? "bg-gray-200 cursor-not-allowed" : ""}`}
+      } ${disabled ? `bg-${disabledColor} cursor-not-allowed` : ""}`}
       style={{
         ...customStyle,
         borderColor,
+        backgroundColor,
+        color: textColor,
       }}
       value={value}
       name={name}
@@ -55,7 +66,14 @@ const SelectBox: React.FC<SelectProps> = ({
         </option>
       )}
       {options.map((option) => (
-        <option key={option.value} value={option.value}>
+        <option
+          key={option.value}
+          value={option.value}
+          style={{
+            backgroundColor: optionBackgroundColor,
+            color: optionTextColor,
+          }}
+        >
           {option.label}
         </option>
       ))}

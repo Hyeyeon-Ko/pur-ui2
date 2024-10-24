@@ -1,30 +1,30 @@
-import { useEffect, useState } from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import Button from "../ui/atoms/button/Button";
 import Link from "next/link";
 import Label from "../ui/atoms/label/Label";
 import { RiLogoutCircleRLine } from "react-icons/ri";
+import { useDarkMode } from "@/context/DarkModeContext";
+import { FaMoon } from "react-icons/fa";
+import { MdOutlineWbSunny } from "react-icons/md";
+import colors from "@/styles/colors";
 
-const Navbar = () => {
-  const [user, setUser] = useState(null);
+const Navbar: React.FC = () => {
+  const { toggleDarkMode, isDarkMode } = useDarkMode();
+  const [user, setUser] = useState<any>(null);
 
-  // 클라이언트에서만 실행되는 코드
   useEffect(() => {
-    // 컴포넌트가 마운트될 때 로컬 스토리지에서 사용자 정보를 가져옴
     const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
+    setUser(storedUser ? JSON.parse(storedUser) : null);
   }, []);
 
   const handleLogout = () => {
-    // 로컬스토리지에서 사용자 정보 삭제
     localStorage.removeItem("user");
-    // 사용자 상태 업데이트
     setUser(null);
   };
 
   return (
-    <nav className="p-1 mx-4 flex justify-end items-center">
+    <nav className="p-4 mx-4 flex justify-end items-center">
       {user ? (
         <div className="flex gap-4 items-center">
           <Label content={user.employeeId} mode="lg" />
@@ -60,6 +60,20 @@ const Navbar = () => {
             }}
           />
         </Link>
+      )}
+
+      {isDarkMode ? (
+        <MdOutlineWbSunny
+          size={24}
+          style={{ color: colors.warning }}
+          onClick={toggleDarkMode}
+        />
+      ) : (
+        <FaMoon
+          size={24}
+          style={{ color: colors.Button_Default }}
+          onClick={toggleDarkMode}
+        />
       )}
     </nav>
   );
