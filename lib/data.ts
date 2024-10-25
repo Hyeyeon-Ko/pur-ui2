@@ -1,4 +1,5 @@
 import { contractRowData, RowData } from "@/types/dummyTypes";
+import { FieldConfig } from "@/types/fieldTypes";
 
 export const data: RowData[] = [
   {
@@ -865,4 +866,324 @@ export const contractType = [
   { value: "공사계약", label: "공사계약" },
   { value: "매각계약", label: "매각계약" },
   { value: "기타계약", label: "기타계약" },
+];
+
+export const contractSearchFields: FieldConfig[] = [
+  { name: "center", type: "select", options: centerOptions, label: "센터" },
+  {
+    name: "contractType",
+    type: "select",
+    options: contractType,
+    label: "계약종류",
+  },
+  {
+    name: "accountName",
+    type: "select",
+    options: accountOptions,
+    label: "계정명",
+  },
+  {
+    name: "contractMethod",
+    type: "select",
+    options: contractOptions,
+    label: "계약방법",
+  },
+  { name: "contractDate", type: "date", label: "계약일자" },
+  { name: "startDate", type: "date", label: "계약시작일" },
+  { name: "endDate", type: "date", label: "계약완료일" },
+  { name: "sn", type: "input", label: "S/N" },
+  { name: "contractName", type: "input", label: "계약명" },
+];
+
+export const tenderSearchFields: FieldConfig[] = [
+  { name: "center", type: "select", options: centerOptions },
+  { name: "bidType", type: "select", options: bidOptions },
+  { name: "accountName", type: "select", options: accountOptions },
+  { name: "bidResult", type: "select", options: bidResultOptions },
+  { name: "winner", type: "input", label: "낙찰자" },
+  { name: "bidName", type: "input", label: "입찰명" },
+  { name: "announcementDate", type: "date", label: "공고일" },
+  { name: "dueDate", type: "date", label: "마감일" },
+];
+
+export const tenderVertical = [
+  {
+    id: 0,
+    title: "센터명",
+    type: "chip",
+    contents: [
+      "전국",
+      "재단",
+      "본원",
+      "광화문",
+      "여의도",
+      "강남",
+      "수원",
+      "대구",
+      "부산",
+      "광주",
+      "제주",
+    ],
+  },
+  {
+    id: 1,
+    title: "입찰번호",
+    type: "input",
+    contents: "",
+  },
+  {
+    id: 2,
+    title: "공고구분",
+    type: "input",
+    contents: "",
+  },
+  {
+    id: 3,
+    title: "계약종류",
+    type: "chip",
+    contents: ["일반계약", "단가계약", "임대계약", "공사계약", "기타계약"],
+  },
+  {
+    id: 4,
+    title: "입찰종류",
+    type: "chip",
+    contents: ["일반경쟁", "제한경쟁", "지명경쟁"],
+  },
+  {
+    id: 5,
+    title: "낙찰방법",
+    type: "chip",
+    contents: ["최저가격", "2단계경쟁", "협상에의한계약"],
+  },
+  {
+    id: 6,
+    title: "계정명",
+    type: "chip",
+    contents: [
+      "의약품",
+      "항정신성의약품",
+      "장비소모품",
+      "인쇄물",
+      "시약",
+      "백신",
+      "의료비품",
+      "의료장비",
+      "위생용품",
+      "피복",
+      "사무용품",
+      "일반비품",
+      "전산용품",
+      "기타",
+    ],
+  },
+  {
+    id: 7,
+    title: "입찰명",
+    type: "input",
+    contents: "",
+  },
+  {
+    id: 8,
+    title: "공고일",
+    type: "datepicker",
+    contents: "2024-10-10",
+  },
+  {
+    id: 9,
+    title: "마감일",
+    type: "datepicker",
+    contents: "2024-10-10",
+  },
+  {
+    id: 10,
+    title: "응찰일",
+    type: "datepicker",
+    contents: "2024-10-10",
+  },
+  {
+    id: 11,
+    title: "낙찰기준가",
+    type: "input",
+    contents: "",
+  },
+  {
+    id: 12,
+    title: "입찰품의번호",
+    type: "input",
+    contents: "",
+  },
+  {
+    id: 13,
+    title: "입찰품의",
+    type: "upload",
+    contents: null,
+  },
+  {
+    id: 14,
+    title: "입찰공고문",
+    type: "upload",
+    contents: null,
+  },
+];
+
+export const tenderVerticalResult = [
+  {
+    id: 0,
+    title: "입찰조회",
+    type: "input",
+    contents: "",
+  },
+  {
+    id: 1,
+    title: "입찰결과",
+    type: "chip",
+    contents: ["낙찰", "유찰"],
+  },
+  {
+    id: 2,
+    title: "누리장터번호",
+    type: "input",
+    contents: "",
+  },
+  {
+    id: 3,
+    title: "낙찰업체",
+    type: "input",
+    contents: "",
+  },
+  {
+    id: 4,
+    title: "낙찰금액",
+    type: "input",
+    contents: "",
+  },
+  {
+    id: 5,
+    title: "입찰참가서류",
+    type: "upload",
+    contents: null,
+  },
+  {
+    id: 6,
+    title: "입찰보증금",
+    type: "upload",
+    contents: null,
+  },
+  {
+    id: 7,
+    title: "사유",
+    type: "input",
+    contents: "",
+  },
+  {
+    id: 8,
+    title: "기타사항",
+    type: "input",
+    contents: "",
+  },
+];
+
+export const contractVertical = [
+  {
+    id: 0,
+    title: "센터명",
+    type: "chip",
+    contents: [
+      "전국",
+      "재단",
+      "본원",
+      "광화문",
+      "여의도",
+      "강남",
+      "수원",
+      "대구",
+      "부산",
+      "광주",
+      "제주",
+    ],
+  },
+  {
+    id: 1,
+    title: "계약번호",
+    type: "input",
+    contents: "",
+  },
+  {
+    id: 2,
+    title: "계약구분",
+    type: "chip",
+    contents: ["최초계약", "연장계약", "변경계약"],
+  },
+  {
+    id: 3,
+    title: "계약명",
+    type: "input",
+    contents: "",
+  },
+  {
+    id: 4,
+    title: "계약일자",
+    type: "datepicker",
+    contents: "2024-10-10",
+  },
+  {
+    id: 5,
+    title: "계약시작일",
+    type: "datepicker",
+    contents: "2024-10-10",
+  },
+  {
+    id: 6,
+    title: "계약완료일",
+    type: "datepicker",
+    contents: "2024-10-10",
+  },
+  {
+    id: 7,
+    title: "S/N",
+    type: "datepicker",
+    contents: "2024-10-10",
+  },
+  {
+    id: 8,
+    title: "공급사",
+    type: "input",
+    contents: "",
+  },
+  {
+    id: 9,
+    title: "계약가격",
+    type: "input",
+    contents: "",
+  },
+  {
+    id: 10,
+    title: "계약품의",
+    type: "upload",
+    contents: null,
+  },
+  {
+    id: 11,
+    title: "계약서",
+    type: "upload",
+    contents: null,
+  },
+  {
+    id: 12,
+    title: "계약보증금",
+    type: "upload",
+    contents: null,
+  },
+  {
+    id: 13,
+    title: "하자이행보증금",
+    type: "upload",
+    contents: null,
+  },
+  {
+    id: 14,
+    title: "계약기타사항",
+    type: "upload",
+    contents: null,
+  },
 ];

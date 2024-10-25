@@ -1,22 +1,18 @@
-import React from "react";
-import Input from "../../atoms/input/Input";
-import SelectBox from "../../atoms/selectBox/Select";
-import Chip from "../../atoms/chip/Chip";
-import SingleDatePicker from "../../atoms/datepicker/SingleDatePicker";
-import FileUploadButton from "../buttons/FileUploadButton";
+import React, { useState } from "react";
 import colors from "@/styles/colors";
 import { useDarkMode } from "@/context/DarkModeContext";
+import VerticalRender from "../render/VerticalRender";
 
 interface VerticalTableProps {
   data: Array<{
     id: number;
     title: string;
-    type?: string; // 'input', 'select', 'chip', 'datepicker', 'upload' 등, 없는 경우도 있으므로 optional로 설정
-    contents?: string | string[] | null; // 필드 값 (input, select, chip 등) 역시 선택적 필드로 설정
-    options?: Array<{ value: string; label: string }>; // selectBox 용 옵션
-    component?: React.ReactNode; // 커스텀 컴포넌트를 직접 넣을 수 있도록 선택적으로 설정
+    type?: string;
+    contents?: string | string[] | null;
+    options?: Array<{ value: string; label: string }>;
+    component?: React.ReactNode;
   }>;
-  onChipClick?: (label: string, title: string) => void; // Chip 클릭 핸들러
+  onChipClick?: (label: string, title: string) => void;
   checkedItems?: { [key: string]: boolean };
 }
 
@@ -26,90 +22,29 @@ const VerticalTable: React.FC<VerticalTableProps> = ({
   checkedItems,
 }) => {
   const { isDarkMode } = useDarkMode();
+  const [tableData, setTableData] = useState(data);
 
-  const renderContent = (row: {
-    title: string;
-    type?: string;
-    contents?: string | string[] | null;
-    options?: Array<{ value: string; label: string }>;
-    component?: React.ReactNode;
-  }) => {
-    switch (row.type) {
-      case "input":
-        return (
-          <Input
-            mode="sm"
-            color="transparent"
-            placeholder={row.title}
-            value={row.contents as string}
-            customStyle={{
-              padding: 0,
-              margin: 0,
-              border: "none",
-              outline: "none",
-              boxShadow: "none",
-              width: "100%",
-            }}
-          />
-        );
-      case "select":
-        return (
-          <SelectBox
-            mode="xs"
-            color="transparent"
-            options={row.options || []}
-            placeholder={row.contents as string}
-          />
-        );
-      case "chip":
-        return (
-          <div className="flex space-x-2">
-            {Array.isArray(row.contents) &&
-              row.contents.map((content, index) => (
-                <Chip
-                  key={index}
-                  mode="xs"
-                  content={content}
-                  variant={checkedItems?.[content] ? "inline" : "outline"} // checkedItems가 undefined일 수 있으므로 optional chaining 사용
-                  onClick={() => onChipClick?.(content, row.title)} // 클릭 시 핸들러 호출
-                />
-              ))}
-          </div>
-        );
-      case "datepicker":
-        return (
-          <SingleDatePicker
-            selectedDate={
-              row.contents ? new Date(row.contents as string) : null
-            } // contents가 null인 경우 처리
-            onDateChange={(date) => console.log("Date selected:", date)}
-          />
-        );
-      case "upload":
-        return (
-          <div>
-            <FileUploadButton
-              onFileUpload={(event) => {
-                const file = event.target.files?.[0];
-                if (file) {
-                  console.log("File uploaded:", file.name);
-                }
-              }}
-              buttonText="파일 업로드"
-            />
-            {row.contents === null && <span>파일명여기에 쓸껀지</span>}{" "}
-          </div>
-        );
-      default:
-        return row.component || null;
-    }
+  const handleInputChange = (id: number, value: string) => {
+    setTableData((prevData) =>
+      prevData.map((row) => (row.id === id ? { ...row, contents: value } : row))
+    );
+  };
+
+  const handleDateChange = (id: number, date: Date | null) => {
+    setTableData((prevData) =>
+      prevData.map((row) =>
+        row.id === id
+          ? { ...row, contents: date ? date.toISOString() : null }
+          : row
+      )
+    );
   };
 
   return (
     <div className="mx-5 rounded-lg shadow-lg">
       <table className="table-auto w-full">
         <tbody className="divide-x">
-          {data.map((row) => (
+          {tableData.map((row) => (
             <tr
               key={row.id}
               style={{
@@ -134,7 +69,13 @@ const VerticalTable: React.FC<VerticalTableProps> = ({
                 {row.title}
               </th>
               <td className="w-[92%] px-4 py-2 text-xs">
-                {renderContent(row)}
+                <VerticalRender
+                  row={row}
+                  onChipClick={onChipClick}
+                  checkedItems={checkedItems}
+                  onInputChange={handleInputChange}
+                  onDateChange={handleDateChange}
+                />
               </td>
             </tr>
           ))}

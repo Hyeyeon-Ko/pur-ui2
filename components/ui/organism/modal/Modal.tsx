@@ -2,7 +2,7 @@ import React, { CSSProperties, useRef } from "react";
 import colors from "@/styles/colors";
 import Button from "../../atoms/button/Button";
 import Label from "../../atoms/label/Label";
-import { useDarkMode } from "@/context/DarkModeContext"; // 다크 모드 훅 가져오기
+import { useDarkMode } from "@/context/DarkModeContext";
 
 export type ModalMode = "sm" | "xs" | "lg" | "md" | undefined;
 
@@ -40,7 +40,7 @@ const Modal: React.FC<ModalProps> = ({
   children,
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
-  const { isDarkMode } = useDarkMode(); // 다크 모드 상태 가져오기
+  const { isDarkMode } = useDarkMode();
 
   if (!isOpen) return null;
 
@@ -61,7 +61,7 @@ const Modal: React.FC<ModalProps> = ({
       <div
         style={{
           backgroundColor: isDarkMode ? colors.black : colors.black,
-          opacity: 0.1,
+          opacity: 0.4,
         }}
         className="absolute inset-0"
         onClick={closeModal}
