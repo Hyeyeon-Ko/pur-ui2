@@ -85,14 +85,7 @@ const TenderDetail: React.FC<TenderDetailProps> = () => {
 
   return (
     <div>
-      <ThemeToggle
-        customStyle={{
-          display: "flex",
-          justifyContent: "end",
-          marginTop: "24px",
-          marginRight: "24px",
-        }}
-      />
+      <ThemeToggle/>
       <PageTitle pageTitle="계약상세조회" mode="xl" fontWeight="bold" />
       <PageTitle
         pageTitle="계약사항"

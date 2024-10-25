@@ -8,11 +8,18 @@ interface ThemeProps {
   customStyle?: CSSProperties;
 }
 
-const ThemeToggle: React.FC<ThemeProps> = ({ customStyle }) => {
+const ThemeToggle: React.FC<ThemeProps> = () => {
   const { toggleDarkMode, isDarkMode } = useDarkMode();
 
   return (
-    <div style={{ ...customStyle }}>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "end",
+        marginTop: "24px",
+        marginRight: "24px",
+      }}
+    >
       {isDarkMode ? (
         <MdOutlineWbSunny
           size={24}
