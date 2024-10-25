@@ -12,9 +12,6 @@ import { columns, data } from "@/lib/data";
 import colors from "@/styles/colors";
 import React, { useCallback, useState } from "react";
 import { useDarkMode } from "@/context/DarkModeContext";
-import { FaMoon } from "react-icons/fa";
-import { MdOutlineWbSunny } from "react-icons/md";
-import ThemeToggle from "@/components/ui/molecules/buttons/ThemeToggle";
 interface TenderDetailProps {
   params: {
     id: string; // 동적 파라미터 ID의 타입 정의
@@ -33,7 +30,7 @@ const TenderDetail: React.FC<TenderDetailProps> = () => {
 
   const { handleFileUpload, downloadCsv } = useExcelFileHandler();
   const { formatCenterData, formatDate, formatCurrency } = useFormatHandler();
-  const { toggleDarkMode, isDarkMode } = useDarkMode();
+  const { isDarkMode } = useDarkMode();
 
   // const { id } = params; // params에서 ID 가져오기
   // const [tenderData, setTenderData] = useState(null);
@@ -385,16 +382,7 @@ const TenderDetail: React.FC<TenderDetailProps> = () => {
         isDarkMode ? "dark:bg-dark-Grey_Darken_5" : "bg-white"
       }`}
     >
-      <ThemeToggle
-        customStyle={{
-          display: "flex",
-          justifyContent: "end",
-          marginTop: "24px",
-          marginRight: "24px",
-        }}
-      />
       <PageTitle pageTitle="입찰상세조회" mode="xl" fontWeight="bold" />
-
       <PageTitle
         pageTitle="입찰사항"
         mode="md"
@@ -403,8 +391,8 @@ const TenderDetail: React.FC<TenderDetailProps> = () => {
       />
       <VerticalTable
         data={vertical}
-        onChipClick={handleChipClick} // Chip 클릭 이벤트 핸들러 전달
-        checkedItems={checkedItems} // 체크된 아이템 상태 전달
+        onChipClick={handleChipClick}
+        checkedItems={checkedItems}
       />
       <div className="py-20">
         <div className="flex justify-between mr-6">

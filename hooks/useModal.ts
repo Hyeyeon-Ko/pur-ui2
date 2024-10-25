@@ -2,24 +2,29 @@ import { useState, useCallback } from "react";
 
 const useModal = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedValue, setSelectedValue] = useState("");
+  const [otherReason, setOtherReason] = useState("");
 
   const openModal = useCallback(() => {
+    setSelectedValue("");
+    setOtherReason("");
     setIsOpen(true);
   }, []);
 
   const closeModal = useCallback(() => {
+    setSelectedValue("");
+    setOtherReason("");
     setIsOpen(false);
-  }, []);
-
-  const toggleModal = useCallback(() => {
-    setIsOpen((prev) => !prev);
   }, []);
 
   return {
     isOpen,
     openModal,
     closeModal,
-    toggleModal,
+    selectedValue,
+    setSelectedValue,
+    otherReason,
+    setOtherReason,
   };
 };
 

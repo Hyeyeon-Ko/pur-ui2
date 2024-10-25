@@ -2,7 +2,6 @@ import React, { CSSProperties, useEffect, useState } from "react";
 import Pagination from "../pagination/Pagination";
 import Checkbox from "../../atoms/checkbox/Checkbox";
 import colors from "@/styles/colors";
-import SelectBox from "../../atoms/selectBox/Select";
 import { useDarkMode } from "@/context/DarkModeContext";
 import Button from "../../atoms/button/Button";
 import Modal from "../../organism/modal/Modal";
@@ -34,6 +33,7 @@ interface TableProps {
   type?: TableType;
   sorter?: Sorter | null;
   setSorter?: React.Dispatch<React.SetStateAction<Sorter | null>>;
+  modalContent?: React.ReactNode;
 }
 
 const Table: React.FC<TableProps> = ({
@@ -47,11 +47,12 @@ const Table: React.FC<TableProps> = ({
   onRowDoubleClick,
   sorter = null,
   setSorter,
+  modalContent,
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(data.length / rowsPerPage);
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
-  const { isOpen, openModal, closeModal } = useModal();
+  const { isOpen, closeModal, openModal } = useModal();
   // const [downloadOption, setDownloadOption] = useState<string>("");
 
   const { isDarkMode } = useDarkMode();
@@ -111,6 +112,9 @@ const Table: React.FC<TableProps> = ({
   );
 
   const handleRowDoubleClick = (row: { [key: string]: string }) => {
+    // 모달이 열려 있을 때는 더블클릭 이벤트를 무시
+    if (isOpen) return;
+
     if (onRowDoubleClick) {
       onRowDoubleClick(row);
     }
@@ -186,9 +190,10 @@ const Table: React.FC<TableProps> = ({
             title="파일 다운로드"
             onCancelClick={closeModal}
             onConfirmClick={closeModal}
-            mode="lg"
+            mode="sm"
+            confirmText="다운로드"
           >
-            <p>모달 내부에 추가적인 내용</p>
+            {modalContent}
           </Modal>
         </div>
       );

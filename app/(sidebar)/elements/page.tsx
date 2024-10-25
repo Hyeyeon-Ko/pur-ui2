@@ -13,6 +13,7 @@ import useValidations from "@/hooks/useValidations";
 import { useEffect, useState } from "react";
 
 const MainPage = () => {
+  // const [downloadOption, setDownloadOption] = useState("");
   const [inputValue, setInputValue] = useState<string>("");
   const [isChecked, setIsChecked] = useState(false);
   const [selectedValue, setSelectedValue] = useState("");
@@ -88,6 +89,83 @@ const MainPage = () => {
   const handleConfirm = () => {
     closeModal();
   };
+
+  // NOTE: 선택다운로드 버튼 로직
+
+  // const handleDownloadSelected = () => {
+  //   if (selectedRows.length > 0) {
+  //     const selectedData = selectedRows
+  //       .map((rowId) => {
+  //         const row = data.find((item) => item.id === rowId);
+  //         return row
+  //           ? {
+  //               ...row,
+  //               센터: formatCenterData(row.센터) || "-",
+  //               공고일: formatDate(row.공고일) || "-",
+  //               마감일: formatDate(row.마감일) || "-",
+  //               응찰일: formatDate(row.응찰일) || "-",
+  //               낙찰기준가: formatCurrency(row.낙찰기준가) || "-",
+  //               낙찰금액: formatCurrency(row.낙찰금액) || "-",
+  //               열람: row.열람 || "-",
+  //               누리장터: row.누리장터 || "-",
+  //             }
+  //           : null;
+  //       })
+  //       .filter(Boolean);
+
+  //     downloadCsv(selectedData, "download.csv");
+  //   } else {
+  //     alert("선택된 데이터가 없습니다.");
+  //   }
+  // };
+
+  // NOTE: 엑셀다운로드 셀렉트박스 구현
+  // const handleDownloadOptionChange = (
+  //   e: React.ChangeEvent<HTMLSelectElement>
+  // ) => {
+  //   const option = e.target.value;
+
+  //   if (option === "selected") {
+  //     const selectedData = selectedRows
+  //       .map((rowId) => {
+  //         const row = data.find((item) => item.id === rowId);
+  //         return row
+  //           ? {
+  //               ...row,
+  //               센터: formatCenterData(row.센터) || "-",
+  //               공고일: formatDate(row.공고일) || "-",
+  //               마감일: formatDate(row.마감일) || "-",
+  //               응찰일: formatDate(row.응찰일) || "-",
+  //               낙찰기준가: formatCurrency(row.낙찰기준가) || "-",
+  //               낙찰금액: formatCurrency(row.낙찰금액) || "-",
+  //               열람: row.열람 || "-",
+  //               누리장터: row.누리장터 || "-",
+  //             }
+  //           : null;
+  //       })
+  //       .filter(Boolean);
+
+  //     if (selectedData.length > 0) {
+  //       downloadCsv(selectedData, "selected_download.csv");
+  //     } else {
+  //       alert("선택된 데이터가 없습니다.");
+  //     }
+  //   } else if (option === "all") {
+  //     const allData = data.map((row) => ({
+  //       ...row,
+  //       센터: formatCenterData(row.센터) || "-",
+  //       공고일: formatDate(row.공고일) || "-",
+  //       마감일: formatDate(row.마감일) || "-",
+  //       응찰일: formatDate(row.응찰일) || "-",
+  //       낙찰기준가: formatCurrency(row.낙찰기준가) || "-",
+  //       낙찰금액: formatCurrency(row.낙찰금액) || "-",
+  //       열람: row.열람 || "-",
+  //       누리장터: row.누리장터 || "-",
+  //     }));
+
+  //     downloadCsv(allData, "all_download.csv");
+  //   }
+  // };
 
   return (
     <div>
@@ -322,6 +400,35 @@ const MainPage = () => {
           <p>모달 내부에 추가적인 내용</p>
         </Modal>
       </div>
+
+      {/* NOTE: 버튼형 엑셀 업로드, 다운로드 */}
+      {/* <FileUploadButton
+          onFileUpload={handleFileUpload}
+          buttonText="엑셀업로드"
+        />
+        <Button
+          mode="xs"
+          content="엑셀선택다운로드"
+          variant="outline"
+          color="Button_Default"
+          onClick={handleDownloadSelected}
+        /> */}
+
+      {/* NOTE: 셀렉트 박스 */}
+      {/* <SelectBox
+          mode="xs"
+          placeholder="엑셀다운로드"
+          value={downloadOption}
+          onChange={(e) => {
+            setDownloadOption(e.target.value);
+            handleDownloadOptionChange(e);
+          }}
+          options={[
+            { value: "all", label: "전체 다운로드" },
+            { value: "selected", label: "선택 다운로드" },
+          ]}
+          customStyle={{ color: colors.Button_Default }}
+        /> */}
     </div>
   );
 };

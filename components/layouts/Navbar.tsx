@@ -12,16 +12,22 @@ import colors from "@/styles/colors";
 const Navbar: React.FC = () => {
   const { toggleDarkMode, isDarkMode } = useDarkMode();
   const [user, setUser] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     setUser(storedUser ? JSON.parse(storedUser) : null);
+    setLoading(false);
   }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("user");
     setUser(null);
   };
+
+  if (loading) {
+    return null;
+  }
 
   return (
     <nav className="p-4 mx-4 flex justify-end items-center">

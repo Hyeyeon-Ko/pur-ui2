@@ -35,20 +35,19 @@ const SelectBox: React.FC<SelectProps> = ({
     lg: "text-lg px-5 py-3",
   };
 
-  const borderColor = isDarkMode
-    ? colors["transparent"]
-    : colors["transparent"];
-  const backgroundColor = isDarkMode ? colors["transparent"] : "white";
-  const textColor = isDarkMode ? "#9CA3AF" : "black";
-  const optionBackgroundColor = isDarkMode ? colors["sub"] : "white";
-  const optionTextColor = isDarkMode ? "white" : "black";
-  const disabledColor = "gray-200";
+  const borderColor =
+    customStyle?.borderColor ||
+    (isDarkMode ? colors["transparent"] : colors["transparent"]);
+  const backgroundColor =
+    customStyle?.backgroundColor ||
+    (isDarkMode ? colors["transparent"] : "white");
+  const textColor = customStyle?.color || (isDarkMode ? "#9CA3AF" : "black");
 
   return (
     <select
       className={`m-1 border rounded transition-all duration-150 ease-in-out focus:outline-none ${
         modeClasses[mode]
-      } ${disabled ? `bg-${disabledColor} cursor-not-allowed` : ""}`}
+      } ${disabled ? `bg-gray-200 cursor-not-allowed` : ""}`}
       style={{
         ...customStyle,
         borderColor,
@@ -66,14 +65,7 @@ const SelectBox: React.FC<SelectProps> = ({
         </option>
       )}
       {options.map((option) => (
-        <option
-          key={option.value}
-          value={option.value}
-          style={{
-            backgroundColor: optionBackgroundColor,
-            color: optionTextColor,
-          }}
-        >
+        <option key={option.value} value={option.value}>
           {option.label}
         </option>
       ))}

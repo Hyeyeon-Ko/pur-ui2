@@ -17,6 +17,10 @@ import SearchFilter, {
   FieldConfig,
 } from "@/components/ui/organism/filter/SearchFilter";
 import PageTitle from "@/components/ui/molecules/titles/PageTitle";
+import Input from "@/components/ui/atoms/input/Input";
+import LabelSelect from "@/components/ui/molecules/selects/LabelSelect";
+import colors from "@/styles/colors";
+import useModal from "@/hooks/useModal";
 
 const fieldsConfig: FieldConfig[] = [
   { name: "center", type: "select", options: centerOptions },
@@ -30,13 +34,16 @@ const fieldsConfig: FieldConfig[] = [
 ];
 
 const MenuPage = () => {
-  // const [downloadOption, setDownloadOption] = useState("");
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
   const [sorter, setSorter] = useState<{
     field: string;
     order: "ascend" | "descend" | undefined;
   } | null>(null);
+
   const { formatCenterData, formatDate, formatCurrency } = useFormatHandler();
+
+  const { selectedValue, setSelectedValue, otherReason, setOtherReason } =
+    useModal();
 
   const [formattedData, setFormattedData] = useState(
     data.map((item) => ({
@@ -71,87 +78,62 @@ const MenuPage = () => {
     const newFormattedData = formattedData.filter(
       (item) => !selectedRows.includes(item.id)
     );
-
+    confirm("선택한 항목을 정말 삭제하시겠습니까?");
     setFormattedData(newFormattedData);
     setSelectedRows([]);
   };
 
-  // NOTE: 선택다운로드 버튼 로직
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedValue(e.target.value);
+    if (e.target.value !== "etc") {
+      setOtherReason("");
+    }
+  };
 
-  // const handleDownloadSelected = () => {
-  //   if (selectedRows.length > 0) {
-  //     const selectedData = selectedRows
-  //       .map((rowId) => {
-  //         const row = data.find((item) => item.id === rowId);
-  //         return row
-  //           ? {
-  //               ...row,
-  //               센터: formatCenterData(row.센터) || "-",
-  //               공고일: formatDate(row.공고일) || "-",
-  //               마감일: formatDate(row.마감일) || "-",
-  //               응찰일: formatDate(row.응찰일) || "-",
-  //               낙찰기준가: formatCurrency(row.낙찰기준가) || "-",
-  //               낙찰금액: formatCurrency(row.낙찰금액) || "-",
-  //               열람: row.열람 || "-",
-  //               누리장터: row.누리장터 || "-",
-  //             }
-  //           : null;
-  //       })
-  //       .filter(Boolean);
-
-  //     downloadCsv(selectedData, "download.csv");
-  //   } else {
-  //     alert("선택된 데이터가 없습니다.");
-  //   }
-  // };
-
-  // NOTE: 엑셀다운로드 셀렉트박스 구현
-  // const handleDownloadOptionChange = (
-  //   e: React.ChangeEvent<HTMLSelectElement>
-  // ) => {
-  //   const option = e.target.value;
-
-  //   if (option === "selected") {
-  //     const selectedData = selectedRows
-  //       .map((rowId) => {
-  //         const row = data.find((item) => item.id === rowId);
-  //         return row
-  //           ? {
-  //               ...row,
-  //               센터: formatCenterData(row.센터) || "-",
-  //               공고일: formatDate(row.공고일) || "-",
-  //               마감일: formatDate(row.마감일) || "-",
-  //               응찰일: formatDate(row.응찰일) || "-",
-  //               낙찰기준가: formatCurrency(row.낙찰기준가) || "-",
-  //               낙찰금액: formatCurrency(row.낙찰금액) || "-",
-  //               열람: row.열람 || "-",
-  //               누리장터: row.누리장터 || "-",
-  //             }
-  //           : null;
-  //       })
-  //       .filter(Boolean);
-
-  //     if (selectedData.length > 0) {
-  //       downloadCsv(selectedData, "selected_download.csv");
-  //     } else {
-  //       alert("선택된 데이터가 없습니다.");
-  //     }
-  //   } else if (option === "all") {
-  //     const allData = data.map((row) => ({
-  //       ...row,
-  //       센터: formatCenterData(row.센터) || "-",
-  //       공고일: formatDate(row.공고일) || "-",
-  //       마감일: formatDate(row.마감일) || "-",
-  //       응찰일: formatDate(row.응찰일) || "-",
-  //       낙찰기준가: formatCurrency(row.낙찰기준가) || "-",
-  //       낙찰금액: formatCurrency(row.낙찰금액) || "-",
-  //       열람: row.열람 || "-",
-  //       누리장터: row.누리장터 || "-",
-  //     }));
-
-  //     downloadCsv(allData, "all_download.csv");
-  //   }
-  // };
+  const modalContent = (
+    <div className="flex flex-col px-8">
+      <LabelSelect
+        selectMode="sm"
+        label="다운로드 파일"
+        placeholder="파일다운로드"
+        value={selectedValue}
+        onChange={handleSelectChange}
+        options={[
+          { value: "option1", label: "Option 1" },
+          { value: "option2", label: "Option 2" },
+          { value: "option3", label: "Option 3" },
+        ]}
+        customStyle={{ width: "220px", borderColor: colors.Button_Default }}
+      />
+      <LabelSelect
+        selectMode="sm"
+        label="다운로드 사유"
+        value={selectedValue}
+        onChange={handleSelectChange}
+        options={[
+          { value: "mine", label: "개인보관" },
+          { value: "what", label: "궁금해서" },
+          { value: "boring", label: "심심해서" },
+          { value: "etc", label: "기타" },
+        ]}
+        placeholder="다운로드 사유"
+        customStyle={{ width: "220px", borderColor: colors.Button_Default }}
+      />
+      {selectedValue === "etc" && (
+        <div>
+          <Input
+            mode="sm"
+            color="Button_Default"
+            type="text"
+            placeholder="사유를 입력하세요"
+            value={otherReason}
+            onChange={(e) => setOtherReason(e.target.value)}
+            customStyle={{ width: "330px" }}
+          />
+        </div>
+      )}
+    </div>
+  );
 
   return (
     <div className="flex flex-col mb-4">
@@ -199,36 +181,8 @@ const MenuPage = () => {
         pagination={true}
         sorter={sorter}
         setSorter={setSorter}
+        modalContent={modalContent}
       />
-
-      {/* NOTE: 버튼형 엑셀 업로드, 다운로드 */}
-      {/* <FileUploadButton
-          onFileUpload={handleFileUpload}
-          buttonText="엑셀업로드"
-        />
-        <Button
-          mode="xs"
-          content="엑셀선택다운로드"
-          variant="outline"
-          color="Button_Default"
-          onClick={handleDownloadSelected}
-        /> */}
-
-      {/* NOTE: 셀렉트 박스 */}
-      {/* <SelectBox
-          mode="xs"
-          placeholder="엑셀다운로드"
-          value={downloadOption}
-          onChange={(e) => {
-            setDownloadOption(e.target.value);
-            handleDownloadOptionChange(e);
-          }}
-          options={[
-            { value: "all", label: "전체 다운로드" },
-            { value: "selected", label: "선택 다운로드" },
-          ]}
-          customStyle={{ color: colors.Button_Default }}
-        /> */}
     </div>
   );
 };
