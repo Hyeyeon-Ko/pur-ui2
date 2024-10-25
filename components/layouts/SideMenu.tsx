@@ -5,6 +5,10 @@ import { HiMenuAlt3 } from "react-icons/hi";
 import { MdCalculate } from "react-icons/md";
 import { RiSettings5Fill } from "react-icons/ri";
 import { FaFileContract } from "react-icons/fa";
+import { RiAdminFill } from "react-icons/ri";
+import { TbSquareNumber1Filled } from "react-icons/tb";
+import { TbSquareNumber2Filled } from "react-icons/tb";
+import { TbSquareNumber3Filled } from "react-icons/tb";
 import Link from "next/link";
 import colors from "@/styles/colors";
 
@@ -25,6 +29,32 @@ const menuItems = [
         href: "/contract",
         visible: ["admin", "master"],
         tooltip: "계약조회",
+      },
+      {
+        icon: RiAdminFill,
+        label: "코드조회",
+        visible: ["admin", "master"],
+        tooltip: "코드조회",
+        part: [
+          {
+            icon: TbSquareNumber1Filled,
+            label: "대분류",
+            href: "/all",
+            visible: ["admin", "master"],
+          },
+          {
+            icon: TbSquareNumber2Filled,
+            label: "중분류",
+            href: "/medium",
+            visible: ["admin", "master"],
+          },
+          {
+            icon: TbSquareNumber3Filled,
+            label: "소분류",
+            href: "/little",
+            visible: ["admin", "master"],
+          },
+        ],
       },
     ],
   },
@@ -50,6 +80,11 @@ const SideMenu = ({
   toggleSidebar: () => void;
 }) => {
   const [hoveredLabel, setHoveredLabel] = useState<string | null>(null);
+  const [codeMenuOpen, setCodeMenuOpen] = useState<boolean>(true); // 상태 추가
+
+  const toggleCodeMenu = () => {
+    setCodeMenuOpen((prev) => !prev); // 코드조회 메뉴 토글
+  };
 
   return (
     <div
@@ -83,36 +118,13 @@ const SideMenu = ({
                 onMouseEnter={() => setHoveredLabel(item.label)}
                 onMouseLeave={() => setHoveredLabel(null)}
               >
-                <Link
-                  href={item.href}
-                  className={`relative flex items-center justify-start text-gray-500 py-2 mx-2 rounded-md transition-colors duration-200`}
+                {/* 코드조회는 href 없이 클릭 시 토글 */}
+                <div
+                  className={`relative flex items-center justify-start text-gray-500 py-2 mx-2 rounded-md transition-colors duration-200 cursor-pointer`}
                   style={{ backgroundColor: "transparent" }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = colors.sub;
-                    const svgElement = e.currentTarget.querySelector("svg");
-                    const spanElement = e.currentTarget.querySelector("span");
-
-                    if (svgElement) {
-                      svgElement.style.fill = colors.white;
-                    }
-
-                    if (spanElement) {
-                      spanElement.style.color = colors.white;
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = "transparent";
-                    const svgElement = e.currentTarget.querySelector("svg");
-                    const spanElement = e.currentTarget.querySelector("span");
-
-                    if (svgElement) {
-                      svgElement.style.fill = colors.white;
-                    }
-
-                    if (spanElement) {
-                      spanElement.style.color = colors.white;
-                    }
-                  }}
+                  onClick={
+                    item.label === "코드조회" ? toggleCodeMenu : undefined
+                  }
                 >
                   <item.icon
                     size={20}
@@ -158,7 +170,29 @@ const SideMenu = ({
                       ></span>
                     </span>
                   )}
-                </Link>
+                </div>
+
+                {/* 하위 메뉴 조건부 렌더링 */}
+                {item.label === "코드조회" && codeMenuOpen && (
+                  <div className="flex flex-col pl-6 gap-2">
+                    {item.part.map((subItem) => (
+                      <Link
+                        key={subItem.label}
+                        href={subItem.href}
+                        className={`flex items-center text-gray-500 py-1 mx-2 rounded-md transition-colors duration-200`}
+                      >
+                        <subItem.icon
+                          size={16}
+                          style={{ fill: colors.white }}
+                          className={`transition-transform duration-300 cursor-pointer mr-2`}
+                        />
+                        <span style={{ color: colors.white }}>
+                          {subItem.label}
+                        </span>
+                      </Link>
+                    ))}
+                  </div>
+                )}
               </div>
             ))}
           </div>
