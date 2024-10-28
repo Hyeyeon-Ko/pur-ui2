@@ -4,18 +4,23 @@ import Navbar from "@/components/layouts/Navbar";
 import SideMenu from "@/components/layouts/SideMenu";
 import colors from "@/styles/colors";
 import { useState, useEffect } from "react";
-import { useDarkMode } from "@/context/DarkModeContext"; // 추가
+import { useDarkMode } from "@/context/DarkModeContext"; // 다크모드 컨텍스트
+import { getLocal, setLocal } from "@/utils/localStorage";
 
 export default function DashboardLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const { isDarkMode } = useDarkMode(); // 수정
+  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
+  const { isDarkMode } = useDarkMode(); // 다크모드 상태 가져오기
 
   const toggleSidebar = () => {
-    setIsSidebarOpen((prev) => !prev);
+    setIsSidebarOpen((prev) => {
+      const newState = !prev;
+      setLocal({ key: "sidebar", value: newState }); // 로컬 스토리지에 상태 저장
+      return newState;
+    });
   };
 
   const handleResize = () => {
@@ -27,12 +32,27 @@ export default function DashboardLayout({
   };
 
   useEffect(() => {
+    // 로컬 스토리지에서 초기 사이드바 상태 가져오기
+    // const storedSidebarState = getLocal("sidebar");
+    // setIsSidebarOpen(storedSidebarState === "true" ? true : false); // "true" 문자열을 boolean으로 변환
+
+    // // 초기 사이드바 상태를 콘솔에 출력
+    // console.log("sidebar: ", storedSidebarState);
+
+    // 윈도우 리사이즈 이벤트 핸들러 등록
     handleResize();
     window.addEventListener("resize", handleResize);
 
+    // 컴포넌트 언마운트 시 리사이즈 이벤트 핸들러 제거
     return () => {
       window.removeEventListener("resize", handleResize);
     };
+  }, []);
+
+  useEffect(() => {
+    const storedSidebarState = getLocal("sidebar");
+    setIsSidebarOpen(storedSidebarState === "true" ? true : false); // "true" 문자열을
+    console.log("sidebar: ", storedSidebarState);
   }, []);
 
   return (

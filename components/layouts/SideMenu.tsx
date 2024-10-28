@@ -11,66 +11,7 @@ import { TbSquareNumber2Filled } from "react-icons/tb";
 import { TbSquareNumber3Filled } from "react-icons/tb";
 import Link from "next/link";
 import colors from "@/styles/colors";
-
-const menuItems = [
-  {
-    title: "MENU",
-    items: [
-      {
-        icon: MdCalculate,
-        label: "입찰조회",
-        href: "/tender",
-        visible: ["admin", "master"],
-        tooltip: "입찰조회",
-      },
-      {
-        icon: FaFileContract,
-        label: "계약조회",
-        href: "/contract",
-        visible: ["admin", "master"],
-        tooltip: "계약조회",
-      },
-      {
-        icon: RiAdminFill,
-        label: "코드조회",
-        visible: ["admin", "master"],
-        tooltip: "코드조회",
-        part: [
-          {
-            icon: TbSquareNumber1Filled,
-            label: "대분류",
-            href: "/all",
-            visible: ["admin", "master"],
-          },
-          {
-            icon: TbSquareNumber2Filled,
-            label: "중분류",
-            href: "/medium",
-            visible: ["admin", "master"],
-          },
-          {
-            icon: TbSquareNumber3Filled,
-            label: "소분류",
-            href: "/little",
-            visible: ["admin", "master"],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    title: "OTHER",
-    items: [
-      {
-        icon: RiSettings5Fill,
-        label: "SETTINGS",
-        href: "/settings",
-        visible: ["admin", "master", "admin"],
-        tooltip: "설정",
-      },
-    ],
-  },
-];
+import { useRouter } from "next/navigation";
 
 const SideMenu = ({
   isOpen,
@@ -81,10 +22,72 @@ const SideMenu = ({
 }) => {
   const [hoveredLabel, setHoveredLabel] = useState<string | null>(null);
   const [codeMenuOpen, setCodeMenuOpen] = useState<boolean>(true); // 상태 추가
+  const router = useRouter();
 
   const toggleCodeMenu = () => {
     setCodeMenuOpen((prev) => !prev); // 코드조회 메뉴 토글
   };
+
+  const menuItems = [
+    {
+      title: "MENU",
+      items: [
+        {
+          icon: MdCalculate,
+          label: "입찰조회",
+          href: "/tender",
+          visible: ["admin", "master"],
+          tooltip: "입찰조회",
+        },
+        {
+          icon: FaFileContract,
+          label: "계약조회",
+          href: "/contract",
+          visible: ["admin", "master"],
+          tooltip: "계약조회",
+        },
+        {
+          icon: RiAdminFill,
+          label: "코드조회",
+          visible: ["admin", "master"],
+          tooltip: "코드조회",
+          onClick: toggleCodeMenu,
+          part: [
+            {
+              icon: TbSquareNumber1Filled,
+              label: "대분류",
+              href: "/all",
+              visible: ["admin", "master"],
+            },
+            {
+              icon: TbSquareNumber2Filled,
+              label: "중분류",
+              href: "/medium",
+              visible: ["admin", "master"],
+            },
+            {
+              icon: TbSquareNumber3Filled,
+              label: "소분류",
+              href: "/little",
+              visible: ["admin", "master"],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      title: "OTHER",
+      items: [
+        {
+          icon: RiSettings5Fill,
+          label: "SETTINGS",
+          href: "/settings",
+          visible: ["admin", "master", "admin"],
+          tooltip: "설정",
+        },
+      ],
+    },
+  ];
 
   return (
     <div
@@ -115,6 +118,7 @@ const SideMenu = ({
               <div
                 key={item.label}
                 className="relative"
+                // css로 도전!
                 onMouseEnter={() => setHoveredLabel(item.label)}
                 onMouseLeave={() => setHoveredLabel(null)}
               >
@@ -122,8 +126,8 @@ const SideMenu = ({
                 <div
                   className={`relative flex items-center justify-start text-gray-500 py-2 mx-2 rounded-md transition-colors duration-200 cursor-pointer`}
                   style={{ backgroundColor: "transparent" }}
-                  onClick={
-                    item.label === "코드조회" ? toggleCodeMenu : undefined
+                  onClick={() =>
+                    item.onClick ? item.onClick() : router.push(item.href)
                   }
                 >
                   <item.icon
