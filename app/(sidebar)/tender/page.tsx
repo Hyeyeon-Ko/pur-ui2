@@ -56,7 +56,7 @@ const MenuPage = () => {
   };
 
   return (
-    <div className="flex flex-col mb-4">
+    <div>
       <PageTitle pageTitle="입찰조회" mode="xl" fontWeight="bold" />
 
       <div>
