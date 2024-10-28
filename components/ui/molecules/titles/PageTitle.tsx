@@ -1,7 +1,10 @@
+"use client";
+
 import React, { CSSProperties } from "react";
 import Label from "../../atoms/label/Label";
 import colors from "@/styles/colors";
 import { useDarkMode } from "@/context/DarkModeContext";
+// import { useDarkMode } from "@/context/DarkModeContext";
 
 interface TitleProps {
   pageTitle: string;

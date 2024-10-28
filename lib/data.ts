@@ -1066,7 +1066,7 @@ export const tenderVerticalResult = [
   {
     id: 6,
     title: "입찰보증금",
-    type: "upload",
+    type: "upload-message",
     contents: null,
   },
   {
@@ -1171,13 +1171,13 @@ export const contractVertical = [
   {
     id: 12,
     title: "계약보증금",
-    type: "upload",
+    type: "upload-message",
     contents: null,
   },
   {
     id: 13,
     title: "하자이행보증금",
-    type: "upload",
+    type: "upload-message",
     contents: null,
   },
   {
