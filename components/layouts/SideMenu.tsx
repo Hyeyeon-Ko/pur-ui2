@@ -24,8 +24,9 @@ const SideMenu = ({
   const [codeMenuOpen, setCodeMenuOpen] = useState<boolean>(true); // 상태 추가
   const router = useRouter();
 
-  const toggleCodeMenu = () => {
+  const toggleCodeMenuAndNavigate = (href: string) => {
     setCodeMenuOpen((prev) => !prev); // 코드조회 메뉴 토글
+    router.push(href);
   };
 
   const menuItems = [
@@ -49,26 +50,27 @@ const SideMenu = ({
         {
           icon: RiAdminFill,
           label: "코드조회",
+          href: "/category/major",
           visible: ["admin", "master"],
           tooltip: "코드조회",
-          onClick: toggleCodeMenu,
+          onClick: () => toggleCodeMenuAndNavigate("/category/major"),
           part: [
             {
               icon: TbSquareNumber1Filled,
               label: "대분류",
-              href: "/all",
+              href: "/category/major",
               visible: ["admin", "master"],
             },
             {
               icon: TbSquareNumber2Filled,
               label: "중분류",
-              href: "/medium",
+              href: "/category/middle",
               visible: ["admin", "master"],
             },
             {
               icon: TbSquareNumber3Filled,
               label: "소분류",
-              href: "/little",
+              href: "/category/small",
               visible: ["admin", "master"],
             },
           ],
@@ -129,6 +131,32 @@ const SideMenu = ({
                   onClick={() =>
                     item.onClick ? item.onClick() : router.push(item.href)
                   }
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = colors.sub;
+                    const svgElement = e.currentTarget.querySelector("svg");
+                    const spanElement = e.currentTarget.querySelector("span");
+
+                    if (svgElement) {
+                      svgElement.style.fill = colors.white;
+                    }
+
+                    if (spanElement) {
+                      spanElement.style.color = colors.white;
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = "transparent";
+                    const svgElement = e.currentTarget.querySelector("svg");
+                    const spanElement = e.currentTarget.querySelector("span");
+
+                    if (svgElement) {
+                      svgElement.style.fill = colors.white;
+                    }
+
+                    if (spanElement) {
+                      spanElement.style.color = colors.white;
+                    }
+                  }}
                 >
                   <item.icon
                     size={20}
@@ -177,18 +205,48 @@ const SideMenu = ({
                 </div>
 
                 {/* 하위 메뉴 조건부 렌더링 */}
-                {item.label === "코드조회" && codeMenuOpen && (
-                  <div className="flex flex-col pl-6 gap-2">
+                {item.label === "코드조회" && codeMenuOpen && isOpen && (
+                  <div className="flex flex-col px-6 mx-2 gap-2">
                     {item.part.map((subItem) => (
                       <Link
                         key={subItem.label}
                         href={subItem.href}
                         className={`flex items-center text-gray-500 py-1 mx-2 rounded-md transition-colors duration-200`}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.backgroundColor = colors.sub;
+                          const svgElement =
+                            e.currentTarget.querySelector("svg");
+                          const spanElement =
+                            e.currentTarget.querySelector("span");
+
+                          if (svgElement) {
+                            svgElement.style.fill = colors.white;
+                          }
+
+                          if (spanElement) {
+                            spanElement.style.color = colors.white;
+                          }
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.backgroundColor = "transparent";
+                          const svgElement =
+                            e.currentTarget.querySelector("svg");
+                          const spanElement =
+                            e.currentTarget.querySelector("span");
+
+                          if (svgElement) {
+                            svgElement.style.fill = colors.white;
+                          }
+
+                          if (spanElement) {
+                            spanElement.style.color = colors.white;
+                          }
+                        }}
                       >
                         <subItem.icon
                           size={16}
                           style={{ fill: colors.white }}
-                          className={`transition-transform duration-300 cursor-pointer mr-2`}
+                          className={`transition-transform duration-300 cursor-pointer m-2`}
                         />
                         <span style={{ color: colors.white }}>
                           {subItem.label}

@@ -20,6 +20,27 @@ const LoginForm = () => {
     } else {
       alert("로그인 실패!");
     }
+
+    /** api 방식 로그인 구현 */
+    // try {
+    //   const response = await fetch('/api/login', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({ employeeId, password }),
+    //   });
+
+    //   if (!response.ok) {
+    //     throw new Error('로그인 실패!');
+    //   }
+
+    //   const data = await response.json();
+    //   localStorage.setItem('token', data.token); // JWT 토큰 저장
+    //   router.push('/tender'); // 로그인 성공 시 홈으로 리다이렉트
+    // } catch (error) {
+    //   alert(error.message);
+    // }
   };
 
   return (
