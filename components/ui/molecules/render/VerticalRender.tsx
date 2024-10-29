@@ -27,6 +27,7 @@ const VerticalRender: React.FC<VerticalRenderProps> = ({
   checkedItems,
   onInputChange,
   onDateChange,
+  
 }) => {
   const [uploadedFiles, setUploadedFiles] = useState<{
     [key: number]: File | null;

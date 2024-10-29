@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "../../atoms/button/Button";
 import useModal from "@/hooks/useModal";
 import colors from "@/styles/colors";
@@ -20,18 +20,20 @@ const DownButton: React.FC<DownProps> = ({
   fileOptions = [],
   reasonOptions = [],
 }) => {
-  const {
-    isOpen,
-    openModal,
-    closeModal,
-    selectedValue,
-    setSelectedValue,
-    otherReason,
-    setOtherReason,
-  } = useModal();
+  const { isOpen, openModal, closeModal } = useModal();
 
-  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedValue(e.target.value);
+  const [selectedFile, setSelectedFile] = useState<string>(""); // 첫 번째 셀렉트 상태
+  const [selectedReason, setSelectedReason] = useState<string>(""); // 두 번째 셀렉트 상태
+  const [otherReason, setOtherReason] = useState<string>(""); // 기타 사유 상태
+
+  const handleFileSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedFile(e.target.value);
+  };
+
+  const handleReasonSelectChange = (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setSelectedReason(e.target.value);
   };
 
   const modalContent = (
@@ -40,21 +42,21 @@ const DownButton: React.FC<DownProps> = ({
         selectMode="sm"
         label="다운로드 파일"
         placeholder="파일다운로드"
-        value={selectedValue}
-        onChange={handleSelectChange}
+        value={selectedFile}
+        onChange={handleFileSelectChange} // 파일 선택 핸들러
         options={fileOptions}
         customStyle={{ width: "220px", borderColor: colors.Button_Default }}
       />
       <LabelSelect
         selectMode="sm"
         label="다운로드 사유"
-        value={selectedValue}
-        onChange={handleSelectChange}
+        value={selectedReason} // 이유 선택 상태
+        onChange={handleReasonSelectChange} // 이유 선택 핸들러
         options={reasonOptions}
         placeholder="다운로드 사유"
         customStyle={{ width: "220px", borderColor: colors.Button_Default }}
       />
-      {selectedValue === "etc" && (
+      {selectedReason === "etc" && (
         <div>
           <Input
             mode="sm"

@@ -59,7 +59,11 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
         style={{
           borderColor: isDarkMode ? colors.sub : colors["Grey_Lighten-4"],
         }}
-        className="border mx-auto rounded-full shadow-lg w-[90%] bg-white"
+        className={`${
+          isDarkMode
+            ? "bg-dark-Grey_Darken_5"
+            : "bg-white"
+        } border mx-auto rounded-full shadow-lg w-[90%]`}
       >
         <div>
           <div className="flex flex-wrap">
