@@ -1,5 +1,6 @@
 import { contractRowData, RowData } from "@/types/dummyTypes";
 import { FieldConfig } from "@/types/fieldTypes";
+import { majorCategoryOptions, middleCategoryOptions } from "./optionDatas";
 
 export const data: RowData[] = [
   {
@@ -1185,5 +1186,53 @@ export const contractVertical = [
     title: "계약기타사항",
     type: "upload",
     contents: null,
+  },
+];
+
+export const majorFields = [
+  { type: "input", field: "content", placeholder: "공통 코드를 입력하세요." },
+  { type: "input", field: "name", placeholder: "코드 이름을 입력하세요." },
+  {
+    type: "input",
+    field: "description",
+    placeholder: "코드 내용을 입력하세요.",
+  },
+];
+
+export const middleFields = [
+  {
+    type: "select",
+    field: "someSelect",
+    placeholder: "대분류.",
+    options: majorCategoryOptions,
+  },
+  { type: "input", field: "content", placeholder: "공통 코드를 입력하세요." },
+  { type: "input", field: "name", placeholder: "코드 이름을 입력하세요." },
+  {
+    type: "input",
+    field: "description",
+    placeholder: "코드 내용을 입력하세요.",
+  },
+];
+
+export const smallFields = [
+  {
+    type: "select",
+    field: "someSelect",
+    placeholder: "대분류.",
+    options: majorCategoryOptions,
+  },
+  {
+    type: "select",
+    field: "someSelect",
+    placeholder: "중분류.",
+    options: middleCategoryOptions,
+  },
+  { type: "input", field: "content", placeholder: "공통 코드를 입력하세요." },
+  { type: "input", field: "name", placeholder: "코드 이름을 입력하세요." },
+  {
+    type: "input",
+    field: "description",
+    placeholder: "코드 내용을 입력하세요.",
   },
 ];

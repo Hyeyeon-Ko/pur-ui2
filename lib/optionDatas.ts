@@ -10,3 +10,15 @@ export const reasonOptions = [
   { value: "boring", label: "심심해서" },
   { value: "etc", label: "기타" },
 ];
+
+export const majorCategoryOptions = [
+  { value: "option1", label: "옵션 1" },
+  { value: "option2", label: "옵션 2" },
+  { value: "option3", label: "옵션 3" },
+];
+
+export const middleCategoryOptions = [
+  { value: "option1", label: "옵션 1" },
+  { value: "option2", label: "옵션 2" },
+  { value: "option3", label: "옵션 3" },
+];
