@@ -12,12 +12,14 @@ export const reasonOptions = [
 ];
 
 export const majorCategoryOptions = [
+  { value: "", label: "대분류 선택" },
   { value: "option1", label: "옵션 1" },
   { value: "option2", label: "옵션 2" },
   { value: "option3", label: "옵션 3" },
 ];
 
 export const middleCategoryOptions = [
+  { value: "", label: "중분류 선택" },
   { value: "option1", label: "옵션 1" },
   { value: "option2", label: "옵션 2" },
   { value: "option3", label: "옵션 3" },

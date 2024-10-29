@@ -27,7 +27,6 @@ const VerticalRender: React.FC<VerticalRenderProps> = ({
   checkedItems,
   onInputChange,
   onDateChange,
-  
 }) => {
   const [uploadedFiles, setUploadedFiles] = useState<{
     [key: number]: File | null;
@@ -142,7 +141,7 @@ const VerticalRender: React.FC<VerticalRenderProps> = ({
               <Label color="sub" mode="xs" content="제출완료" />
             </div> // 파일명이 존재할 경우
           ) : (
-            <div className="flex items-center gap-2">
+            <div className="flex flex-col gap-2">
               <Label color="sub" mode="xs" content="미제출" />
               <Input
                 customStyle={{ minWidth: "200px" }}

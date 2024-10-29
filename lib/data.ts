@@ -1072,12 +1072,6 @@ export const tenderVerticalResult = [
   },
   {
     id: 7,
-    title: "사유",
-    type: "input",
-    contents: "",
-  },
-  {
-    id: 8,
     title: "기타사항",
     type: "input",
     contents: "",
@@ -1202,8 +1196,7 @@ export const majorFields = [
 export const middleFields = [
   {
     type: "select",
-    field: "someSelect",
-    placeholder: "대분류.",
+    field: "majorSelect",
     options: majorCategoryOptions,
   },
   { type: "input", field: "content", placeholder: "공통 코드를 입력하세요." },
@@ -1218,14 +1211,12 @@ export const middleFields = [
 export const smallFields = [
   {
     type: "select",
-    field: "someSelect",
-    placeholder: "대분류.",
+    field: "majorSelect",
     options: majorCategoryOptions,
   },
   {
     type: "select",
-    field: "someSelect",
-    placeholder: "중분류.",
+    field: "middleSelect",
     options: middleCategoryOptions,
   },
   { type: "input", field: "content", placeholder: "공통 코드를 입력하세요." },

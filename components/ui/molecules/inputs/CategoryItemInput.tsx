@@ -3,6 +3,7 @@ import Input from "@/components/ui/atoms/input/Input";
 import React from "react";
 import SelectBox from "../../atoms/selectBox/Select";
 import { CategoryItemInputProps } from "@/types/categoryTypes";
+import Label from "../../atoms/label/Label";
 
 const CategoryItemInput: React.FC<CategoryItemInputProps> = ({
   item,
@@ -66,10 +67,24 @@ const CategoryItemInput: React.FC<CategoryItemInputProps> = ({
           </div>
         </div>
       ) : (
-        <div className="flex flex-grow justify-between">
-          <span>{item.content}</span>
-          <span>{item.name}</span>
-          <span>{item.description}</span>
+        <div className="flex flex-grow justify-between items-center">
+          {fields.map((field) => {
+            if (field.type === "select") {
+              const selectedValue = item[field.field as keyof typeof item];
+              return (
+                <Label
+                  key={field.field}
+                  mode="xs"
+                  content={String(selectedValue)}
+                />
+              );
+            }
+            return null;
+          })}
+          <Label mode="xs" content={item.content} />
+          <Label mode="xs" content={item.name} />
+          <Label mode="xs" content={item.description} />
+
           <div className="flex space-x-2">
             <Button
               color="sub"
