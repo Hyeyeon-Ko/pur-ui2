@@ -13,21 +13,21 @@ RUN npm ci
 # 소스 코드 복사
 COPY . ./
 
-# 애플리케이션 빌드
+# NestJS 프로젝트 빌드
 RUN npm run build
 
-# 단계 2: 프로덕션 단계
-FROM node:18.17.0-alpine
+# Step 2: Production Stage
+# 경량화된 Nginx 이미지로 설정
+FROM nginx:alpine
 
-# 작업 디렉토리 설정
-WORKDIR /app
+# Nginx 설정 파일 복사 (nginx.conf를 프로젝트에 맞게 설정)
+COPY nginx.conf /etc/nginx/nginx.conf
 
-# 빌드된 애플리케이션을 복사
-COPY --from=build /app ./
+# Nginx에서 서빙할 빌드된 파일들 복사
+COPY --from=builder /app/dist /usr/share/nginx/html
 
-# Next.js 포트 설정
+# 포트 설정 (필요 시 수정 가능)
 EXPOSE 3030
 
-# Next.js 서버 실행 (포트를 3030으로 설정)
-ENV PORT=3030
-CMD ["npm", "run", "start"]
+# 컨테이너 실행 시 Nginx 시작
+CMD ["nginx", "-g", "daemon off;"]
