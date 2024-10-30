@@ -29,7 +29,7 @@ const TenderDetail: React.FC<TenderDetailProps> = () => {
   );
 
   // 체크박스 버튼 핸들러
-  const handleChipClick = (label: string, title: string) => {
+const handleChipClick = (label: string, title: string) => {
     setCheckedItems((prev) => {
       const newCheckedItems = { ...prev };
       newCheckedItems[label] = !prev[label];

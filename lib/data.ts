@@ -987,19 +987,19 @@ export const tenderVertical = [
     id: 8,
     title: "공고일",
     type: "datepicker",
-    contents: "2024-10-10",
+    contents: "",
   },
   {
     id: 9,
     title: "마감일",
     type: "datepicker",
-    contents: "2024-10-10",
+    contents: "",
   },
   {
     id: 10,
     title: "응찰일",
     type: "datepicker",
-    contents: "2024-10-10",
+    contents: "",
   },
   {
     id: 11,

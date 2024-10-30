@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { useRouter } from "next/navigation";
-import { useParams } from "next/navigation";
+// import { useRouter } from "next/navigation";
+// import { useParams } from "next/navigation";
 import PageTitle from "@/components/ui/molecules/titles/PageTitle";
 import VerticalTable from "@/components/ui/molecules/verticalTable/VerticalTable";
 import Button from "@/components/ui/atoms/button/Button";
@@ -87,19 +87,19 @@ const vertical = [
     id: 8,
     title: "공고일",
     type: "datepicker",
-    contents: "2024-10-10",
+    contents: "",
   },
   {
     id: 9,
     title: "마감일",
     type: "datepicker",
-    contents: "2024-10-10",
+    contents: "",
   },
   {
     id: 10,
     title: "응찰일",
     type: "datepicker",
-    contents: "2024-10-10",
+    contents: "",
   },
   {
     id: 11,
@@ -128,53 +128,53 @@ const vertical = [
 ];
 
 const AddItemPage = () => {
-  const router = useRouter();
-  const { id } = useParams();
+  // const router = useRouter();
+  // const { id } = useParams();
   // 체크박스 버튼
   const [checkedItems, setCheckedItems] = useState<{ [key: string]: boolean }>(
     {}
   );
 
-  const [formData, setFormData] = useState({
-    name: "",
-    description: "",
-  });
+  // const [formData, setFormData] = useState({
+  //   name: "",
+  //   description: "",
+  // });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const { name, value } = e.target;
+  //   setFormData({ ...formData, [name]: value });
+  // };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  // const handleSubmit = (e: React.FormEvent) => {
+  //   e.preventDefault();
 
-    const newItem = {
-      id: Math.random().toString(),
-      ...formData,
-      checkedItems,
-    };
+  //   const newItem = {
+  //     id: Math.random().toString(),
+  //     ...formData,
+  //     checkedItems,
+  //   };
 
-    fetch("/api/items", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newItem),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("데이터 저장 실패");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        console.log("저장 성공:", data);
-        router.push(`/tender?id=${id}`);
-      })
-      .catch((error) => {
-        console.error("저장 중 오류 발생:", error);
-      });
-  };
+  //   fetch("/api/items", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(newItem),
+  //   })
+  //     .then((response) => {
+  //       if (!response.ok) {
+  //         throw new Error("데이터 저장 실패");
+  //       }
+  //       return response.json();
+  //     })
+  //     .then((data) => {
+  //       console.log("저장 성공:", data);
+  //       router.push(`/tender?id=${id}`);
+  //     })
+  //     .catch((error) => {
+  //       console.error("저장 중 오류 발생:", error);
+  //     });
+  // };
 
   // 체크박스 버튼 핸들러
   const handleChipClick = (label: string, title: string) => {
@@ -184,15 +184,22 @@ const AddItemPage = () => {
 
       newCheckedItems[label] = isChecked;
 
+      // if (title === "센터명" && label === "전국") {
+      //   if (isChecked) {
+      //     Object.keys(newCheckedItems).forEach((key) => {
+      //       if (key !== "전국" && key.startsWith("센터명")) {
+      //         newCheckedItems[key] = false;
+      //       }
+      //     });
+      //   }
+      // } else if (title === "센터명") {
+      //   newCheckedItems["전국"] = false;
+      // }
+
       if (title === "센터명" && label === "전국") {
-        if (isChecked) {
-          Object.keys(newCheckedItems).forEach((key) => {
-            if (key !== "전국" && key.startsWith("센터명")) {
-              newCheckedItems[key] = false;
-            }
-          });
-        }
-      } else if (title === "센터명") {
+        if (isChecked) return { 전국: true };
+        else return { 전국: false };
+      } else if (title === "센터명" && label !== "전국") {
         newCheckedItems["전국"] = false;
       }
 
@@ -228,7 +235,7 @@ const AddItemPage = () => {
         customStyle={{ paddingBottom: "0" }}
       />
       <div className="px-10 flex justify-end">
-        <Button mode="md" content="저장" color="signature" />
+        <Button mode="sm" content="추가" color="signature" />
       </div>
       <PageTitle
         pageTitle="입찰사항"

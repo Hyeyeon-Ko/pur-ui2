@@ -1,7 +1,6 @@
 import { useCallback } from "react";
 
 const useExcelFileHandler = () => {
-  // 파일 업로드 핸들러
   const handleFileUpload = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const file = event.target.files?.[0];
@@ -10,8 +9,9 @@ const useExcelFileHandler = () => {
         reader.onload = (e) => {
           const fileContent = e.target?.result;
           console.log("Uploaded File Content:", fileContent);
+          // 추가적인 파일 처리 로직을 여기에 작성
         };
-        reader.readAsBinaryString(file);
+        reader.readAsText(file); // CSV 파일을 읽기 위해 readAsText 사용
       }
     },
     []

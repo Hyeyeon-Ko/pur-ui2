@@ -8,7 +8,7 @@ import Label from "../../atoms/label/Label";
 
 interface VerticalRenderProps {
   row: {
-    id: number; // id 추가
+    id: number;
     title: string;
     type?: string;
     contents?: string | string[] | null;
@@ -18,7 +18,11 @@ interface VerticalRenderProps {
   onChipClick?: (label: string, title: string) => void;
   checkedItems?: { [key: string]: boolean };
   onInputChange?: (id: number, value: string) => void;
-  onDateChange?: (id: number, date: Date | null) => void;
+  onDateChange?: (date: Date | null) => void;
+  announcementDate?: Date | null; // 공고일
+  deadlineDate?: Date | null; // 마감일
+  selectedCenters?: string[]; // 선택된 센터 배열
+  setSelectedCenters?: React.Dispatch<React.SetStateAction<string[]>>; // 선택된 센터 배열 업데이트 함수
 }
 
 const VerticalRender: React.FC<VerticalRenderProps> = ({
@@ -27,22 +31,22 @@ const VerticalRender: React.FC<VerticalRenderProps> = ({
   checkedItems,
   onInputChange,
   onDateChange,
+  announcementDate,
+  deadlineDate,
+  selectedCenters,
+  setSelectedCenters,
 }) => {
   const [uploadedFiles, setUploadedFiles] = useState<{
     [key: number]: File | null;
   }>({});
-  const [reasons, setReasons] = useState<{ [key: number]: string }>({}); // 사유를 저장할 상태
+  const [reasons, setReasons] = useState<{ [key: number]: string }>({});
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (onInputChange) {
-      onInputChange(row.id, e.target.value);
-    }
+    onInputChange?.(row.id, e.target.value);
   };
 
   const handleDateChange = (date: Date | null) => {
-    if (onDateChange) {
-      onDateChange(row.id, date);
-    }
+    onDateChange?.(date); // date만 전달
   };
 
   const handleFileUpload = (id: number, file: File) => {
@@ -52,6 +56,17 @@ const VerticalRender: React.FC<VerticalRenderProps> = ({
 
   const handleReasonChange = (id: number, value: string) => {
     setReasons((prev) => ({ ...prev, [id]: value }));
+  };
+
+  const handleChipClick = (label: string) => {
+    if (selectedCenters) {
+      if (selectedCenters.includes(label)) {
+        setSelectedCenters(selectedCenters.filter((item) => item !== label)); // 선택 해제
+      } else {
+        setSelectedCenters([...selectedCenters, label]); // 선택
+      }
+    }
+    onChipClick?.(label, row.title); // 부모 컴포넌트에 클릭 이벤트 전달
   };
 
   switch (row.type) {
@@ -92,16 +107,35 @@ const VerticalRender: React.FC<VerticalRenderProps> = ({
                 mode="xs"
                 content={content}
                 variant={checkedItems?.[content] ? "inline" : "outline"}
-                onClick={() => onChipClick?.(content, row.title)}
+                onClick={() => handleChipClick(content)}
               />
             ))}
         </div>
       );
     case "datepicker":
+      const minDateForBid =
+        announcementDate && deadlineDate
+          ? new Date(
+              Math.max(announcementDate.getTime(), deadlineDate.getTime())
+            )
+          : announcementDate || deadlineDate;
+
       return (
         <SingleDatePicker
           selectedDate={row.contents ? new Date(row.contents as string) : null}
           onDateChange={handleDateChange}
+          minDate={
+            row.id === 9
+              ? announcementDate
+                ? new Date(announcementDate.getTime() + 24 * 60 * 60 * 1000)
+                : null
+              : null
+          } // 마감일은 공고일 다음 날부터
+          minDateForBid={
+            minDateForBid
+              ? new Date(minDateForBid.getTime() + 24 * 60 * 60 * 1000)
+              : null
+          } // 응찰일은 공고일과 마감일 다음 날부터
         />
       );
     case "upload":
@@ -120,7 +154,6 @@ const VerticalRender: React.FC<VerticalRenderProps> = ({
               <Label color="sub" mode="xs" content="제출완료" />
             </div>
           ) : (
-            // 파일명이 존재할 경우
             <Label color="sub" mode="xs" content="미제출" />
           )}
         </div>
@@ -139,7 +172,7 @@ const VerticalRender: React.FC<VerticalRenderProps> = ({
             <div className="flex items-center gap-2">
               <Label mode="xs" content={uploadedFiles[row.id]?.name} />
               <Label color="sub" mode="xs" content="제출완료" />
-            </div> // 파일명이 존재할 경우
+            </div>
           ) : (
             <div className="flex flex-col gap-2">
               <Label color="sub" mode="xs" content="미제출" />

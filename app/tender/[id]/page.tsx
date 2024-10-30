@@ -1,30 +1,20 @@
 "use client";
 
+import React, { useCallback, useState } from "react";
 import Table from "@/components/ui/molecules/table/Table";
 import PageTitle from "@/components/ui/molecules/titles/PageTitle";
 import VerticalTable from "@/components/ui/molecules/verticalTable/VerticalTable";
 import useExcelFileHandler from "@/hooks/useExcelFileHandler";
 import useFormatHandler from "@/hooks/useFormatHandler";
-import {
-  columns,
-  tenderVertical,
-  tenderVerticalResult,
-  data,
-} from "@/lib/data";
-import React, { useCallback, useState } from "react";
-import ThemeToggle from "@/components/ui/molecules/buttons/ThemeToggle";
 import TableButton from "@/components/ui/molecules/buttons/TableButton";
-interface TenderDetailProps {
-  params: {
-    id: string; // 동적 파라미터 ID의 타입 정의
-  };
-}
+import FileUploadButton from "@/components/ui/molecules/buttons/FileUploadButton"; // Import your FileUploadButton
+import { columns, tenderVertical, data } from "@/lib/data";
 
-// TODO: 매개변수로 params 추가할 것
-const TenderDetail: React.FC<TenderDetailProps> = () => {
+const TenderDetail: React.FC = () => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
-
   const { formatCenterData, formatDate, formatCurrency } = useFormatHandler();
+  const { downloadCsv, handleFileUpload } = useExcelFileHandler();
+
   const [formattedData, setFormattedData] = useState(
     data.map((item) => ({
       ...item,
@@ -38,59 +28,8 @@ const TenderDetail: React.FC<TenderDetailProps> = () => {
     }))
   );
 
-  // 체크박스 버튼
-  const [checkedItems, setCheckedItems] = useState<{ [key: string]: boolean }>(
-    {}
-  );
-
-  const { downloadCsv } = useExcelFileHandler();
-
-  // 체크박스 버튼 핸들러
-  const handleChipClick = (label: string, title: string) => {
-    setCheckedItems((prev) => {
-      const newCheckedItems = { ...prev };
-      const isChecked = !prev[label];
-
-      newCheckedItems[label] = isChecked;
-
-      if (title === "센터명" && label === "전국") {
-        if (isChecked) {
-          Object.keys(newCheckedItems).forEach((key) => {
-            if (key !== "전국" && key.startsWith("센터명")) {
-              newCheckedItems[key] = false;
-            }
-          });
-        }
-      } else if (title === "센터명") {
-        newCheckedItems["전국"] = false;
-      }
-
-      if (isChecked) {
-        Object.keys(newCheckedItems).forEach((key) => {
-          if (
-            (title === "계약종류" &&
-              key.startsWith("계약종류") &&
-              key !== label) ||
-            (title === "입찰종류" &&
-              key.startsWith("입찰종류") &&
-              key !== label) ||
-            (title === "낙찰방법" &&
-              key.startsWith("낙찰방법") &&
-              key !== label)
-          ) {
-            newCheckedItems[key] = false;
-          }
-        });
-      }
-
-      console.log("Updated checked items:", newCheckedItems);
-      return newCheckedItems;
-    });
-  };
-
   const handleRowSelect = useCallback((selectedRowIds: string[]) => {
     const uniqueSelectedRows = Array.from(new Set(selectedRowIds));
-
     setSelectedRows(uniqueSelectedRows);
   }, []);
 
@@ -108,44 +47,53 @@ const TenderDetail: React.FC<TenderDetailProps> = () => {
     setSelectedRows([]);
   };
 
+  const handleFormDownload = () => {
+    const formTemplate = [
+      "센터",
+      "입찰번호",
+      "계약종류",
+      "입찰명",
+      "공고일",
+      "마감일",
+      "응찰일",
+    ];
+
+    const csvContent = `\uFEFF${formTemplate.join(",")}\n`;
+    const encodedUri = encodeURI(`data:text/csv;charset=utf-8,${csvContent}`);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "form_template.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  // 업로드 핸들러
+  const handleUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    handleFileUpload(event);
+  };
+
   return (
     <div>
-      <ThemeToggle
-        customStyle={{
-          display: "flex",
-          justifyContent: "end",
-          marginTop: "24px",
-          marginRight: "24px",
-        }}
-      />
       <PageTitle pageTitle="입찰상세조회" mode="xl" fontWeight="bold" />
-
-      <PageTitle
-        pageTitle="입찰사항"
-        mode="md"
-        fontWeight="bold"
-        customStyle={{ padding: "0", marginLeft: "20px" }}
-      />
-      <VerticalTable
-        data={tenderVertical}
-        onChipClick={handleChipClick}
-        checkedItems={checkedItems}
-      />
+      <PageTitle pageTitle="입찰사항" mode="md" fontWeight="bold" />
+      <VerticalTable data={tenderVertical} />
       <div className="py-20">
-        <div className="flex justify-between mr-6">
-          <div>
-            <PageTitle
-              pageTitle="입찰내역"
-              mode="md"
-              fontWeight="bold"
-              customStyle={{ padding: "0", marginLeft: "20px" }}
-            />
-          </div>
-
+        <div className="flex justify-end mr-6">
+        <FileUploadButton
+            onFileUpload={handleUpload}
+            buttonText="업로드"
+            accept=".csv, .xls, .xlsx"
+          />
           <TableButton
+            showAddButton={false}
+            showDelButton={false}
+            showFormDownButton={true}
             onDeleteSelected={handleDeleteSelected}
             onDownloadAll={handleDownloadAll}
+            onFormDownload={handleFormDownload}
           />
+
         </div>
         <Table
           data={formattedData}
@@ -153,17 +101,6 @@ const TenderDetail: React.FC<TenderDetailProps> = () => {
           onRowSelect={handleRowSelect}
           showCheckbox
         />
-      </div>
-      <div className="pb-20">
-        <div>
-          <PageTitle
-            pageTitle="입찰결과"
-            mode="md"
-            fontWeight="bold"
-            customStyle={{ padding: "0", marginLeft: "20px" }}
-          />
-        </div>
-        <VerticalTable data={tenderVerticalResult} />
       </div>
     </div>
   );

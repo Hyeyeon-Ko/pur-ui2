@@ -23,6 +23,8 @@ const VerticalTable: React.FC<VerticalTableProps> = ({
 }) => {
   const { isDarkMode } = useDarkMode();
   const [tableData, setTableData] = useState(data);
+  const [announcementDate, setAnnouncementDate] = useState<Date | null>(null);
+  const [deadlineDate, setDeadlineDate] = useState<Date | null>(null);
 
   const handleInputChange = (id: number, value: string) => {
     setTableData((prevData) =>
@@ -30,7 +32,7 @@ const VerticalTable: React.FC<VerticalTableProps> = ({
     );
   };
 
-  const handleDateChange = (id: number, date: Date | null) => {
+  const handleDateChange = (date: Date | null, id: number) => {
     setTableData((prevData) =>
       prevData.map((row) =>
         row.id === id
@@ -38,6 +40,11 @@ const VerticalTable: React.FC<VerticalTableProps> = ({
           : row
       )
     );
+    if (id === 8) {
+      setAnnouncementDate(date); // 공고일
+    } else if (id === 9) {
+      setDeadlineDate(date); // 마감일
+    }
   };
 
   return (
@@ -74,7 +81,9 @@ const VerticalTable: React.FC<VerticalTableProps> = ({
                   onChipClick={onChipClick}
                   checkedItems={checkedItems}
                   onInputChange={handleInputChange}
-                  onDateChange={handleDateChange}
+                  onDateChange={(date) => handleDateChange(date, row.id)}
+                  announcementDate={announcementDate} // 공고일
+                  deadlineDate={deadlineDate} // 마감일
                 />
               </td>
             </tr>
