@@ -12,7 +12,7 @@ npm i
 npm run dev
 ```
 
-- 실행포트: localhost:3000
+- 실행포트: localhost:3030
 
 ### 프로젝트 설명
 
