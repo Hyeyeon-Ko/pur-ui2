@@ -147,6 +147,8 @@ const VerticalRender: React.FC<VerticalRenderProps> = ({
           } // 응찰일은 공고일과 마감일 다음 날부터
         />
       );
+    case "radio":
+      return <div></div>;
     case "upload":
       return (
         <div className="flex items-center gap-2">

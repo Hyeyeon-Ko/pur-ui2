@@ -60,9 +60,7 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
           borderColor: isDarkMode ? colors.sub : colors["Grey_Lighten-4"],
         }}
         className={`${
-          isDarkMode
-            ? "bg-dark-Grey_Darken_5"
-            : "bg-white"
+          isDarkMode ? "bg-dark-Grey_Darken_5" : "bg-white"
         } border mx-auto rounded-full shadow-lg w-[90%]`}
       >
         <div>
@@ -70,7 +68,7 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
             {fieldsConfig.map((field, index) => (
               <div
                 key={field.name}
-                className={`flex-1 p-2 bg-gray-50 ${
+                className={`flex flex-1 p-2 bg-gray-50 items-center ${
                   index !== fieldsConfig.length - 1 ? "border-r" : ""
                 }`}
                 style={{

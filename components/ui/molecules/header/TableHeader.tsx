@@ -1,4 +1,5 @@
 import { CSSProperties } from "react";
+import Label from "../../atoms/label/Label";
 
 interface ManagementHeaderProps {
   tableTitle?: string;
@@ -16,7 +17,7 @@ const TableHeader: React.FC<ManagementHeaderProps> = ({
           style={{ ...customStyle }}
           className="w-full border-signature bg-signature rounded-tl-lg rounded-tr-lg p-4 text-white"
         >
-          {tableTitle}
+          <Label content={tableTitle} />
         </div>
       </div>
     </>

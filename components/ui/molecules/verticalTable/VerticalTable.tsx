@@ -30,6 +30,7 @@ const VerticalTable: React.FC<VerticalTableProps> = ({
   const [tableData, setTableData] = useState(data);
   const [announcementDate, setAnnouncementDate] = useState<Date | null>(null);
   const [deadlineDate, setDeadlineDate] = useState<Date | null>(null);
+  
 
   const handleInputChange = (id: number, value: string) => {
     setTableData((prevData) =>

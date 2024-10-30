@@ -21,7 +21,7 @@ const TableButton: React.FC<TableButtonProps> = ({
   showFormDownButton = false,
 }) => {
   return (
-    <div className="flex justify-end mr-6">
+    <div className="flex justify-end">
       {showAddButton && (
         <Button
           mode="xs"
