@@ -227,35 +227,18 @@ const AddItemPage = () => {
   };
 
   return (
-    <div className="p-4">
-      <ThemeToggle
-        customStyle={{
-          display: "flex",
-          justifyContent: "end",
-          marginTop: "24px",
-          marginRight: "24px",
-        }}
-      />
-      <PageTitle
-        pageTitle="입찰추가"
-        mode="xl"
-        fontWeight="bold"
-        customStyle={{ paddingBottom: "0" }}
-      />
-      <div className="px-10 flex justify-end">
-        <Button mode="sm" content="추가" color="signature" />
+    <div className="my-4 mb-20">
+      <ThemeToggle />
+      <PageTitle pageTitle="입찰추가" mode="xl" fontWeight="bold" />
+      <div className="p-4  flex justify-end">
+        <Button mode="sm" content="추가" color="Button_Default" />
       </div>
-      <PageTitle
-        pageTitle="입찰사항"
-        mode="md"
-        fontWeight="bold"
-        customStyle={{ padding: "0", marginLeft: "20px" }}
-      />
-
       <VerticalTable
         data={vertical}
         onChipClick={handleChipClick} // Chip 클릭 이벤트 핸들러 전달
         checkedItems={checkedItems} // 체크된 아이템 상태 전달
+        showHeader={true}
+        tableTitle="입찰사항"
       />
     </div>
   );

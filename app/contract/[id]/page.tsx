@@ -113,48 +113,36 @@ const TenderDetail: React.FC<TenderDetailProps> = () => {
     <div>
       <ThemeToggle />
       <PageTitle pageTitle="계약상세조회" mode="xl" fontWeight="bold" />
-      <PageTitle
-        pageTitle="계약사항"
-        mode="md"
-        fontWeight="bold"
-        customStyle={{ padding: "0", marginLeft: "20px" }}
-      />
       <VerticalTable
         data={contractVertical}
         onChipClick={handleChipClick}
         checkedItems={checkedItems}
+        showHeader={true}
+        tableTitle="계약사항"
       />
       <div className="py-20">
-        <div className="flex justify-between mr-6">
-          <div>
-            <PageTitle
-              pageTitle="계약내역"
-              mode="md"
-              fontWeight="bold"
-              customStyle={{ padding: "0", marginLeft: "20px" }}
-            />
-          </div>
-          <div className="flex justify-end mr-6">
-            <FileUploadButton
-              onFileUpload={handleUpload}
-              buttonText="업로드"
-              accept=".csv, .xls, .xlsx"
-            />
-            <TableButton
-              showAddButton={false}
-              showDelButton={false}
-              showFormDownButton={true}
-              onDeleteSelected={handleDeleteSelected}
-              onDownloadAll={handleDownloadAll}
-              onFormDownload={handleFormDownload}
-            />
-          </div>
+        <div className="flex justify-end mr-2">
+          <FileUploadButton
+            onFileUpload={handleUpload}
+            buttonText="업로드"
+            accept=".csv, .xls, .xlsx"
+          />
+          <TableButton
+            showAddButton={false}
+            showDelButton={false}
+            showFormDownButton={true}
+            onDeleteSelected={handleDeleteSelected}
+            onDownloadAll={handleDownloadAll}
+            onFormDownload={handleFormDownload}
+          />
         </div>
         <Table
           data={formattedData}
           columns={contractListColumns}
           onRowSelect={handleRowSelect}
           showCheckbox
+          showHeader={true}
+          tableTitle="계약내역"
         />
       </div>
     </div>

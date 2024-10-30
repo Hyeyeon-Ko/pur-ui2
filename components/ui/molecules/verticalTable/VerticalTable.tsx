@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import colors from "@/styles/colors";
 import { useDarkMode } from "@/context/DarkModeContext";
 import VerticalRender from "../render/VerticalRender";
+import TableHeader from "../header/TableHeader";
 
 interface VerticalTableProps {
   data: Array<{
@@ -14,12 +15,16 @@ interface VerticalTableProps {
   }>;
   onChipClick?: (label: string, title: string) => void;
   checkedItems?: { [key: string]: boolean };
+  showHeader?: boolean;
+  tableTitle?: string;
 }
 
 const VerticalTable: React.FC<VerticalTableProps> = ({
   data,
   onChipClick,
   checkedItems,
+  showHeader = false,
+  tableTitle,
 }) => {
   const { isDarkMode } = useDarkMode();
   const [tableData, setTableData] = useState(data);
@@ -49,6 +54,8 @@ const VerticalTable: React.FC<VerticalTableProps> = ({
 
   return (
     <div className="mx-5 rounded-lg shadow-lg">
+      {showHeader && <TableHeader tableTitle={tableTitle} />}
+
       <table className="table-auto w-full">
         <tbody className="divide-x">
           {tableData.map((row) => (

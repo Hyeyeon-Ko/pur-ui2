@@ -42,22 +42,18 @@ const ContractAddPage: React.FC<TenderDetailProps> = () => {
   };
 
   return (
-    <div className="my-4">
+    <div className="my-4 mb-20">
       <ThemeToggle />
       <PageTitle pageTitle="계약추가" mode="xl" fontWeight="bold" />
-      <div className="px-10 flex justify-end">
-        <Button mode="sm" content="추가" color="signature" />
+      <div className="p-4 flex justify-end">
+        <Button mode="sm" content="추가" color="Button_Default" />
       </div>
-      <PageTitle
-        pageTitle="계약사항"
-        mode="md"
-        fontWeight="bold"
-        customStyle={{ padding: "0", marginLeft: "20px" }}
-      />
       <VerticalTable
         data={contractVertical}
         onChipClick={handleChipClick}
         checkedItems={checkedItems}
+        showHeader={true}
+        tableTitle="계약사항"
       />
     </div>
   );

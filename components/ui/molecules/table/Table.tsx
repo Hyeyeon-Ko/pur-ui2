@@ -5,6 +5,7 @@ import colors from "@/styles/colors";
 import { useDarkMode } from "@/context/DarkModeContext";
 import useModal from "@/hooks/useModal";
 import TableRender from "../render/TableRender";
+import TableHeader from "../header/TableHeader";
 
 interface Sorter {
   field: string;
@@ -22,6 +23,8 @@ interface TableProps {
   onRowDoubleClick?: (row: { [key: string]: string }) => void;
   sorter?: Sorter | null;
   setSorter?: React.Dispatch<React.SetStateAction<Sorter | null>>;
+  showHeader?: boolean;
+  tableTitle?: string;
 }
 
 const Table: React.FC<TableProps> = ({
@@ -35,6 +38,8 @@ const Table: React.FC<TableProps> = ({
   onRowDoubleClick,
   sorter = null,
   setSorter,
+  showHeader = false,
+  tableTitle,
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(data.length / rowsPerPage);
@@ -117,11 +122,13 @@ const Table: React.FC<TableProps> = ({
           데이터 {data.length} 개
         </span>
       </div>
+      {showHeader && <TableHeader tableTitle={tableTitle} />}
+
       <div
         style={{ borderColor: "transparent" }}
-        className="mx-auto rounded-lg shadow-lg border w-[100%]"
+        className="mx-auto rounded-lg shadow-lg border w-full"
       >
-        <table className="table-auto text-xs text-left text-gray-500 w-[100%]">
+        <table className="table-auto text-xs text-left text-gray-500 w-full">
           <thead
             style={{
               backgroundColor: isDarkMode
