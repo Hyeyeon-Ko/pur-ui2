@@ -15,8 +15,8 @@ COPY package.json ./
 # ENV CI=false
 
 # 의존성 설치
-# RUN npm install
-RUN npm ci
+RUN npm install
+# RUN npm ci
 
 # 소스 코드 복사
 COPY . ./
