@@ -17,6 +17,9 @@ import {
 
 const TenderDetail: React.FC = () => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
+  const [checkedItems, setCheckedItems] = useState<{ [key: string]: boolean }>(
+    {}
+  );
   const { formatCenterData, formatDate, formatCurrency } = useFormatHandler();
   const { downloadCsv, handleFileUpload } = useExcelFileHandler();
 
@@ -32,6 +35,42 @@ const TenderDetail: React.FC = () => {
       누리장터: item.누리장터 || "-",
     }))
   );
+
+  const handleChipClick = (label: string, title: string) => {
+    setCheckedItems((prev) => {
+      const newCheckedItems = { ...prev };
+      const isChecked = !prev[label];
+
+      newCheckedItems[label] = isChecked;
+
+      if (title === "센터명" && label === "전국") {
+        if (isChecked) return { 전국: true };
+        else return { 전국: false };
+      } else if (title === "센터명" && label !== "전국") {
+        newCheckedItems["전국"] = false;
+      }
+
+      if (isChecked) {
+        Object.keys(newCheckedItems).forEach((key) => {
+          if (
+            (title === "계약종류" &&
+              key.startsWith("계약종류") &&
+              key !== label) ||
+            (title === "입찰종류" &&
+              key.startsWith("입찰종류") &&
+              key !== label) ||
+            (title === "낙찰방법" &&
+              key.startsWith("낙찰방법") &&
+              key !== label)
+          ) {
+            newCheckedItems[key] = false;
+          }
+        });
+      }
+
+      return newCheckedItems;
+    });
+  };
 
   const handleRowSelect = useCallback((selectedRowIds: string[]) => {
     const uniqueSelectedRows = Array.from(new Set(selectedRowIds));
@@ -82,7 +121,11 @@ const TenderDetail: React.FC = () => {
     <div>
       <PageTitle pageTitle="입찰상세조회" mode="xl" fontWeight="bold" />
       <PageTitle pageTitle="입찰사항" mode="md" fontWeight="bold" />
-      <VerticalTable data={tenderVertical} />
+      <VerticalTable
+        data={tenderVertical}
+        onChipClick={handleChipClick}
+        checkedItems={checkedItems}
+      />
       <div className="py-20">
         <div className="flex justify-end mr-6">
           <FileUploadButton

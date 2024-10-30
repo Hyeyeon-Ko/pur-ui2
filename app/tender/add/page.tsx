@@ -221,7 +221,6 @@ const AddItemPage = () => {
         });
       }
 
-      console.log("Updated checked items:", newCheckedItems);
       return newCheckedItems;
     });
   };
