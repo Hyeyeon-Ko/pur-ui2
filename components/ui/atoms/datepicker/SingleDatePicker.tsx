@@ -47,7 +47,7 @@ const SingleDatePicker: React.FC<SingleDatePickerProps> = ({
               : "bg-white border-gray-300 text-gray-700"
           }`}
           calendarClassName="custom-calendar"
-          label={label}
+          // label={label}
         />
       </div>
     </div>
