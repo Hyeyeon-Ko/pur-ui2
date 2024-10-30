@@ -33,7 +33,7 @@ const FileUploadButton: React.FC<FileUploadButtonProps> = ({
       <Button
         mode="xs"
         content={buttonText}
-        color="Button_Default"
+        color="signature"
         onClick={handleUploadClick}
       />
     </>

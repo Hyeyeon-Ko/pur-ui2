@@ -1,5 +1,6 @@
 "use client";
 
+import FileUploadButton from "@/components/ui/molecules/buttons/FileUploadButton";
 import TableButton from "@/components/ui/molecules/buttons/TableButton";
 import ThemeToggle from "@/components/ui/molecules/buttons/ThemeToggle";
 import Table from "@/components/ui/molecules/table/Table";
@@ -28,8 +29,11 @@ const TenderDetail: React.FC<TenderDetailProps> = () => {
     {}
   );
 
+  const { downloadCsv, handleFileUpload } = useExcelFileHandler();
+  const { formatCenterData, formatCurrency } = useFormatHandler();
+
   // 체크박스 버튼 핸들러
-const handleChipClick = (label: string, title: string) => {
+  const handleChipClick = (label: string, title: string) => {
     setCheckedItems((prev) => {
       const newCheckedItems = { ...prev };
       newCheckedItems[label] = !prev[label];
@@ -49,9 +53,6 @@ const handleChipClick = (label: string, title: string) => {
       return newCheckedItems;
     });
   };
-
-  const { downloadCsv } = useExcelFileHandler();
-  const { formatCenterData, formatCurrency } = useFormatHandler();
 
   const [formattedData, setFormattedData] = useState(
     contractListData.map((item) => ({
@@ -83,9 +84,34 @@ const handleChipClick = (label: string, title: string) => {
     setSelectedRows([]);
   };
 
+  const handleFormDownload = () => {
+    const formTemplate = [
+      "센터",
+      "입찰번호",
+      "계약종류",
+      "입찰명",
+      "공고일",
+      "마감일",
+      "응찰일",
+    ];
+
+    const csvContent = `\uFEFF${formTemplate.join(",")}\n`;
+    const encodedUri = encodeURI(`data:text/csv;charset=utf-8,${csvContent}`);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "form_template.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const handleUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    handleFileUpload(event);
+  };
+
   return (
     <div>
-      <ThemeToggle/>
+      <ThemeToggle />
       <PageTitle pageTitle="계약상세조회" mode="xl" fontWeight="bold" />
       <PageTitle
         pageTitle="계약사항"
@@ -108,10 +134,21 @@ const handleChipClick = (label: string, title: string) => {
               customStyle={{ padding: "0", marginLeft: "20px" }}
             />
           </div>
-          <TableButton
-            onDeleteSelected={handleDeleteSelected}
-            onDownloadAll={handleDownloadAll}
-          />
+          <div className="flex justify-end mr-6">
+            <FileUploadButton
+              onFileUpload={handleUpload}
+              buttonText="업로드"
+              accept=".csv, .xls, .xlsx"
+            />
+            <TableButton
+              showAddButton={false}
+              showDelButton={false}
+              showFormDownButton={true}
+              onDeleteSelected={handleDeleteSelected}
+              onDownloadAll={handleDownloadAll}
+              onFormDownload={handleFormDownload}
+            />
+          </div>
         </div>
         <Table
           data={formattedData}

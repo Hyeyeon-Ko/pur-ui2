@@ -5,6 +5,7 @@ import Chip from "../../atoms/chip/Chip";
 import SingleDatePicker from "../../atoms/datepicker/SingleDatePicker";
 import FileUploadButton from "../buttons/FileUploadButton";
 import Label from "../../atoms/label/Label";
+import Checkbox from "../../atoms/checkbox/Checkbox";
 
 interface VerticalRenderProps {
   row: {
@@ -40,6 +41,9 @@ const VerticalRender: React.FC<VerticalRenderProps> = ({
     [key: number]: File | null;
   }>({});
   const [reasons, setReasons] = useState<{ [key: number]: string }>({});
+  const [isNotSubmitted, setIsNotSubmitted] = useState<{
+    [key: number]: boolean;
+  }>({});
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onInputChange?.(row.id, e.target.value);
@@ -68,6 +72,11 @@ const VerticalRender: React.FC<VerticalRenderProps> = ({
     }
     onChipClick?.(label, row.title); // 부모 컴포넌트에 클릭 이벤트 전달
   };
+
+  // 모든 항목에 대해 미제출 체크박스를 초기화
+  if (!(row.id in isNotSubmitted)) {
+    setIsNotSubmitted((prev) => ({ ...prev, [row.id]: false }));
+  }
 
   switch (row.type) {
     case "input":
@@ -151,31 +160,63 @@ const VerticalRender: React.FC<VerticalRenderProps> = ({
           {uploadedFiles[row.id] ? (
             <div className="flex items-center gap-2">
               <Label mode="xs" content={uploadedFiles[row.id]?.name} />
-              <Label color="sub" mode="xs" content="제출완료" />
             </div>
           ) : (
-            <Label color="sub" mode="xs" content="미제출" />
+            <Label
+              color="sub"
+              mode="xs"
+              content="제출된 파일이 존재하지 않습니다."
+            />
           )}
         </div>
       );
     case "upload-message":
       return (
         <div className="flex items-center gap-2">
-          <FileUploadButton
-            onFileUpload={(event) => {
-              const file = event.target.files?.[0];
-              if (file) handleFileUpload(row.id, file);
-            }}
-            buttonText="업로드"
-          />
-          {uploadedFiles[row.id] ? (
-            <div className="flex items-center gap-2">
-              <Label mode="xs" content={uploadedFiles[row.id]?.name} />
-              <Label color="sub" mode="xs" content="제출완료" />
-            </div>
+          {!isNotSubmitted[row.id] ? (
+            <>
+              <FileUploadButton
+                onFileUpload={(event) => {
+                  const file = event.target.files?.[0];
+                  if (file) handleFileUpload(row.id, file);
+                }}
+                buttonText="업로드"
+              />
+              {uploadedFiles[row.id] ? (
+                <div className="flex items-center gap-2">
+                  <Label mode="xs" content={uploadedFiles[row.id]?.name} />
+                </div>
+              ) : (
+                <Label
+                  color="sub"
+                  mode="xs"
+                  content="제출된 파일이 존재하지 않습니다."
+                />
+              )}
+            </>
           ) : (
-            <div className="flex flex-col gap-2">
-              <Label color="sub" mode="xs" content="미제출" />
+            <></>
+          )}
+
+          <div className="flex items-center gap-2">
+            <Checkbox
+              mode="sm"
+              color="primary"
+              checked={isNotSubmitted[row.id] || false}
+              onChange={() => {
+                setIsNotSubmitted((prev) => ({
+                  ...prev,
+                  [row.id]: !prev[row.id],
+                }));
+                if (!isNotSubmitted[row.id]) {
+                  setUploadedFiles((prev) => ({ ...prev, [row.id]: null }));
+                  setReasons((prev) => ({ ...prev, [row.id]: "" }));
+                }
+              }}
+              label="미제출"
+            />
+
+            {isNotSubmitted[row.id] && (
               <Input
                 customStyle={{ minWidth: "200px" }}
                 color="Button_Default"
@@ -185,8 +226,8 @@ const VerticalRender: React.FC<VerticalRenderProps> = ({
                 value={reasons[row.id] || ""}
                 onChange={(e) => handleReasonChange(row.id, e.target.value)}
               />
-            </div>
-          )}
+            )}
+          </div>
         </div>
       );
     default:

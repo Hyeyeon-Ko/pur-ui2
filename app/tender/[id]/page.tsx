@@ -80,7 +80,7 @@ const TenderDetail: React.FC = () => {
       <VerticalTable data={tenderVertical} />
       <div className="py-20">
         <div className="flex justify-end mr-6">
-        <FileUploadButton
+          <FileUploadButton
             onFileUpload={handleUpload}
             buttonText="업로드"
             accept=".csv, .xls, .xlsx"
@@ -93,7 +93,6 @@ const TenderDetail: React.FC = () => {
             onDownloadAll={handleDownloadAll}
             onFormDownload={handleFormDownload}
           />
-
         </div>
         <Table
           data={formattedData}
