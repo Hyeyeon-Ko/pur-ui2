@@ -8,7 +8,12 @@ import useExcelFileHandler from "@/hooks/useExcelFileHandler";
 import useFormatHandler from "@/hooks/useFormatHandler";
 import TableButton from "@/components/ui/molecules/buttons/TableButton";
 import FileUploadButton from "@/components/ui/molecules/buttons/FileUploadButton"; // Import your FileUploadButton
-import { columns, tenderVertical, data } from "@/lib/data";
+import {
+  columns,
+  tenderVertical,
+  data,
+  tenderVerticalResult,
+} from "@/lib/data";
 
 const TenderDetail: React.FC = () => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
@@ -100,6 +105,17 @@ const TenderDetail: React.FC = () => {
           onRowSelect={handleRowSelect}
           showCheckbox
         />
+      </div>
+      <div className="pb-20">
+        <div>
+          <PageTitle
+            pageTitle="입찰결과"
+            mode="md"
+            fontWeight="bold"
+            customStyle={{ padding: "0", marginLeft: "20px" }}
+          />
+        </div>
+        <VerticalTable data={tenderVerticalResult} />
       </div>
     </div>
   );
