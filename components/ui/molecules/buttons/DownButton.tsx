@@ -22,9 +22,9 @@ const DownButton: React.FC<DownProps> = ({
 }) => {
   const { isOpen, openModal, closeModal } = useModal();
 
-  const [selectedFile, setSelectedFile] = useState<string>(""); // 첫 번째 셀렉트 상태
-  const [selectedReason, setSelectedReason] = useState<string>(""); // 두 번째 셀렉트 상태
-  const [otherReason, setOtherReason] = useState<string>(""); // 기타 사유 상태
+  const [selectedFile, setSelectedFile] = useState<string>("");
+  const [selectedReason, setSelectedReason] = useState<string>("");
+  const [otherReason, setOtherReason] = useState<string>("");
 
   const handleFileSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedFile(e.target.value);
@@ -36,6 +36,17 @@ const DownButton: React.FC<DownProps> = ({
     setSelectedReason(e.target.value);
   };
 
+  const resetForm = () => {
+    setSelectedFile("");
+    setSelectedReason("");
+    setOtherReason("");
+  };
+
+  const isDownloadDisabled =
+    !selectedFile ||
+    !selectedReason ||
+    (selectedReason === "etc" && !otherReason);
+
   const modalContent = (
     <div className="flex flex-col px-8">
       <LabelSelect
@@ -43,15 +54,15 @@ const DownButton: React.FC<DownProps> = ({
         label="다운로드 파일"
         placeholder="파일다운로드"
         value={selectedFile}
-        onChange={handleFileSelectChange} // 파일 선택 핸들러
+        onChange={handleFileSelectChange}
         options={fileOptions}
         customStyle={{ width: "220px", borderColor: colors.Button_Default }}
       />
       <LabelSelect
         selectMode="sm"
         label="다운로드 사유"
-        value={selectedReason} // 이유 선택 상태
-        onChange={handleReasonSelectChange} // 이유 선택 핸들러
+        value={selectedReason}
+        onChange={handleReasonSelectChange}
         options={reasonOptions}
         placeholder="다운로드 사유"
         customStyle={{ width: "220px", borderColor: colors.Button_Default }}
@@ -82,12 +93,26 @@ const DownButton: React.FC<DownProps> = ({
       />
       <Modal
         isOpen={isOpen}
-        closeModal={closeModal}
+        closeModal={() => {
+          closeModal();
+          resetForm();
+        }}
         title="파일 다운로드"
-        onCancelClick={closeModal}
-        onConfirmClick={closeModal}
+        onCancelClick={() => {
+          closeModal();
+          resetForm();
+        }}
+        onConfirmClick={() => {
+          if (!isDownloadDisabled) {
+            closeModal();
+            resetForm();
+            // 다운로드 실행 로직 추가
+          }
+        }}
         mode="sm"
         confirmText="다운로드"
+        showConfirmButton={true}
+        confirmButtonDisabled={isDownloadDisabled}
       >
         {modalContent}
       </Modal>

@@ -18,6 +18,7 @@ interface ModalProps {
   showConfirmButton?: boolean;
   cancelText?: string;
   confirmText?: string;
+  confirmButtonDisabled?: boolean; // 추가된 confirmButtonDisabled 속성
   onCancelClick?: () => void;
   onConfirmClick?: () => void;
   children: React.ReactNode;
@@ -35,6 +36,7 @@ const Modal: React.FC<ModalProps> = ({
   showConfirmButton = true,
   cancelText = "취소",
   confirmText = "확인",
+  confirmButtonDisabled = false, // 기본값은 비활성화되지 않도록 설정
   onCancelClick,
   onConfirmClick,
   children,
@@ -112,6 +114,7 @@ const Modal: React.FC<ModalProps> = ({
               color="signature"
               onClick={onConfirmClick}
               content={confirmText}
+              disabled={confirmButtonDisabled} // 확인 버튼 비활성화 여부 설정
             />
           )}
         </div>
