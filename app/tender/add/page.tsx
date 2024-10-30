@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import PageTitle from "@/components/ui/molecules/titles/PageTitle";
 import VerticalTable from "@/components/ui/molecules/verticalTable/VerticalTable";
 import Button from "@/components/ui/atoms/button/Button";
+import ThemeToggle from "@/components/ui/molecules/buttons/ThemeToggle";
 
 const vertical = [
   {
@@ -227,6 +228,14 @@ const AddItemPage = () => {
 
   return (
     <div className="p-4">
+      <ThemeToggle
+        customStyle={{
+          display: "flex",
+          justifyContent: "end",
+          marginTop: "24px",
+          marginRight: "24px",
+        }}
+      />
       <PageTitle
         pageTitle="입찰추가"
         mode="xl"

@@ -6,6 +6,7 @@ import PageTitle from "@/components/ui/molecules/titles/PageTitle";
 import VerticalTable from "@/components/ui/molecules/verticalTable/VerticalTable";
 import useExcelFileHandler from "@/hooks/useExcelFileHandler";
 import useFormatHandler from "@/hooks/useFormatHandler";
+import ThemeToggle from "@/components/ui/molecules/buttons/ThemeToggle";
 import TableButton from "@/components/ui/molecules/buttons/TableButton";
 import FileUploadButton from "@/components/ui/molecules/buttons/FileUploadButton"; // Import your FileUploadButton
 import {
@@ -119,6 +120,14 @@ const TenderDetail: React.FC = () => {
 
   return (
     <div>
+      <ThemeToggle
+        customStyle={{
+          display: "flex",
+          justifyContent: "end",
+          marginTop: "24px",
+          marginRight: "24px",
+        }}
+      />
       <PageTitle pageTitle="입찰상세조회" mode="xl" fontWeight="bold" />
       <PageTitle pageTitle="입찰사항" mode="md" fontWeight="bold" />
       <VerticalTable
