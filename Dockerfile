@@ -20,6 +20,9 @@ RUN npm install --production
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 
+# 포트를 3030으로 설정
+ENV PORT=3030
+
 EXPOSE 3030
 
 CMD ["node", "server.js"]
