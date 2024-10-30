@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export', // 정적 파일 생성을 위한 설정 추가
+  output: 'standalone',
   webpack: (config, { isServer }) => {
     if (!isServer) {
       config.optimization.splitChunks = {
