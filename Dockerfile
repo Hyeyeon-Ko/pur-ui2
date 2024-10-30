@@ -42,5 +42,5 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 3030
 
 # Nginx 실행
-CMD ["nginx", "-g", "daemon off;"]
-
+# CMD ["nginx", "-g", "daemon off;"]
+CMD ["npm", "run", "start"]
