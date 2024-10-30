@@ -1,5 +1,5 @@
 # 단계 1: 빌드 단계
-FROM node:18.17.0-alpine as build
+FROM node:18.17.0-alpine as builder
 
 # 작업 디렉토리 설정
 WORKDIR /app
