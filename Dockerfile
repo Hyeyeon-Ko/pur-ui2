@@ -28,6 +28,9 @@ RUN npm run build
 # 빌드된 결과물이 제대로 생성되었는지 확인
 RUN ls -la /app/build
 
+# 정적 파일 생성
+RUN npm run export
+
 # 단계 2: 프로덕션 단계
 FROM nginx:alpine
 
