@@ -8,14 +8,15 @@ WORKDIR /app
 COPY package.json ./
 
 # package-lock.json 파일이 있는 경우 삭제
-RUN rm -f package-lock.json
+# RUN rm -f package-lock.json
 
 # 환경 변수 설정: ESLint 경고/오류 무시
-ENV ESLINT_NO_DEV_ERRORS=true
-ENV CI=false
+# ENV ESLINT_NO_DEV_ERRORS=true
+# ENV CI=false
 
 # 의존성 설치
-RUN npm install
+# RUN npm install
+RUN npm ci
 
 # 소스 코드 복사
 COPY . ./
@@ -23,6 +24,9 @@ COPY . ./
 # 애플리케이션 빌드 (PUBLIC_URL 설정)
 ENV PUBLIC_URL=http://172.16.250.87
 RUN npm run build
+
+# 빌드된 결과물이 제대로 생성되었는지 확인
+RUN ls -la /app/build
 
 # 단계 2: 프로덕션 단계
 FROM nginx:alpine
