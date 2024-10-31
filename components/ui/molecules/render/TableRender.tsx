@@ -20,7 +20,7 @@ const TableRender: React.FC<TableRenderProps> = ({ row, column }) => {
         onClick={() => {
           const newWindow = window.open(
             `/tender/${row[column]}`,
-            "newwindow",
+            `_tender_${row[column]}`,
             "fullscreen"
           );
           if (newWindow) newWindow.opener = null;
@@ -40,7 +40,7 @@ const TableRender: React.FC<TableRenderProps> = ({ row, column }) => {
         onClick={() => {
           const newWindow = window.open(
             `/contract/${row[column]}`,
-            "newwindow",
+            `_contract_${row[column]}`,
             "fullscreen"
           );
           if (newWindow) newWindow.opener = null;
