@@ -48,7 +48,7 @@ const TableButton: React.FC<TableButtonProps> = ({
       )}
       <Button
         mode="xs"
-        content="엑셀다운로드"
+        content="전체다운로드"
         variant="outline"
         color="Button_Default"
         onClick={onDownloadAll}

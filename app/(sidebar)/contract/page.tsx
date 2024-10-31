@@ -3,7 +3,11 @@
 import Table from "@/components/ui/molecules/table/Table";
 import useExcelFileHandler from "@/hooks/useExcelFileHandler";
 import React, { useState, useCallback } from "react";
-import { contractData, contractColumns, contractSearchFields } from "@/lib/data";
+import {
+  contractData,
+  contractColumns,
+  contractSearchFields,
+} from "@/lib/data";
 import useFormatHandler from "@/hooks/useFormatHandler";
 import SearchFilter from "@/components/ui/organism/filter/SearchFilter";
 import PageTitle from "@/components/ui/molecules/titles/PageTitle";
@@ -63,6 +67,7 @@ const MenuPage = () => {
       </div>
       <div className="flex justify-end mr-6">
         <TableButton
+          showDelButton={false}
           onOpenAddPage={handleOpenAddPage}
           onDeleteSelected={handleDeleteSelected}
           onDownloadAll={handleDownloadAll}
@@ -73,7 +78,7 @@ const MenuPage = () => {
         columns={contractColumns}
         onRowSelect={handleRowSelect}
         onRowDoubleClick={() => {}}
-        showCheckbox={true}
+        showCheckbox={false}
         pagination={true}
       />
     </div>

@@ -130,6 +130,7 @@ const Table: React.FC<TableProps> = ({
       >
         <table className="table-auto text-xs text-left text-gray-500 w-full">
           <thead
+            className="p-2"
             style={{
               backgroundColor: isDarkMode
                 ? colors["Grey_Darken-4"]
@@ -147,7 +148,7 @@ const Table: React.FC<TableProps> = ({
                 </th>
               )}
               {columns.map((column) => (
-                <th key={column} className="text-center">
+                <th key={column} className="text-center py-4">
                   {column}
                   {setSorter && (
                     <span

@@ -63,6 +63,7 @@ const MenuPage = () => {
         <SearchFilter fieldsConfig={tenderSearchFields} />
       </div>
       <TableButton
+        showDelButton={false}
         onOpenAddPage={handleOpenAddPage}
         onDeleteSelected={handleDeleteSelected}
         onDownloadAll={handleDownloadAll}
@@ -80,7 +81,7 @@ const MenuPage = () => {
             "noopener,noreferrer,width=1920,height=1080"
           );
         }}
-        showCheckbox={true}
+        showCheckbox={false}
         pagination={true}
         sorter={sorter}
         setSorter={setSorter}
