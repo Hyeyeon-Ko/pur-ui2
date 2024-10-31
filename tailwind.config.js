@@ -45,8 +45,7 @@ module.exports = {
       Grey_Darken_4: "#333333",
     },
     fontFamily: {
-      sans: ["Graphik", "sans-serif"],
-      serif: ["Merriweather", "serif"],
+      sans: ["'Pretendard-Regular'", "sans-serif"],
     },
     extend: {
       spacing: {
