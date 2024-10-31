@@ -8,7 +8,7 @@ import useExcelFileHandler from "@/hooks/useExcelFileHandler";
 import useFormatHandler from "@/hooks/useFormatHandler";
 import ThemeToggle from "@/components/ui/molecules/buttons/ThemeToggle";
 import TableButton from "@/components/ui/molecules/buttons/TableButton";
-import FileUploadButton from "@/components/ui/molecules/buttons/FileUploadButton"; 
+import FileUploadButton from "@/components/ui/molecules/buttons/FileUploadButton";
 import {
   columns,
   tenderVertical,
@@ -37,36 +37,68 @@ const TenderDetail: React.FC = () => {
     }))
   );
 
+  // const handleChipClick = (label: string, title: string) => {
+  //   setCheckedItems((prev) => {
+  //     const newCheckedItems = { ...prev };
+  //     const isChecked = !prev[label];
+
+  //     newCheckedItems[label] = isChecked;
+
+  //     if (title === "센터명" && label === "전국") {
+  //       if (isChecked) return { 전국: true };
+  //       else return { 전국: false };
+  //     } else if (title === "센터명" && label !== "전국") {
+  //       newCheckedItems["전국"] = false;
+  //     }
+
+  //     if (isChecked) {
+  //       Object.keys(newCheckedItems).forEach((key) => {
+  //         if (
+  //           (title === "계약종류" &&
+  //             key.startsWith("계약종류") &&
+  //             key !== label) ||
+  //           (title === "입찰종류" &&
+  //             key.startsWith("입찰종류") &&
+  //             key !== label) ||
+  //           (title === "낙찰방법" &&
+  //             key.startsWith("낙찰방법") &&
+  //             key !== label)
+  //         ) {
+  //           newCheckedItems[key] = false;
+  //         }
+  //       });
+  //     }
+
+  //     return newCheckedItems;
+  //   });
+  // };
+
   const handleChipClick = (label: string, title: string) => {
     setCheckedItems((prev) => {
       const newCheckedItems = { ...prev };
       const isChecked = !prev[label];
 
-      newCheckedItems[label] = isChecked;
-
       if (title === "센터명" && label === "전국") {
         if (isChecked) return { 전국: true };
         else return { 전국: false };
       } else if (title === "센터명" && label !== "전국") {
+        newCheckedItems[label] = !prev[label];
         newCheckedItems["전국"] = false;
       }
 
-      if (isChecked) {
+      if (
+        title === "계약종류" ||
+        title === "입찰종류" ||
+        title === "낙찰방법"
+      ) {
         Object.keys(newCheckedItems).forEach((key) => {
-          if (
-            (title === "계약종류" &&
-              key.startsWith("계약종류") &&
-              key !== label) ||
-            (title === "입찰종류" &&
-              key.startsWith("입찰종류") &&
-              key !== label) ||
-            (title === "낙찰방법" &&
-              key.startsWith("낙찰방법") &&
-              key !== label)
-          ) {
-            newCheckedItems[key] = false;
-          }
+          newCheckedItems[key] = false;
         });
+        newCheckedItems[label] = true;
+      }
+
+      if (title === "계정명") {
+        newCheckedItems[label] = !prev[label];
       }
 
       return newCheckedItems;
