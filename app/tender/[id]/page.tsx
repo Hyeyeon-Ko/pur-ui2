@@ -157,7 +157,7 @@ const TenderDetail: React.FC = () => {
           data={formattedData}
           columns={columns}
           onRowSelect={handleRowSelect}
-          showCheckbox
+          showCheckbox={false}
           showHeader={true}
           tableTitle="입찰내역"
         />

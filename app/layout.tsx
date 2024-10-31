@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { DarkModeProvider } from "@/context/DarkModeContext";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const metadata: Metadata = {
   title: "구매팀",
@@ -15,7 +17,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <DarkModeProvider>
-        <body>{children}</body>
+        <body>
+          {children}
+          <ToastContainer />
+        </body>
       </DarkModeProvider>
     </html>
   );

@@ -140,7 +140,7 @@ const TenderDetail: React.FC<TenderDetailProps> = () => {
           data={formattedData}
           columns={contractListColumns}
           onRowSelect={handleRowSelect}
-          showCheckbox
+          showCheckbox={false}
           showHeader={true}
           tableTitle="계약내역"
         />

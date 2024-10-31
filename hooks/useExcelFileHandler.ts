@@ -1,3 +1,4 @@
+import Toast from "@/components/commons/Toast";
 import { useCallback } from "react";
 
 const useExcelFileHandler = () => {
@@ -20,27 +21,34 @@ const useExcelFileHandler = () => {
   // 파일 다운로드 핸들러
   const downloadCsv = useCallback((data: any[], filename: string) => {
     if (data.length === 0) {
-      alert("선택된 데이터가 없습니다.");
+      Toast.warningDownNotify(); // 데이터가 없을 때 경고 알림
       return;
     }
 
-    const csvData: string[][] = data.map((item) =>
-      Object.values(item).map((value) =>
-        typeof value === "string" ? `"${value}"` : `${value}`
-      )
-    );
+    try {
+      const csvData: string[][] = data.map((item) =>
+        Object.values(item).map((value) =>
+          typeof value === "string" ? `"${value}"` : `${value}`
+        )
+      );
 
-    // CSV 문자열 생성 (UTF-8 BOM 포함)
-    const csvContent = `\uFEFF${csvData
-      .map((row) => row.join(","))
-      .join("\n")}`;
-    const encodedUri = encodeURI(`data:text/csv;charset=utf-8,${csvContent}`);
-    const link = document.createElement("a");
-    link.setAttribute("href", encodedUri);
-    link.setAttribute("download", filename);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+      // CSV 문자열 생성 (UTF-8 BOM 포함)
+      const csvContent = `\uFEFF${csvData
+        .map((row) => row.join(","))
+        .join("\n")}`;
+      const encodedUri = encodeURI(`data:text/csv;charset=utf-8,${csvContent}`);
+      const link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", filename);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      Toast.successDownNotify(); // 다운로드 성공 알림
+    } catch (error) {
+      console.error("다운로드 실패:", error);
+      Toast.errorDownNotify(); // 다운로드 실패 알림
+    }
   }, []);
 
   // const handleDownloadOptionChange = useCallback(
