@@ -23,3 +23,13 @@ export const middleCategoryOptions = [
   { value: "option2", label: "옵션 2" },
   { value: "option3", label: "옵션 3" },
 ];
+
+export const contractAddOptions = [
+  { value: "sole", label: "수의계약" },
+  { value: "contract", label: "입찰번호 조회" },
+];
+
+export const tenderAddOptions = [
+  { value: "announce", label: "본공고" },
+  { value: "re-announce", label: "재공고" },
+];

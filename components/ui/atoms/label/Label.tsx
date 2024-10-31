@@ -7,9 +7,11 @@ export type LabelMode = "sm" | "xs" | "lg" | "md" | "xl" | undefined;
 interface LabelProps {
   mode?: LabelMode;
   color?: keyof typeof colors;
-  content: string;
+  content?: string;
   customStyle?: CSSProperties;
   fontWeight?: "normal" | "medium" | "bold";
+  children?: React.ReactNode;
+  htmlFor?: string;
 }
 
 const Label: React.FC<LabelProps> = ({
@@ -17,7 +19,9 @@ const Label: React.FC<LabelProps> = ({
   content,
   customStyle,
   color,
+  children,
   fontWeight = "normal",
+  htmlFor,
 }) => {
   const { isDarkMode } = useDarkMode(); // 다크 모드 상태 가져오기
 
@@ -49,8 +53,9 @@ const Label: React.FC<LabelProps> = ({
         ...customStyle, // customStyle을 통해 전달된 스타일 적용
         color: customStyle?.color || textColor, // customStyle에 color가 있으면 덮어쓰기
       }}
+      htmlFor={htmlFor}
     >
-      {content}
+      {content} {children}
     </label>
   );
 };

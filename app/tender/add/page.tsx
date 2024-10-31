@@ -3,130 +3,10 @@
 import React, { useState } from "react";
 // import { useRouter } from "next/navigation";
 // import { useParams } from "next/navigation";
-import PageTitle from "@/components/ui/molecules/titles/PageTitle";
-import VerticalTable from "@/components/ui/molecules/verticalTable/VerticalTable";
-import Button from "@/components/ui/atoms/button/Button";
-import ThemeToggle from "@/components/ui/molecules/buttons/ThemeToggle";
+import { tenderAddOptions } from "@/lib/optionDatas";
+import AddCommonForm from "@/components/ui/templates/AddCommonForm";
+import { tenderVertical } from "@/lib/data";
 
-const vertical = [
-  {
-    id: 0,
-    title: "센터명",
-    type: "chip",
-    contents: [
-      "전국",
-      "재단",
-      "본원",
-      "광화문",
-      "여의도",
-      "강남",
-      "수원",
-      "대구",
-      "부산",
-      "광주",
-      "제주",
-    ],
-  },
-  {
-    id: 1,
-    title: "입찰번호",
-    type: "input",
-    contents: "",
-  },
-  {
-    id: 2,
-    title: "공고구분",
-    type: "input",
-    contents: "",
-  },
-  {
-    id: 3,
-    title: "계약종류",
-    type: "chip",
-    contents: ["일반계약", "단가계약", "임대계약", "공사계약", "기타계약"],
-  },
-  {
-    id: 4,
-    title: "입찰종류",
-    type: "chip",
-    contents: ["일반경쟁", "제한경쟁", "지명경쟁"],
-  },
-  {
-    id: 5,
-    title: "낙찰방법",
-    type: "chip",
-    contents: ["최저가격", "2단계경쟁", "협상에의한계약"],
-  },
-  {
-    id: 6,
-    title: "계정명",
-    type: "chip",
-    contents: [
-      "의약품",
-      "항정신성의약품",
-      "장비소모품",
-      "인쇄물",
-      "시약",
-      "백신",
-      "의료비품",
-      "의료장비",
-      "위생용품",
-      "피복",
-      "사무용품",
-      "일반비품",
-      "전산용품",
-      "기타",
-    ],
-  },
-  {
-    id: 7,
-    title: "입찰명",
-    type: "input",
-    contents: "",
-  },
-  {
-    id: 8,
-    title: "공고일",
-    type: "datepicker",
-    contents: "",
-  },
-  {
-    id: 9,
-    title: "마감일",
-    type: "datepicker",
-    contents: "",
-  },
-  {
-    id: 10,
-    title: "응찰일",
-    type: "datepicker",
-    contents: "",
-  },
-  {
-    id: 11,
-    title: "낙찰기준가",
-    type: "input",
-    contents: "",
-  },
-  {
-    id: 12,
-    title: "입찰품의번호",
-    type: "input",
-    contents: "",
-  },
-  {
-    id: 13,
-    title: "입찰품의",
-    type: "upload",
-    contents: null,
-  },
-  {
-    id: 14,
-    title: "입찰공고문",
-    type: "upload",
-    contents: null,
-  },
-];
 
 const AddItemPage = () => {
   // const router = useRouter();
@@ -226,21 +106,20 @@ const AddItemPage = () => {
     });
   };
 
+  const handleSearch = (bidNumber: string) => {
+    console.log("입찰번호:", bidNumber);
+  };
+
   return (
-    <div className="my-4 mb-20">
-      <ThemeToggle />
-      <PageTitle pageTitle="입찰추가" mode="xl" fontWeight="bold" />
-      <div className="p-4  flex justify-end">
-        <Button mode="sm" content="추가" color="Button_Default" />
-      </div>
-      <VerticalTable
-        data={vertical}
-        onChipClick={handleChipClick} // Chip 클릭 이벤트 핸들러 전달
-        checkedItems={checkedItems} // 체크된 아이템 상태 전달
-        showHeader={true}
-        tableTitle="입찰사항"
-      />
-    </div>
+    <AddCommonForm
+      title="입찰추가"
+      options={tenderAddOptions}
+      initialSelected="announce"
+      searchOptionValue="re-announce"
+      verticalData={tenderVertical}
+      onSearch={handleSearch}
+      onChipClick={handleChipClick}
+    />
   );
 };
 

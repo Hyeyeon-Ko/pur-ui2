@@ -1,11 +1,9 @@
 "use client";
 
-import Button from "@/components/ui/atoms/button/Button";
-import ThemeToggle from "@/components/ui/molecules/buttons/ThemeToggle";
-import PageTitle from "@/components/ui/molecules/titles/PageTitle";
-import VerticalTable from "@/components/ui/molecules/verticalTable/VerticalTable";
 import { contractVertical } from "@/lib/data";
 import React, { useState } from "react";
+import { contractAddOptions } from "@/lib/optionDatas";
+import AddCommonForm from "@/components/ui/templates/AddCommonForm";
 
 interface TenderDetailProps {
   params: {
@@ -41,21 +39,20 @@ const ContractAddPage: React.FC<TenderDetailProps> = () => {
     });
   };
 
+  const handleSearch = (bidNumber: string) => {
+    console.log("입찰번호:", bidNumber);
+  };
+
   return (
-    <div className="my-4 mb-20">
-      <ThemeToggle />
-      <PageTitle pageTitle="계약추가" mode="xl" fontWeight="bold" />
-      <div className="p-4 flex justify-end">
-        <Button mode="sm" content="추가" color="Button_Default" />
-      </div>
-      <VerticalTable
-        data={contractVertical}
-        onChipClick={handleChipClick}
-        checkedItems={checkedItems}
-        showHeader={true}
-        tableTitle="계약사항"
-      />
-    </div>
+    <AddCommonForm
+      title="입찰추가"
+      options={contractAddOptions}
+      initialSelected="sole"
+      searchOptionValue="contract"
+      verticalData={contractVertical}
+      onSearch={handleSearch}
+      onChipClick={handleChipClick}
+    />
   );
 };
 

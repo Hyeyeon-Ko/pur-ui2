@@ -17,7 +17,7 @@ const TableHeader: React.FC<ManagementHeaderProps> = ({
           style={{ ...customStyle }}
           className="w-full border-signature bg-signature rounded-tl-lg rounded-tr-lg p-4 text-white"
         >
-          <Label content={tableTitle} />
+          <Label content={tableTitle} customStyle={{ color: "white" }} />
         </div>
       </div>
     </>

@@ -14,7 +14,9 @@ interface SendInputProps {
   customStyle?: CSSProperties;
   content?: string;
   onClick?: () => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
+  value?: string;
 }
 
 const SendInput: React.FC<SendInputProps> = ({
@@ -23,7 +25,9 @@ const SendInput: React.FC<SendInputProps> = ({
   customStyle,
   content = "버튼내용",
   onClick,
+  onChange,
   placeholder = "placeholder내용",
+  value,
 }) => {
   return (
     <div
@@ -32,13 +36,8 @@ const SendInput: React.FC<SendInputProps> = ({
         ...customStyle,
       }}
     >
-      <Input mode={mode} placeholder={placeholder} />
-      <Button
-        mode={mode}
-        content={content}
-        color={buttonColor}
-        onClick={onClick}
-      />
+      <Input placeholder={placeholder} onChange={onChange} value={value} />
+      <Button content={content} color={buttonColor} onClick={onClick} />
     </div>
   );
 };

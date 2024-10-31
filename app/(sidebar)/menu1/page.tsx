@@ -268,7 +268,7 @@ const MenuPage = () => {
 
   return (
     <div className="flex flex-col mb-4">
-      <PageTitle pageTitle="입찰조회" mode="xl" fontWeight="bold" />
+      <PageTitle pageTitle="테스트페이지" mode="xl" fontWeight="bold" />
 
       <div>
         <SearchFilter fieldsConfig={tenderSearchFields} />

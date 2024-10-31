@@ -1,5 +1,3 @@
-"use client";
-
 import React, { CSSProperties, useState } from "react";
 import colors from "@/styles/colors";
 import { useDarkMode } from "@/context/DarkModeContext";
@@ -16,7 +14,10 @@ interface InputProps {
   value?: string;
   accept?: string;
   name?: string;
+  id?: string;
+  label?: string;
   type?: string;
+  checked?: boolean;
   onFocus?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   validation?: (value: string) => { isValid: boolean; message: string };
@@ -32,13 +33,16 @@ const Input: React.FC<InputProps> = ({
   value,
   accept,
   name,
+  id,
+  label,
+  checked,
   type = "text",
   onChange,
   validation,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
-  const [isValid, setIsValid] = useState<boolean | null>(null); // 유효성 검사 상태
-  const [errorMessage, setErrorMessage] = useState<string>(""); // 메시지 상태
+  const [isValid, setIsValid] = useState<boolean | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   const { isDarkMode } = useDarkMode();
 
@@ -49,21 +53,18 @@ const Input: React.FC<InputProps> = ({
     lg: "text-lg px-5 py-3",
   };
 
-  // 유효성 검사 로직
   const handleValidation = (value: string) => {
     if (validation) {
       const { isValid, message } = validation(value);
-      setIsValid(isValid); // 유효성 검사 결과 저장
-      setErrorMessage(message); // 메시지 저장
+      setIsValid(isValid);
+      setErrorMessage(message);
     }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
-    if (onChange) {
-      onChange(e);
-    }
-    handleValidation(inputValue); // 입력 시 유효성 검사
+    onChange?.(e);
+    handleValidation(inputValue);
   };
 
   const borderColor = disabled
@@ -83,9 +84,19 @@ const Input: React.FC<InputProps> = ({
   const disabledColor = isDarkMode ? "#4B5563" : "#D1D5DB";
   const placeholderColor = isDarkMode ? "white" : "black";
 
+  // input ID 생성
+  const inputId = name || "input-" + Math.random().toString(36).substr(2, 9);
+
   return (
-    <div>
+    <div className="flex items-center">
+      {/* 라벨 추가 및 input과 연결 */}
+      {label && type === "radio" && (
+        <label htmlFor={inputId} className="mr-2">
+          {label}
+        </label>
+      )}
       <input
+        id={id} // 라벨과 연결될 ID
         className={`m-1 border rounded transition-all duration-150 ease-in-out focus:outline-none ${
           modeClasses[mode]
         } ${disabled ? `bg-${disabledColor} cursor-not-allowed` : ""}`}
@@ -98,6 +109,7 @@ const Input: React.FC<InputProps> = ({
         name={name}
         accept={accept}
         type={type}
+        checked={checked}
         placeholder={placeholder}
         value={value}
         onChange={handleChange}
@@ -105,12 +117,11 @@ const Input: React.FC<InputProps> = ({
         readOnly={readOnly}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
-        // placeholder 스타일 추가
         onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
           e.target.style.setProperty("::placeholder", placeholderColor);
         }}
       />
-      {/* 유효성 검사 메시지 표시 */}
+
       {errorMessage && (
         <label
           className={`text-xs ml-2 mt-1 mb-1 ${
