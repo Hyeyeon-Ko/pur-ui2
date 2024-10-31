@@ -130,7 +130,7 @@ const Table: React.FC<TableProps> = ({
       >
         <table className="table-auto text-xs text-left text-gray-500 w-full">
           <thead
-            className="p-2"
+            className="p-2 text-sm"
             style={{
               backgroundColor: isDarkMode
                 ? colors["Grey_Darken-4"]

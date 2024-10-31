@@ -21,7 +21,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
       onChange={onChange}
       placeholder="입찰번호를 입력하세요"
     />
-    <Button mode="sm" color="signature" onClick={onSearch} content="검색" />
+    <Button mode="sm" color="signature" onClick={onSearch} content="조회하기" />
   </div>
 );
 

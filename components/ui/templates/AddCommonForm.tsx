@@ -42,7 +42,7 @@ const AddCommonForm: React.FC<AddCommonFormProps> = ({
       <ThemeToggle />
       <PageTitle pageTitle={title} mode="xl" fontWeight="bold" />
       <div className="p-4 flex justify-end">
-        <Button mode="sm" content="추가" color="Button_Default" />
+        <Button mode="sm" content="저장" color="Button_Default" />
       </div>
       <CheckOption
         options={options}

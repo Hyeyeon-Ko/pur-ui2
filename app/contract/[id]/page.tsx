@@ -17,14 +17,13 @@ import React, { useCallback, useState } from "react";
 
 interface TenderDetailProps {
   params: {
-    id: string; // 동적 파라미터 ID의 타입 정의
+    id: string; 
   };
 }
 
 const TenderDetail: React.FC<TenderDetailProps> = () => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
 
-  // 체크박스 버튼
   const [checkedItems, setCheckedItems] = useState<{ [key: string]: boolean }>(
     {}
   );
@@ -32,7 +31,6 @@ const TenderDetail: React.FC<TenderDetailProps> = () => {
   const { downloadCsv, handleFileUpload } = useExcelFileHandler();
   const { formatCenterData, formatCurrency } = useFormatHandler();
 
-  // 체크박스 버튼 핸들러
   const handleChipClick = (label: string, title: string) => {
     setCheckedItems((prev) => {
       const newCheckedItems = { ...prev };

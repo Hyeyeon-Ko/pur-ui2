@@ -18,7 +18,6 @@ import PageTitle from "@/components/ui/molecules/titles/PageTitle";
 const MenuPage = () => {
   const [downloadOption, setDownloadOption] = useState("");
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
-  // 체크박스 버튼
   const [checkedItems, setCheckedItems] = useState<{ [key: string]: boolean }>(
     {}
   );
@@ -32,7 +31,6 @@ const MenuPage = () => {
 
   const { formatCenterData, formatDate, formatCurrency } = useFormatHandler();
 
-  // 체크박스 버튼 핸들러
   const handleChipClick = (label: string, title: string) => {
     setCheckedItems((prev) => {
       const newCheckedItems = { ...prev };

@@ -21,10 +21,10 @@ const TableButton: React.FC<TableButtonProps> = ({
   showFormDownButton = false,
 }) => {
   return (
-    <div className="flex justify-end">
+    <div className="flex justify-end mr-4">
       {showAddButton && (
         <Button
-          mode="xs"
+          mode="sm"
           content="추가"
           color="signature"
           onClick={onOpenAddPage}
@@ -32,7 +32,7 @@ const TableButton: React.FC<TableButtonProps> = ({
       )}
       {showDelButton && (
         <Button
-          mode="xs"
+          mode="sm"
           content="삭제"
           color="Button_Default"
           onClick={onDeleteSelected}
@@ -40,14 +40,14 @@ const TableButton: React.FC<TableButtonProps> = ({
       )}
       {showFormDownButton && (
         <Button
-          mode="xs"
+          mode="sm"
           content="양식다운로드"
           color="Button_Default"
           onClick={onFormDownload}
         />
       )}
       <Button
-        mode="xs"
+        mode="sm"
         content="전체다운로드"
         variant="outline"
         color="Button_Default"

@@ -24,7 +24,7 @@ const CategoryItemInput: React.FC<CategoryItemInputProps> = ({
               return (
                 <Input
                   key={field.field}
-                  mode="xs"
+                  mode="sm"
                   color="transparent"
                   type="text"
                   value={String(value)}
@@ -37,7 +37,7 @@ const CategoryItemInput: React.FC<CategoryItemInputProps> = ({
             } else if (field.type === "select" && field.options) {
               return (
                 <SelectBox
-                  mode="xs"
+                  mode="sm"
                   key={field.field}
                   options={field.options}
                   value={String(value)}

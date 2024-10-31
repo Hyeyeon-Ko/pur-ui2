@@ -7,17 +7,17 @@ import AddCommonForm from "@/components/ui/templates/AddCommonForm";
 
 interface TenderDetailProps {
   params: {
-    id: string; // 동적 파라미터 ID의 타입 정의
+    id: string; 
   };
 }
 
 const ContractAddPage: React.FC<TenderDetailProps> = () => {
-  // 체크박스 버튼
+
   const [checkedItems, setCheckedItems] = useState<{ [key: string]: boolean }>(
     {}
   );
 
-  // 체크박스 버튼 핸들러
+
   const handleChipClick = (label: string, title: string) => {
     setCheckedItems((prev) => {
       const newCheckedItems = { ...prev };
