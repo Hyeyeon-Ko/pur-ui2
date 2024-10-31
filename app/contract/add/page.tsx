@@ -45,7 +45,7 @@ const ContractAddPage: React.FC<TenderDetailProps> = () => {
 
   return (
     <AddCommonForm
-      title="입찰추가"
+      title="계약추가"
       options={contractAddOptions}
       initialSelected="sole"
       searchOptionValue="contract"

@@ -46,6 +46,12 @@ const Toast = {
     Toast.notify("업로드가 완료되었습니다.", ToastType.SUCCESS),
   errorUploadNotify: () =>
     Toast.notify("업로드에 실패했습니다.", ToastType.ERROR),
+  successModifyNotify: () =>
+    Toast.notify("수정이 완료되었습니다.", ToastType.SUCCESS),
+  errorModifyNotify: () =>
+    Toast.notify("수정에 실패했습니다.", ToastType.ERROR),
+  warningUploadNotify: () =>
+    Toast.notify("선택된 파일이 없습니다.", ToastType.WARNING),
 };
 
 export default Toast;

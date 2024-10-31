@@ -53,7 +53,7 @@ const VerticalTable: React.FC<VerticalTableProps> = ({
   };
 
   return (
-    <div className="mx-5 rounded-lg shadow-lg">
+    <div className="mx-5 my-2 rounded-lg shadow-lg">
       {showHeader && <TableHeader tableTitle={tableTitle} />}
 
       <table className="table-auto w-full">

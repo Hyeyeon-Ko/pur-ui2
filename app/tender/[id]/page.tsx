@@ -15,6 +15,7 @@ import {
   data,
   tenderVerticalResult,
 } from "@/lib/data";
+import Toast from "@/components/commons/Toast";
 
 const TenderDetail: React.FC = () => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
@@ -36,42 +37,6 @@ const TenderDetail: React.FC = () => {
       누리장터: item.누리장터 || "-",
     }))
   );
-
-  // const handleChipClick = (label: string, title: string) => {
-  //   setCheckedItems((prev) => {
-  //     const newCheckedItems = { ...prev };
-  //     const isChecked = !prev[label];
-
-  //     newCheckedItems[label] = isChecked;
-
-  //     if (title === "센터명" && label === "전국") {
-  //       if (isChecked) return { 전국: true };
-  //       else return { 전국: false };
-  //     } else if (title === "센터명" && label !== "전국") {
-  //       newCheckedItems["전국"] = false;
-  //     }
-
-  //     if (isChecked) {
-  //       Object.keys(newCheckedItems).forEach((key) => {
-  //         if (
-  //           (title === "계약종류" &&
-  //             key.startsWith("계약종류") &&
-  //             key !== label) ||
-  //           (title === "입찰종류" &&
-  //             key.startsWith("입찰종류") &&
-  //             key !== label) ||
-  //           (title === "낙찰방법" &&
-  //             key.startsWith("낙찰방법") &&
-  //             key !== label)
-  //         ) {
-  //           newCheckedItems[key] = false;
-  //         }
-  //       });
-  //     }
-
-  //     return newCheckedItems;
-  //   });
-  // };
 
   const handleChipClick = (label: string, title: string) => {
     setCheckedItems((prev) => {
@@ -110,41 +75,72 @@ const TenderDetail: React.FC = () => {
     setSelectedRows(uniqueSelectedRows);
   }, []);
 
+  /** 전체내역 다운로드 */
   const handleDownloadAll = () => {
     const allData = formattedData;
-    downloadCsv(allData, "all_download.csv");
+    downloadCsv(allData, "입찰내역(전체).csv");
   };
 
-  const handleDeleteSelected = () => {
-    const newFormattedData = formattedData.filter(
-      (item) => !selectedRows.includes(item.id)
-    );
-    confirm("선택한 항목을 정말 삭제하시겠습니까?");
-    setFormattedData(newFormattedData);
-    setSelectedRows([]);
+  /** TODO: 저장버튼에 대한 임시 이벤트 추후에 엔드포인트 수정 필요*/
+  const handleSave = async () => {
+    try {
+      const response = await fetch("/api/saveTenderData", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ data: formattedData }),
+      });
+      if (!response.ok) throw new Error("Data save failed");
+      Toast.successSaveNotify();
+    } catch (error) {
+      console.error("Save Error:", error);
+      Toast.errorSaveNotify();
+    }
   };
 
-  const handleFormDownload = () => {
-    const formTemplate = [
-      "센터",
-      "입찰번호",
-      "계약종류",
-      "입찰명",
-      "공고일",
-      "마감일",
-      "응찰일",
-    ];
-
-    const csvContent = `\uFEFF${formTemplate.join(",")}\n`;
-    const encodedUri = encodeURI(`data:text/csv;charset=utf-8,${csvContent}`);
-    const link = document.createElement("a");
-    link.setAttribute("href", encodedUri);
-    link.setAttribute("download", "form_template.csv");
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  /** TODO: 수정버튼에 대한 임시 이벤트 추후에 엔드포인트 수정 필요*/
+  const handleModify = async () => {
+    try {
+      const response = await fetch("/api/modifyTenderData", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ids: selectedRows }),
+      });
+      if (!response.ok) throw new Error("Modification failed");
+      Toast.successModifyNotify();
+    } catch (error) {
+      console.error("Modify Error:", error);
+      Toast.errorModifyNotify();
+    }
   };
 
+  /**TODO: 서버에 저장된 파일을 불러올 예정, 엔드포인트 수정 필요 */
+  const handleFormDownload = async () => {
+    try {
+      const response = await fetch("/api/download-form-template");
+      if (!response.ok)
+        throw new Error("서버에서 파일을 가져오는데 실패했습니다.");
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "입찰양식.csv");
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      window.URL.revokeObjectURL(url);
+      Toast.successDownNotify();
+    } catch (error) {
+      console.error("파일 다운로드 오류:", error);
+      Toast.errorDownNotify();
+    }
+  };
   // 업로드 핸들러
   const handleUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     handleFileUpload(event);
@@ -161,7 +157,15 @@ const TenderDetail: React.FC = () => {
         }}
       />
       <PageTitle pageTitle="입찰상세조회" mode="xl" fontWeight="bold" />
-
+      <TableButton
+        showSaveButton
+        showModifyButton
+        showAddButton={false}
+        showDelButton={false}
+        showAllDownButton={false}
+        onSave={handleSave}
+        onModify={handleModify}
+      />
       <VerticalTable
         data={tenderVertical}
         onChipClick={handleChipClick}
@@ -180,7 +184,6 @@ const TenderDetail: React.FC = () => {
             showAddButton={false}
             showDelButton={false}
             showFormDownButton={true}
-            onDeleteSelected={handleDeleteSelected}
             onDownloadAll={handleDownloadAll}
             onFormDownload={handleFormDownload}
           />

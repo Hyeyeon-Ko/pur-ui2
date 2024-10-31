@@ -4,6 +4,7 @@ import ThemeToggle from "@/components/ui/molecules/buttons/ThemeToggle";
 import CheckOption from "@/components/ui/organism/option/CheckOption";
 import PageTitle from "@/components/ui/molecules/titles/PageTitle";
 import VerticalTable from "@/components/ui/molecules/verticalTable/VerticalTable";
+import TableButton from "../molecules/buttons/TableButton";
 
 interface AddCommonFormProps {
   title: string;
@@ -41,9 +42,12 @@ const AddCommonForm: React.FC<AddCommonFormProps> = ({
     <div className="my-4 mb-20">
       <ThemeToggle />
       <PageTitle pageTitle={title} mode="xl" fontWeight="bold" />
-      <div className="p-4 flex justify-end">
-        <Button mode="sm" content="저장" color="Button_Default" />
-      </div>
+      <TableButton
+        showAddButton={false}
+        showDelButton={false}
+        showAllDownButton={false}
+        showSaveButton
+      />
       <CheckOption
         options={options}
         initialSelected={initialSelected}

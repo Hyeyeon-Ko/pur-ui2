@@ -6,9 +6,14 @@ interface TableButtonProps {
   onDeleteSelected?: () => void;
   onDownloadAll?: () => void;
   onFormDownload?: () => void;
+  onSave?: () => void;
+  onModify?: () => void;
   showAddButton?: boolean;
   showDelButton?: boolean;
   showFormDownButton?: boolean;
+  showAllDownButton?: boolean;
+  showSaveButton?: boolean;
+  showModifyButton?: boolean;
 }
 
 const TableButton: React.FC<TableButtonProps> = ({
@@ -16,9 +21,14 @@ const TableButton: React.FC<TableButtonProps> = ({
   onDeleteSelected,
   onDownloadAll,
   onFormDownload,
+  onSave,
+  onModify,
   showAddButton = true,
   showDelButton = true,
   showFormDownButton = false,
+  showAllDownButton = true,
+  showSaveButton = false,
+  showModifyButton = false,
 }) => {
   return (
     <div className="flex justify-end mr-4">
@@ -46,13 +56,32 @@ const TableButton: React.FC<TableButtonProps> = ({
           onClick={onFormDownload}
         />
       )}
-      <Button
-        mode="sm"
-        content="전체다운로드"
-        variant="outline"
-        color="Button_Default"
-        onClick={onDownloadAll}
-      />
+      {showAllDownButton && (
+        <Button
+          mode="sm"
+          content="전체다운로드"
+          variant="outline"
+          color="Button_Default"
+          onClick={onDownloadAll}
+        />
+      )}
+      {showSaveButton && (
+        <Button
+          mode="sm"
+          content="저장"
+          color="Button_Default"
+          onClick={onSave}
+        />
+      )}
+      {showModifyButton && (
+        <Button
+          mode="sm"
+          content="수정"
+          variant="outline"
+          color="Button_Default"
+          onClick={onModify}
+        />
+      )}
     </div>
   );
 };

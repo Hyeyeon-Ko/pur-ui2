@@ -2,17 +2,30 @@ import Toast from "@/components/commons/Toast";
 import { useCallback } from "react";
 
 const useExcelFileHandler = () => {
+  /** TODO: 각각 업로드 엔드포인트가 존재하는 경우, 사용하는 곳에서 처리하도도록 로직 수정 필요 */
   const handleFileUpload = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
+    async (event: React.ChangeEvent<HTMLInputElement>) => {
       const file = event.target.files?.[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          const fileContent = e.target?.result;
-          console.log("Uploaded File Content:", fileContent);
-          // 추가적인 파일 처리 로직을 여기에 작성
-        };
-        reader.readAsText(file); // CSV 파일을 읽기 위해 readAsText 사용
+      if (!file) {
+        Toast.errorUploadNotify();
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("file", file);
+
+      try {
+        const response = await fetch("/api/upload", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (!response.ok) throw new Error("업로드 실패");
+
+        Toast.successUploadNotify();
+      } catch (error) {
+        console.error("파일 업로드 오류:", error);
+        Toast.errorUploadNotify();
       }
     },
     []
