@@ -54,3 +54,21 @@ export type contractRowData = {
   수량?: string;
   계약단가?: string;
 };
+
+export type ChipContent = string[];
+export type InputContent = string;
+export type RadioContent = Array<{ value: string; label: string }>;
+export type DatePickerContent = string; // 또는 Date 타입으로 할 수 있습니다.
+export type UploadContent = File | null; // 업로드된 파일을 다룰 때 사용할 수 있습니다.
+
+export interface TenderItem {
+  id: number;
+  title: string;
+  type: "chip" | "input" | "radio" | "datepicker" | "upload";
+  contents:
+    | ChipContent
+    | InputContent
+    | RadioContent
+    | DatePickerContent
+    | UploadContent;
+}
