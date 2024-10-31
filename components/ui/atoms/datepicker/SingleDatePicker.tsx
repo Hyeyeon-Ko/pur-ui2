@@ -17,7 +17,6 @@ const SingleDatePicker: React.FC<SingleDatePickerProps> = ({
   selectedDate,
   onDateChange,
   minDate = new Date("2000-01-01"),
-  maxDate = new Date(),
   minDateForBid,
   label = "",
 }) => {
