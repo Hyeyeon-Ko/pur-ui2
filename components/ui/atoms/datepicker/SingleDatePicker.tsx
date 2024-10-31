@@ -39,7 +39,7 @@ const SingleDatePicker: React.FC<SingleDatePickerProps> = ({
           selected={selectedDate}
           onChange={(date: Date | null) => onDateChange(date || undefined)}
           minDate={minDateForBid || minDate} // minDateForBid를 먼저 사용하고 없으면 minDate를 사용
-          maxDate={maxDate}
+          // maxDate={maxDate}
           locale={ko}
           className={`m-1 block w-full p-2 border rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-500 ${
             isDarkMode
