@@ -5,9 +5,8 @@ export const fileOptions = [
 ];
 
 export const reasonOptions = [
-  { value: "mine", label: "개인보관" },
-  { value: "what", label: "궁금해서" },
-  { value: "boring", label: "심심해서" },
+  { value: "audit", label: "감사대비용" },
+  { value: "work", label: "업무확인용" },
   { value: "etc", label: "기타" },
 ];
 
