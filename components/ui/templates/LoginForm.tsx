@@ -16,7 +16,7 @@ const LoginForm = () => {
     // 로그인 로직 (예시)
     if (employeeId === "user" && password === "password") {
       localStorage.setItem("user", JSON.stringify({ employeeId }));
-      router.push("/tender"); // 로그인 성공 시 홈으로 리다이렉트
+      router.push("/contract"); // 로그인 성공 시 홈으로 리다이렉트
     } else {
       alert("로그인 실패!");
     }
