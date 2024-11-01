@@ -11,12 +11,14 @@ interface CategoryPageProps {
   title: string;
   fields: any;
   headerTitle: string;
+  endpoint?: string;
 }
 
 const CategoryPage: React.FC<CategoryPageProps> = ({
   title,
   headerTitle,
   fields,
+  endpoint,
 }) => {
   const {
     items,
@@ -25,13 +27,17 @@ const CategoryPage: React.FC<CategoryPageProps> = ({
     handleRemove,
     handleSave,
     handleEdit,
-    handleSaveAll,
   } = useCategoryItems();
+  const { handleSaveAll } = useCategoryItems();
+
+  const saveAll = () => {
+    handleSaveAll(endpoint);
+  };
 
   return (
     <div>
       <PageTitle pageTitle={title} mode="xl" fontWeight="bold" />
-      <ManagementHeader onSaveAll={handleSaveAll} headerTitle={headerTitle} />
+      <ManagementHeader onSaveAll={saveAll} headerTitle={headerTitle} />
       <CategoryItemList
         items={items}
         fields={fields}

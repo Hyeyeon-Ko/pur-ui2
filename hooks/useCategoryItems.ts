@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { CategoryItem } from "@/types/categoryTypes";
+import Toast from "@/components/commons/Toast";
 
 const useCategoryItems = () => {
   const [items, setItems] = useState<CategoryItem[]>([
@@ -47,8 +48,26 @@ const useCategoryItems = () => {
     );
   };
 
-  const handleSaveAll = () => {
-    setItems(items.map((item) => ({ ...item, isEditing: false })));
+  const handleSaveAll = async (endpoint: string) => {
+    try {
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ items }),
+      });
+
+      if (!response.ok) {
+        throw new Error("전체 저장에 실패했습니다.");
+      }
+
+      console.log("전체 저장이 완료되었습니다.");
+      Toast.successSaveNotify();
+    } catch (error) {
+      Toast.errorSaveNotify();
+      console.error("저장 중 오류 발생:", error);
+    }
   };
 
   return {
