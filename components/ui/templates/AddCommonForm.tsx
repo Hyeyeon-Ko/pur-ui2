@@ -14,6 +14,10 @@ interface AddCommonFormProps {
   verticalData: any[];
   onSearch: (bidNumber: string) => void;
   onChipClick: (label: string, title: string) => void;
+  onSave: (
+    checkedItems: { [key: string]: boolean },
+    verticalData: any[]
+  ) => void;
 }
 
 const AddCommonForm: React.FC<AddCommonFormProps> = ({
@@ -24,6 +28,7 @@ const AddCommonForm: React.FC<AddCommonFormProps> = ({
   verticalData,
   onSearch,
   onChipClick,
+  onSave,
 }) => {
   const [checkedItems, setCheckedItems] = useState<{ [key: string]: boolean }>(
     {}
@@ -47,6 +52,7 @@ const AddCommonForm: React.FC<AddCommonFormProps> = ({
         showDelButton={false}
         showAllDownButton={false}
         showSaveButton
+        onSave={() => onSave(checkedItems, verticalData)}
       />
       <CheckOption
         options={options}

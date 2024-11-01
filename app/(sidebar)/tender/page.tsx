@@ -1,13 +1,13 @@
 "use client";
 
 import Table from "@/components/ui/molecules/table/Table";
-import useExcelFileHandler from "@/hooks/useExcelFileHandler";
 import React, { useState, useCallback } from "react";
 import { data, columns, tenderSearchFields } from "@/lib/data";
 import useFormatHandler from "@/hooks/useFormatHandler";
 import SearchFilter from "@/components/ui/organism/filter/SearchFilter";
 import PageTitle from "@/components/ui/molecules/titles/PageTitle";
 import TableButton from "@/components/ui/molecules/buttons/TableButton";
+import useFileDownload from "@/hooks/useFileDownload";
 
 const MenuPage = () => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
@@ -17,7 +17,7 @@ const MenuPage = () => {
   } | null>(null);
 
   const { formatCenterData, formatDate, formatCurrency } = useFormatHandler();
-  const { downloadCsv } = useExcelFileHandler();
+  const { downloadFile } = useFileDownload();
 
   const [formattedData, setFormattedData] = useState(
     data.map((item) => ({
@@ -37,22 +37,16 @@ const MenuPage = () => {
     setSelectedRows(uniqueSelectedRows);
   }, []);
 
+  /** 전체내역 다운로드
+   * TODO: endpoint
+   */
   const handleDownloadAll = () => {
-    const allData = formattedData;
-    downloadCsv(allData, "all_download.csv");
+    downloadFile("/api/endpoint", "입찰내역(전체).csv");
   };
 
+  /** 추가 버튼 로직(새창열기) */
   const handleOpenAddPage = () => {
     window.open("/tender/add", "_blank", "noopener,noreferrer,fullscreen");
-  };
-
-  const handleDeleteSelected = () => {
-    const newFormattedData = formattedData.filter(
-      (item) => !selectedRows.includes(item.id)
-    );
-    confirm("선택한 항목을 정말 삭제하시겠습니까?");
-    setFormattedData(newFormattedData);
-    setSelectedRows([]);
   };
 
   return (
@@ -65,7 +59,6 @@ const MenuPage = () => {
       <TableButton
         showDelButton={false}
         onOpenAddPage={handleOpenAddPage}
-        onDeleteSelected={handleDeleteSelected}
         onDownloadAll={handleDownloadAll}
       />
       <Table

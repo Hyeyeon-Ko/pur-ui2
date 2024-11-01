@@ -1,7 +1,6 @@
 "use client";
 
 import Table from "@/components/ui/molecules/table/Table";
-import useExcelFileHandler from "@/hooks/useExcelFileHandler";
 import React, { useState, useCallback } from "react";
 import {
   contractData,
@@ -12,11 +11,13 @@ import useFormatHandler from "@/hooks/useFormatHandler";
 import SearchFilter from "@/components/ui/organism/filter/SearchFilter";
 import PageTitle from "@/components/ui/molecules/titles/PageTitle";
 import TableButton from "@/components/ui/molecules/buttons/TableButton";
+import useFileDownload from "@/hooks/useFileDownload";
 
 const MenuPage = () => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
 
-  const { downloadCsv } = useExcelFileHandler();
+  const { downloadFile } = useFileDownload();
+
   const { formatCenterData, formatDate, formatCurrency } = useFormatHandler();
 
   const [formattedData, setFormattedData] = useState(
@@ -34,9 +35,11 @@ const MenuPage = () => {
     }))
   );
 
+  /** 전체내역 다운로드
+   * TODO: endpoint
+   */
   const handleDownloadAll = () => {
-    const allData = formattedData;
-    downloadCsv(allData, "all_download.csv");
+    downloadFile("/api/endpoint", "입찰내역(전체).csv");
   };
 
   const handleOpenAddPage = () => {

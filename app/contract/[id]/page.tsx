@@ -117,12 +117,14 @@ const TenderDetail: React.FC<TenderDetailProps> = () => {
 
   /**TODO: 서버에 저장된 파일을 불러올 예정, 엔드포인트 수정 필요 */
   const handleFormDownload = async () => {
-    const endpoint = "/api/download-form-template"; 
-    const fileName = "계약양식.csv"; 
+    const endpoint = "/api/download-form-template";
+    const fileName = "계약양식.csv";
     handleFormDown(endpoint, fileName);
   };
 
-  /** TODO: 엔드포인트 수정 */
+  /** TODO: 엔드포인트 수정
+   * 파일업로드 버튼 로직
+   */
   const handleUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const endpoint = "/api/upload";
     handleFileUpload(event, endpoint);

@@ -14,6 +14,7 @@ import FileUploadButton from "@/components/ui/molecules/buttons/FileUploadButton
 import useFormatHandler from "@/hooks/useFormatHandler";
 import SearchFilter from "@/components/ui/organism/filter/SearchFilter";
 import PageTitle from "@/components/ui/molecules/titles/PageTitle";
+import useFileUpload from "@/hooks/useFileUpload";
 
 const MenuPage = () => {
   const [downloadOption, setDownloadOption] = useState("");
@@ -21,7 +22,8 @@ const MenuPage = () => {
   const [checkedItems, setCheckedItems] = useState<{ [key: string]: boolean }>(
     {}
   );
-  const { handleFileUpload, downloadCsv } = useExcelFileHandler();
+  const { downloadCsv } = useExcelFileHandler();
+  const { handleFileUpload } = useFileUpload();
 
   const [startDate, setStartDate] = useState<Date | undefined>(new Date());
   const [endDate, setEndDate] = useState<Date | undefined>(new Date());
@@ -264,6 +266,14 @@ const MenuPage = () => {
     },
   ];
 
+  /** TODO: 엔드포인트 수정
+   *    * 파일업로드 버튼 로직
+   */
+  const handleUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const endpoint = "/api/upload";
+    handleFileUpload(event, endpoint);
+  };
+
   return (
     <div className="flex flex-col mb-4">
       <PageTitle pageTitle="테스트페이지" mode="xl" fontWeight="bold" />
@@ -272,10 +282,7 @@ const MenuPage = () => {
         <SearchFilter fieldsConfig={tenderSearchFields} />
       </div>
       <div className="flex justify-end mr-6">
-        <FileUploadButton
-          onFileUpload={handleFileUpload}
-          buttonText="엑셀업로드"
-        />
+        <FileUploadButton onFileUpload={handleUpload} buttonText="엑셀업로드" />
         <Button
           mode="xs"
           content="엑셀다운로드"

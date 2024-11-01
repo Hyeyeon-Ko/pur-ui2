@@ -5,57 +5,19 @@ import React, { useState } from "react";
 // import { useParams } from "next/navigation";
 import { tenderAddOptions } from "@/lib/optionDatas";
 import AddCommonForm from "@/components/ui/templates/AddCommonForm";
-import { tenderVertical } from "@/lib/data";
-
+import { tenderVertical as initialTenderVertical } from "@/lib/data";
+import useSaveData from "@/hooks/useSaveData";
+import useTenderSearch from "@/hooks/useTenderSearch";
 
 const AddItemPage = () => {
-  // const router = useRouter();
-  // const { id } = useParams();
-  // 체크박스 버튼
   const [checkedItems, setCheckedItems] = useState<{ [key: string]: boolean }>(
     {}
   );
-
-  // const [formData, setFormData] = useState({
-  //   name: "",
-  //   description: "",
-  // });
-
-  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { name, value } = e.target;
-  //   setFormData({ ...formData, [name]: value });
-  // };
-
-  // const handleSubmit = (e: React.FormEvent) => {
-  //   e.preventDefault();
-
-  //   const newItem = {
-  //     id: Math.random().toString(),
-  //     ...formData,
-  //     checkedItems,
-  //   };
-
-  //   fetch("/api/items", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(newItem),
-  //   })
-  //     .then((response) => {
-  //       if (!response.ok) {
-  //         throw new Error("데이터 저장 실패");
-  //       }
-  //       return response.json();
-  //     })
-  //     .then((data) => {
-  //       console.log("저장 성공:", data);
-  //       router.push(`/tender?id=${id}`);
-  //     })
-  //     .catch((error) => {
-  //       console.error("저장 중 오류 발생:", error);
-  //     });
-  // };
+  const [tenderVertical, setTenderVertical] = useState<any[]>(
+    initialTenderVertical
+  );
+  const { saveData } = useSaveData();
+  const { tenderSearch } = useTenderSearch();
 
   // 체크박스 버튼 핸들러
   const handleChipClick = (label: string, title: string) => {
@@ -64,18 +26,6 @@ const AddItemPage = () => {
       const isChecked = !prev[label];
 
       newCheckedItems[label] = isChecked;
-
-      // if (title === "센터명" && label === "전국") {
-      //   if (isChecked) {
-      //     Object.keys(newCheckedItems).forEach((key) => {
-      //       if (key !== "전국" && key.startsWith("센터명")) {
-      //         newCheckedItems[key] = false;
-      //       }
-      //     });
-      //   }
-      // } else if (title === "센터명") {
-      //   newCheckedItems["전국"] = false;
-      // }
 
       if (title === "센터명" && label === "전국") {
         if (isChecked) return { 전국: true };
@@ -106,8 +56,26 @@ const AddItemPage = () => {
     });
   };
 
-  const handleSearch = (bidNumber: string) => {
-    console.log("입찰번호:", bidNumber);
+  /**
+   * 입찰번호 조회 버튼
+   * TODO: 엔드포인트, 등등 매개변수 수정 필요할 수 있음
+   */
+  const handleSearch = async (bidNumber: string) => {
+    const endpoint = "/api/search-bid";
+    const data = await tenderSearch(bidNumber, endpoint);
+
+    if (data) {
+      setTenderVertical(data);
+      console.log("조회된 데이터:", data);
+    }
+  };
+  /**
+   * 저장버튼
+   * TODO: 엔드포인트, 등등 매개변수 수정 필요할 수 있음
+   */
+  const handleSave = async () => {
+    const endpoint = "/api/save-vertical-data";
+    await saveData(checkedItems, tenderVertical, endpoint);
   };
 
   return (
@@ -119,6 +87,7 @@ const AddItemPage = () => {
       verticalData={tenderVertical}
       onSearch={handleSearch}
       onChipClick={handleChipClick}
+      onSave={handleSave}
     />
   );
 };

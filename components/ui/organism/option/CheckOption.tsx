@@ -41,8 +41,15 @@ const CheckOption: React.FC<CheckOptionProps> = ({
       {selectedOption === searchOptionValue && (
         <SearchInput
           bidNumber={bidNumber}
-          onChange={(e) => setBidNumber(e.target.value)}
-          onSearch={() => onSearch(bidNumber)}
+          onChange={(e) => {
+            setBidNumber(e.target.value);
+          }}
+          onSearch={() => {
+            if (bidNumber) {
+              onSearch(bidNumber);
+            } else {
+            }
+          }}
         />
       )}
     </div>

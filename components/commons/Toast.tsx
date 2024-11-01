@@ -52,6 +52,15 @@ const Toast = {
     Toast.notify("수정에 실패했습니다.", ToastType.ERROR),
   warningUploadNotify: () =>
     Toast.notify("선택된 파일이 없습니다.", ToastType.WARNING),
+  successTenderNotify: () =>
+    Toast.notify("조회에 성공했습니다.", ToastType.SUCCESS),
+  errorTenderNotify: () =>
+    Toast.notify(
+      "조회에 실패했습니다. 입찰번호를 확인해 주세요.",
+      ToastType.ERROR
+    ),
+  warningTenderNotify: () =>
+    Toast.notify("입찰번호를 입력해 주세요.", ToastType.WARNING),
 };
 
 export default Toast;

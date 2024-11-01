@@ -4,7 +4,6 @@ import React, { useCallback, useState } from "react";
 import Table from "@/components/ui/molecules/table/Table";
 import PageTitle from "@/components/ui/molecules/titles/PageTitle";
 import VerticalTable from "@/components/ui/molecules/verticalTable/VerticalTable";
-import useExcelFileHandler from "@/hooks/useExcelFileHandler";
 import useFormatHandler from "@/hooks/useFormatHandler";
 import ThemeToggle from "@/components/ui/molecules/buttons/ThemeToggle";
 import TableButton from "@/components/ui/molecules/buttons/TableButton";
@@ -16,6 +15,9 @@ import {
   tenderVerticalResult,
 } from "@/lib/data";
 import Toast from "@/components/commons/Toast";
+import useFileDownload from "@/hooks/useFileDownload";
+import useFileUpload from "@/hooks/useFileUpload";
+import useFormDownload from "@/hooks/useFormDownload";
 
 const TenderDetail: React.FC = () => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
@@ -23,7 +25,9 @@ const TenderDetail: React.FC = () => {
     {}
   );
   const { formatCenterData, formatDate, formatCurrency } = useFormatHandler();
-  const { downloadCsv, handleFileUpload } = useExcelFileHandler();
+  const { downloadFile } = useFileDownload();
+  const { handleFileUpload } = useFileUpload();
+  const { handleFormDown } = useFormDownload();
 
   const [formattedData, setFormattedData] = useState(
     data.map((item) => ({
@@ -75,10 +79,11 @@ const TenderDetail: React.FC = () => {
     setSelectedRows(uniqueSelectedRows);
   }, []);
 
-  /** 전체내역 다운로드 */
+  /** 전체내역 다운로드
+   * TODO: endpoint
+   */
   const handleDownloadAll = () => {
-    const allData = formattedData;
-    downloadCsv(allData, "입찰내역(전체).csv");
+    downloadFile("/api/endpoint", "입찰내역(전체).csv");
   };
 
   /** TODO: 저장버튼에 대한 임시 이벤트 추후에 엔드포인트 수정 필요*/
@@ -119,31 +124,17 @@ const TenderDetail: React.FC = () => {
 
   /**TODO: 서버에 저장된 파일을 불러올 예정, 엔드포인트 수정 필요 */
   const handleFormDownload = async () => {
-    try {
-      const response = await fetch("/api/download-form-template");
-      if (!response.ok)
-        throw new Error("서버에서 파일을 가져오는데 실패했습니다.");
-
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-
-      const link = document.createElement("a");
-      link.href = url;
-      link.setAttribute("download", "입찰양식.csv");
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-
-      window.URL.revokeObjectURL(url);
-      Toast.successDownNotify();
-    } catch (error) {
-      console.error("파일 다운로드 오류:", error);
-      Toast.errorDownNotify();
-    }
+    const endpoint = "/api/download-form-template";
+    const fileName = "입찰양식.csv";
+    handleFormDown(endpoint, fileName);
   };
-  // 업로드 핸들러
+
+  /** TODO: 엔드포인트 수정
+   *    * 파일업로드 버튼 로직
+   */
   const handleUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    handleFileUpload(event);
+    const endpoint = "/api/upload";
+    handleFileUpload(event, endpoint);
   };
 
   return (
