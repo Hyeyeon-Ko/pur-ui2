@@ -1,12 +1,11 @@
 export interface CategoryItem {
   id: number;
-  majorSelect: string;
-  middleSelect: string;
-  smallSelect: string;
   content: string;
   name: string;
   description: string;
   isEditing: boolean;
+  largeCategory?: string; // Add this line
+  middleCategory?: string; // Add this line
 }
 
 export interface CategoryField {
@@ -17,15 +16,9 @@ export interface CategoryField {
 }
 
 export interface CategoryItemInputProps {
-  item: {
-    id: number;
-    content: string;
-    name: string;
-    description: string;
-    isEditing: boolean;
-  };
-  fields: CategoryField[];
-  onChange: (id: number, field: string, value: string) => void;
+  item: CategoryItem;
+  fields: Array<{ field: string; type: string; placeholder: string }>;
+  onChange: (id: number, field: string, value: any) => void;
   onSave: (id: number) => void;
   onRemove: (id: number) => void;
   onEdit: (id: number) => void;
