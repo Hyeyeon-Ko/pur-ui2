@@ -30,7 +30,7 @@ const Navbar: React.FC = () => {
   }
 
   return (
-    <nav className="p-4 mx-4 flex justify-end items-center">
+    <nav className="p-4 mx-8 flex justify-end items-center">
       {user ? (
         <div className="flex gap-4 items-center">
           <Label content={user.employeeId} mode="lg" />
