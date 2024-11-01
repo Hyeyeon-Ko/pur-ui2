@@ -206,12 +206,12 @@ const SideMenu = ({
 
                 {/* 하위 메뉴 조건부 렌더링 */}
                 {item.label === "코드조회" && codeMenuOpen && isOpen && (
-                  <div className="flex flex-col px-6 mx-2 gap-2">
+                  <div className="flex flex-col gap-2">
                     {item.part.map((subItem) => (
                       <Link
                         key={subItem.label}
                         href={subItem.href}
-                        className={`flex items-center text-gray-500 py-1 mx-2 rounded-md transition-colors duration-200`}
+                        className={`flex items-center text-gray-500 py-1 px-6 mx-2 gap-1 rounded-md transition-colors duration-200`}
                         onMouseEnter={(e) => {
                           e.currentTarget.style.backgroundColor = colors.sub;
                           const svgElement =
