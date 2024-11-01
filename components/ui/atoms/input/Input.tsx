@@ -80,7 +80,7 @@ const Input: React.FC<InputProps> = ({
     : "#2563EB";
 
   const backgroundColor = isDarkMode ? colors["transparent"] : "white";
-  const textColor = isDarkMode ? "white" : "black";
+  const textColor = isDarkMode ? "Button_Default" : "black";
   const disabledColor = isDarkMode ? "#4B5563" : "#D1D5DB";
   const placeholderColor = isDarkMode ? "white" : "black";
 

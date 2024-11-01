@@ -5,11 +5,13 @@ import Label from "../atoms/label/Label";
 import LabelInput from "../molecules/inputs/LabelInput";
 import Button from "../atoms/button/Button";
 import Toast, { ToastType } from "@/components/commons/Toast";
+import { useDarkMode } from "@/context/DarkModeContext";
 
 const LoginForm = () => {
   const [employeeId, setEmployeeId] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
+  const { isDarkMode } = useDarkMode();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -18,7 +20,7 @@ const LoginForm = () => {
     if (employeeId === "user" && password === "password") {
       localStorage.setItem("user", JSON.stringify({ employeeId }));
       Toast.notify("로그인에 성공했습니다!", ToastType.SUCCESS);
-      router.push("/contract"); // 로그인 성공 시 홈으로 리다이렉트
+      router.push("/main"); // 로그인 성공 시 홈으로 리다이렉트
     } else {
       Toast.notify("아이디 혹은 비밀번호를 확인해주세요.", ToastType.ERROR);
     }
@@ -82,6 +84,7 @@ const LoginForm = () => {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "flex-start",
+                color: isDarkMode ? colors.signature : colors.signature,
               }}
             />
           </div>

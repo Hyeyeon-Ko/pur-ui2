@@ -55,8 +55,7 @@ const Navbar: React.FC = () => {
       ) : (
         <Link href="/login">
           <Button
-            mode="xs"
-            content="로그인"
+            mode="sm"
             color="signature"
             customStyle={{
               borderRadius: "25px",
@@ -64,7 +63,10 @@ const Navbar: React.FC = () => {
               gap: "4px",
               alignItems: "center",
             }}
-          />
+          >
+            <span>로그인</span>
+            <RiLogoutCircleRLine className="my-1" />
+          </Button>
         </Link>
       )}
 
