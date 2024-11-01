@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import SearchInput from "../../molecules/inputs/SearchInput";
 import RadioOption from "../../molecules/radio/RadioOption";
+import Toast, { ToastType } from "@/components/commons/Toast";
 
 interface CheckOptionProps {
   options: { value: string; label: string }[];
@@ -48,6 +49,7 @@ const CheckOption: React.FC<CheckOptionProps> = ({
             if (bidNumber) {
               onSearch(bidNumber);
             } else {
+              Toast.notify("입찰번호를 입력해주세요.", ToastType.WARNING);
             }
           }}
         />
