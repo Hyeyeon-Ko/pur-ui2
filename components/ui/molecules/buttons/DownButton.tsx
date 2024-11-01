@@ -5,6 +5,7 @@ import colors from "@/styles/colors";
 import LabelSelect from "../selects/LabelSelect";
 import Input from "../../atoms/input/Input";
 import Modal from "../../organism/modal/Modal";
+import Toast from "@/components/commons/Toast";
 
 interface Option {
   value: string;
@@ -47,6 +48,44 @@ const DownButton: React.FC<DownProps> = ({
     !selectedReason ||
     (selectedReason === "etc" && !otherReason);
 
+  /** 모달 파일 다운로드 버튼 로직
+   * TODO: 엔드포인트 - 만약에 엔드포인트가 다른 여러경로가 있다면 훅으로 빼자
+   */
+  const handleDownload = async () => {
+    const endpoint = `/api/download-file`; // API 엔드포인트
+
+    try {
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          file: selectedFile,
+          reason: selectedReason,
+          otherReason: otherReason,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("파일 다운로드에 실패했습니다.");
+      }
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", selectedFile);
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode?.removeChild(link);
+
+      Toast.successDownNotify();
+    } catch (error) {
+      console.error("다운로드 중 오류 발생:", error);
+      Toast.errorDownNotify();
+    }
+  };
   const modalContent = (
     <div className="flex flex-col px-8">
       <LabelSelect
@@ -104,9 +143,9 @@ const DownButton: React.FC<DownProps> = ({
         }}
         onConfirmClick={() => {
           if (!isDownloadDisabled) {
+            handleDownload(); // 다운로드 처리 함수 호출
             closeModal();
             resetForm();
-            // 다운로드 실행 로직 추가
           }
         }}
         mode="sm"

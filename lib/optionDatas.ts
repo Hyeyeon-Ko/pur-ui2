@@ -1,7 +1,22 @@
 export const fileOptions = [
-  { value: "dd", label: "dd 1" },
-  { value: "option2", label: "Option 2" },
-  { value: "option3", label: "Option 3" },
+  {
+    value: "file1",
+    label: "File 1",
+    url: "/files/file1.pdf",
+    description: "Description for File 1",
+  },
+  {
+    value: "file2",
+    label: "File 2",
+    url: "/files/file2.pdf",
+    description: "Description for File 2",
+  },
+  {
+    value: "file3",
+    label: "File 3",
+    url: "/files/file3.pdf",
+    description: "Description for File 3",
+  },
 ];
 
 export const reasonOptions = [
