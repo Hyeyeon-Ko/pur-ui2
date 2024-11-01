@@ -16,6 +16,7 @@
   --color-Button_Default: #787586;
   --color-Table_header: #faf8ff;
   --color-warning: #f2c037;
+  --toastify-toast-width: auto;
 }
 
 body {

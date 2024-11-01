@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Label from "../atoms/label/Label";
 import LabelInput from "../molecules/inputs/LabelInput";
 import Button from "../atoms/button/Button";
+import Toast, { ToastType } from "@/components/commons/Toast";
 
 const LoginForm = () => {
   const [employeeId, setEmployeeId] = useState("");
@@ -16,9 +17,10 @@ const LoginForm = () => {
     // 로그인 로직 (예시)
     if (employeeId === "user" && password === "password") {
       localStorage.setItem("user", JSON.stringify({ employeeId }));
+      Toast.notify("로그인에 성공했습니다!", ToastType.SUCCESS);
       router.push("/contract"); // 로그인 성공 시 홈으로 리다이렉트
     } else {
-      alert("로그인 실패!");
+      Toast.notify("아이디 혹은 비밀번호를 확인해주세요.", ToastType.ERROR);
     }
 
     /** api 방식 로그인 구현 */
