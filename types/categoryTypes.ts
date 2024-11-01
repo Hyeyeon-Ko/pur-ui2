@@ -36,3 +36,22 @@ export interface CategoryItemListProps {
   onRemove: (id: number) => void;
   onEdit: (id: number) => void;
 }
+
+export interface SmallCategory {
+  value: string;
+  label: string;
+}
+
+export interface MiddleCategory {
+  value: string;
+  label: string;
+  smallCategories: SmallCategory[];
+}
+
+export interface MajorCategory {
+  value: string;
+  label: string;
+  middleCategories: MiddleCategory[];
+}
+
+export type CategoryData = MajorCategory[];

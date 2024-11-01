@@ -1,3 +1,5 @@
+import { CategoryData } from "@/types/categoryTypes";
+
 export const fileOptions = [
   {
     value: "file1",
@@ -37,6 +39,55 @@ export const middleCategoryOptions = [
   { value: "option1", label: "옵션 1" },
   { value: "option2", label: "옵션 2" },
   { value: "option3", label: "옵션 3" },
+];
+
+export const categoryData: CategoryData = [
+  {
+    value: "option1",
+    label: "대분류 옵션1",
+    middleCategories: [
+      {
+        value: "middle1",
+        label: "중분류 옵션1",
+        smallCategories: [
+          { value: "small1-1", label: "소분류 1-1" },
+          { value: "small1-2", label: "소분류 1-2" },
+        ],
+      },
+      {
+        value: "middle2",
+        label: "중분류 옵션2",
+        smallCategories: [{ value: "small2-1", label: "소분류 2-1" }],
+      },
+      {
+        value: "middle3",
+        label: "중분류 옵션3",
+        smallCategories: [{ value: "small3-1", label: "소분류 3-1" }],
+      },
+    ],
+  },
+  {
+    value: "option2",
+    label: "옵션 2",
+    middleCategories: [
+      {
+        value: "middle3",
+        label: "중분류 3",
+        smallCategories: [{ value: "small3-1", label: "소분류 3-1" }],
+      },
+    ],
+  },
+  {
+    value: "option2",
+    label: "옵션 2",
+    middleCategories: [
+      {
+        value: "middle3",
+        label: "중분류 3",
+        smallCategories: [{ value: "small3-1", label: "소분류 3-1" }],
+      },
+    ],
+  },
 ];
 
 export const contractAddOptions = [
