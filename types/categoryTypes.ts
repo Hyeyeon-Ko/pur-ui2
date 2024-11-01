@@ -1,5 +1,8 @@
 export interface CategoryItem {
   id: number;
+  majorSelect: string;
+  middleSelect: string;
+  smallSelect: string;
   content: string;
   name: string;
   description: string;

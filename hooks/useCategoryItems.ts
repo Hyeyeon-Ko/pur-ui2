@@ -1,12 +1,29 @@
-"use client";
-
-import { useState } from "react";
 import { CategoryItem } from "@/types/categoryTypes";
-import Toast from "@/components/commons/Toast";
+import { useState } from "react";
 
 const useCategoryItems = () => {
   const [items, setItems] = useState<CategoryItem[]>([
-    { id: Date.now(), content: "", name: "", description: "", isEditing: true },
+    // 초기 데이터 예시
+    {
+      id: 1,
+      majorSelect: "대분류1",
+      middleSelect: "중분류1",
+      smallSelect: "소분류1",
+      content: "내용1",
+      name: "이름1",
+      description: "설명1",
+      isEditing: false,
+    },
+    {
+      id: 2,
+      majorSelect: "대분류2",
+      middleSelect: "중분류2",
+      smallSelect: "소분류2",
+      content: "내용2",
+      name: "이름2",
+      description: "설명2",
+      isEditing: false,
+    },
   ]);
 
   const handleAddItem = () => {
@@ -14,6 +31,9 @@ const useCategoryItems = () => {
       ...items,
       {
         id: Date.now(),
+        majorSelect: "",
+        middleSelect: "",
+        smallSelect: "",
         content: "",
         name: "",
         description: "",
@@ -26,10 +46,6 @@ const useCategoryItems = () => {
     setItems(
       items.map((item) => (item.id === id ? { ...item, [field]: value } : item))
     );
-  };
-
-  const handleRemove = (id: number) => {
-    setItems(items.filter((item) => item.id !== id));
   };
 
   const handleSave = (id: number) => {
@@ -48,36 +64,17 @@ const useCategoryItems = () => {
     );
   };
 
-  const handleSaveAll = async (endpoint: string) => {
-    try {
-      const response = await fetch(endpoint, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ items }),
-      });
-
-      if (!response.ok) {
-        throw new Error("전체 저장에 실패했습니다.");
-      }
-
-      console.log("전체 저장이 완료되었습니다.");
-      Toast.successSaveNotify();
-    } catch (error) {
-      Toast.errorSaveNotify();
-      console.error("저장 중 오류 발생:", error);
-    }
+  const handleRemove = (id: number) => {
+    setItems(items.filter((item) => item.id !== id));
   };
 
   return {
     items,
     handleAddItem,
     handleChange,
-    handleRemove,
     handleSave,
     handleEdit,
-    handleSaveAll,
+    handleRemove,
   };
 };
 

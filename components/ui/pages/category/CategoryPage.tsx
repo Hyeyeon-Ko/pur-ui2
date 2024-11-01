@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import Button from "@/components/ui/atoms/button/Button";
 import ManagementHeader from "@/components/ui/molecules/header/ManagementHeader";
@@ -9,8 +7,8 @@ import useCategoryItems from "@/hooks/useCategoryItems";
 
 interface CategoryPageProps {
   title: string;
-  fields: any;
   headerTitle: string;
+  fields: any;
   endpoint?: string;
 }
 
@@ -28,16 +26,11 @@ const CategoryPage: React.FC<CategoryPageProps> = ({
     handleSave,
     handleEdit,
   } = useCategoryItems();
-  const { handleSaveAll } = useCategoryItems();
-
-  const saveAll = () => {
-    handleSaveAll(endpoint);
-  };
 
   return (
     <div>
       <PageTitle pageTitle={title} mode="xl" fontWeight="bold" />
-      <ManagementHeader onSaveAll={saveAll} headerTitle={headerTitle} />
+      <ManagementHeader onSaveAll={() => {}} headerTitle={headerTitle} />
       <CategoryItemList
         items={items}
         fields={fields}

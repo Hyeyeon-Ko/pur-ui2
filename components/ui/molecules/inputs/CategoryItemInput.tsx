@@ -19,7 +19,6 @@ const CategoryItemInput: React.FC<CategoryItemInputProps> = ({
         <div className="flex flex-grow justify-between">
           {fields.map((field) => {
             const value = item[field.field as keyof typeof item];
-
             if (field.type === "input") {
               return (
                 <Input
@@ -84,7 +83,6 @@ const CategoryItemInput: React.FC<CategoryItemInputProps> = ({
           <Label mode="xs" content={item.content} />
           <Label mode="xs" content={item.name} />
           <Label mode="xs" content={item.description} />
-
           <div className="flex space-x-2">
             <Button
               color="sub"
