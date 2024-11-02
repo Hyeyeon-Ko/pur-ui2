@@ -9,6 +9,8 @@ import DashCard from "@/components/ui/atoms/card/DashCard";
 import { getLocal } from "@/utils/localStorage";
 import Label from "@/components/ui/atoms/label/Label";
 import { SiNicehash } from "react-icons/si";
+import colors from "@/styles/colors";
+import { useDarkMode } from "@/context/DarkModeContext";
 
 const cardData = [
   {
@@ -43,6 +45,7 @@ const cardData = [
 
 const Dashboard = () => {
   const [user, setUser] = useState(null);
+  const { isDarkMode } = useDarkMode();
 
   useEffect(() => {
     const storedUser = getLocal("user");
@@ -54,7 +57,13 @@ const Dashboard = () => {
     <div className="flex flex-col">
       {user && (
         <div className="flex w-[80%] p-10 mx-auto items-center">
-          <Label content={`안녕하세요. ${user.employeeId} 님`} mode="xl" />
+          <Label
+            customStyle={{
+              color: isDarkMode ? colors.white : colors.signature,
+            }}
+            content={`안녕하세요. ${user.employeeId} 님`}
+            mode="xl"
+          />
           <SiNicehash className="text-3xl p-1" />
         </div>
       )}

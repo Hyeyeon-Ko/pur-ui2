@@ -33,7 +33,7 @@ const Label: React.FC<LabelProps> = ({
     xl: "text-3xl",
   };
 
-  const defaultColor = isDarkMode ? "#9CA3AF" : "signature";
+  const defaultColor = isDarkMode ? "#9CA3AF" : colors.signature;
 
   const textColor = color ? colors[color] : defaultColor;
 

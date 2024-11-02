@@ -33,7 +33,13 @@ const Navbar: React.FC = () => {
     <nav className="p-4 mx-8 flex justify-end items-center">
       {user ? (
         <div className="flex gap-4 items-center">
-          <Label content={user.employeeId} mode="lg" />
+          <Label
+            customStyle={{
+              color: isDarkMode ? colors.white : colors.signature,
+            }}
+            content={user.employeeId}
+            mode="lg"
+          />
           <Link href="/login">
             <Button
               mode="sm"
