@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Button from "@/components/ui/atoms/button/Button";
 import ThemeToggle from "@/components/ui/molecules/buttons/ThemeToggle";
 import CheckOption from "@/components/ui/organism/option/CheckOption";
 import PageTitle from "@/components/ui/molecules/titles/PageTitle";

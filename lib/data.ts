@@ -941,20 +941,40 @@ export const tenderVertical = [
   {
     id: 3,
     title: "계약종류",
-    type: "chip",
-    contents: ["일반계약", "단가계약", "임대계약", "공사계약", "기타계약"],
+    type: "radio",
+    options: [
+      { value: "일반계약", label: "일반계약" },
+      { value: "단가계약", label: "단가계약" },
+      { value: "임대계약", label: "임대계약" },
+      { value: "공사계약", label: "공사계약" },
+      { value: "기타계약", label: "기타계약" },
+    ],
+    contents: "",
+    selected: "",
   },
   {
     id: 4,
     title: "입찰종류",
-    type: "chip",
-    contents: ["일반경쟁", "제한경쟁", "지명경쟁"],
+    type: "radio",
+    options: [
+      { value: "일반경쟁", label: "일반경쟁" },
+      { value: "제한경쟁", label: "제한경쟁" },
+      { value: "지명경쟁", label: "지명경쟁" },
+    ],
+    contents: "",
+    selected: "",
   },
   {
     id: 5,
     title: "낙찰방법",
-    type: "chip",
-    contents: ["최저가격", "2단계경쟁", "협상에의한계약"],
+    type: "radio",
+    options: [
+      { value: "최저가격", label: "최저가격" },
+      { value: "2단계경쟁", label: "2단계경쟁" },
+      { value: "협상에의한계약", label: "협상에의한계약" },
+    ],
+    contents: "",
+    selected: "",
   },
   {
     id: 6,
@@ -1106,8 +1126,14 @@ export const contractVertical = [
   {
     id: 2,
     title: "계약구분",
-    type: "chip",
-    contents: ["최초계약", "연장계약", "변경계약"],
+    type: "radio",
+    options: [
+      { value: "최초계약", label: "최초계약" },
+      { value: "연장계약", label: "연장계약" },
+      { value: "변경계약", label: "변경계약" },
+    ],
+    contents: "",
+    selected: "",
   },
   {
     id: 3,
