@@ -3,17 +3,20 @@
 import React from "react";
 import { smallFields } from "@/lib/data";
 import CategoryPage from "@/components/ui/pages/category/CategoryPage";
+import { CategoryVisibilityProvider } from "@/context/CategoryVisibilityContext";
 
 const SmallPage = () => {
   const endpoint = "/api/save-middle";
 
   return (
-    <CategoryPage
-      title="소분류"
-      headerTitle="소분류 코드관리"
-      fields={smallFields}
-      endpoint={endpoint}
-    />
+    <CategoryVisibilityProvider majorCategory={true} middleCategory={true}>
+      <CategoryPage
+        title="소분류"
+        headerTitle="소분류 코드관리"
+        fields={smallFields}
+        endpoint={endpoint}
+      />
+    </CategoryVisibilityProvider>
   );
 };
 

@@ -5,6 +5,7 @@ import SelectBox from "../../atoms/selectBox/Select";
 import { CategoryItemInputProps } from "@/types/categoryTypes";
 import Label from "../../atoms/label/Label";
 import { categoryData } from "@/lib/optionDatas";
+import { useCategoryVisibility } from "@/context/CategoryVisibilityContext";
 
 const CategoryItemInput: React.FC<CategoryItemInputProps> = ({
   item,
@@ -16,6 +17,8 @@ const CategoryItemInput: React.FC<CategoryItemInputProps> = ({
 }) => {
   const [selectedLargeCategory, setSelectedLargeCategory] = useState("");
   const [selectedMiddleCategory, setSelectedMiddleCategory] = useState("");
+
+  const { majorCategory, middleCategory } = useCategoryVisibility();
 
   useEffect(() => {
     if (item) {
@@ -46,26 +49,30 @@ const CategoryItemInput: React.FC<CategoryItemInputProps> = ({
     <div className="flex justify-between items-center space-x-2 px-4">
       {item.isEditing ? (
         <div className="flex flex-grow justify-between">
-          <SelectBox
-            mode="xs"
-            options={categoryData.map((cat) => ({
-              value: cat.value,
-              label: cat.label,
-            }))}
-            value={selectedLargeCategory}
-            onChange={(e) => handleLargeCategoryChange(e.target.value)}
-            placeholder="대분류 선택"
-          />
-          <SelectBox
-            mode="xs"
-            options={middleCategories.map((middle) => ({
-              value: middle.value,
-              label: middle.label,
-            }))}
-            value={selectedMiddleCategory}
-            onChange={(e) => handleMiddleCategoryChange(e.target.value)}
-            placeholder="중분류 선택"
-          />
+          {majorCategory && (
+            <SelectBox
+              mode="xs"
+              options={categoryData.map((cat) => ({
+                value: cat.value,
+                label: cat.label,
+              }))}
+              value={selectedLargeCategory}
+              onChange={(e) => handleLargeCategoryChange(e.target.value)}
+              placeholder="대분류 선택"
+            />
+          )}
+          {middleCategory && (
+            <SelectBox
+              mode="xs"
+              options={middleCategories.map((middle) => ({
+                value: middle.value,
+                label: middle.label,
+              }))}
+              value={selectedMiddleCategory}
+              onChange={(e) => handleMiddleCategoryChange(e.target.value)}
+              placeholder="중분류 선택"
+            />
+          )}
           {fields.map((field) => {
             const value = item[field.field as keyof typeof item];
 
@@ -86,6 +93,7 @@ const CategoryItemInput: React.FC<CategoryItemInputProps> = ({
             }
             return null;
           })}
+
           <div className="flex space-x-2">
             <Button
               color="signature"
@@ -104,8 +112,10 @@ const CategoryItemInput: React.FC<CategoryItemInputProps> = ({
         </div>
       ) : (
         <div className="flex flex-grow justify-between items-center">
-          <Label mode="xs" content={selectedLargeCategory} />
-          <Label mode="xs" content={selectedMiddleCategory} />
+          {majorCategory && <Label mode="xs" content={selectedLargeCategory} />}
+          {middleCategory && (
+            <Label mode="xs" content={selectedMiddleCategory} />
+          )}
           <Label mode="xs" content={item.content} />
           <Label mode="xs" content={item.name} />
           <Label mode="xs" content={item.description} />
