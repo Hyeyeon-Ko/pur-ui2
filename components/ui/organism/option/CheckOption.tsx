@@ -26,7 +26,7 @@ const CheckOption: React.FC<CheckOptionProps> = ({
 
   return (
     <div className="flex p-4">
-      <div className="flex items-center gap-2 mr-4">
+      <div className="flex items-center gap-2 mr-1">
         <Radio
           options={options}
           selectedValue={selectedOption}
