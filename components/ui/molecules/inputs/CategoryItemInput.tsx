@@ -57,7 +57,7 @@ const CategoryItemInput: React.FC<CategoryItemInputProps> = ({
             placeholder="대분류 선택"
           />
           <SelectBox
-          mode="xs"
+            mode="xs"
             options={middleCategories.map((middle) => ({
               value: middle.value,
               label: middle.label,
