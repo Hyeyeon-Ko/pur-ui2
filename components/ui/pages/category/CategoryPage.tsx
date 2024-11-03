@@ -1,9 +1,9 @@
 import React from "react";
 import Button from "@/components/ui/atoms/button/Button";
 import ManagementHeader from "@/components/ui/molecules/header/ManagementHeader";
-import CategoryItemList from "@/components/ui/molecules/list/CategoryItemList";
 import PageTitle from "@/components/ui/molecules/titles/PageTitle";
 import useCategoryItems from "@/hooks/useCategoryItems";
+import CategoryItemList from "../../templates/CategoryItemList";
 
 interface CategoryPageProps {
   title: string;

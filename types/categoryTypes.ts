@@ -4,8 +4,8 @@ export interface CategoryItem {
   name: string;
   description: string;
   isEditing: boolean;
-  largeCategory?: string; // Add this line
-  middleCategory?: string; // Add this line
+  largeCategory?: string;
+  middleCategory?: string;
 }
 
 export interface CategoryField {

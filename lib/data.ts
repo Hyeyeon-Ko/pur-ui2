@@ -1194,11 +1194,6 @@ export const majorFields = [
 ];
 
 export const middleFields = [
-  {
-    type: "select",
-    field: "majorSelect",
-    options: majorCategoryOptions,
-  },
   { type: "input", field: "content", placeholder: "공통 코드를 입력하세요." },
   { type: "input", field: "name", placeholder: "코드 이름을 입력하세요." },
   {
@@ -1209,16 +1204,6 @@ export const middleFields = [
 ];
 
 export const smallFields = [
-  {
-    type: "select",
-    field: "majorSelect",
-    options: majorCategoryOptions,
-  },
-  {
-    type: "select",
-    field: "middleSelect",
-    options: middleCategoryOptions,
-  },
   { type: "input", field: "content", placeholder: "공통 코드를 입력하세요." },
   { type: "input", field: "name", placeholder: "코드 이름을 입력하세요." },
   {

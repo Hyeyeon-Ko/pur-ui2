@@ -1,7 +1,7 @@
 import React from "react";
-import CategoryItemInput from "../inputs/CategoryItemInput";
 import { CategoryItemListProps } from "@/types/categoryTypes";
 import { useDarkMode } from "@/context/DarkModeContext";
+import CategoryItemInput from "../organism/category/CategoryItemInput";
 
 const CategoryItemList: React.FC<CategoryItemListProps> = ({
   items,
