@@ -55,17 +55,6 @@ const TenderDetail: React.FC = () => {
         newCheckedItems["전국"] = false;
       }
 
-      if (
-        title === "계약종류" ||
-        title === "입찰종류" ||
-        title === "낙찰방법"
-      ) {
-        Object.keys(newCheckedItems).forEach((key) => {
-          newCheckedItems[key] = false;
-        });
-        newCheckedItems[label] = true;
-      }
-
       if (title === "계정명") {
         newCheckedItems[label] = !prev[label];
       }
