@@ -112,7 +112,7 @@ const Dashboard = () => {
   return (
     <div className="flex flex-col">
       {user && (
-        <div className="flex w-[80%] p-10 mx-auto items-center">
+        <div className="flex w-[90%] p-10 mx-auto items-center">
           <Label
             customStyle={{
               color: isDarkMode ? colors.white : colors["Grey_Darken-5"],
@@ -123,7 +123,7 @@ const Dashboard = () => {
           <SiNicehash className="text-3xl p-1" />
         </div>
       )}
-      <div className="grid grid-cols-5 gap-10 w-[80%] p-10 mx-auto">
+      <div className="grid grid-cols-5 gap-4 w-[90%] p-5 mx-auto">
         {cardData.map((card, index) => (
           <DashCard
             key={index}
@@ -134,7 +134,7 @@ const Dashboard = () => {
           />
         ))}
       </div>
-      <div className="grid grid-cols-7 w-[80%] p-10 mx-auto h-50 rounded-lg text-white">
+      <div className="grid grid-cols-7 w-[92%] p-10 mx-auto h-50 rounded-lg text-white">
         {deadlineItems.map((item) => (
           <ListItem
             key={item.id}
