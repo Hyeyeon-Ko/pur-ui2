@@ -38,18 +38,18 @@ const TenderDetail: React.FC<TenderDetailProps> = () => {
   const handleChipClick = (label: string, title: string) => {
     setCheckedItems((prev) => {
       const newCheckedItems = { ...prev };
-      newCheckedItems[label] = !prev[label];
+      const isChecked = !prev[label];
 
       if (title === "센터명" && label === "전국") {
-        if (newCheckedItems[label]) {
-          Object.keys(newCheckedItems).forEach((key) => {
-            if (key !== "전국" && key.startsWith("센터명")) {
-              newCheckedItems[key] = false;
-            }
-          });
-        }
-      } else if (title === "센터명") {
+        if (isChecked) return { 전국: true };
+        else return { 전국: false };
+      } else if (title === "센터명" && label !== "전국") {
+        newCheckedItems[label] = !prev[label];
         newCheckedItems["전국"] = false;
+      }
+
+      if (title === "계정명") {
+        newCheckedItems[label] = !prev[label];
       }
 
       return newCheckedItems;
