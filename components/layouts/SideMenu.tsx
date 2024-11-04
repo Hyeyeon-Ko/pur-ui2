@@ -6,6 +6,7 @@ import { MdCalculate } from "react-icons/md";
 import { RiSettings5Fill } from "react-icons/ri";
 import { FaFileContract } from "react-icons/fa";
 import { RiAdminFill } from "react-icons/ri";
+import { MdDashboardCustomize } from "react-icons/md";
 import { TbSquareNumber1Filled } from "react-icons/tb";
 import { TbSquareNumber2Filled } from "react-icons/tb";
 import { TbSquareNumber3Filled } from "react-icons/tb";
@@ -33,6 +34,13 @@ const SideMenu = ({
     {
       title: "MENU",
       items: [
+        {
+          icon: MdDashboardCustomize,
+          label: "대시보드",
+          href: "/main",
+          visible: ["admin", "master"],
+          tooltip: "대시보드",
+        },
         {
           icon: MdCalculate,
           label: "입찰조회",
