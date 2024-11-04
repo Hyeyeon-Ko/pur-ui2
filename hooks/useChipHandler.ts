@@ -12,17 +12,16 @@ const useChipHandler = (
       const newCheckedItems = { ...prev };
       const isChecked = !prev[label];
 
-      if (title === "센터명") {
-        if (label === "전국") {
-          newCheckedItems[label] = isChecked;
-        } else {
-          newCheckedItems[label] = isChecked;
-          newCheckedItems["전국"] = false;
-        }
-      } else {
-        if (label !== "전국") {
-          newCheckedItems[label] = isChecked;
-        }
+      if (title === "센터명" && label === "전국") {
+        if (isChecked) return { 전국: true };
+        else return { 전국: false };
+      } else if (title === "센터명" && label !== "전국") {
+        newCheckedItems[label] = !prev[label];
+        newCheckedItems["전국"] = false;
+      }
+
+      if (title === "계정명") {
+        newCheckedItems[label] = !prev[label];
       }
 
       return newCheckedItems;

@@ -4,6 +4,7 @@ import CheckOption from "@/components/ui/organism/option/CheckOption";
 import PageTitle from "@/components/ui/molecules/titles/PageTitle";
 import VerticalTable from "@/components/ui/molecules/verticalTable/VerticalTable";
 import TableButton from "../molecules/buttons/TableButton";
+import useChipHandler from "@/hooks/useChipHandler";
 
 interface AddCommonFormProps {
   title: string;
@@ -12,7 +13,6 @@ interface AddCommonFormProps {
   searchOptionValue: string;
   verticalData: any[];
   onSearch: (bidNumber: string) => void;
-  onChipClick: (label: string, title: string) => void;
   onSave: (
     checkedItems: { [key: string]: boolean },
     verticalData: any[]
@@ -26,21 +26,10 @@ const AddCommonForm: React.FC<AddCommonFormProps> = ({
   searchOptionValue,
   verticalData,
   onSearch,
-  onChipClick,
   onSave,
 }) => {
-  const [checkedItems, setCheckedItems] = useState<{ [key: string]: boolean }>(
-    {}
-  );
+  const { checkedItems, handleChipClick } = useChipHandler();
 
-  const handleChipClick = (label: string, title: string) => {
-    setCheckedItems((prev) => ({
-      ...prev,
-      [label]: !prev[label],
-    }));
-
-    onChipClick(label, title);
-  };
 
   return (
     <div className="my-4 mb-20">

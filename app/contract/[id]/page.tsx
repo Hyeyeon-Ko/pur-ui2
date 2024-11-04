@@ -7,6 +7,7 @@ import ThemeToggle from "@/components/ui/molecules/buttons/ThemeToggle";
 import Table from "@/components/ui/molecules/table/Table";
 import PageTitle from "@/components/ui/molecules/titles/PageTitle";
 import VerticalTable from "@/components/ui/molecules/verticalTable/VerticalTable";
+import useChipHandler from "@/hooks/useChipHandler";
 import useFileDownload from "@/hooks/useFileDownload";
 import useFileUpload from "@/hooks/useFileUpload";
 import useFormatHandler from "@/hooks/useFormatHandler";
@@ -27,34 +28,11 @@ interface TenderDetailProps {
 const TenderDetail: React.FC<TenderDetailProps> = () => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
 
-  const [checkedItems, setCheckedItems] = useState<{ [key: string]: boolean }>(
-    {}
-  );
   const { downloadFile } = useFileDownload();
   const { handleFileUpload } = useFileUpload();
   const { handleFormDown } = useFormDownload();
   const { formatCenterData, formatCurrency } = useFormatHandler();
-
-  const handleChipClick = (label: string, title: string) => {
-    setCheckedItems((prev) => {
-      const newCheckedItems = { ...prev };
-      const isChecked = !prev[label];
-
-      if (title === "센터명" && label === "전국") {
-        if (isChecked) return { 전국: true };
-        else return { 전국: false };
-      } else if (title === "센터명" && label !== "전국") {
-        newCheckedItems[label] = !prev[label];
-        newCheckedItems["전국"] = false;
-      }
-
-      if (title === "계정명") {
-        newCheckedItems[label] = !prev[label];
-      }
-
-      return newCheckedItems;
-    });
-  };
+  const { checkedItems, handleChipClick } = useChipHandler();
 
   const [formattedData, setFormattedData] = useState(
     contractListData.map((item) => ({

@@ -1,8 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-// import { useRouter } from "next/navigation";
-// import { useParams } from "next/navigation";
 import { tenderAddOptions } from "@/lib/optionDatas";
 import AddCommonForm from "@/components/ui/templates/AddCommonForm";
 import { tenderVertical as initialTenderVertical } from "@/lib/data";
@@ -18,43 +16,6 @@ const AddItemPage = () => {
   );
   const { saveData } = useSaveData();
   const { tenderSearch } = useTenderSearch();
-
-  // 체크박스 버튼 핸들러
-  const handleChipClick = (label: string, title: string) => {
-    setCheckedItems((prev) => {
-      const newCheckedItems = { ...prev };
-      const isChecked = !prev[label];
-
-      newCheckedItems[label] = isChecked;
-
-      if (title === "센터명" && label === "전국") {
-        if (isChecked) return { 전국: true };
-        else return { 전국: false };
-      } else if (title === "센터명" && label !== "전국") {
-        newCheckedItems["전국"] = false;
-      }
-
-      if (isChecked) {
-        Object.keys(newCheckedItems).forEach((key) => {
-          if (
-            (title === "계약종류" &&
-              key.startsWith("계약종류") &&
-              key !== label) ||
-            (title === "입찰종류" &&
-              key.startsWith("입찰종류") &&
-              key !== label) ||
-            (title === "낙찰방법" &&
-              key.startsWith("낙찰방법") &&
-              key !== label)
-          ) {
-            newCheckedItems[key] = false;
-          }
-        });
-      }
-
-      return newCheckedItems;
-    });
-  };
 
   /**
    * 입찰번호 조회 버튼
@@ -86,7 +47,6 @@ const AddItemPage = () => {
       searchOptionValue="re-announce"
       verticalData={tenderVertical}
       onSearch={handleSearch}
-      onChipClick={handleChipClick}
       onSave={handleSave}
     />
   );

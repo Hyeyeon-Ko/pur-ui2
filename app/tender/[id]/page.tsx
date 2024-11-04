@@ -18,16 +18,16 @@ import Toast from "@/components/commons/Toast";
 import useFileDownload from "@/hooks/useFileDownload";
 import useFileUpload from "@/hooks/useFileUpload";
 import useFormDownload from "@/hooks/useFormDownload";
+import useChipHandler from "@/hooks/useChipHandler";
 
 const TenderDetail: React.FC = () => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
-  const [checkedItems, setCheckedItems] = useState<{ [key: string]: boolean }>(
-    {}
-  );
+
   const { formatCenterData, formatDate, formatCurrency } = useFormatHandler();
   const { downloadFile } = useFileDownload();
   const { handleFileUpload } = useFileUpload();
   const { handleFormDown } = useFormDownload();
+  const { checkedItems, handleChipClick } = useChipHandler();
 
   const [formattedData, setFormattedData] = useState(
     data.map((item) => ({
@@ -41,27 +41,6 @@ const TenderDetail: React.FC = () => {
       누리장터: item.누리장터 || "-",
     }))
   );
-
-  const handleChipClick = (label: string, title: string) => {
-    setCheckedItems((prev) => {
-      const newCheckedItems = { ...prev };
-      const isChecked = !prev[label];
-
-      if (title === "센터명" && label === "전국") {
-        if (isChecked) return { 전국: true };
-        else return { 전국: false };
-      } else if (title === "센터명" && label !== "전국") {
-        newCheckedItems[label] = !prev[label];
-        newCheckedItems["전국"] = false;
-      }
-
-      if (title === "계정명") {
-        newCheckedItems[label] = !prev[label];
-      }
-
-      return newCheckedItems;
-    });
-  };
 
   const handleRowSelect = useCallback((selectedRowIds: string[]) => {
     const uniqueSelectedRows = Array.from(new Set(selectedRowIds));
