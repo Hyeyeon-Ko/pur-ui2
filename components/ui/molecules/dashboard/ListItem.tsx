@@ -7,6 +7,8 @@ interface ListItemProps {
   title: string;
   count: number;
   gradientClass: string;
+  isFirst: boolean;
+  isLast: boolean;
 }
 
 const ListItem: React.FC<ListItemProps> = ({
@@ -14,17 +16,26 @@ const ListItem: React.FC<ListItemProps> = ({
   title,
   count,
   gradientClass,
+  isFirst,
+  isLast,
 }) => {
+  
+  const borderRadiusClass = isFirst
+    ? "rounded-l-xl"
+    : isLast
+    ? "rounded-r-xl"
+    : "";
+
   return (
     <Link
       href={href}
-      className={`flex flex-col p-5 justify-center items-center ${gradientClass} h-full hover:scale-101 hover:shadow-xl transform`}
+      className={`flex flex-col p-5 justify-center items-center ${gradientClass} ${borderRadiusClass} h-full hover:scale-101 hover:shadow-xl transform`}
     >
       <Label mode="lg" content={title} customStyle={{ color: colors.white }} />
       <Label
         mode="sm"
         content={`${count} 건`}
-        customStyle={{ color: colors["Yellow_Darken-1"] }}
+        customStyle={{ color: colors.warning }}
       />
     </Link>
   );

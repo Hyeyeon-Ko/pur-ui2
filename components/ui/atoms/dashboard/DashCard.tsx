@@ -24,9 +24,7 @@ const DashCard: React.FC<DashCardProps> = ({
           <div className="text-4xl">
             <Icon />
           </div>
-          <div className="flex flex-col gap-2">
-            <div className="text-lg text-gray-500">{label}</div>
-          </div>
+          <div className="text-lg text-gray-500">{label}</div>
         </div>
       </div>
     </Link>

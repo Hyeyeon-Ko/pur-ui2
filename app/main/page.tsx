@@ -1,108 +1,16 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { MdCalculate } from "react-icons/md";
-import { FaFileContract } from "react-icons/fa";
-import { RiCheckboxMultipleLine } from "react-icons/ri";
-import { FiTool } from "react-icons/fi";
-import { FaFileDownload } from "react-icons/fa";
-import { SiNicehash } from "react-icons/si";
 import { FaUserClock } from "react-icons/fa";
 import DashCard from "@/components/ui/atoms/dashboard/DashCard";
-import { getLocal } from "@/utils/localStorage";
-import Label from "@/components/ui/atoms/label/Label";
-import colors from "@/styles/colors";
-import { useDarkMode } from "@/context/DarkModeContext";
+import Greeting from "@/components/ui/atoms/dashboard/Greeting";
 import ListItem from "@/components/ui/molecules/dashboard/ListItem";
-
-const cardData = [
-  {
-    href: "/contract",
-    icon: FaFileContract,
-    label: "계약관리",
-    bgColor: "bg-signature",
-  },
-  {
-    href: "/tender",
-    icon: MdCalculate,
-    label: "입찰관리",
-    bgColor: "bg-sub",
-  },
-  {
-    href: "/page-d",
-    icon: FiTool,
-    label: "장비관리",
-    bgColor: "bg-signature",
-  },
-  {
-    href: "/category/major",
-    icon: RiCheckboxMultipleLine,
-    label: "코드조회",
-    bgColor: "bg-sub",
-  },
-  {
-    href: "/page-d",
-    icon: FaFileDownload,
-    label: "매뉴얼 다운로드",
-    bgColor: "bg-signature",
-  },
-];
-
-const deadlineItems = [
-  {
-    id: 1,
-    href: "/list/30-days",
-    title: "30일 이내",
-    count: 1,
-    gradientClass: "bg-gradient_0 rounded-tl-lg rounded-bl-lg",
-  },
-  {
-    id: 2,
-    href: "/list/60-days",
-    title: "60일 이내",
-    count: 3,
-    gradientClass: "bg-gradient_1",
-  },
-  {
-    id: 3,
-    href: "/list/90-days",
-    title: "90일 이내",
-    count: 10,
-    gradientClass: "bg-gradient_2",
-  },
-  {
-    id: 4,
-    href: "/list/120-days",
-    title: "120일 이내",
-    count: 3,
-    gradientClass: "bg-gradient_3",
-  },
-  {
-    id: 5,
-    href: "/list/180-days",
-    title: "180일 이내",
-    count: 20,
-    gradientClass: "bg-gradient_4",
-  },
-  {
-    id: 6,
-    href: "/list/365-days",
-    title: "365일 이내",
-    count: 10,
-    gradientClass: "bg-gradient_5",
-  },
-  {
-    id: 7,
-    href: "/list/expired",
-    title: "계약만료",
-    count: 300,
-    gradientClass: "bg-Grey_Default rounded-tr-lg rounded-br-lg",
-  },
-];
+import { getLocal } from "@/utils/localStorage";
+import { cardData, deadlineItems } from "@/lib/dashboardData";
+import DashboardSection from "@/components/ui/organism/dashboard/DashboardSection";
 
 const Dashboard = () => {
   const [user, setUser] = useState(null);
-  const { isDarkMode } = useDarkMode();
 
   useEffect(() => {
     const storedUser = getLocal("user");
@@ -112,18 +20,10 @@ const Dashboard = () => {
 
   return (
     <div className="flex flex-col">
-      {user && (
-        <div className="flex w-[90%] p-10 mx-auto items-center">
-          <Label
-            customStyle={{
-              color: isDarkMode ? colors.white : colors["Grey_Darken-5"],
-            }}
-            content={`안녕하세요. ${user.employeeId} 님`}
-            mode="xl"
-          />
-          <SiNicehash className="text-3xl p-1" />
-        </div>
-      )}
+      <div className="flex w-[90%] p-10 mx-auto items-center">
+        {user && <Greeting user={user} />}
+      </div>
+
       <div className="grid grid-cols-5 gap-4 w-[90%] p-5 mx-auto">
         {cardData.map((card, index) => (
           <DashCard
@@ -135,30 +35,20 @@ const Dashboard = () => {
           />
         ))}
       </div>
-      <div className="dark:bg-Grey_Darken_4 flex flex-col gap-5 w-[88%] p-5 mx-auto my-12 bg-Table_header rounded-2xl shadow-lg">
-        <div className="flex gap-2 items-center ">
-          <FaUserClock className="text-2xl" />
-          <Label
-            customStyle={{
-              color: isDarkMode ? colors.white : colors["Green_Darken-5"],
-            }}
-            content="유효 계약 건수"
-            mode="lg"
-          />
-        </div>
 
-        <div className="grid grid-cols-7 w-[100%] mx-auto mb-5 h-50 rounded-lg text-white shadow-lg">
-          {deadlineItems.map((item) => (
-            <ListItem
-              key={item.id}
-              href={item.href}
-              title={item.title}
-              count={item.count}
-              gradientClass={item.gradientClass}
-            />
-          ))}
-        </div>
-      </div>
+      <DashboardSection icon={FaUserClock} title="유효 계약 건수">
+        {deadlineItems.map((item, index) => (
+          <ListItem
+            key={item.id}
+            href={item.href}
+            title={item.title}
+            count={item.count}
+            gradientClass={item.gradientClass}
+            isFirst={index === 0}
+            isLast={index === deadlineItems.length - 1}
+          />
+        ))}
+      </DashboardSection>
     </div>
   );
 };
