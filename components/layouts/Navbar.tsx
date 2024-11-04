@@ -35,7 +35,7 @@ const Navbar: React.FC = () => {
         <div className="flex gap-4 items-center">
           <Label
             customStyle={{
-              color: isDarkMode ? colors.white : colors.signature,
+              color: isDarkMode ? colors.white : colors["Grey_Darken-5"],
             }}
             content={user.employeeId}
             mode="lg"

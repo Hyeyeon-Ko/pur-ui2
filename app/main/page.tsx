@@ -59,7 +59,7 @@ const Dashboard = () => {
         <div className="flex w-[80%] p-10 mx-auto items-center">
           <Label
             customStyle={{
-              color: isDarkMode ? colors.white : colors.signature,
+              color: isDarkMode ? colors.white : colors["Grey_Darken-5"],
             }}
             content={`안녕하세요. ${user.employeeId} 님`}
             mode="xl"
