@@ -5,26 +5,35 @@ import { MdCalculate } from "react-icons/md";
 import { FaFileContract } from "react-icons/fa";
 import { RiAdminFill } from "react-icons/ri";
 import { FiTool } from "react-icons/fi";
-import DashCard from "@/components/ui/atoms/card/DashCard";
+import { FaFileDownload } from "react-icons/fa";
+import { SiNicehash } from "react-icons/si";
+import DashCard from "@/components/ui/atoms/dashboard/DashCard";
 import { getLocal } from "@/utils/localStorage";
 import Label from "@/components/ui/atoms/label/Label";
-import { SiNicehash } from "react-icons/si";
 import colors from "@/styles/colors";
 import { useDarkMode } from "@/context/DarkModeContext";
+import ListItem from "@/components/ui/molecules/dashboard/ListItem";
 
 const cardData = [
-  {
-    href: "/tender",
-    icon: MdCalculate,
-    number: 100,
-    label: "입찰조회",
-    bgColor: "bg-sub",
-  },
   {
     href: "/contract",
     icon: FaFileContract,
     number: 250,
-    label: "계약조회",
+    label: "계약관리",
+    bgColor: "bg-signature",
+  },
+  {
+    href: "/tender",
+    icon: MdCalculate,
+    number: 100,
+    label: "입찰관리",
+    bgColor: "bg-sub",
+  },
+  {
+    href: "/page-d",
+    icon: FiTool,
+    number: 320,
+    label: "장비관리",
     bgColor: "bg-signature",
   },
   {
@@ -36,10 +45,62 @@ const cardData = [
   },
   {
     href: "/page-d",
-    icon: FiTool,
+    icon: FaFileDownload,
     number: 320,
-    label: "장비카드등록",
+    label: "매뉴얼 다운로드",
     bgColor: "bg-signature",
+  },
+];
+
+const deadlineItems = [
+  {
+    id: 1,
+    href: "/list/30-days",
+    title: "30일 이내",
+    count: 1,
+    gradientClass: "bg-gradient_0 rounded-tl-lg rounded-bl-lg",
+  },
+  {
+    id: 2,
+    href: "/list/60-days",
+    title: "60일 이내",
+    count: 3,
+    gradientClass: "bg-gradient_1",
+  },
+  {
+    id: 3,
+    href: "/list/90-days",
+    title: "90일 이내",
+    count: 10,
+    gradientClass: "bg-gradient_2",
+  },
+  {
+    id: 4,
+    href: "/list/120-days",
+    title: "120일 이내",
+    count: 3,
+    gradientClass: "bg-gradient_3",
+  },
+  {
+    id: 5,
+    href: "/list/180-days",
+    title: "180일 이내",
+    count: 20,
+    gradientClass: "bg-gradient_4",
+  },
+  {
+    id: 6,
+    href: "/list/365-days",
+    title: "365일 이내",
+    count: 10,
+    gradientClass: "bg-gradient_5",
+  },
+  {
+    id: 7,
+    href: "/list/expired",
+    title: "계약만료",
+    count: 300,
+    gradientClass: "bg-Grey_Default rounded-tr-lg rounded-br-lg",
   },
 ];
 
@@ -67,8 +128,7 @@ const Dashboard = () => {
           <SiNicehash className="text-3xl p-1" />
         </div>
       )}
-
-      <div className="grid grid-cols-4 gap-10 w-[80%] p-10 mx-auto">
+      <div className="grid grid-cols-5 gap-10 w-[80%] p-10 mx-auto">
         {cardData.map((card, index) => (
           <DashCard
             key={index}
@@ -77,6 +137,17 @@ const Dashboard = () => {
             number={card.number}
             label={card.label}
             bgColor={card.bgColor}
+          />
+        ))}
+      </div>
+      <div className="grid grid-cols-7 w-[80%] p-10 mx-auto h-50 rounded-lg text-white">
+        {deadlineItems.map((item) => (
+          <ListItem
+            key={item.id}
+            href={item.href}
+            title={item.title}
+            count={item.count}
+            gradientClass={item.gradientClass}
           />
         ))}
       </div>
