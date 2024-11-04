@@ -6,6 +6,7 @@ import { MdCalculate } from "react-icons/md";
 import { RiSettings5Fill } from "react-icons/ri";
 import { FaFileContract } from "react-icons/fa";
 import { RiAdminFill } from "react-icons/ri";
+import { RiCheckboxMultipleLine } from "react-icons/ri";
 import { MdDashboardCustomize } from "react-icons/md";
 import { TbSquareNumber1Filled } from "react-icons/tb";
 import { TbSquareNumber2Filled } from "react-icons/tb";
@@ -56,7 +57,7 @@ const SideMenu = ({
           tooltip: "계약조회",
         },
         {
-          icon: RiAdminFill,
+          icon: RiCheckboxMultipleLine,
           label: "코드조회",
           href: "/category/major",
           visible: ["admin", "master"],

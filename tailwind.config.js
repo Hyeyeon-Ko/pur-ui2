@@ -47,8 +47,10 @@ module.exports = {
       gradient_5: "#1b1b5e",
       signature: "#2e2e7a",
       white: "white",
+      Table_header: "#faf8ff",
       Grey_Default: "#888888",
       Grey_Darken_4: "#333333",
+      Grey_Darken_5: "#222222",
     },
     fontFamily: {
       sans: ["'Pretendard-Regular'", "sans-serif"],

@@ -3,10 +3,11 @@
 import React, { useEffect, useState } from "react";
 import { MdCalculate } from "react-icons/md";
 import { FaFileContract } from "react-icons/fa";
-import { RiAdminFill } from "react-icons/ri";
+import { RiCheckboxMultipleLine } from "react-icons/ri";
 import { FiTool } from "react-icons/fi";
 import { FaFileDownload } from "react-icons/fa";
 import { SiNicehash } from "react-icons/si";
+import { FaUserClock } from "react-icons/fa";
 import DashCard from "@/components/ui/atoms/dashboard/DashCard";
 import { getLocal } from "@/utils/localStorage";
 import Label from "@/components/ui/atoms/label/Label";
@@ -35,7 +36,7 @@ const cardData = [
   },
   {
     href: "/category/major",
-    icon: RiAdminFill,
+    icon: RiCheckboxMultipleLine,
     label: "코드조회",
     bgColor: "bg-sub",
   },
@@ -134,16 +135,29 @@ const Dashboard = () => {
           />
         ))}
       </div>
-      <div className="grid grid-cols-7 w-[92%] p-10 mx-auto h-50 rounded-lg text-white">
-        {deadlineItems.map((item) => (
-          <ListItem
-            key={item.id}
-            href={item.href}
-            title={item.title}
-            count={item.count}
-            gradientClass={item.gradientClass}
+      <div className="dark:bg-Grey_Darken_4 flex flex-col gap-5 w-[88%] p-5 mx-auto my-12 bg-Table_header rounded-2xl shadow-lg">
+        <div className="flex gap-2 items-center ">
+          <FaUserClock className="text-2xl" />
+          <Label
+            customStyle={{
+              color: isDarkMode ? colors.white : colors["Green_Darken-5"],
+            }}
+            content="유효 계약 건수"
+            mode="lg"
           />
-        ))}
+        </div>
+
+        <div className="grid grid-cols-7 w-[100%] mx-auto mb-5 h-50 rounded-lg text-white shadow-lg">
+          {deadlineItems.map((item) => (
+            <ListItem
+              key={item.id}
+              href={item.href}
+              title={item.title}
+              count={item.count}
+              gradientClass={item.gradientClass}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
