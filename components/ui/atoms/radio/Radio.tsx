@@ -1,3 +1,4 @@
+import { useDarkMode } from "@/context/DarkModeContext";
 import colors from "@/styles/colors";
 import React, { CSSProperties } from "react";
 
@@ -23,6 +24,10 @@ const Radio: React.FC<RadioProps> = ({
   customStyle,
   mode = "sm",
 }) => {
+  const { isDarkMode } = useDarkMode();
+
+  const fontColor = isDarkMode ? colors.Grey_Default : colors["Grey_Darken-5"];
+
   const sizeClasses: Record<string, string> = {
     sm: "text-sm px-1 py-1",
     md: "text-base px-3 py-2",
@@ -35,6 +40,7 @@ const Radio: React.FC<RadioProps> = ({
         <label
           key={option.value}
           className={`flex items-center cursor-pointer ${sizeClasses[mode]}`}
+          style={{ color: fontColor }}
         >
           <input
             type="radio"
