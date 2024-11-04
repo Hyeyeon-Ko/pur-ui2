@@ -18,7 +18,7 @@ const ListItem: React.FC<ListItemProps> = ({
   return (
     <Link
       href={href}
-      className={`flex flex-col p-5 justify-center items-center ${gradientClass} h-full`}
+      className={`flex flex-col p-5 justify-center items-center ${gradientClass} h-full hover:scale-101 hover:shadow-xl transform`}
     >
       <Label mode="lg" content={title} customStyle={{ color: colors.white }} />
       <Label

@@ -5,7 +5,6 @@ import { IconType } from "react-icons";
 interface DashCardProps {
   href: string;
   icon: IconType;
-  number: string | number;
   label: string;
   bgColor: string;
 }
@@ -13,7 +12,6 @@ interface DashCardProps {
 const DashCard: React.FC<DashCardProps> = ({
   href,
   icon: Icon,
-  number,
   label,
   bgColor,
 }) => {
@@ -27,7 +25,6 @@ const DashCard: React.FC<DashCardProps> = ({
             <Icon />
           </div>
           <div className="flex flex-col gap-2">
-            <div className="text-2xl font-bold">{number}</div>
             <div className="text-lg text-gray-500">{label}</div>
           </div>
         </div>
