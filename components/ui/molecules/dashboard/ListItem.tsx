@@ -19,7 +19,6 @@ const ListItem: React.FC<ListItemProps> = ({
   isFirst,
   isLast,
 }) => {
-  
   const borderRadiusClass = isFirst
     ? "rounded-l-xl"
     : isLast
