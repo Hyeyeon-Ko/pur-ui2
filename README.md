@@ -12,7 +12,23 @@ npm i
 npm run dev
 ```
 
-- 실행포트: localhost:3030
+- 실행포트: localhost:3000
+
+### 폴더(라우트)구조 기본(예시)
+
+- app route
+- app / page.tsx 기본 화면 경로 ('/')
+- app / tender / page.tsx ('/tender')
+- app / (sidebar) / contract / page.tsx ('/contract') : 레이아웃이 다름(sidebar는 읽히지 않음)
+- app / contract / [id] / page.tsx ('/contract/:id') : 동적라우팅
+
+### UI 아토믹 구조
+
+- atoms
+- molecules (atomic + atomic + ...)
+- organism (molecule + molecule + ...)
+- template (organism + organism + ...)
+- pages (template + template + ...)
 
 ### 프로젝트 설명
 
