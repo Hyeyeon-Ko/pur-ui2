@@ -97,7 +97,7 @@ const Input: React.FC<InputProps> = ({
       )}
       <input
         id={id} // 라벨과 연결될 ID
-        className={`m-1 border rounded transition-all duration-150 ease-in-out focus:outline-none ${
+        className={`m-1 border rounded transition-all duration-150 ease-in-out focus:outline-0 ${
           modeClasses[mode]
         } ${disabled ? `bg-${disabledColor} cursor-not-allowed` : ""}`}
         style={{

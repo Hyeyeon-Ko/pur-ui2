@@ -45,7 +45,7 @@ const SelectBox: React.FC<SelectProps> = ({
 
   return (
     <select
-      className={`m-1 border rounded transition-all duration-150 ease-in-out focus:outline-none ${
+      className={`m-1 border rounded transition-all duration-150 ease-in-out focus:outline-0 ${
         modeClasses[mode]
       } ${disabled ? `bg-gray-200 cursor-not-allowed` : ""}`}
       style={{
