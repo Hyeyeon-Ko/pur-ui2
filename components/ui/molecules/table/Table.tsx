@@ -1,4 +1,10 @@
-import React, { CSSProperties, useEffect, useMemo, useState } from "react";
+import React, {
+  CSSProperties,
+  Suspense,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import Pagination from "../pagination/Pagination";
 import Checkbox from "../../atoms/checkbox/Checkbox";
 import colors from "@/styles/colors";
@@ -6,6 +12,7 @@ import { useDarkMode } from "@/context/DarkModeContext";
 import useModal from "@/hooks/useModal";
 import TableRender from "../render/TableRender";
 import TableHeader from "../header/TableHeader";
+import Loading from "@/components/commons/Loading";
 
 interface Sorter {
   field: string;
@@ -25,6 +32,7 @@ interface TableProps {
   setSorter?: React.Dispatch<React.SetStateAction<Sorter | null>>;
   showHeader?: boolean;
   tableTitle?: string;
+  loading?: boolean;
 }
 
 const Table: React.FC<TableProps> = ({
@@ -40,6 +48,7 @@ const Table: React.FC<TableProps> = ({
   setSorter,
   showHeader = false,
   tableTitle,
+  loading,
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(data.length / rowsPerPage);
@@ -179,42 +188,50 @@ const Table: React.FC<TableProps> = ({
           </thead>
 
           <tbody>
-            {currentData.map((row, index) => (
-              <tr
-                onDoubleClick={() => handleRowDoubleClick(row)}
-                key={index}
-                style={{
-                  color: isDarkMode
-                    ? colors["Grey_Default"]
-                    : colors["Grey_Darken-4"],
-                  borderBottom: `1px solid ${colors["Grey_Lighten-2"]}`,
-                }}
-                className="text-center transition duration-150 ease-in-out hover:bg-gray-200 hover:shadow-md"
-              >
-                {showCheckbox && (
-                  <td className="px-4 py-2">
-                    <Checkbox
-                      mode="sm"
-                      checked={selectedRows.includes(
-                        String(indexOfFirstRow + index)
-                      )}
-                      onChange={() =>
-                        handleRowSelect(String(indexOfFirstRow + index))
-                      }
-                    />
-                  </td>
-                )}
-                {columns.map((column) => (
-                  <td key={column} className="py-2 text-gray-700">
-                    <TableRender row={row} column={column} />
-                  </td>
-                ))}
+            {loading ? (
+              <tr>
+                <td colSpan={columns.length} className="text-center py-4">
+                  <Loading />
+                </td>
               </tr>
-            ))}
+            ) : (
+              currentData.map((row, index) => (
+                <tr
+                  onDoubleClick={() => handleRowDoubleClick(row)}
+                  key={index}
+                  style={{
+                    color: isDarkMode
+                      ? colors["Grey_Default"]
+                      : colors["Grey_Darken-4"],
+                    borderBottom: `1px solid ${colors["Grey_Lighten-2"]}`,
+                  }}
+                  className="text-center transition duration-150 ease-in-out hover:bg-gray-200 hover:shadow-md"
+                >
+                  {showCheckbox && (
+                    <td className="px-4 py-2">
+                      <Checkbox
+                        mode="sm"
+                        checked={selectedRows.includes(
+                          String(indexOfFirstRow + index)
+                        )}
+                        onChange={() =>
+                          handleRowSelect(String(indexOfFirstRow + index))
+                        }
+                      />
+                    </td>
+                  )}
+
+                  {columns.map((column) => (
+                    <td key={column} className="py-2 text-gray-700">
+                      <TableRender row={row} column={column} />
+                    </td>
+                  ))}
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>
-
       {pagination && (
         <Pagination
           currentPage={currentPage}
