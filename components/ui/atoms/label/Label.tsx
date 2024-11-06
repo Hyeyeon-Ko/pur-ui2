@@ -1,3 +1,5 @@
+"use client";
+
 import React, { CSSProperties } from "react";
 import colors from "@/styles/colors";
 import { useDarkMode } from "@/context/DarkModeContext";
