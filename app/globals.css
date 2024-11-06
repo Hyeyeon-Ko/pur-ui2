@@ -96,3 +96,32 @@ body {
   border-radius: 9999px;
   padding: 0.25rem;
 }
+.react-datepicker__close-icon {
+  margin-right: 4px;
+}
+.react-datepicker__close-icon::after {
+  background-color: #888888 !important;
+  padding-right: 3px !important;
+}
+
+h2.react-datepicker__current-month {
+  display: none !important;
+}
+.react-datepicker__header__dropdown {
+  display: flex;
+  flex-direction: row-reverse !important;
+  justify-content: center;
+  padding: 6px;
+}
+.react-datepicker__year-dropdown-container--select,
+.react-datepicker__month-dropdown-container--select {
+  color: #000000;
+  margin: 4px !important;
+  font-size: 16px;
+  font-weight: 700;
+  outline: 0;
+}
+
+.react-datepicker__header {
+  padding-top: 0 !important;
+}
