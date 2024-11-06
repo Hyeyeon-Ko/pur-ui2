@@ -157,7 +157,7 @@ h2.react-datepicker__current-month {
 }
 
 .dark select {
-  background-color: transparent;
+  background-color: #333333;
   color: #ffffff;
 }
 
