@@ -44,6 +44,25 @@ body {
   background: #333333;
 }
 
+.dark .react-datepicker {
+  background-color: #333333;
+  border: none;
+}
+
+.dark .custom-calendar .react-datepicker__day {
+  color: rgb(156, 163, 175);
+}
+
+.dark .react-datepicker__day-name,
+.react-datepicker__day,
+.react-datepicker__time-name {
+  color: rgb(156, 163, 175);
+}
+
+.dark .custom-calendar .react-datepicker__header {
+  background-color: #333333;
+}
+
 .react-datepicker__input-container > svg {
   padding: 12px !important;
   fill: #888888 !important;
@@ -75,6 +94,11 @@ body {
   background-color: #3b82f6;
   color: white;
   border-radius: 100px !important;
+}
+
+.dark .custom-calendar .react-datepicker__day--selected,
+.dark .custom-calendar .react-datepicker__day--keyboard-selected {
+  color: white;
 }
 
 .custom-calendar .react-datepicker__day--hover {
@@ -130,4 +154,25 @@ h2.react-datepicker__current-month {
 
 .react-datepicker__header {
   padding-top: 0 !important;
+}
+
+.dark select {
+  background-color: transparent;
+  color: #ffffff;
+}
+
+.dark .custom-calendar .react-datepicker__navigation--next,
+.custom-calendar .react-datepicker__navigation--previous {
+  background-color: transparent;
+}
+
+.dark
+  .react-datepicker-popper[data-placement^="bottom"]
+  .react-datepicker__triangle {
+  fill: #333333;
+  color: #333333;
+}
+
+.dark .react-datepicker-popper .react-datepicker__triangle {
+  stroke: #333333;
 }
