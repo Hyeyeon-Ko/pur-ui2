@@ -1,6 +1,8 @@
 import React from "react";
 import SelectBox from "../../atoms/selectBox/Select";
 import { categoryData } from "@/lib/optionDatas";
+import { useDarkMode } from "@/context/DarkModeContext";
+import colors from "@/styles/colors";
 
 interface CategorySelectProps {
   majorCategory: boolean;
@@ -19,6 +21,7 @@ const CategorySelect: React.FC<CategorySelectProps> = ({
   onLargeCategoryChange,
   onMiddleCategoryChange,
 }) => {
+  const { isDarkMode } = useDarkMode();
   const selectedLargeCategoryData = categoryData.find(
     (cat) => cat.value === selectedLargeCategory
   );
@@ -38,6 +41,11 @@ const CategorySelect: React.FC<CategorySelectProps> = ({
           value={selectedLargeCategory}
           onChange={(e) => onLargeCategoryChange(e.target.value)}
           placeholder="대분류 선택"
+          customStyle={{
+            backgroundColor: isDarkMode
+              ? colors["Grey_Darken-5"]
+              : "transparent",
+          }}
         />
       )}
       {middleCategory && (
@@ -50,6 +58,11 @@ const CategorySelect: React.FC<CategorySelectProps> = ({
           value={selectedMiddleCategory}
           onChange={(e) => onMiddleCategoryChange(e.target.value)}
           placeholder="중분류 선택"
+          customStyle={{
+            backgroundColor: isDarkMode
+              ? colors["Grey_Darken-5"]
+              : "transparent",
+          }}
         />
       )}
     </>

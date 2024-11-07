@@ -3,6 +3,8 @@ import SelectBox from "../../atoms/selectBox/Select";
 import Input from "../../atoms/input/Input";
 import SingleDatePicker from "../../atoms/datepicker/SingleDatePicker";
 import Label from "../../atoms/label/Label";
+import { useDarkMode } from "@/context/DarkModeContext";
+import colors from "@/styles/colors";
 
 interface SearchRenderProps {
   field: {
@@ -24,6 +26,8 @@ const SearchRender: React.FC<SearchRenderProps> = ({
   onChange,
   onDateChange,
 }) => {
+  const { isDarkMode } = useDarkMode();
+
   switch (field.type) {
     case "select":
       return (
@@ -33,11 +37,13 @@ const SearchRender: React.FC<SearchRenderProps> = ({
           onChange={onChange}
           options={field.options || []}
           mode="sm"
-          color="transparent"
           customStyle={{
             width: "100%",
             margin: "0",
             height: "40px",
+            backgroundColor: isDarkMode
+              ? colors["Grey_Darken-5"]
+              : "transparent",
           }}
         />
       );
