@@ -51,6 +51,7 @@ module.exports = {
       Grey_Default: "#888888",
       Grey_Darken_4: "#333333",
       Grey_Darken_5: "#222222",
+      Grey_Background: "#2C2D30",
       Red_Default: "#E30000",
       Red_Lighten_1: "#FB4444",
       Red_Darken_1: "#AD0000",

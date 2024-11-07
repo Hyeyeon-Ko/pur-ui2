@@ -121,6 +121,7 @@ const colors = {
   "Grey_Darken-2": "#555555",
   "Grey_Darken-1": "#737373",
   Grey_Default: "#888888",
+  Grey_Background: "#2C2D30",
   "Grey_Lighten-1": "#aaaaaa",
   "Grey_Lighten-2": "#cccccc",
   "Grey_Lighten-3": "#e1e1e1",
