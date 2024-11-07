@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Label from "../../atoms/label/Label";
 import colors from "@/styles/colors";
+import { useDarkMode } from "@/context/DarkModeContext";
 
 interface ListItemProps {
   href: string;
@@ -19,6 +20,8 @@ const ListItem: React.FC<ListItemProps> = ({
   isFirst,
   isLast,
 }) => {
+  const { isDarkMode } = useDarkMode();
+
   const borderRadiusClass = isFirst
     ? "rounded-l-xl"
     : isLast
@@ -28,7 +31,7 @@ const ListItem: React.FC<ListItemProps> = ({
   return (
     <Link
       href={href}
-      className={`flex flex-col p-5 justify-center items-center ${gradientClass} ${borderRadiusClass} h-full hover:scale-101 hover:shadow-xl transform`}
+      className={`dark:opacity-75 flex flex-col p-5 justify-center items-center ${gradientClass} ${borderRadiusClass} h-full hover:scale-101 hover:shadow-xl transform `}
     >
       <Label mode="lg" content={title} customStyle={{ color: colors.white }} />
       <Label
