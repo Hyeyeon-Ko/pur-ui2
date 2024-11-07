@@ -1093,7 +1093,7 @@ export const tenderVerticalResult = [
   {
     id: 7,
     title: "기타사항",
-    type: "input",
+    type: "textarea",
     contents: "",
   },
 ];
@@ -1204,7 +1204,7 @@ export const contractVertical = [
   {
     id: 14,
     title: "계약기타사항",
-    type: "upload",
+    type: "textarea",
     contents: null,
   },
 ];

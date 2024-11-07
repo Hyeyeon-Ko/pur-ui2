@@ -7,6 +7,7 @@ import FileUploadButton from "../buttons/FileUploadButton";
 import Label from "../../atoms/label/Label";
 import Checkbox from "../../atoms/checkbox/Checkbox";
 import Radio from "../../atoms/radio/Radio";
+import TextArea from "../../atoms/textarea/TextArea";
 
 interface VerticalRenderProps {
   row: {
@@ -82,6 +83,8 @@ const VerticalRender: React.FC<VerticalRenderProps> = ({
   if (!(row.id in isNotSubmitted)) {
     setIsNotSubmitted((prev) => ({ ...prev, [row.id]: false }));
   }
+
+  const renderTextArea = () => <TextArea placeholder={row.title} rows={4} />;
 
   const renderInput = () => (
     <Input
@@ -257,6 +260,8 @@ const VerticalRender: React.FC<VerticalRenderProps> = ({
       return renderUpload();
     case "upload-message":
       return renderUploadMessage();
+    case "textarea":
+      return renderTextArea();
     default:
       return row.component || null;
   }
