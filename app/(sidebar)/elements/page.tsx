@@ -7,7 +7,7 @@ import Label from "@/components/ui/atoms/label/Label";
 import SelectBox from "@/components/ui/atoms/selectBox/Select";
 import LabelInput from "@/components/ui/molecules/inputs/LabelInput";
 import SendInput from "@/components/ui/molecules/inputs/SendInput";
-import Modal from "@/components/ui/organism/modal/Modal";
+import Modal from "@/components/ui/molecules/modal/Modal";
 import useModal from "@/hooks/useModal";
 import useValidations from "@/hooks/useValidations";
 import { useEffect, useState } from "react";

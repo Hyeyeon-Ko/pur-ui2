@@ -2,8 +2,8 @@
 
 import React from "react";
 import { majorFields } from "@/lib/data";
-import CategoryPage from "@/components/ui/pages/category/CategoryPage";
 import { CategoryVisibilityProvider } from "@/context/CategoryVisibilityContext";
+import CategoryPage from "@/components/ui/templates/CategoryPage";
 
 const LargePage = () => {
   const endpoint = "/api/save-major";

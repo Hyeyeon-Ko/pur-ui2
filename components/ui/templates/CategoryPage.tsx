@@ -3,7 +3,7 @@ import Button from "@/components/ui/atoms/button/Button";
 import ManagementHeader from "@/components/ui/molecules/header/ManagementHeader";
 import PageTitle from "@/components/ui/molecules/titles/PageTitle";
 import useCategoryItems from "@/hooks/useCategoryItems";
-import CategoryItemList from "../../templates/CategoryItemList";
+import CategoryItemList from "./CategoryItemList";
 
 interface CategoryPageProps {
   title: string;

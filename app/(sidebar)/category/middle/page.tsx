@@ -2,8 +2,8 @@
 
 import React from "react";
 import { middleFields } from "@/lib/data";
-import CategoryPage from "@/components/ui/pages/category/CategoryPage";
 import { CategoryVisibilityProvider } from "@/context/CategoryVisibilityContext";
+import CategoryPage from "@/components/ui/templates/CategoryPage";
 
 const MiddlePage = () => {
   const endpoint = "/api/save-middle";
