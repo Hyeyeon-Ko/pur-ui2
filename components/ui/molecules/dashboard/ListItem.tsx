@@ -1,7 +1,6 @@
 import Link from "next/link";
 import Label from "../../atoms/label/Label";
 import colors from "@/styles/colors";
-import { useDarkMode } from "@/context/DarkModeContext";
 
 interface ListItemProps {
   href: string;
@@ -20,8 +19,6 @@ const ListItem: React.FC<ListItemProps> = ({
   isFirst,
   isLast,
 }) => {
-  const { isDarkMode } = useDarkMode();
-
   const borderRadiusClass = isFirst
     ? "rounded-l-xl"
     : isLast
