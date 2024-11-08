@@ -1,10 +1,4 @@
-import React, {
-  CSSProperties,
-  Suspense,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import React, { CSSProperties, useEffect, useMemo, useState } from "react";
 import Pagination from "../pagination/Pagination";
 import Checkbox from "../../atoms/checkbox/Checkbox";
 import colors from "@/styles/colors";
@@ -22,7 +16,7 @@ interface Sorter {
 interface TableProps {
   customStyle?: CSSProperties;
   data: Array<{ [key: string]: string }>;
-  columns: string[];
+  columns: Array<{ title: string; subColumns?: string[] }>;
   showCheckbox?: boolean;
   rowsPerPage?: number;
   pagination?: boolean;
@@ -56,11 +50,6 @@ const Table: React.FC<TableProps> = ({
   const { isOpen } = useModal();
   const { isDarkMode } = useDarkMode();
 
-  const isDate = (value: string) => {
-    const datePattern = /^\d{2}.\d{2}.\d{2}$/;
-    return datePattern.test(value.trim());
-  };
-
   useEffect(() => {
     onRowSelect?.(selectedRows);
   }, [selectedRows, onRowSelect]);
@@ -68,7 +57,12 @@ const Table: React.FC<TableProps> = ({
   const indexOfLastRow = currentPage * rowsPerPage;
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
 
-  /** 정렬된 데이터 */
+  const isDate = (value: string) => {
+    if (!value) return false;
+    const datePattern = /^\d{2}\.\d{2}\.\d{2}$/;
+    return datePattern.test(value.trim());
+  };
+
   const sortedData = useMemo(() => {
     const sorted = [...data];
     if (sorter) {
@@ -110,7 +104,6 @@ const Table: React.FC<TableProps> = ({
     selectedRows.includes(String(index))
   );
 
-  /** 테이블 데이터 더블클릭 -> 새창 상세페이지(수정페이지) */
   const handleRowDoubleClick = (row: { [key: string]: string }) => {
     if (isOpen) return;
     if (onRowDoubleClick) {
@@ -146,9 +139,10 @@ const Table: React.FC<TableProps> = ({
                 : colors.Table_header,
             }}
           >
+            {/* 메인 header */}
             <tr>
               {showCheckbox && (
-                <th className="px-4 py-3">
+                <th rowSpan={3} className="px-4 py-3">
                   <Checkbox
                     mode="sm"
                     checked={isAllSelected}
@@ -157,25 +151,26 @@ const Table: React.FC<TableProps> = ({
                 </th>
               )}
               {columns.map((column) => (
-                <th key={column} className="text-center py-4">
-                  {column}
+                <th key={column.title} className="text-center py-4">
+                  {column.title}
                   {setSorter && (
                     <span
                       className="cursor-pointer"
                       onClick={() => {
-                        if (sorter?.field === column) {
+                        if (sorter?.field === column.title) {
                           const newOrder =
                             sorter.order === "ascend" ? "descend" : "ascend";
-                          setSorter({ field: column, order: newOrder });
+                          setSorter({ field: column.title, order: newOrder });
                         } else {
-                          setSorter({ field: column, order: "ascend" });
+                          setSorter({ field: column.title, order: "ascend" });
                         }
                       }}
                     >
-                      {isDate(data[0][column])
-                        ? sorter?.field === column && sorter.order === "ascend"
+                      {isDate(data[0][column.title])
+                        ? sorter?.field === column.title &&
+                          sorter.order === "ascend"
                           ? " ▲"
-                          : sorter?.field === column &&
+                          : sorter?.field === column.title &&
                             sorter.order === "descend"
                           ? " ▼"
                           : " ▲"
@@ -185,12 +180,49 @@ const Table: React.FC<TableProps> = ({
                 </th>
               ))}
             </tr>
+
+            {/* 하위 header: 서브컬럼 위에 메인 컬럼 표시 */}
+            <tr>
+              {columns.map((column) => {
+                if (!column.subColumns) {
+                  return <th key={column.title}></th>; // 빈 <th> 추가
+                }
+                return (
+                  <th
+                    colSpan={column.subColumns.length}
+                    key={column.title}
+                    className="text-center py-2"
+                  >
+                    {column.title} {/* 메인 컬럼 이름 */}
+                  </th>
+                );
+              })}
+            </tr>
+            <tr>
+              {columns.map((column) => {
+                return column.subColumns ? (
+                  column.subColumns.map((subColumn, subIndex) => (
+                    <th
+                      key={`${column.title}-${subIndex}`}
+                      className="text-center py-2"
+                    >
+                      {subColumn}
+                    </th>
+                  ))
+                ) : (
+                  <th key={column.title}></th>
+                );
+              })}
+            </tr>
           </thead>
 
           <tbody>
             {loading ? (
               <tr>
-                <td colSpan={columns.length} className="text-center py-4">
+                <td
+                  colSpan={columns.length + (showCheckbox ? 1 : 0)}
+                  className="text-center py-4"
+                >
                   <Loading />
                 </td>
               </tr>
@@ -222,8 +254,16 @@ const Table: React.FC<TableProps> = ({
                   )}
 
                   {columns.map((column) => (
-                    <td key={column} className="py-2 text-gray-700">
-                      <TableRender row={row} column={column} />
+                    <td key={column.title} className="py-2 text-gray-700">
+                      {column.subColumns ? (
+                        column.subColumns.map((subColumn, subIndex) => (
+                          <div key={`${subColumn}-${subIndex}`}>
+                            <TableRender row={row} column={subColumn} />
+                          </div>
+                        ))
+                      ) : (
+                        <TableRender row={row} column={column.title} />
+                      )}
                     </td>
                   ))}
                 </tr>
