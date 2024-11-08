@@ -4,24 +4,30 @@ import { CSSProperties } from "react";
 interface ManagementHeaderProps {
   onSaveAll?: () => void;
   headerTitle?: string;
-
+  buttonText?: string;
   customStyle?: CSSProperties;
+  showButton?: boolean;
 }
 
 const ManagementHeader: React.FC<ManagementHeaderProps> = ({
   onSaveAll,
   headerTitle,
+  buttonText = "전체 저장",
   customStyle,
+  showButton = true,
 }) => {
   return (
     <>
       <div className="flex justify-end mx-auto py-2 w-[80%]">
-        <Button
-          color="Button_Default"
-          mode="sm"
-          content="전체 저장"
-          onClick={onSaveAll}
-        />
+        {showButton && (
+          <Button
+            color="Button_Default"
+            mode="sm"
+            content={buttonText}
+            onClick={onSaveAll}
+            aria-label={buttonText}
+          />
+        )}
       </div>
 
       <div className="flex justify-end mb-2">
