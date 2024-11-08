@@ -1,6 +1,5 @@
 import { contractRowData, RowData } from "@/types/dummyTypes";
 import { FieldConfig } from "@/types/fieldTypes";
-import { majorCategoryOptions, middleCategoryOptions } from "./optionDatas";
 
 export const data: RowData[] = [
   {
@@ -465,27 +464,28 @@ export const data: RowData[] = [
   },
 ];
 
-export const columns: (keyof RowData)[] = [
-  "센터",
-  "입찰번호",
-  "누리장터",
-  "계약종류",
-  "낙찰방법",
-  "계정명",
-  "공고구분",
-  "입찰명",
-  "공고일",
-  "마감일",
-  "응찰일",
-  "낙찰기준가",
-  "낙찰금액",
-  "낙찰자",
-  "입찰결과",
-  "입찰증권",
-  "입찰품의번호",
-  "담당자",
-  "기타",
-  "열람",
+export const columns: { title: string; subColumns?: string[] }[] = [
+  { title: "센터" },
+  { title: "입찰번호" },
+  { title: "누리장터" },
+  { title: "계약종류" },
+  { title: "낙찰방법" },
+  { title: "계정명" },
+  { title: "공고구분" },
+  { title: "입찰명" },
+  { title: "공고일" },
+  { title: "마감일" },
+  { title: "응찰일" },
+  { title: "낙찰기준가"},
+  { title: "낙찰금액" },
+  { title: "낙찰자" },
+  { title: "입찰결과" },
+  { title: "입찰증권" },
+  { title: "입찰품의번호" },
+  { title: "담당자" },
+  { title: "계약구분" },
+  { title: "기타" },
+  { title: "열람" },
 ];
 
 export const contractData: contractRowData[] = [
@@ -563,28 +563,28 @@ export const contractData: contractRowData[] = [
   },
 ];
 
-export const contractColumns: (keyof contractRowData)[] = [
-  "센터",
-  "입찰번호",
-  "계약번호",
-  "계약종류",
-  "계정명",
-  "계약명",
-  "계약일자",
-  "계약시작일",
-  "계약완료일",
-  "공급사",
-  "낙찰기준가",
-  "계약금액",
-  "계약방법",
-  "SN",
-  "계약증권",
-  "하자증권",
-  "계약품의번호",
-  "계약구분",
-  "담당자",
-  "기타",
-  "열람",
+export const contractColumns: { title: string; subColumns?: string[] }[] = [
+  { title: "센터" },
+  { title: "입찰번호" },
+  { title: "계약번호" },
+  { title: "계약종류" },
+  { title: "계정명" },
+  { title: "계약명" },
+  { title: "계약일자" },
+  { title: "계약시작일" },
+  { title: "계약완료일" },
+  { title: "공급사" },
+  { title: "낙찰기준가" },
+  { title: "계약금액" },
+  { title: "계약방법" },
+  { title: "SN" },
+  { title: "계약증권" },
+  { title: "하자증권" },
+  { title: "계약품의번호" },
+  { title: "계약구분" },
+  { title: "담당자" },
+  { title: "기타" },
+  { title: "열람" },
 ];
 
 export const contractListData: contractRowData[] = [
@@ -680,22 +680,22 @@ export const contractListData: contractRowData[] = [
   },
 ];
 
-export const contractListColumns: (keyof contractRowData)[] = [
-  "센터",
-  "ERP코드",
-  "ERP품목",
-  "입찰번호",
-  "계약번호",
-  "계약종류",
-  "계정구분",
-  "모델명",
-  "규격",
-  "제조사",
-  "공급사",
-  "수량",
-  "낙찰기준가",
-  "계약단가",
-  "계약금액",
+export const contractListColumns: { title: string; subColumns?: string[] }[] = [
+  { title: "센터" },
+  { title: "ERP코드" },
+  { title: "ERP품목" },
+  { title: "입찰번호" },
+  { title: "계약번호" },
+  { title: "계약종류" },
+  { title: "계정구분" },
+  { title: "모델명" },
+  { title: "규격" },
+  { title: "제조사" },
+  { title: "공급사" },
+  { title: "수량" },
+  { title: "낙찰기준가" },
+  { title: "계약단가" },
+  { title: "계약금액" },
 ];
 
 export const bidListcolumns = [
