@@ -1,5 +1,5 @@
 import React from "react";
-import DownButton from "../buttons/DownButton";
+import DownButton from "../../templates/DownButton";
 import { fileOptions, reasonOptions } from "@/lib/optionDatas";
 import { useDarkMode } from "@/context/DarkModeContext";
 
