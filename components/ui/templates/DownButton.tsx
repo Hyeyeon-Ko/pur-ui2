@@ -18,6 +18,11 @@ const DownButton: React.FC<DownProps> = ({
     !state.selectedReason ||
     (state.selectedReason === "etc" && !state.otherReason);
 
+  const handleCloseModal = () => {
+    closeModal();
+    dispatch({ type: "RESET" });
+  };
+
   const handleDownload = async () => {
     const endpoint = `/api/download-file`;
     try {
@@ -47,6 +52,13 @@ const DownButton: React.FC<DownProps> = ({
     }
   };
 
+  const handleConfirm = () => {
+    if (!isDownloadDisabled) {
+      handleDownload();
+      handleCloseModal();
+    }
+  };
+
   return (
     <div>
       <Button
@@ -57,22 +69,10 @@ const DownButton: React.FC<DownProps> = ({
       />
       <Modal
         isOpen={isOpen}
-        closeModal={() => {
-          closeModal();
-          dispatch({ type: "RESET" });
-        }}
+        closeModal={handleCloseModal}
         title="파일 다운로드"
-        onCancelClick={() => {
-          closeModal();
-          dispatch({ type: "RESET" });
-        }}
-        onConfirmClick={() => {
-          if (!isDownloadDisabled) {
-            handleDownload();
-            closeModal();
-            dispatch({ type: "RESET" });
-          }
-        }}
+        onCancelClick={handleCloseModal}
+        onConfirmClick={handleConfirm}
         mode="sm"
         confirmText="다운로드"
         showConfirmButton={true}
