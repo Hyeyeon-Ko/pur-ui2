@@ -6,12 +6,16 @@ interface SearchInputProps {
   bidNumber: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSearch: () => void;
+  inputPlaceholder?: string;
+  buttonContent?: string;
 }
 
 const SearchInput: React.FC<SearchInputProps> = ({
   bidNumber,
   onChange,
   onSearch,
+  inputPlaceholder,
+  buttonContent,
 }) => (
   <div className="flex items-center">
     <Input
@@ -19,9 +23,14 @@ const SearchInput: React.FC<SearchInputProps> = ({
       color="Button_Default"
       value={bidNumber}
       onChange={onChange}
-      placeholder="입찰번호를 입력하세요"
+      placeholder={inputPlaceholder}
     />
-    <Button mode="sm" color="signature" onClick={onSearch} content="조회하기" />
+    <Button
+      mode="sm"
+      color="signature"
+      onClick={onSearch}
+      content={buttonContent}
+    />
   </div>
 );
 

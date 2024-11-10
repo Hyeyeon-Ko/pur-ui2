@@ -24,6 +24,17 @@ const CheckOption: React.FC<CheckOptionProps> = ({
     setBidNumber("");
   };
 
+  const notifySearch = (
+    bidNumber: string,
+    onSearch: (bidNumber: string) => void
+  ) => {
+    if (bidNumber) {
+      onSearch(bidNumber);
+    } else {
+      Toast.notify("입찰번호를 입력해주세요.", ToastType.WARNING);
+    }
+  };
+
   return (
     <div className="flex p-4">
       <div className="flex items-center gap-2 mr-1">
@@ -40,13 +51,9 @@ const CheckOption: React.FC<CheckOptionProps> = ({
           onChange={(e) => {
             setBidNumber(e.target.value);
           }}
-          onSearch={() => {
-            if (bidNumber) {
-              onSearch(bidNumber);
-            } else {
-              Toast.notify("입찰번호를 입력해주세요.", ToastType.WARNING);
-            }
-          }}
+          onSearch={() => notifySearch(bidNumber, onSearch)}
+          inputPlaceholder="검색어를 입력하세요"
+          buttonContent="검색"
         />
       )}
     </div>
