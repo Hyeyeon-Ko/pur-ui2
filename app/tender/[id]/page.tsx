@@ -130,7 +130,7 @@ const TenderDetail: React.FC = () => {
         onChipClick={handleChipClick}
         checkedItems={checkedItems}
         showHeader={true}
-        tableTitle="입찰사항"
+        headerTitle="입찰사항"
       />
       <div className="py-20">
         <div className="flex justify-end mr-6">
@@ -153,14 +153,14 @@ const TenderDetail: React.FC = () => {
           onRowSelect={handleRowSelect}
           showCheckbox={false}
           showHeader={true}
-          tableTitle="입찰내역"
+          headerTitle="입찰내역"
         />
       </div>
       <div className="pb-20">
         <VerticalTable
           data={tenderVerticalResult}
           showHeader={true}
-          tableTitle="입찰결과"
+          headerTitle="입찰결과"
         />
       </div>
     </div>

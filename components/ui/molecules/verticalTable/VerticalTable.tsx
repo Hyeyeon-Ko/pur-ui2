@@ -16,7 +16,7 @@ interface VerticalTableProps {
   onChipClick?: (label: string, title: string) => void;
   checkedItems?: { [key: string]: boolean };
   showHeader?: boolean;
-  tableTitle?: string;
+  headerTitle?: string;
 }
 
 const VerticalTable: React.FC<VerticalTableProps> = ({
@@ -24,7 +24,7 @@ const VerticalTable: React.FC<VerticalTableProps> = ({
   onChipClick,
   checkedItems,
   showHeader = false,
-  tableTitle,
+  headerTitle,
 }) => {
   const { isDarkMode } = useDarkMode();
   const [tableData, setTableData] = useState(data);
@@ -56,7 +56,7 @@ const VerticalTable: React.FC<VerticalTableProps> = ({
     <div className="mx-5 my-2 rounded-lg shadow-lg">
       {showHeader && (
         <ManagementHeader
-          tableTitle={tableTitle}
+        headerTitle={headerTitle}
           showButton={false}
           isFullWidth
         />

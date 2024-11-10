@@ -4,7 +4,6 @@ import { CSSProperties } from "react";
 interface ManagementHeaderProps {
   onSaveAll?: () => void;
   headerTitle?: string;
-  tableTitle?: string;
   buttonText?: string;
   customStyle?: CSSProperties;
   showButton?: boolean;
@@ -14,7 +13,6 @@ interface ManagementHeaderProps {
 const ManagementHeader: React.FC<ManagementHeaderProps> = ({
   onSaveAll,
   headerTitle,
-  tableTitle,
   buttonText = "전체 저장",
   customStyle,
   showButton = true,
@@ -41,7 +39,7 @@ const ManagementHeader: React.FC<ManagementHeaderProps> = ({
             isFullWidth ? "w-full" : "w-[80%] mx-auto"
           } border-signature bg-signature rounded-tl-lg rounded-tr-lg p-4 text-white`}
         >
-          {headerTitle || tableTitle}
+          {headerTitle}
         </div>
       </div>
     </>

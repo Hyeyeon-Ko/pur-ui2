@@ -53,7 +53,7 @@ const AddCommonForm: React.FC<AddCommonFormProps> = ({
         onChipClick={handleChipClick}
         checkedItems={checkedItems}
         showHeader={true}
-        tableTitle={`${title} 입력`}
+        headerTitle={`${title} 입력`}
       />
     </div>
   );

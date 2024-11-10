@@ -25,7 +25,7 @@ interface TableProps {
   sorter?: Sorter | null;
   setSorter?: React.Dispatch<React.SetStateAction<Sorter | null>>;
   showHeader?: boolean;
-  tableTitle?: string;
+  headerTitle?: string;
   loading?: boolean;
 }
 
@@ -41,7 +41,7 @@ const Table: React.FC<TableProps> = ({
   sorter = null,
   setSorter,
   showHeader = false,
-  tableTitle,
+  headerTitle,
   loading,
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -126,7 +126,7 @@ const Table: React.FC<TableProps> = ({
       </div>
       {showHeader && (
         <ManagementHeader
-          tableTitle={tableTitle}
+          headerTitle={headerTitle}
           showButton={false}
           isFullWidth
         />
