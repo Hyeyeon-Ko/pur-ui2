@@ -1,7 +1,7 @@
 import React, { CSSProperties, useRef } from "react";
 import colors from "@/styles/colors";
-import Button from "../../atoms/button/Button";
-import Label from "../../atoms/label/Label";
+import ModalHeader from "./ModalHeader";
+import ModalFooter from "./ModalFooter";
 import { useDarkMode } from "@/context/DarkModeContext";
 
 export type ModalMode = "sm" | "xs" | "lg" | "md" | undefined;
@@ -78,46 +78,17 @@ const Modal: React.FC<ModalProps> = ({
         className={`relative rounded-2xl shadow-lg z-10 pt-6 ${modeClasses[mode]} ${colorClass}`}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex w-[100%] justify-between items-center px-6 pb-6">
-          {title && (
-            <Label
-              mode="lg"
-              fontWeight="bold"
-              content={title}
-              customStyle={{
-                fontSize: titleFontSize,
-                color: isDarkMode ? colors.white : colors.black,
-              }}
-            />
-          )}
-          <button onClick={closeModal} className="text-gray-500 text-2xl">
-            &times;
-          </button>
-        </div>
-
-        {/* 모달 컨텐츠 */}
+        <ModalHeader title={title} titleFontSize={titleFontSize} closeModal={closeModal} />
         {children}
-
-        <div className="flex justify-end mt-4 pt-4 pb-2">
-          {showCancelButton && (
-            <Button
-              mode="sm"
-              onClick={onCancelClick || closeModal}
-              variant="outline"
-              color="Button_Default"
-              content={cancelText}
-            />
-          )}
-          {showConfirmButton && (
-            <Button
-              mode="sm"
-              color="signature"
-              onClick={onConfirmClick}
-              content={confirmText}
-              disabled={confirmButtonDisabled}
-            />
-          )}
-        </div>
+        <ModalFooter 
+          showCancelButton={showCancelButton} 
+          showConfirmButton={showConfirmButton} 
+          cancelText={cancelText} 
+          confirmText={confirmText} 
+          confirmButtonDisabled={confirmButtonDisabled} 
+          onCancelClick={onCancelClick || closeModal} 
+          onConfirmClick={onConfirmClick} 
+        />
       </div>
     </div>
   );
