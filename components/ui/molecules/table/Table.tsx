@@ -5,8 +5,8 @@ import colors from "@/styles/colors";
 import { useDarkMode } from "@/context/DarkModeContext";
 import useModal from "@/hooks/useModal";
 import TableRender from "../render/TableRender";
-import TableHeader from "../header/TableHeader";
 import Loading from "@/components/commons/Loading";
+import ManagementHeader from "../header/ManagementHeader";
 
 interface Sorter {
   field: string;
@@ -124,7 +124,13 @@ const Table: React.FC<TableProps> = ({
           데이터 {data.length} 개
         </span>
       </div>
-      {showHeader && <TableHeader tableTitle={tableTitle} />}
+      {showHeader && (
+        <ManagementHeader
+          tableTitle={tableTitle}
+          showButton={false}
+          isFullWidth
+        />
+      )}
 
       <div
         style={{ borderColor: "transparent" }}

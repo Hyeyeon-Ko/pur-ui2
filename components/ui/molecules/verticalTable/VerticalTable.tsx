@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import colors from "@/styles/colors";
 import { useDarkMode } from "@/context/DarkModeContext";
 import VerticalRender from "../render/VerticalRender";
-import TableHeader from "../header/TableHeader";
+import ManagementHeader from "../header/ManagementHeader";
 
 interface VerticalTableProps {
   data: Array<{
@@ -54,7 +54,13 @@ const VerticalTable: React.FC<VerticalTableProps> = ({
 
   return (
     <div className="mx-5 my-2 rounded-lg shadow-lg">
-      {showHeader && <TableHeader tableTitle={tableTitle} />}
+      {showHeader && (
+        <ManagementHeader
+          tableTitle={tableTitle}
+          showButton={false}
+          isFullWidth
+        />
+      )}
 
       <table className="table-auto w-full">
         <tbody className="divide-x">

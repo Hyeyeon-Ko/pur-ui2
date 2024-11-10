@@ -4,22 +4,26 @@ import { CSSProperties } from "react";
 interface ManagementHeaderProps {
   onSaveAll?: () => void;
   headerTitle?: string;
+  tableTitle?: string;
   buttonText?: string;
   customStyle?: CSSProperties;
   showButton?: boolean;
+  isFullWidth?: boolean;
 }
 
 const ManagementHeader: React.FC<ManagementHeaderProps> = ({
   onSaveAll,
   headerTitle,
+  tableTitle,
   buttonText = "전체 저장",
   customStyle,
   showButton = true,
+  isFullWidth = false,
 }) => {
   return (
     <>
-      <div className="flex justify-end mx-auto py-2 w-[80%]">
-        {showButton && (
+      {showButton && (
+        <div className="flex justify-end mx-auto py-2 w-[80%]">
           <Button
             color="Button_Default"
             mode="sm"
@@ -27,15 +31,17 @@ const ManagementHeader: React.FC<ManagementHeaderProps> = ({
             onClick={onSaveAll}
             aria-label={buttonText}
           />
-        )}
-      </div>
+        </div>
+      )}
 
-      <div className="flex justify-end mb-2">
+      <div className="flex justify-end">
         <div
           style={{ ...customStyle }}
-          className="mx-auto border-signature bg-signature rounded-tl-lg rounded-tr-lg w-[80%] p-4 text-white"
+          className={`${
+            isFullWidth ? "w-full" : "w-[80%] mx-auto"
+          } border-signature bg-signature rounded-tl-lg rounded-tr-lg p-4 text-white`}
         >
-          {headerTitle}
+          {headerTitle || tableTitle}
         </div>
       </div>
     </>
