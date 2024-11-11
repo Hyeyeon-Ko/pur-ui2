@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import colors from "@/styles/colors";
 import { useDarkMode } from "@/context/DarkModeContext";
-import VerticalRender from "../render/VerticalRender";
-import ManagementHeader from "../header/ManagementHeader";
+import VerticalTableRow from "../../molecules/verticalTable/VerticalTableRow";
+import VerticalTableHeader from "../../molecules/verticalTable/VerticalTableHeader";
 
 interface VerticalTableProps {
   data: Array<{
@@ -54,52 +53,21 @@ const VerticalTable: React.FC<VerticalTableProps> = ({
 
   return (
     <div className="mx-5 my-2 rounded-lg shadow-lg">
-      {showHeader && (
-        <ManagementHeader
-        headerTitle={headerTitle}
-          showButton={false}
-          isFullWidth
-        />
-      )}
-
+      <VerticalTableHeader showHeader={showHeader} headerTitle={headerTitle} />
       <table className="table-auto w-full">
         <tbody className="divide-x">
           {tableData.map((row) => (
-            <tr
+            <VerticalTableRow
               key={row.id}
-              style={{
-                borderBottom: isDarkMode
-                  ? `1px solid ${colors["Grey_Darken-4"]}`
-                  : `1px solid ${colors["Grey_Lighten-4"]}`,
-              }}
-            >
-              <th
-                style={{
-                  backgroundColor: isDarkMode
-                    ? colors["Grey_Darken-4"]
-                    : colors.Table_header,
-                  color: isDarkMode ? "white" : colors["Grey_Darken-3"],
-                  borderBottom: isDarkMode
-                    ? `1px solid ${colors["Grey_Darken-4"]}`
-                    : `1px solid ${colors["Grey_Lighten-4"]}`,
-                  borderLeft: "1px solid transparent",
-                }}
-                className="text-sm uppercase text-center"
-              >
-                {row.title}
-              </th>
-              <td className="w-[92%] px-4 py-2 text-xs">
-                <VerticalRender
-                  row={row}
-                  onChipClick={onChipClick}
-                  checkedItems={checkedItems}
-                  onInputChange={handleInputChange}
-                  onDateChange={(date) => handleDateChange(date, row.id)}
-                  announcementDate={announcementDate} // 공고일
-                  deadlineDate={deadlineDate} // 마감일
-                />
-              </td>
-            </tr>
+              row={row}
+              isDarkMode={isDarkMode}
+              onChipClick={onChipClick}
+              checkedItems={checkedItems}
+              onInputChange={handleInputChange}
+              onDateChange={handleDateChange}
+              announcementDate={announcementDate}
+              deadlineDate={deadlineDate}
+            />
           ))}
         </tbody>
       </table>
