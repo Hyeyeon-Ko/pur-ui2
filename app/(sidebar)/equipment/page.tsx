@@ -9,6 +9,7 @@ import Checkbox from "@/components/ui/atoms/checkbox/Checkbox";
 import { equipData, fieldLabel, fields } from "@/lib/equipDatas";
 import { RepairRow } from "@/types/euqipTypes";
 import EditableRender from "@/components/ui/molecules/render/EditableRender";
+import PageTitle from "@/components/ui/molecules/titles/PageTitle";
 
 const EquipmentPage = () => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
@@ -80,7 +81,12 @@ const EquipmentPage = () => {
 
   return (
     <div className="p-12">
-      <ManagementHeader headerTitle="장비관리" showButton={false} isFullWidth />
+      <PageTitle pageTitle="장비관리" mode="xl" fontWeight="bold" />
+      <ManagementHeader
+        headerTitle="유지보수 관리"
+        showButton={false}
+        isFullWidth
+      />
       <table className="table-auto text-xs text-center text-gray-500 w-full">
         <thead
           className="p-2 text-sm"
