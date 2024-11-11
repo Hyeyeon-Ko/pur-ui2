@@ -22,6 +22,7 @@ export const data: RowData[] = [
     입찰증권: "O",
     입찰품의번호: "한의112243",
     담당자: "박정배",
+    계약구분: "ddd",
     기타: "",
     열람: "저장",
   },
@@ -476,7 +477,7 @@ export const columns: { title: string; subColumns?: string[] }[] = [
   { title: "공고일" },
   { title: "마감일" },
   { title: "응찰일" },
-  { title: "낙찰기준가"},
+  { title: "낙찰기준가" },
   { title: "낙찰금액" },
   { title: "낙찰자" },
   { title: "입찰결과" },
@@ -563,16 +564,20 @@ export const contractData: contractRowData[] = [
   },
 ];
 
-export const contractColumns: { title: string; subColumns?: string[] }[] = [
+export const contractColumns: {
+  title: string;
+  subColumns?: string[];
+  sortable?: boolean;
+}[] = [
   { title: "센터" },
   { title: "입찰번호" },
   { title: "계약번호" },
   { title: "계약종류" },
   { title: "계정명" },
   { title: "계약명" },
-  { title: "계약일자" },
-  { title: "계약시작일" },
-  { title: "계약완료일" },
+  { title: "계약일자", sortable: false },
+  { title: "계약시작일", sortable: false },
+  { title: "계약완료일", sortable: false },
   { title: "공급사" },
   { title: "낙찰기준가" },
   { title: "계약금액" },

@@ -18,6 +18,7 @@ export type RowData = {
   입찰증권: string;
   입찰품의번호: string;
   담당자: string;
+  계약구분?: string;
   기타: string;
   열람: string;
 };
