@@ -1,6 +1,6 @@
 "use client";
 
-import Table from "@/components/ui/molecules/table/Table";
+import Table from "@/components/ui/organism/table/Table";
 import React, { useState, useCallback } from "react";
 import { data, columns, tenderSearchFields } from "@/lib/data";
 import useFormatHandler from "@/hooks/useFormatHandler";
@@ -29,6 +29,8 @@ const MenuPage = () => {
       낙찰기준가: formatCurrency(item.낙찰기준가),
       낙찰금액: formatCurrency(item.낙찰금액),
       누리장터: item.누리장터 || "-",
+      계약구분: item.계약구분 || "-",
+      기타: item.기타 || "-",
     }))
   );
 

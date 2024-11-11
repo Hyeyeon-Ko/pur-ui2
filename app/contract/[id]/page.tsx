@@ -4,7 +4,7 @@ import Toast from "@/components/commons/Toast";
 import FileUploadButton from "@/components/ui/molecules/buttons/FileUploadButton";
 import TableButton from "@/components/ui/molecules/buttons/TableButton";
 import ThemeToggle from "@/components/ui/molecules/buttons/ThemeToggle";
-import Table from "@/components/ui/molecules/table/Table";
+import Table from "@/components/ui/organism/table/Table";
 import PageTitle from "@/components/ui/molecules/titles/PageTitle";
 import VerticalTable from "@/components/ui/molecules/verticalTable/VerticalTable";
 import useChipHandler from "@/hooks/useChipHandler";

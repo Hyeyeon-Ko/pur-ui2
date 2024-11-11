@@ -1,6 +1,6 @@
 "use client";
 
-import Table from "@/components/ui/molecules/table/Table";
+import Table from "@/components/ui/organism/table/Table";
 import React, { useState, useCallback } from "react";
 import {
   contractData,
@@ -83,6 +83,8 @@ const MenuPage = () => {
         onRowDoubleClick={() => {}}
         showCheckbox={false}
         pagination={true}
+        sorter={null}
+        setSorter={undefined}
       />
     </div>
   );

@@ -2,7 +2,7 @@
 
 import Button from "@/components/ui/atoms/button/Button";
 import SelectBox from "@/components/ui/atoms/selectBox/Select";
-import Table from "@/components/ui/molecules/table/Table";
+import Table from "@/components/ui/organism/table/Table";
 import useExcelFileHandler from "@/hooks/useExcelFileHandler";
 import React, { useState, useCallback } from "react";
 import colors from "@/styles/colors";
