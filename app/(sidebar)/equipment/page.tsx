@@ -7,7 +7,7 @@ import { useDarkMode } from "@/context/DarkModeContext";
 import Button from "@/components/ui/atoms/button/Button";
 import Checkbox from "@/components/ui/atoms/checkbox/Checkbox";
 import { equipData, fieldLabel, fields } from "@/lib/equipDatas";
-import { RepairRow } from "@/types/euqipTypes";
+import { RepairRow } from "@/types/equipTypes";
 import EditableRender from "@/components/ui/molecules/render/EditableRender";
 import PageTitle from "@/components/ui/molecules/titles/PageTitle";
 

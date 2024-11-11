@@ -5,7 +5,7 @@ import SelectBox from "@/components/ui/atoms/selectBox/Select";
 import colors from "@/styles/colors";
 import { useDarkMode } from "@/context/DarkModeContext";
 import { equipTypeOption, fieldLabel, fieldType } from "@/lib/equipDatas";
-import { RepairRow } from "@/types/euqipTypes";
+import { RepairRow } from "@/types/equipTypes";
 
 interface EditableRenderProps {
   row: RepairRow;
