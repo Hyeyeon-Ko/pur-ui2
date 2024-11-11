@@ -1,6 +1,5 @@
 import React, { CSSProperties, useEffect, useMemo, useState } from "react";
 import Pagination from "../../molecules/pagination/Pagination";
-import colors from "@/styles/colors";
 import { useDarkMode } from "@/context/DarkModeContext";
 import useModal from "@/hooks/useModal";
 import ManagementHeader from "../../molecules/header/ManagementHeader";
