@@ -1,4 +1,4 @@
-import { RepairRow } from "@/types/euqipTypes";
+import { RepairRow } from "@/types/equipTypes";
 
 export const equipData = [
   {
@@ -78,7 +78,7 @@ export const fieldLabel: { [key in keyof RepairRow]: string } = {
   documentNumber: "문서번호",
   faultSymptom: "고장증상",
   repairContent: "수리내용",
-  partner: "파트너",
+  partner: "거래처",
   partNumber: "부품번호",
   cost: "비용",
   warranty: "보증",
