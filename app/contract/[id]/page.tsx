@@ -6,7 +6,7 @@ import TableButton from "@/components/ui/molecules/buttons/TableButton";
 import ThemeToggle from "@/components/ui/molecules/buttons/ThemeToggle";
 import Table from "@/components/ui/organism/table/Table";
 import PageTitle from "@/components/ui/molecules/titles/PageTitle";
-import VerticalTable from "@/components/ui/molecules/verticalTable/VerticalTable";
+import VerticalTable from "@/components/ui/organism/verticalTable/VerticalTable";
 import useChipHandler from "@/hooks/useChipHandler";
 import useFileDownload from "@/hooks/useFileDownload";
 import useFileUpload from "@/hooks/useFileUpload";

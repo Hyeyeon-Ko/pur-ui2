@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ThemeToggle from "@/components/ui/molecules/buttons/ThemeToggle";
 import CheckOption from "@/components/ui/organism/option/CheckOption";
 import PageTitle from "@/components/ui/molecules/titles/PageTitle";
-import VerticalTable from "@/components/ui/molecules/verticalTable/VerticalTable";
+import VerticalTable from "@/components/ui/organism/verticalTable/VerticalTable";
 import TableButton from "../molecules/buttons/TableButton";
 import useChipHandler from "@/hooks/useChipHandler";
 
@@ -29,7 +29,6 @@ const AddCommonForm: React.FC<AddCommonFormProps> = ({
   onSave,
 }) => {
   const { checkedItems, handleChipClick } = useChipHandler();
-
 
   return (
     <div className="my-4 mb-20">

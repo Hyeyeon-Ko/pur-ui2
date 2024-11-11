@@ -8,7 +8,7 @@ import useExcelFileHandler from "@/hooks/useExcelFileHandler";
 import React, { useState, useCallback } from "react";
 import colors from "@/styles/colors";
 import { data, columns, tenderSearchFields } from "@/lib/data";
-import VerticalTable from "@/components/ui/molecules/verticalTable/VerticalTable";
+import VerticalTable from "@/components/ui/organism/verticalTable/VerticalTable";
 import SingleDatePicker from "@/components/ui/atoms/datepicker/SingleDatePicker";
 import FileUploadButton from "@/components/ui/molecules/buttons/FileUploadButton";
 import useFormatHandler from "@/hooks/useFormatHandler";
