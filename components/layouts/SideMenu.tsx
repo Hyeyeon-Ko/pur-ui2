@@ -3,14 +3,13 @@
 import React, { useState } from "react";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { MdCalculate } from "react-icons/md";
-import { RiSettings5Fill } from "react-icons/ri";
 import { FaFileContract } from "react-icons/fa";
 import { RiCheckboxMultipleLine } from "react-icons/ri";
 import { MdDashboardCustomize } from "react-icons/md";
 import { TbSquareNumber1Filled } from "react-icons/tb";
 import { TbSquareNumber2Filled } from "react-icons/tb";
 import { TbSquareNumber3Filled } from "react-icons/tb";
-import { FiTool } from "react-icons/fi";
+import { AiOutlineTool } from "react-icons/ai";
 import Link from "next/link";
 import colors from "@/styles/colors";
 import { useRouter } from "next/navigation";
@@ -57,6 +56,13 @@ const SideMenu = ({
           tooltip: "계약조회",
         },
         {
+          icon: AiOutlineTool,
+          label: "장비관리",
+          href: "/equipment",
+          visible: ["admin", "master"],
+          tooltip: "장비관리",
+        },
+        {
           icon: RiCheckboxMultipleLine,
           label: "코드조회",
           href: "/category/major",
@@ -84,27 +90,20 @@ const SideMenu = ({
             },
           ],
         },
-        {
-          icon: FiTool,
-          label: "장비관리",
-          href: "/equipment",
-          visible: ["admin", "master"],
-          tooltip: "장비관리",
-        },
       ],
     },
-    {
-      title: "OTHER",
-      items: [
-        {
-          icon: RiSettings5Fill,
-          label: "SETTINGS",
-          href: "/settings",
-          visible: ["admin", "master", "admin"],
-          tooltip: "설정",
-        },
-      ],
-    },
+    // {
+    //   title: "OTHER",
+    //   items: [
+    //     {
+    //       icon: RiSettings5Fill,
+    //       label: "SETTINGS",
+    //       href: "/settings",
+    //       visible: ["admin", "master", "admin"],
+    //       tooltip: "설정",
+    //     },
+    //   ],
+    // },
   ];
 
   return (
