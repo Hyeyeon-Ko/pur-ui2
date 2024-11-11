@@ -35,7 +35,7 @@ const Dashboard = () => {
       bgColor: "bg-sub",
     },
     {
-      href: "/page-d",
+      href: "/equipment",
       icon: FiTool,
       label: "장비관리",
       bgColor: "bg-signature",

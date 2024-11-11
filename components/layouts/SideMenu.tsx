@@ -5,12 +5,12 @@ import { HiMenuAlt3 } from "react-icons/hi";
 import { MdCalculate } from "react-icons/md";
 import { RiSettings5Fill } from "react-icons/ri";
 import { FaFileContract } from "react-icons/fa";
-import { RiAdminFill } from "react-icons/ri";
 import { RiCheckboxMultipleLine } from "react-icons/ri";
 import { MdDashboardCustomize } from "react-icons/md";
 import { TbSquareNumber1Filled } from "react-icons/tb";
 import { TbSquareNumber2Filled } from "react-icons/tb";
 import { TbSquareNumber3Filled } from "react-icons/tb";
+import { FiTool } from "react-icons/fi";
 import Link from "next/link";
 import colors from "@/styles/colors";
 import { useRouter } from "next/navigation";
@@ -83,6 +83,13 @@ const SideMenu = ({
               visible: ["admin", "master"],
             },
           ],
+        },
+        {
+          icon: FiTool,
+          label: "장비관리",
+          href: "/equipment",
+          visible: ["admin", "master"],
+          tooltip: "장비관리",
         },
       ],
     },

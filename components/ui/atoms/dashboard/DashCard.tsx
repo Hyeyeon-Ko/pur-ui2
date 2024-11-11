@@ -1,6 +1,5 @@
 import React from "react";
 import { IconType } from "react-icons";
-import Toast, { ToastType } from "@/components/commons/Toast";
 import { useRouter } from "next/navigation";
 
 interface DashCardProps {
@@ -19,12 +18,7 @@ const DashCard: React.FC<DashCardProps> = ({
   const router = useRouter();
 
   const handleClick = (event: React.MouseEvent) => {
-    if (label === "장비관리") {
-      event.preventDefault();
-      Toast.notify("해당 페이지는 준비중 입니다!", ToastType.INFO);
-    } else {
-      router.push(href);
-    }
+    router.push(href);
   };
 
   return (
