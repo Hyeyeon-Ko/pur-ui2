@@ -16,7 +16,16 @@ const useFormatHandler = () => {
   };
 
   const formatCurrency = (amount: string | number) => {
-    return amount.toLocaleString("ko-KR", {
+    // 입력값을 숫자로 변환
+    const validAmount = Number(amount);
+
+    // 숫자로 변환한 값이 유효한지 확인
+    if (isNaN(validAmount)) {
+      return "유효하지 않은 금액";
+    }
+
+    // 유효한 숫자일 경우 원화 형식으로 포맷팅
+    return validAmount.toLocaleString("ko-KR", {
       style: "currency",
       currency: "KRW",
     });
