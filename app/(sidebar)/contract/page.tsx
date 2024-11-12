@@ -2,7 +2,6 @@
 
 import Table from "@/components/ui/organism/table/Table";
 import React, { useState, useCallback } from "react";
-import { contractSearchFields } from "@/lib/data";
 import useFormatHandler from "@/hooks/useFormatHandler";
 import SearchFilter from "@/components/ui/organism/filter/SearchFilter";
 import PageTitle from "@/components/ui/molecules/titles/PageTitle";
@@ -10,6 +9,7 @@ import TableButton from "@/components/ui/molecules/buttons/TableButton";
 import useFileDownload from "@/hooks/useFileDownload";
 import { contractData, fieldLabels } from "@/lib/contractDatas";
 import { contractDataType } from "@/types/contractTypes";
+import { contractSearchFields } from "@/lib/searchDatas";
 
 const MenuPage = () => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);

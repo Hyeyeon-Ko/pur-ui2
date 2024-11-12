@@ -1,8 +1,8 @@
 import React from "react";
 import SelectBox from "../../atoms/selectBox/Select";
-import { categoryData } from "@/lib/optionDatas";
 import { useDarkMode } from "@/context/DarkModeContext";
 import colors from "@/styles/colors";
+import { categoryData } from "@/lib/categoryDatas";
 
 interface CategorySelectProps {
   majorCategory: boolean;

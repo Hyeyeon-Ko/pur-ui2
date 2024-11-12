@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import { smallFields } from "@/lib/data";
 import { CategoryVisibilityProvider } from "@/context/CategoryVisibilityContext";
 import CategoryPage from "@/components/ui/templates/CategoryPage";
+import { smallFields } from "@/lib/categoryDatas";
 
 const SmallPage = () => {
   const endpoint = "/api/save-middle";

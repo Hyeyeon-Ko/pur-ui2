@@ -7,8 +7,8 @@ import SearchFilter from "@/components/ui/organism/filter/SearchFilter";
 import PageTitle from "@/components/ui/molecules/titles/PageTitle";
 import TableButton from "@/components/ui/molecules/buttons/TableButton";
 import useFileDownload from "@/hooks/useFileDownload";
-import { tenderSearchFields } from "@/lib/data";
 import { bidData, fieldLabels } from "@/lib/bidDatas";
+import { tenderSearchFields } from "@/lib/searchDatas";
 
 const MenuPage = () => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
