@@ -171,3 +171,133 @@ export const contractListLabels: { [key in keyof contractDataType]: string } = {
   contractUnitPrice: "계약단가",
   contractAmount: "계약금액",
 };
+
+//
+export const contractDetailLabel = {
+  centerName: "센터명",
+  contractNumber: "계약번호",
+  contractType: "계약구분",
+  contractName: "계약명",
+  contractDate: "계약일자",
+  contractStartDate: "계약시작일",
+  contractEndDate: "계약완료일",
+  sn: "S/N",
+  supplier: "공급사",
+  contractPrice: "계약가격",
+  contractProposal: "계약품의",
+  contractDocument: "계약서",
+  contractGuarantee: "계약보증금",
+  defectsGuarantee: "하자이행보증금",
+  contractOther: "계약기타사항",
+};
+
+export const contractDetailData = [
+  {
+    id: 0,
+    title: contractDetailLabel["centerName"], // "센터명"
+    type: "chip",
+    contents: [
+      "전국",
+      "재단",
+      "본원",
+      "광화문",
+      "여의도",
+      "강남",
+      "수원",
+      "대구",
+      "부산",
+      "광주",
+      "제주",
+    ],
+  },
+  {
+    id: 1,
+    title: contractDetailLabel["contractNumber"], // "계약번호"
+    type: "input",
+    contents: "",
+  },
+  {
+    id: 2,
+    title: contractDetailLabel["contractType"], // "계약구분"
+    type: "radio",
+    options: [
+      { value: "최초계약", label: "최초계약" },
+      { value: "연장계약", label: "연장계약" },
+      { value: "변경계약", label: "변경계약" },
+    ],
+    contents: "",
+    selected: "",
+  },
+  {
+    id: 3,
+    title: contractDetailLabel["contractName"], // "계약명"
+    type: "input",
+    contents: "",
+  },
+  {
+    id: 4,
+    title: contractDetailLabel["contractDate"], // "계약일자"
+    type: "datepicker",
+    contents: "2024-10-10",
+  },
+  {
+    id: 5,
+    title: contractDetailLabel["contractStartDate"], // "계약시작일"
+    type: "datepicker",
+    contents: "2024-10-10",
+  },
+  {
+    id: 6,
+    title: contractDetailLabel["contractEndDate"], // "계약완료일"
+    type: "datepicker",
+    contents: "2024-10-10",
+  },
+  {
+    id: 7,
+    title: contractDetailLabel["sn"], // "S/N"
+    type: "datepicker",
+    contents: "2024-10-10",
+  },
+  {
+    id: 8,
+    title: contractDetailLabel["supplier"], // "공급사"
+    type: "input",
+    contents: "",
+  },
+  {
+    id: 9,
+    title: contractDetailLabel["contractPrice"], // "계약가격"
+    type: "input",
+    contents: "",
+  },
+  {
+    id: 10,
+    title: contractDetailLabel["contractProposal"], // "계약품의"
+    type: "upload",
+    contents: null,
+  },
+  {
+    id: 11,
+    title: contractDetailLabel["contractDocument"], // "계약서"
+    type: "upload",
+    contents: null,
+  },
+  {
+    id: 12,
+    title: contractDetailLabel["contractGuarantee"], // "계약보증금"
+    type: "upload-message",
+    contents: null,
+  },
+  {
+    id: 13,
+    title: contractDetailLabel["defectsGuarantee"], // "하자이행보증금"
+    type: "upload-message",
+    contents: null,
+  },
+  {
+    id: 14,
+    title: contractDetailLabel["contractOther"], // "계약기타사항"
+    type: "textarea",
+    contents: null,
+  },
+];
