@@ -108,9 +108,9 @@ const Dashboard = () => {
 
   return (
     <div className="flex flex-col">
-      <div className="flex w-[90%] p-10 mx-auto items-center">
+      {/* <div className="flex w-[90%] p-10 mx-auto items-center">
         {user && <Greeting user={user} />}
-      </div>
+      </div> */}
 
       <div className="grid grid-cols-5 gap-4 w-[90%] p-5 mx-auto">
         {cardData.map((card, index) => (

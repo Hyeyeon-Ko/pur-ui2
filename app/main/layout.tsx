@@ -17,10 +17,12 @@ export default function MainLayout({
       }`}
     >
       <div className="flex flex-col flex-1">
-        {/* 네비게이션 바 */}
-        <Navbar /> {/* isDarkMode는 Navbar에서 사용할 수 있음 */}
-        {/* 컨텐츠 영역 */}
-        <div className="flex-1 overflow-auto flex flex-col mb-4">
+        <div className="mx-28 my-6 border border-none rounded-xl shadow-md bg-Table_header dark:bg-Grey_Background">
+          {/* 네비게이션 바 */}
+          <Navbar /> {/* isDarkMode는 Navbar에서 사용할 수 있음 */}
+          {/* 컨텐츠 영역 */}
+        </div>
+        <div className="flex-1 overflow-auto flex flex-col my-4">
           {children}
         </div>
       </div>
