@@ -2,10 +2,31 @@
 
 <br/>
 
+## 프로젝트 설명
+
+- NEXT JS (App route)
+- TypeScript
+- Tailwind CSS
+- Atomic Design Pattern
+
 ## 프로젝트 실행 방법
 
 ```
-npm i
+git clone http://101.10.1.100/mis/pur-ui.git
+```
+
+or
+
+```
+git init
+git config --global user.name "깃랩 name"
+git config --global user.email "깃랩 email"
+git remote add origin http://101.10.1.100/mis/pur-ui.git
+git branch -M main
+```
+
+```
+npm install
 ```
 
 ```
@@ -29,10 +50,6 @@ npm run dev
 - organism (molecule + molecule + ...)
 - template (organism + organism + ...)
 - pages (template + template + ...)
-
-### 프로젝트 설명
-
-> NextJS, TypeScript, Tailwind
 
 ### 프로젝트 생성
 
