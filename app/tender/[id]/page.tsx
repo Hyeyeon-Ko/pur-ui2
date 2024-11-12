@@ -8,17 +8,14 @@ import useFormatHandler from "@/hooks/useFormatHandler";
 import ThemeToggle from "@/components/ui/molecules/buttons/ThemeToggle";
 import TableButton from "@/components/ui/molecules/buttons/TableButton";
 import FileUploadButton from "@/components/ui/molecules/buttons/FileUploadButton";
-import {
-  columns,
-  tenderVertical,
-  data,
-  tenderVerticalResult,
-} from "@/lib/data";
+import { tenderVertical, tenderVerticalResult } from "@/lib/data";
 import Toast from "@/components/commons/Toast";
 import useFileDownload from "@/hooks/useFileDownload";
 import useFileUpload from "@/hooks/useFileUpload";
 import useFormDownload from "@/hooks/useFormDownload";
 import useChipHandler from "@/hooks/useChipHandler";
+import { bidListData, bidListFieldLabel, fieldLabels } from "@/lib/bidDatas";
+import { bidListDataType } from "@/types/bidTypes";
 
 const TenderDetail: React.FC = () => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
@@ -29,18 +26,27 @@ const TenderDetail: React.FC = () => {
   const { handleFormDown } = useFormDownload();
   const { checkedItems, handleChipClick } = useChipHandler();
 
-  const [formattedData, setFormattedData] = useState(
-    data.map((item) => ({
-      ...item,
-      센터: formatCenterData(item.센터) || "-",
-      공고일: formatDate(item.공고일),
-      마감일: formatDate(item.마감일),
-      응찰일: formatDate(item.응찰일),
-      낙찰기준가: formatCurrency(item.낙찰기준가),
-      낙찰금액: formatCurrency(item.낙찰금액),
-      누리장터: item.누리장터 || "-",
-    }))
-  );
+  const formattedData: bidListDataType[] = bidListData.map((item) => ({
+    ...item,
+    센터명: formatCenterData(item.centerName) || "-",
+    낙찰기준단가: formatCurrency(item.bidBaseUnitPrice),
+    낙찰기준가격: formatCurrency(item.bidBasePrice),
+    ERP코드: item.erpCode,
+    ERP품목명: item.erpItemName,
+    계정구분: item.accountType,
+    모델명: item.modelName,
+    규격: item.standard,
+    제조사: item.manufacturer,
+    수량: item.quantity,
+  }));
+
+  const bidColumns = Object.keys(bidListFieldLabel)
+    .filter((field) => field !== "id") // "id"를 제외
+    .map((field) => ({
+      title: bidListFieldLabel[field as keyof typeof bidListFieldLabel],
+      dataIndex: field,
+      key: field,
+    }));
 
   const handleRowSelect = useCallback((selectedRowIds: string[]) => {
     const uniqueSelectedRows = Array.from(new Set(selectedRowIds));
@@ -149,7 +155,7 @@ const TenderDetail: React.FC = () => {
         </div>
         <Table
           data={formattedData}
-          columns={columns}
+          columns={bidColumns}
           onRowSelect={handleRowSelect}
           showCheckbox={false}
           showHeader={true}

@@ -12,12 +12,9 @@ import useFileDownload from "@/hooks/useFileDownload";
 import useFileUpload from "@/hooks/useFileUpload";
 import useFormatHandler from "@/hooks/useFormatHandler";
 import useFormDownload from "@/hooks/useFormDownload";
-import {
-  contractListColumns,
-  contractListData,
-  contractVertical,
-} from "@/lib/data";
+import { contractVertical } from "@/lib/data";
 import React, { useCallback, useState } from "react";
+import { contractListData, contractListLabels } from "@/lib/contractDatas";
 
 interface TenderDetailProps {
   params: {
@@ -34,30 +31,43 @@ const TenderDetail: React.FC<TenderDetailProps> = () => {
   const { formatCenterData, formatCurrency } = useFormatHandler();
   const { checkedItems, handleChipClick } = useChipHandler();
 
-  const [formattedData, setFormattedData] = useState(
-    contractListData.map((item) => ({
-      ...item,
-      센터: formatCenterData(item.센터) || "-",
-      낙찰기준가: formatCurrency(item.낙찰기준가),
-      계약단가: formatCurrency(item.계약단가),
-      계약금액: formatCurrency(item.계약금액),
-    }))
+  const formattedData: { [key: string]: string }[] = contractListData.map(
+    (item) => ({
+      센터: formatCenterData(item.centerName) || "-",
+      낙찰기준가: formatCurrency(item.baseBidPrice),
+      계약단가: formatCurrency(item.contractUnitPrice),
+      계약금액: formatCurrency(item.contractAmount),
+      ERP코드: item.erpCode || "-",
+      ERP품목: item.erpItem || "-",
+      입찰번호: item.bidNumber || "-",
+      계약번호: item.contractNumber || "-",
+      계약종류: item.contractType || "-",
+      계정구분: item.accountCategory || "-",
+      모델명: item.modelName || "-",
+      규격: item.standard || "-",
+      제조사: item.manufacturer || "-",
+      공급사: item.supplier || "-",
+      수량: item.quantity || "-",
+    })
   );
+
+  const contractColumns = Object.keys(contractListLabels)
+    .filter((field) => field !== "id")
+    .map((field) => ({
+      title: contractListLabels[field as keyof typeof contractListLabels],
+      dataIndex: field,
+      key: field,
+    }));
 
   const handleRowSelect = useCallback((selectedRowIds: string[]) => {
     const uniqueSelectedRows = Array.from(new Set(selectedRowIds));
-
     setSelectedRows(uniqueSelectedRows);
   }, []);
 
-  /** 전체내역 다운로드
-   * TODO: endpoint
-   */
   const handleDownloadAll = () => {
     downloadFile("/api/endpoint", "계약내역(전체).csv");
   };
 
-  /** TODO: 저장버튼에 대한 임시 이벤트 추후에 엔드포인트 수정 필요*/
   const handleSave = async () => {
     try {
       const response = await fetch("/api/saveContractData", {
@@ -75,7 +85,6 @@ const TenderDetail: React.FC<TenderDetailProps> = () => {
     }
   };
 
-  /** TODO: 수정버튼에 대한 임시 이벤트 추후에 엔드포인트 수정 필요*/
   const handleModify = async () => {
     try {
       const response = await fetch("/api/modifyContractData", {
@@ -93,16 +102,12 @@ const TenderDetail: React.FC<TenderDetailProps> = () => {
     }
   };
 
-  /**TODO: 서버에 저장된 파일을 불러올 예정, 엔드포인트 수정 필요 */
   const handleFormDownload = async () => {
     const endpoint = "/api/download-form-template";
     const fileName = "계약양식.csv";
     handleFormDown(endpoint, fileName);
   };
 
-  /** TODO: 엔드포인트 수정
-   * 파일업로드 버튼 로직
-   */
   const handleUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const endpoint = "/api/upload";
     handleFileUpload(event, endpoint);
@@ -146,7 +151,7 @@ const TenderDetail: React.FC<TenderDetailProps> = () => {
         </div>
         <Table
           data={formattedData}
-          columns={contractListColumns}
+          columns={contractColumns}
           onRowSelect={handleRowSelect}
           showCheckbox={false}
           showHeader={true}
