@@ -8,19 +8,24 @@ import useFormatHandler from "@/hooks/useFormatHandler";
 import ThemeToggle from "@/components/ui/molecules/buttons/ThemeToggle";
 import TableButton from "@/components/ui/molecules/buttons/TableButton";
 import FileUploadButton from "@/components/ui/molecules/buttons/FileUploadButton";
-import { tenderVertical, tenderVerticalResult } from "@/lib/data";
+// import { tenderVerticalResult } from "@/lib/data";
 import Toast from "@/components/commons/Toast";
 import useFileDownload from "@/hooks/useFileDownload";
 import useFileUpload from "@/hooks/useFileUpload";
 import useFormDownload from "@/hooks/useFormDownload";
 import useChipHandler from "@/hooks/useChipHandler";
-import { bidListData, bidListFieldLabel, fieldLabels } from "@/lib/bidDatas";
+import {
+  bidDetailData,
+  bidListData,
+  bidListFieldLabel,
+  bidResultData,
+} from "@/lib/bidDatas";
 import { bidListDataType } from "@/types/bidTypes";
 
 const TenderDetail: React.FC = () => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
 
-  const { formatCenterData, formatDate, formatCurrency } = useFormatHandler();
+  const { formatCenterData, formatCurrency } = useFormatHandler();
   const { downloadFile } = useFileDownload();
   const { handleFileUpload } = useFileUpload();
   const { handleFormDown } = useFormDownload();
@@ -132,7 +137,7 @@ const TenderDetail: React.FC = () => {
         onModify={handleModify}
       />
       <VerticalTable
-        data={tenderVertical}
+        data={bidDetailData}
         onChipClick={handleChipClick}
         checkedItems={checkedItems}
         showHeader={true}
@@ -164,7 +169,7 @@ const TenderDetail: React.FC = () => {
       </div>
       <div className="pb-20">
         <VerticalTable
-          data={tenderVerticalResult}
+          data={bidResultData}
           showHeader={true}
           headerTitle="입찰결과"
         />

@@ -3,17 +3,16 @@
 import React, { useState } from "react";
 import { tenderAddOptions } from "@/lib/optionDatas";
 import AddCommonForm from "@/components/ui/templates/AddCommonForm";
-import { tenderVertical as initialTenderVertical } from "@/lib/data";
 import useSaveData from "@/hooks/useSaveData";
 import useTenderSearch from "@/hooks/useTenderSearch";
+import { bidDetailData as initialBidDetailData } from "@/lib/bidDatas";
 
 const AddItemPage = () => {
   const [checkedItems, setCheckedItems] = useState<{ [key: string]: boolean }>(
     {}
   );
-  const [tenderVertical, setTenderVertical] = useState<any[]>(
-    initialTenderVertical
-  );
+  const [bidDetailData, setBidDetailData] =
+    useState<any[]>(initialBidDetailData);
   const { saveData } = useSaveData();
   const { tenderSearch } = useTenderSearch();
 
@@ -26,7 +25,7 @@ const AddItemPage = () => {
     const data = await tenderSearch(bidNumber, endpoint);
 
     if (data) {
-      setTenderVertical(data);
+      setBidDetailData(data);
       console.log("조회된 데이터:", data);
     }
   };
@@ -36,7 +35,7 @@ const AddItemPage = () => {
    */
   const handleSave = async () => {
     const endpoint = "/api/save-vertical-data";
-    await saveData(checkedItems, tenderVertical, endpoint);
+    await saveData(checkedItems, bidDetailData, endpoint);
   };
 
   return (
@@ -45,7 +44,7 @@ const AddItemPage = () => {
       options={tenderAddOptions}
       initialSelected="announce"
       searchOptionValue="re-announce"
-      verticalData={tenderVertical}
+      verticalData={bidDetailData}
       onSearch={handleSearch}
       onSave={handleSave}
     />

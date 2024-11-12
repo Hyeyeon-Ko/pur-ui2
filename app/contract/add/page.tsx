@@ -1,11 +1,11 @@
 "use client";
 
-import { contractVertical as initialContractVertical } from "@/lib/data";
 import React, { useState } from "react";
 import { contractAddOptions } from "@/lib/optionDatas";
 import AddCommonForm from "@/components/ui/templates/AddCommonForm";
 import useSaveData from "@/hooks/useSaveData";
 import useTenderSearch from "@/hooks/useTenderSearch";
+import { contractDetailData as initialContractDetailData } from "@/lib/contractDatas";
 
 interface TenderDetailProps {
   params: {
@@ -17,8 +17,8 @@ const ContractAddPage: React.FC<TenderDetailProps> = () => {
   const [checkedItems, setCheckedItems] = useState<{ [key: string]: boolean }>(
     {}
   );
-  const [contractVertical, setContractVertical] = useState<any[]>(
-    initialContractVertical
+  const [contractDetailData, setContractDetailData] = useState<any[]>(
+    initialContractDetailData
   );
   const { saveData } = useSaveData();
   const { tenderSearch } = useTenderSearch();
@@ -33,7 +33,7 @@ const ContractAddPage: React.FC<TenderDetailProps> = () => {
     const data = await tenderSearch(bidNumber, endpoint);
 
     if (data) {
-      setContractVertical(data);
+      setContractDetailData(data);
       console.log("조회된 데이터:", data);
     }
   };
@@ -44,7 +44,7 @@ const ContractAddPage: React.FC<TenderDetailProps> = () => {
    */
   const handleSave = async () => {
     const endpoint = "/api/save-vertical-data";
-    await saveData(checkedItems, contractVertical, endpoint);
+    await saveData(checkedItems, contractDetailData, endpoint);
   };
 
   return (
@@ -53,7 +53,7 @@ const ContractAddPage: React.FC<TenderDetailProps> = () => {
       options={contractAddOptions}
       initialSelected="sole"
       searchOptionValue="contract"
-      verticalData={contractVertical}
+      verticalData={contractDetailData}
       onSearch={handleSearch}
       onSave={handleSave}
     />

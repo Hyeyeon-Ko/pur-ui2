@@ -12,9 +12,12 @@ import useFileDownload from "@/hooks/useFileDownload";
 import useFileUpload from "@/hooks/useFileUpload";
 import useFormatHandler from "@/hooks/useFormatHandler";
 import useFormDownload from "@/hooks/useFormDownload";
-import { contractVertical } from "@/lib/data";
 import React, { useCallback, useState } from "react";
-import { contractListData, contractListLabels } from "@/lib/contractDatas";
+import {
+  contractDetailData,
+  contractListData,
+  contractListLabels,
+} from "@/lib/contractDatas";
 
 interface TenderDetailProps {
   params: {
@@ -128,7 +131,7 @@ const TenderDetail: React.FC<TenderDetailProps> = () => {
         onModify={handleModify}
       />
       <VerticalTable
-        data={contractVertical}
+        data={contractDetailData}
         onChipClick={handleChipClick}
         checkedItems={checkedItems}
         showHeader={true}
