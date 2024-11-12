@@ -1,6 +1,7 @@
 import { RepairRow } from "@/types/equipTypes";
 
-export const equipData = [
+/** row 데이터 */
+export const equipData: RepairRow[] = [
   {
     centerName: "서울센터",
     type: "정기점검",
@@ -37,6 +38,7 @@ export const equipData = [
   },
 ];
 
+/** column 명 */
 export const fields = [
   "centerName",
   "type",
@@ -53,6 +55,7 @@ export const fields = [
   "notes",
 ];
 
+/** column 타입(데이터 형태) */
 export const fieldType: {
   [key in keyof RepairRow]: "input" | "select" | "datepicker";
 } = {
@@ -71,6 +74,7 @@ export const fieldType: {
   notes: "input",
 };
 
+/** column 한글라벨명 맵핑 */
 export const fieldLabel: { [key in keyof RepairRow]: string } = {
   centerName: "센터명",
   type: "유형",
@@ -87,6 +91,7 @@ export const fieldLabel: { [key in keyof RepairRow]: string } = {
   notes: "비고",
 };
 
+/** 셀렉트 박스 옵션 */
 export const equipTypeOption = [
   { value: "정기점검", label: "정기점검" },
   { value: "긴급점검", label: "긴급점검" },
