@@ -25,7 +25,7 @@ interface VerticalRenderProps {
   announcementDate?: Date | null; // 공고일
   deadlineDate?: Date | null; // 마감일
   selectedCenters?: string[]; // 선택된 센터 배열
-  setSelectedCenters?: React.Dispatch<React.SetStateAction<string[]>>; // 선택된 센터 배열 업데이트 함수
+  setSelectedCenters?: React.Dispatch<React.SetStateAction<string[]>>; 
 }
 
 const VerticalRender: React.FC<VerticalRenderProps> = ({
@@ -57,7 +57,6 @@ const VerticalRender: React.FC<VerticalRenderProps> = ({
 
   const handleFileUpload = (id: number, file: File) => {
     setUploadedFiles((prev) => ({ ...prev, [id]: file }));
-    console.log("File uploaded:", file.name);
   };
 
   const handleReasonChange = (id: number, value: string) => {
@@ -84,6 +83,7 @@ const VerticalRender: React.FC<VerticalRenderProps> = ({
     setIsNotSubmitted((prev) => ({ ...prev, [row.id]: false }));
   }
 
+  // 각 타입별로 컴포넌트 렌더링하는 함수들
   const renderTextArea = () => <TextArea placeholder={row.title} rows={4} />;
 
   const renderInput = () => (
@@ -245,26 +245,31 @@ const VerticalRender: React.FC<VerticalRenderProps> = ({
     </div>
   );
 
-  switch (row.type) {
-    case "input":
-      return renderInput();
-    case "select":
-      return renderSelect();
-    case "chip":
-      return renderChip();
-    case "datepicker":
-      return renderDatePicker();
-    case "radio":
-      return renderRadio();
-    case "upload":
-      return renderUpload();
-    case "upload-message":
-      return renderUploadMessage();
-    case "textarea":
-      return renderTextArea();
-    default:
-      return row.component || null;
-  }
+  // 렌더링 함수 호출
+  const renderComponent = () => {
+    switch (row.type) {
+      case "input":
+        return renderInput();
+      case "select":
+        return renderSelect();
+      case "chip":
+        return renderChip();
+      case "datepicker":
+        return renderDatePicker();
+      case "radio":
+        return renderRadio();
+      case "upload":
+        return renderUpload();
+      case "upload-message":
+        return renderUploadMessage();
+      case "textarea":
+        return renderTextArea();
+      default:
+        return row.component || null;
+    }
+  };
+
+  return <div>{renderComponent()}</div>;
 };
 
 export default VerticalRender;
