@@ -107,7 +107,7 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col ">
       {/* <div className="flex w-[90%] p-10 mx-auto items-center">
         {user && <Greeting user={user} />}
       </div> */}
