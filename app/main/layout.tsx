@@ -17,7 +17,7 @@ export default function MainLayout({
       }`}
     >
       <div className="flex flex-col flex-1">
-        <div className="mx-28 my-6 border border-none rounded-xl shadow-md  dark:bg-Grey_Background">
+        <div className="mx-28 my-6 border border-none rounded-xl shadow-md bg-white dark:bg-Grey_Background">
           {/* 네비게이션 바 */}
           <Navbar /> {/* isDarkMode는 Navbar에서 사용할 수 있음 */}
           {/* 컨텐츠 영역 */}

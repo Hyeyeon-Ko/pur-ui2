@@ -18,7 +18,7 @@ const DashboardSection: React.FC<DashboardSectionProps> = ({
   const { isDarkMode } = useDarkMode();
 
   return (
-    <div className="dark:bg-Grey_Background flex flex-col gap-5 w-[88%] p-5 mx-auto my-12 rounded-2xl shadow-lg">
+    <div className="dark:bg-Grey_Background bg-white flex flex-col gap-5 w-[88%] p-5 mx-auto my-12 rounded-2xl shadow-lg">
       <div className="flex gap-2 items-center">
         {Icon && <Icon className="text-2xl" />}
         <Label
