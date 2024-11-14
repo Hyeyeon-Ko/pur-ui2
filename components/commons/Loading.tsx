@@ -12,6 +12,7 @@ const Loading = () => {
           alt="로딩중"
           width="180"
           height="180"
+          unoptimized
         />
       </div>
     </div>
