@@ -1,7 +1,12 @@
 "use client";
 
-import Navbar from "@/components/layouts/Navbar";
+import dynamic from "next/dynamic";
+// import Navbar from "@/components/layouts/Navbar";
 import { useDarkMode } from "@/context/DarkModeContext";
+
+const Navbar = dynamic(() => import("@/components/layouts/Navbar"), {
+  ssr: false, // 서버 사이드 렌더링을 비활성화합니다
+});
 
 export default function MainLayout({
   children,
