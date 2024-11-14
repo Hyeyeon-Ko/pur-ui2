@@ -2,14 +2,12 @@
 
 import React, { useEffect, useState } from "react";
 import { FaUserClock } from "react-icons/fa";
-import DashCard from "@/components/ui/atoms/dashboard/DashCard";
-import ListItem from "@/components/ui/molecules/dashboard/ListItem";
 import { getLocal } from "@/utils/localStorage";
-import DashboardSection from "@/components/ui/organism/dashboard/DashboardSection";
 import { MdCalculate } from "react-icons/md";
 import { FaFileContract, FaFileDownload } from "react-icons/fa";
 import { RiCheckboxMultipleLine } from "react-icons/ri";
 import { FiTool } from "react-icons/fi";
+import { DashCard, DashboardSection, ListItem } from '@/components/dynamicImport';
 
 const Dashboard = () => {
   const [user, setUser] = useState(null);
