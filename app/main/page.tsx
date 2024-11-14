@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from "react";
 import { FaUserClock } from "react-icons/fa";
 import DashCard from "@/components/ui/atoms/dashboard/DashCard";
-import Greeting from "@/components/ui/atoms/dashboard/Greeting";
 import ListItem from "@/components/ui/molecules/dashboard/ListItem";
 import { getLocal } from "@/utils/localStorage";
 import DashboardSection from "@/components/ui/organism/dashboard/DashboardSection";
