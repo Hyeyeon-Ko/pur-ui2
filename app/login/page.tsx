@@ -1,11 +1,11 @@
-"use client";
+import dynamic from "next/dynamic";
 
-import LoginForm from "@/components/ui/templates/LoginForm";
+const LoginBody = dynamic(() => import("./page.body"));
 
 const LoginPage = () => {
   return (
     <>
-      <LoginForm />
+      <LoginBody />
     </>
   );
 };

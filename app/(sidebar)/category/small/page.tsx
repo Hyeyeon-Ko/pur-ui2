@@ -1,23 +1,8 @@
-"use client";
-
-import React from "react";
-import { CategoryVisibilityProvider } from "@/context/CategoryVisibilityContext";
-import CategoryPage from "@/components/ui/templates/CategoryPage";
-import { smallFields } from "@/lib/categoryDatas";
+import dynamic from "next/dynamic";
+const SmallBody = dynamic(() => import("./page.body"));
 
 const SmallPage = () => {
-  const endpoint = "/api/save-middle";
-
-  return (
-    <CategoryVisibilityProvider majorCategory={true} middleCategory={true}>
-      <CategoryPage
-        title="소분류"
-        headerTitle="소분류 코드관리"
-        fields={smallFields}
-        endpoint={endpoint}
-      />
-    </CategoryVisibilityProvider>
-  );
+  return <SmallBody />;
 };
 
 export default SmallPage;

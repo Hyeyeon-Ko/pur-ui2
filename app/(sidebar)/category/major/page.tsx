@@ -1,23 +1,9 @@
-"use client";
+import dynamic from "next/dynamic";
 
-import React from "react";
-import { CategoryVisibilityProvider } from "@/context/CategoryVisibilityContext";
-import CategoryPage from "@/components/ui/templates/CategoryPage";
-import { majorFields } from "@/lib/categoryDatas";
+const LargeBody = dynamic(() => import("./page.body"));
 
 const LargePage = () => {
-  const endpoint = "/api/save-major";
-
-  return (
-    <CategoryVisibilityProvider majorCategory={false} middleCategory={false}>
-      <CategoryPage
-        title="대분류"
-        headerTitle="대분류 코드관리"
-        fields={majorFields}
-        endpoint={endpoint}
-      />
-    </CategoryVisibilityProvider>
-  );
+  return <LargeBody />;
 };
 
 export default LargePage;

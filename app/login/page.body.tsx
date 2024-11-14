@@ -1,13 +1,14 @@
 import colors from "@/styles/colors";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-import Label from "../atoms/label/Label";
-import LabelInput from "../molecules/inputs/LabelInput";
-import Button from "../atoms/button/Button";
+
 import Toast, { ToastType } from "@/components/commons/Toast";
 import { useDarkMode } from "@/context/DarkModeContext";
+import Label from "@/components/ui/atoms/label/Label";
+import LabelInput from "@/components/ui/molecules/inputs/LabelInput";
+import Button from "@/components/ui/atoms/button/Button";
 
-const LoginForm = () => {
+const LoginBody = () => {
   const [employeeId, setEmployeeId] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
@@ -122,4 +123,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default LoginBody;
