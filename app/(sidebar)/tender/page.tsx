@@ -10,7 +10,7 @@ import useFileDownload from "@/hooks/useFileDownload";
 import { bidData, fieldLabels } from "@/lib/bidDatas";
 import { tenderSearchFields } from "@/lib/searchDatas";
 
-const MenuPage = () => {
+const TenderPage = () => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
   const [sorter, setSorter] = useState<{
     field: string;
@@ -103,4 +103,4 @@ const MenuPage = () => {
   );
 };
 
-export default MenuPage;
+export default TenderPage;
