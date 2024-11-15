@@ -1,5 +1,6 @@
-import dynamic from "next/dynamic";
+"use client";
 
+import dynamic from "next/dynamic";
 const LoginBody = dynamic(() => import("./page.body"));
 
 const LoginPage = () => {
