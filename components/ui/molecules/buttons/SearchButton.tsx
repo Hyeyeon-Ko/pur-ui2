@@ -13,7 +13,6 @@ const SearchButton: React.FC<SearchButtonProps> = ({ onSearch, onReset }) => {
         <Button mode="sm" color="signature" onClick={onSearch} content="조회" />
         <Button
           mode="sm"
-          variant="outline"
           color="Button_Default"
           content="초기화"
           onClick={onReset}
