@@ -255,8 +255,8 @@ export const contractDetailData = [
   {
     id: 7,
     title: contractDetailLabel["sn"], // "S/N"
-    type: "datepicker",
-    contents: "2024-10-10",
+    type: "input",
+    contents: "",
   },
   {
     id: 8,
