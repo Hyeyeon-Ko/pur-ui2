@@ -19,7 +19,8 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
   }>(
     fieldsConfig.reduce((acc, field) => {
       if (field.type === "date") {
-        acc[field.name] = new Date(); // 오늘 날짜
+        // acc[field.name] = new Date(); // 오늘 날짜
+        acc[field.name] = undefined; // 오늘 날짜
       } else {
         acc[field.name] = "";
       }
