@@ -157,9 +157,10 @@ const EquipmentPage = () => {
                 : Object.keys(row).map((field: keyof RepairRow) =>
                     field !== "isNew" && field !== "isSelected" ? (
                       <td key={field} className="border-b-Grey_Darken_4">
-                        {typeof row[field] === "object" &&
-                        row[field] instanceof Date
-                          ? row[field].toLocaleDateString()
+                        {field === "repairDate"
+                          ? row[field]
+                            ? new Date(row[field]).toLocaleDateString()
+                            : "N/A"
                           : row[field]}
                       </td>
                     ) : null
