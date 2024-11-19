@@ -52,8 +52,8 @@ const LoginBody = () => {
 
   return (
     <div
-      style={{ backgroundColor: colors.signature }}
-      className="flex items-center justify-center h-screen shadow-lg"
+    // style={{ backgroundColor: colors.signature }}
+    // className="flex items-center justify-center h-screen shadow-lg"
     >
       {/* <form
         onSubmit={handleSubmit}
