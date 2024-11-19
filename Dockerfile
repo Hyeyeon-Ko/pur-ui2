@@ -19,6 +19,7 @@ RUN npm install --production
 
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
+COPY --from=builder /app/public ./public
 
 # 포트를 3030으로 설정
 ENV PORT=3030
