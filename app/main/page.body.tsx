@@ -111,7 +111,7 @@ const DashboardBody = () => {
         {user && <Greeting user={user} />}
       </div> */}
 
-      <div className="grid grid-cols-5 gap-4 w-[90%] p-5 mx-auto">
+      {/* <div className="grid grid-cols-5 gap-4 w-[90%] p-5 mx-auto">
         {cardData.map((card, index) => (
           <DashCard
             key={index}
@@ -121,7 +121,7 @@ const DashboardBody = () => {
             bgColor={card.bgColor}
           />
         ))}
-      </div>
+      </div> */}
 
       {/* <DashboardSection icon={FaUserClock} title="유효 계약 건수">
         {deadlineItems.map((item, index) => (
