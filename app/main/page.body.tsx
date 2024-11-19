@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 
 import React, { useEffect, useState } from "react";
 import { FaUserClock } from "react-icons/fa";
@@ -12,7 +12,7 @@ import { RiCheckboxMultipleLine } from "react-icons/ri";
 import { FiTool } from "react-icons/fi";
 
 const DashboardBody = () => {
-  const [user, setUser] = useState(null);
+  // const [user, setUser] = useState(null);
 
   // useEffect(() => {
   //   const storedUser = getLocal("user");
