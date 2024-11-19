@@ -8,7 +8,8 @@ RUN npm install
 COPY . .
 
 # next build를 standalone 모드로 생성
-RUN npm run build
+# RUN npm run build
+RUN NEXT_DEBUG=true npm run build
 
 # Step 2: Production Stage
 FROM node:18.17.0-alpine
