@@ -16,7 +16,12 @@ const DashboardBody = () => {
 
   useEffect(() => {
     const storedUser = getLocal("user");
-    const userData = storedUser ? JSON.parse(storedUser) : null;
+    let userData = null;
+  
+    if (storedUser) {
+      userData = storedUser; 
+    }
+  
     setUser(userData);
   }, []);
 
