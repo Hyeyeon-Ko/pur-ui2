@@ -30,7 +30,7 @@ const Navbar: React.FC = () => {
   }
 
   return (
-    <nav className="p-4 mx-8 flex justify-end items-center">
+    <nav className="p-4 mx-8 flex gap-4 justify-end items-center">
       {user ? (
         <div className="flex gap-4 items-center">
           <Label
@@ -48,9 +48,11 @@ const Navbar: React.FC = () => {
               customStyle={{
                 borderRadius: "25px",
                 display: "flex",
-                gap: "4px",
+                justifyContent: "center",
+                gap: "12px",
                 alignItems: "center",
-                marginRight: "12px",
+                padding: "12px 20px",
+                minWidth: "120px",
               }}
             >
               <span>로그아웃</span>
@@ -66,8 +68,11 @@ const Navbar: React.FC = () => {
             customStyle={{
               borderRadius: "25px",
               display: "flex",
-              gap: "4px",
+              justifyContent: "center",
+              gap: "12px",
               alignItems: "center",
+              padding: "12px 20px",
+              minWidth: "120px",
             }}
           >
             <span>로그인</span>
@@ -75,20 +80,13 @@ const Navbar: React.FC = () => {
           </Button>
         </Link>
       )}
-
-      {isDarkMode ? (
-        <MdOutlineWbSunny
-          size={24}
-          style={{ color: colors.warning }}
-          onClick={toggleDarkMode}
-        />
-      ) : (
-        <FaMoon
-          size={24}
-          style={{ color: colors.Button_Default }}
-          onClick={toggleDarkMode}
-        />
-      )}
+      <div className="cursor-pointer" onClick={toggleDarkMode}>
+        {isDarkMode ? (
+          <MdOutlineWbSunny size={28} style={{ color: colors.warning }} />
+        ) : (
+          <FaMoon size={28} style={{ color: colors.Button_Default }} />
+        )}
+      </div>
     </nav>
   );
 };

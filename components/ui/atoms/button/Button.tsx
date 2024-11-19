@@ -56,7 +56,7 @@ const Button: React.FC<ButtonProps> = ({
     ? color
       ? colors[color]
       : "black"
-    : "white";
+    : "#e1e1e1";
 
   const border = disabled
     ? "lightgray"
@@ -70,7 +70,7 @@ const Button: React.FC<ButtonProps> = ({
 
   return (
     <button
-      className={`m-1 transition-all duration-100 ease-in-out rounded ${
+      className={`m-1 transition-all duration-100 ease-in-out rounded shadow ${
         modeClasses[mode]
       } ${
         disabled

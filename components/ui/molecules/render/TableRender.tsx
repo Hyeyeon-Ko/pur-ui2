@@ -15,7 +15,9 @@ const TableRender: React.FC<TableRenderProps> = ({ row, column }) => {
     return (
       <span
         className={`cursor-pointer border-b ${
-          isDarkMode ? "text-dark-sub" : "text-blue"
+          isDarkMode
+            ? "text-blue border-blue-500 hover:text-white"
+            : "text-blue border-blue-500 hover:text-blue-600"
         }`}
         onClick={() => {
           const newWindow = window.open(
@@ -35,7 +37,9 @@ const TableRender: React.FC<TableRenderProps> = ({ row, column }) => {
     return (
       <span
         className={`cursor-pointer border-b ${
-          isDarkMode ? "text-dark-sub" : "text-blue"
+          isDarkMode
+            ? "text-blue border-blue-500 hover:text-white"
+            : "text-blue border-blue-500 hover:text-blue-600"
         }`}
         onClick={() => {
           const newWindow = window.open(
