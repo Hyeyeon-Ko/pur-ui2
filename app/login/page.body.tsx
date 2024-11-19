@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 
 import colors from "@/styles/colors";
 import { useRouter } from "next/navigation";
