@@ -11,44 +11,44 @@ import LabelInput from "@/components/ui/molecules/inputs/LabelInput";
 import Button from "@/components/ui/atoms/button/Button";
 
 const LoginBody = () => {
-  const [employeeId, setEmployeeId] = useState("");
-  const [password, setPassword] = useState("");
-  const router = useRouter();
-  const { isDarkMode } = useDarkMode();
+  // const [employeeId, setEmployeeId] = useState("");
+  // const [password, setPassword] = useState("");
+  // const router = useRouter();
+  // const { isDarkMode } = useDarkMode();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
 
-    // 로그인 로직 (예시)
-    if (employeeId === "user" && password === "password") {
-      localStorage.setItem("user", JSON.stringify({ employeeId }));
-      Toast.notify("로그인에 성공했습니다!", ToastType.SUCCESS);
-      router.push("/main"); // 로그인 성공 시 홈으로 리다이렉트
-    } else {
-      Toast.notify("아이디 혹은 비밀번호를 확인해주세요.", ToastType.ERROR);
-    }
+  //   // 로그인 로직 (예시)
+  //   if (employeeId === "user" && password === "password") {
+  //     localStorage.setItem("user", JSON.stringify({ employeeId }));
+  //     Toast.notify("로그인에 성공했습니다!", ToastType.SUCCESS);
+  //     router.push("/main"); // 로그인 성공 시 홈으로 리다이렉트
+  //   } else {
+  //     Toast.notify("아이디 혹은 비밀번호를 확인해주세요.", ToastType.ERROR);
+  //   }
 
-    /** api 방식 로그인 구현 */
-    // try {
-    //   const response = await fetch('/api/login', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({ employeeId, password }),
-    //   });
+  //   /** api 방식 로그인 구현 */
+  //   // try {
+  //   //   const response = await fetch('/api/login', {
+  //   //     method: 'POST',
+  //   //     headers: {
+  //   //       'Content-Type': 'application/json',
+  //   //     },
+  //   //     body: JSON.stringify({ employeeId, password }),
+  //   //   });
 
-    //   if (!response.ok) {
-    //     throw new Error('로그인 실패!');
-    //   }
+  //   //   if (!response.ok) {
+  //   //     throw new Error('로그인 실패!');
+  //   //   }
 
-    //   const data = await response.json();
-    //   localStorage.setItem('token', data.token); // JWT 토큰 저장
-    //   router.push('/tender'); // 로그인 성공 시 홈으로 리다이렉트
-    // } catch (error) {
-    //   alert(error.message);
-    // }
-  };
+  //   //   const data = await response.json();
+  //   //   localStorage.setItem('token', data.token); // JWT 토큰 저장
+  //   //   router.push('/tender'); // 로그인 성공 시 홈으로 리다이렉트
+  //   // } catch (error) {
+  //   //   alert(error.message);
+  //   // }
+  // };
 
   return (
     <div
