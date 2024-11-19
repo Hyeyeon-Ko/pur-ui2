@@ -21,7 +21,7 @@ const LoginBody = () => {
 
     // 로그인 로직 (예시)
     if (employeeId === "user" && password === "password") {
-      // localStorage.setItem("user", JSON.stringify({ employeeId }));
+      localStorage.setItem("user", JSON.stringify({ employeeId }));
       Toast.notify("로그인에 성공했습니다!", ToastType.SUCCESS);
       router.push("/main"); // 로그인 성공 시 홈으로 리다이렉트
     } else {
@@ -55,7 +55,7 @@ const LoginBody = () => {
       style={{ backgroundColor: colors.signature }}
       className="flex items-center justify-center h-screen shadow-lg"
     >
-      <form
+      {/* <form
         onSubmit={handleSubmit}
         className="space-y-4 w-96 py-12 px-6 rounded-3xl"
         style={{ backgroundColor: colors.white }}
@@ -120,7 +120,7 @@ const LoginBody = () => {
             customStyle={{ borderRadius: "25px", width: "160px" }}
           />
         </div>
-      </form>
+      </form> */}
     </div>
   );
 };
