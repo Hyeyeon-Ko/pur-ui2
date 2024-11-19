@@ -14,12 +14,14 @@ RUN npm run build
 FROM node:18.17.0-alpine
 
 WORKDIR /app
-COPY --from=builder /app/package*.json ./
-RUN npm install --production
 
+# Copy only necessary files from build stage
+COPY --from=builder /app/package*.json ./
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
+
+RUN npm install --production
 
 # 포트를 3030으로 설정
 ENV PORT=3030
