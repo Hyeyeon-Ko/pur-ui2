@@ -14,11 +14,11 @@ import { FiTool } from "react-icons/fi";
 const DashboardBody = () => {
   const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    const storedUser = getLocal("user");
-    const userData = storedUser ? JSON.parse(storedUser) : null;
-    setUser(userData);
-  }, []);
+  // useEffect(() => {
+  //   const storedUser = getLocal("user");
+  //   const userData = storedUser ? JSON.parse(storedUser) : null;
+  //   setUser(userData);
+  // }, []);
 
   const cardData = [
     {
