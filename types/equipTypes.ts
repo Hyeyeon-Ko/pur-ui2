@@ -1,7 +1,7 @@
 export interface RepairRow {
   centerName: string;
   type: string;
-  repairDate: Date | null;
+  repairDate: string | null;
   documentNumber: string;
   faultSymptom: string;
   repairContent: string;

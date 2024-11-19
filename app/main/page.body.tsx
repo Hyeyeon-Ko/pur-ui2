@@ -14,11 +14,11 @@ import { FiTool } from "react-icons/fi";
 const DashboardBody = () => {
   const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    const storedUser = getLocal("user");
-    const userData = storedUser ? JSON.parse(storedUser) : null;
-    setUser(userData);
-  }, []);
+  // useEffect(() => {
+  //   const storedUser = getLocal("user");
+  //   const userData = storedUser ? JSON.parse(storedUser) : null;
+  //   setUser(userData);
+  // }, []);
 
   const cardData = [
     {
@@ -111,7 +111,7 @@ const DashboardBody = () => {
         {user && <Greeting user={user} />}
       </div> */}
 
-      <div className="grid grid-cols-5 gap-4 w-[90%] p-5 mx-auto">
+      {/* <div className="grid grid-cols-5 gap-4 w-[90%] p-5 mx-auto">
         {cardData.map((card, index) => (
           <DashCard
             key={index}
@@ -121,9 +121,9 @@ const DashboardBody = () => {
             bgColor={card.bgColor}
           />
         ))}
-      </div>
+      </div> */}
 
-      <DashboardSection icon={FaUserClock} title="유효 계약 건수">
+      {/* <DashboardSection icon={FaUserClock} title="유효 계약 건수">
         {deadlineItems.map((item, index) => (
           <ListItem
             key={item.id}
@@ -135,7 +135,7 @@ const DashboardBody = () => {
             isLast={index === deadlineItems.length - 1}
           />
         ))}
-      </DashboardSection>
+      </DashboardSection> */}
     </div>
   );
 };

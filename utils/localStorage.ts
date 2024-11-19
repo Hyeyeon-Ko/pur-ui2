@@ -1,14 +1,24 @@
-type SetLocalProps = { key: string; value: string | number | boolean };
+type SetLocalProps = { key: string; value: string | number | boolean | object };
 
 export const getLocal = (key: string) => {
   if (typeof window !== "undefined") {
-    return localStorage.getItem(key);
+    const item = localStorage.getItem(key);
+    try {
+      return item ? JSON.parse(item) : null;
+    } catch (error) {
+      console.error(`Error parsing localStorage key "${key}":`, error);
+      return null;
+    }
   }
-  return null; // 서버 사이드에서는 null 반환
+  return null;
 };
 
 export const setLocal = ({ key, value }: SetLocalProps) => {
   if (typeof window !== "undefined") {
-    localStorage.setItem(key, value.toString());
+    try {
+      localStorage.setItem(key, JSON.stringify(value));
+    } catch (error) {
+      console.error(`Error setting localStorage key "${key}":`, error);
+    }
   }
 };

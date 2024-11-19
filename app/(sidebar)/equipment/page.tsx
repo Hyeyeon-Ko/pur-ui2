@@ -1,87 +1,87 @@
-"use client";
+// "use client";
 
-import { useState } from "react";
-import ManagementHeader from "@/components/ui/molecules/header/ManagementHeader";
-import colors from "@/styles/colors";
-import { useDarkMode } from "@/context/DarkModeContext";
-import Button from "@/components/ui/atoms/button/Button";
-import Checkbox from "@/components/ui/atoms/checkbox/Checkbox";
-import { equipData, fieldLabel, fields } from "@/lib/equipDatas";
-import { RepairRow } from "@/types/equipTypes";
-import EditableRender from "@/components/ui/molecules/render/EditableRender";
-import PageTitle from "@/components/ui/molecules/titles/PageTitle";
+// import { useState } from "react";
+// import ManagementHeader from "@/components/ui/molecules/header/ManagementHeader";
+// import colors from "@/styles/colors";
+// import { useDarkMode } from "@/context/DarkModeContext";
+// import Button from "@/components/ui/atoms/button/Button";
+// import Checkbox from "@/components/ui/atoms/checkbox/Checkbox";
+// import { equipData, fieldLabel, fields } from "@/lib/equipDatas";
+// import { RepairRow } from "@/types/equipTypes";
+// import EditableRender from "@/components/ui/molecules/render/EditableRender";
+// import PageTitle from "@/components/ui/molecules/titles/PageTitle";
 
 const EquipmentPage = () => {
-  const [isEditing, setIsEditing] = useState<boolean>(false);
-  const { isDarkMode } = useDarkMode();
-  const [rows, setRows] = useState<RepairRow[]>(equipData);
+  // const [isEditing, setIsEditing] = useState<boolean>(false);
+  // const { isDarkMode } = useDarkMode();
+  // const [rows, setRows] = useState<RepairRow[]>(equipData);
 
-  const addRow = () => {
-    setRows([
-      ...rows,
-      {
-        centerName: "",
-        type: "",
-        repairDate: null,
-        documentNumber: "",
-        faultSymptom: "",
-        repairContent: "",
-        partner: "",
-        partNumber: "",
-        cost: "",
-        warranty: "",
-        maintenanceCost: "",
-        inspectionCheck: "",
-        notes: "",
-        isNew: true,
-        isSelected: true,
-      },
-    ]);
-    setIsEditing(true);
-  };
+  // const addRow = () => {
+  //   setRows([
+  //     ...rows,
+  //     {
+  //       centerName: "",
+  //       type: "",
+  //       repairDate: null,
+  //       documentNumber: "",
+  //       faultSymptom: "",
+  //       repairContent: "",
+  //       partner: "",
+  //       partNumber: "",
+  //       cost: "",
+  //       warranty: "",
+  //       maintenanceCost: "",
+  //       inspectionCheck: "",
+  //       notes: "",
+  //       isNew: true,
+  //       isSelected: true,
+  //     },
+  //   ]);
+  //   setIsEditing(true);
+  // };
 
-  const toggleEdit = () => {
-    const anyRowSelected = rows.some((row) => row.isSelected);
-    if (!anyRowSelected) {
-      setIsEditing(false);
-    } else {
-      setIsEditing(!isEditing);
-    }
+  // const toggleEdit = () => {
+  //   const anyRowSelected = rows.some((row) => row.isSelected);
+  //   if (!anyRowSelected) {
+  //     setIsEditing(false);
+  //   } else {
+  //     setIsEditing(!isEditing);
+  //   }
 
-    if (isEditing) {
-      setRows(
-        rows.map((row) =>
-          row.isSelected ? { ...row, isNew: false } : { ...row }
-        )
-      );
-      setRows(rows.map((row) => ({ ...row, isSelected: false })));
-    }
-  };
+  //   if (isEditing) {
+  //     setRows(
+  //       rows.map((row) =>
+  //         row.isSelected ? { ...row, isNew: false } : { ...row }
+  //       )
+  //     );
+  //     setRows(rows.map((row) => ({ ...row, isSelected: false })));
+  //   }
+  // };
 
-  const handleInputChange = <K extends keyof RepairRow>(
-    index: number,
-    field: K,
-    value: RepairRow[K]
-  ) => {
-    const updatedRows = [...rows];
-    updatedRows[index][field] = value;
-    setRows(updatedRows);
-  };
+  // const handleInputChange = <K extends keyof RepairRow>(
+  //   index: number,
+  //   field: K,
+  //   value: RepairRow[K]
+  // ) => {
+  //   const updatedRows = [...rows];
+  //   updatedRows[index][field] = value;
+  //   setRows(updatedRows);
+  // };
 
-  const handleCheckboxChange = (index: number) => {
-    const updatedRows = [...rows];
-    updatedRows[index].isSelected = !updatedRows[index].isSelected;
-    setRows(updatedRows);
+  // const handleCheckboxChange = (index: number) => {
+  //   const updatedRows = [...rows];
+  //   updatedRows[index].isSelected = !updatedRows[index].isSelected;
+  //   setRows(updatedRows);
 
-    const anyRowSelected = updatedRows.some((row) => row.isSelected);
-    if (!anyRowSelected) {
-      setIsEditing(false);
-    }
-  };
+  //   const anyRowSelected = updatedRows.some((row) => row.isSelected);
+  //   if (!anyRowSelected) {
+  //     setIsEditing(false);
+  //   }
+  // };
 
   return (
     <div className="p-12">
-      <PageTitle pageTitle="장비관리" mode="xl" fontWeight="bold" />
+      {/* <PageTitle pageTitle="장비관리" mode="xl" fontWeight="bold" />
       <ManagementHeader
         headerTitle="유지보수 관리"
         showButton={false}
@@ -157,9 +157,10 @@ const EquipmentPage = () => {
                 : Object.keys(row).map((field: keyof RepairRow) =>
                     field !== "isNew" && field !== "isSelected" ? (
                       <td key={field} className="border-b-Grey_Darken_4">
-                        {typeof row[field] === "object" &&
-                        row[field] instanceof Date
-                          ? row[field].toLocaleDateString()
+                        {field === "repairDate"
+                          ? row[field]
+                            ? new Date(row[field]).toLocaleDateString()
+                            : "N/A"
                           : row[field]}
                       </td>
                     ) : null
@@ -173,7 +174,7 @@ const EquipmentPage = () => {
         <Button mode="sm" onClick={toggleEdit} color="Button_Default">
           {isEditing ? "완료" : "수정"}
         </Button>
-      </div>
+      </div> */}
     </div>
   );
 };

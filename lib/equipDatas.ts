@@ -5,7 +5,7 @@ export const equipData: RepairRow[] = [
   {
     centerName: "서울센터",
     type: "정기점검",
-    repairDate: new Date("2023-08-15"),
+    repairDate: "2023-08-15",
     documentNumber: "DOC001",
     faultSymptom: "전원 불량",
     repairContent: "배터리 교체",
@@ -22,7 +22,7 @@ export const equipData: RepairRow[] = [
   {
     centerName: "부산센터",
     type: "긴급점검",
-    repairDate: new Date("2023-09-01"),
+    repairDate: "2023-09-01",
     documentNumber: "DOC002",
     faultSymptom: "네트워크 연결 불량",
     repairContent: "LAN 케이블 교체",

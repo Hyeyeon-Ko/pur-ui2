@@ -51,8 +51,10 @@ const EditableRender: React.FC<EditableRenderProps> = ({
   } else if (inputType === "datepicker") {
     return (
       <SingleDatePicker
-        selectedDate={row.repairDate}
-        onDateChange={(date) => handleInputChange(index, field, date)}
+        selectedDate={row.repairDate ? new Date(row.repairDate) : null}
+        onDateChange={(date) =>
+          handleInputChange(index, field, date ? date.toISOString() : null)
+        }
         minDate={new Date("2000-01-01")}
       />
     );
@@ -63,8 +65,8 @@ const EditableRender: React.FC<EditableRenderProps> = ({
         value={
           typeof row[field] === "boolean"
             ? String(row[field])
-            : row[field] instanceof Date
-            ? row[field].toLocaleDateString()
+            : field === "repairDate" && row[field]
+            ? new Date(row[field] as string).toLocaleDateString()
             : row[field]
         }
         onChange={(e) => handleInputChange(index, field, e.target.value)}
