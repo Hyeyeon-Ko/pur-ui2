@@ -57,8 +57,9 @@ module.exports = {
       Red_Darken_1: "#AD0000",
     },
     fontFamily: {
-      sans: ["'Pretendard-Regular'", "sans-serif"],
+      sans: ["'Pretendard-Regular'", "'Pretendard-Bold'", "sans-serif"],
     },
+
     extend: {
       spacing: {
         128: "32rem",
