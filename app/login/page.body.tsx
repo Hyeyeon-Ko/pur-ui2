@@ -7,7 +7,7 @@ import React, { useState } from "react";
 import Toast, { ToastType } from "@/components/commons/Toast";
 import { useDarkMode } from "@/context/DarkModeContext";
 import Label from "@/components/ui/atoms/label/Label";
-// import LabelInput from "@/components/ui/molecules/inputs/LabelInput";
+import LabelInput from "@/components/ui/molecules/inputs/LabelInput";
 import Button from "@/components/ui/atoms/button/Button";
 
 const LoginBody = () => {
@@ -21,7 +21,7 @@ const LoginBody = () => {
 
     // 로그인 로직 (예시)
     if (employeeId === "user" && password === "password") {
-      localStorage.setItem("user", JSON.stringify({ employeeId }));
+      // localStorage.setItem("user", JSON.stringify({ employeeId }));
       Toast.notify("로그인에 성공했습니다!", ToastType.SUCCESS);
       router.push("/main"); // 로그인 성공 시 홈으로 리다이렉트
     } else {
@@ -72,7 +72,7 @@ const LoginBody = () => {
         </div>
         <div className="py-16 flex flex-col">
           <div>
-            {/* <LabelInput
+            <LabelInput
               labelMode="sm"
               labelContent="사원번호"
               labelColor="signature"
@@ -89,10 +89,10 @@ const LoginBody = () => {
                 alignItems: "flex-start",
                 color: isDarkMode ? colors.signature : colors.signature,
               }}
-            /> */}
+            />
           </div>
           <div>
-            {/* <LabelInput
+            <LabelInput
               labelMode="sm"
               labelContent="비밀번호"
               labelColor="signature"
@@ -108,7 +108,7 @@ const LoginBody = () => {
                 flexDirection: "column",
                 alignItems: "flex-start",
               }}
-            /> */}
+            />
           </div>
         </div>
         <div className="flex justify-center pb-10">
