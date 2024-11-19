@@ -123,7 +123,7 @@ const DashboardBody = () => {
         ))}
       </div>
 
-      <DashboardSection icon={FaUserClock} title="유효 계약 건수">
+      {/* <DashboardSection icon={FaUserClock} title="유효 계약 건수">
         {deadlineItems.map((item, index) => (
           <ListItem
             key={item.id}
@@ -135,7 +135,7 @@ const DashboardBody = () => {
             isLast={index === deadlineItems.length - 1}
           />
         ))}
-      </DashboardSection>
+      </DashboardSection> */}
     </div>
   );
 };
