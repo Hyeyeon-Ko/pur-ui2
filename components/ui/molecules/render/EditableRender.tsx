@@ -51,32 +51,34 @@ const EditableRender: React.FC<EditableRenderProps> = ({
   } else if (inputType === "datepicker") {
     return (
       <SingleDatePicker
-      selectedDate={row.repairDate ? new Date(row.repairDate) : null} 
-      onDateChange={(date) => handleInputChange(index, field, date ? date.toISOString() : null)}
-      minDate={new Date("2000-01-01")}
-    />
+        selectedDate={row.repairDate ? new Date(row.repairDate) : null}
+        onDateChange={(date) =>
+          handleInputChange(index, field, date ? date.toISOString() : null)
+        }
+        minDate={new Date("2000-01-01")}
+      />
     );
   } else {
     return (
       <Input
-      mode="xs"
-      value={
-        typeof row[field] === "boolean"
-          ? String(row[field])
-          : typeof row[field] === "string" && row[field] !== null
-          ? new Date(row[field]).toLocaleDateString()
-          : row[field]
-      }
-      onChange={(e) => handleInputChange(index, field, e.target.value)}
-      customStyle={{
-        textAlign: "center",
-        border: "none",
-        outline: "none",
-        boxShadow: "none",
-        width: "100%",
-      }}
-      placeholder={fieldLabel[field as keyof RepairRow]}
-    />
+        mode="xs"
+        value={
+          typeof row[field] === "boolean"
+            ? String(row[field])
+            : field === "repairDate" && row[field]
+            ? new Date(row[field] as string).toLocaleDateString()
+            : row[field]
+        }
+        onChange={(e) => handleInputChange(index, field, e.target.value)}
+        customStyle={{
+          textAlign: "center",
+          border: "none",
+          outline: "none",
+          boxShadow: "none",
+          width: "100%",
+        }}
+        placeholder={fieldLabel[field as keyof RepairRow]}
+      />
     );
   }
 };
