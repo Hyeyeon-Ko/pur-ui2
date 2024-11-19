@@ -1,10 +1,8 @@
-"use client";
-
 import React, { useEffect, useState } from "react";
 import { FaUserClock } from "react-icons/fa";
 import DashCard from "@/components/ui/atoms/dashboard/DashCard";
 import ListItem from "@/components/ui/molecules/dashboard/ListItem";
-import { getLocal } from "@/utils/localStorage";
+import { getLocal, setLocal } from "@/utils/localStorage";
 import DashboardSection from "@/components/ui/organism/dashboard/DashboardSection";
 import { MdCalculate } from "react-icons/md";
 import { FaFileContract, FaFileDownload } from "react-icons/fa";
@@ -16,7 +14,16 @@ const DashboardBody = () => {
 
   useEffect(() => {
     const storedUser = getLocal("user");
-    const userData = storedUser ? JSON.parse(storedUser) : null;
+    let userData = null;
+
+    if (storedUser) {
+      try {
+        userData = JSON.parse(storedUser);
+      } catch (error) {
+        console.error("Failed to parse user data from localStorage:", error);
+      }
+    }
+
     setUser(userData);
   }, []);
 
@@ -50,7 +57,7 @@ const DashboardBody = () => {
       icon: FaFileDownload,
       label: "매뉴얼 다운로드",
       bgColor: "bg-signature",
-    }
+    },
   ];
 
   const deadlineItems = [
@@ -102,15 +109,17 @@ const DashboardBody = () => {
       title: "계약만료",
       count: 300,
       gradientClass: "bg-Grey_Default",
-    }
+    },
   ];
+
+  // 컴포넌트가 마운트될 때 로컬 스토리지에 cardData와 deadlineItems 저장
+  useEffect(() => {
+    setLocal({ key: "cardData", value: cardData });
+    setLocal({ key: "deadlineItems", value: deadlineItems });
+  }, []);
 
   return (
     <div className="flex flex-col ">
-      {/* <div className="flex w-[90%] p-10 mx-auto items-center">
-        {user && <Greeting user={user} />}
-      </div> */}
-
       <div className="grid grid-cols-5 gap-4 w-[90%] p-5 mx-auto">
         {cardData.map((card, index) => (
           <DashCard
