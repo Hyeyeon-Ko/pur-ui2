@@ -33,6 +33,7 @@ docker-build:
   image: docker:stable
   script:
     - echo "Docker build start!!"
+    - echo "$REGISTRY_URL"
     # Dockerfile로 Docker 이미지 빌드
     - docker build -t $CI_REGISTRY/$FRONTEND_IMAGE .
   tags:
