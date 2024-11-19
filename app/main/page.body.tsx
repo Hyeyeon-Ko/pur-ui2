@@ -18,7 +18,7 @@ const DashboardBody = () => {
 
     if (storedUser) {
       try {
-        userData = JSON.parse(storedUser);
+        userData = storedUser; 
       } catch (error) {
         console.error("Failed to parse user data from localStorage:", error);
       }
