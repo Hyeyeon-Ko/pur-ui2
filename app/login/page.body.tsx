@@ -1,14 +1,14 @@
 // "use client";
 
-// import colors from "@/styles/colors";
+import colors from "@/styles/colors";
 // import { useRouter } from "next/navigation";
 // import React, { useState } from "react";
 
-// import Toast, { ToastType } from "@/components/commons/Toast";
+import Toast, { ToastType } from "@/components/commons/Toast";
 // import { useDarkMode } from "@/context/DarkModeContext";
-// import Label from "@/components/ui/atoms/label/Label";
-// import LabelInput from "@/components/ui/molecules/inputs/LabelInput";
-// import Button from "@/components/ui/atoms/button/Button";
+import Label from "@/components/ui/atoms/label/Label";
+import LabelInput from "@/components/ui/molecules/inputs/LabelInput";
+import Button from "@/components/ui/atoms/button/Button";
 
 const LoginBody = () => {
   // const [employeeId, setEmployeeId] = useState("");
@@ -52,7 +52,7 @@ const LoginBody = () => {
 
   return (
     <div
-      // style={{ backgroundColor: colors.signature }}
+      style={{ backgroundColor: colors.signature }}
       className="flex items-center justify-center h-screen shadow-lg"
     >
       {/* <form
