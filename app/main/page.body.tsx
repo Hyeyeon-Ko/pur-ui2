@@ -57,7 +57,7 @@ const DashboardBody = () => {
       icon: FaFileDownload,
       label: "매뉴얼 다운로드",
       bgColor: "bg-signature",
-    },
+    }
   ];
 
   const deadlineItems = [
@@ -109,7 +109,7 @@ const DashboardBody = () => {
       title: "계약만료",
       count: 300,
       gradientClass: "bg-Grey_Default",
-    },
+    }
   ];
 
   // 컴포넌트가 마운트될 때 로컬 스토리지에 cardData와 deadlineItems 저장
