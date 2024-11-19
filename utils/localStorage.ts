@@ -12,8 +12,13 @@ export const getLocal = (key: string) => {
   }
   return null;
 };
+
 export const setLocal = ({ key, value }: SetLocalProps) => {
   if (typeof window !== "undefined") {
-    localStorage.setItem(key, JSON.stringify(value));
+    try {
+      localStorage.setItem(key, JSON.stringify(value));
+    } catch (error) {
+      console.error(`Error setting localStorage key "${key}":`, error);
+    }
   }
 };

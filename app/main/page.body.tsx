@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { FaUserClock } from "react-icons/fa";
 import DashCard from "@/components/ui/atoms/dashboard/DashCard";
 import ListItem from "@/components/ui/molecules/dashboard/ListItem";
-// import { getLocal } from "@/utils/localStorage";
+import { getLocal } from "@/utils/localStorage";
 import DashboardSection from "@/components/ui/organism/dashboard/DashboardSection";
 import { MdCalculate } from "react-icons/md";
 import { FaFileContract, FaFileDownload } from "react-icons/fa";
@@ -15,9 +15,9 @@ const DashboardBody = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    // const storedUser = getLocal("user");
-    // const userData = storedUser ? JSON.parse(storedUser) : null;
-    // setUser(userData);
+    const storedUser = getLocal("user");
+    const userData = storedUser ? JSON.parse(storedUser) : null;
+    setUser(userData);
   }, []);
 
   const cardData = [
