@@ -7,7 +7,7 @@ import React, { useState } from "react";
 import Toast, { ToastType } from "@/components/commons/Toast";
 import { useDarkMode } from "@/context/DarkModeContext";
 import Label from "@/components/ui/atoms/label/Label";
-import LabelInput from "@/components/ui/molecules/inputs/LabelInput";
+// import LabelInput from "@/components/ui/molecules/inputs/LabelInput";
 import Button from "@/components/ui/atoms/button/Button";
 
 const LoginBody = () => {
@@ -72,7 +72,7 @@ const LoginBody = () => {
         </div>
         <div className="py-16 flex flex-col">
           <div>
-            <LabelInput
+            {/* <LabelInput
               labelMode="sm"
               labelContent="사원번호"
               labelColor="signature"
@@ -89,10 +89,10 @@ const LoginBody = () => {
                 alignItems: "flex-start",
                 color: isDarkMode ? colors.signature : colors.signature,
               }}
-            />
+            /> */}
           </div>
           <div>
-            <LabelInput
+            {/* <LabelInput
               labelMode="sm"
               labelContent="비밀번호"
               labelColor="signature"
@@ -108,7 +108,7 @@ const LoginBody = () => {
                 flexDirection: "column",
                 alignItems: "flex-start",
               }}
-            />
+            /> */}
           </div>
         </div>
         <div className="flex justify-center pb-10">
