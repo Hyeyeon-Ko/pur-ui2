@@ -14,7 +14,8 @@ variables:
   REGISTRY_PASSWORD: $REGISTRY_PASSWORD  # Access Token
 
 before_script:
-  - echo "Docker build start!!"
+  - echo "Docker before script start!!"
+  - echo "REGISTRY_URL ==> $REGISTRY_URL"
   - apk add --no-cache docker
   - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin "$REGISTRY_URL"
   
@@ -33,7 +34,6 @@ docker-build:
   image: docker:stable
   script:
     - echo "Docker build start!!"
-    - echo "$REGISTRY_URL"
     # Dockerfile로 Docker 이미지 빌드
     - docker build -t $CI_REGISTRY/$FRONTEND_IMAGE .
   tags:
