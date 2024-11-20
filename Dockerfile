@@ -1,5 +1,5 @@
 # Step 1: Build Stage
-FROM node:22-alpine AS builder
+FROM node:18-alpine AS builder
 
 WORKDIR /app
 
@@ -13,7 +13,7 @@ COPY . .
 RUN npm run build --no-cache
 
 # Step 2: Production Stage
-FROM node:22-alpine
+FROM node:18-alpine
 
 WORKDIR /app
 COPY --from=builder /app/package*.json ./
