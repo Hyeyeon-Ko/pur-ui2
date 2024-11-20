@@ -27,38 +27,38 @@ const DashboardBody = () => {
     setUser(userData);
   }, []);
 
-  const cardData = [
-    {
-      "href": "/contract",
-      "icon": FaFileContract,
-      "label": "계약관리",
-      "bgColor": "bg-signature",
-    },
-    {
-      "href": "/tender",
-      "icon": MdCalculate,
-      "label": "입찰관리",
-      "bgColor": "bg-sub",
-    },
-    {
-      "href": "/equipment",
-      "icon": FiTool,
-      "label": "장비관리",
-      "bgColor": "bg-signature",
-    },
-    {
-      "href": "/category/major",
-      "icon": RiCheckboxMultipleLine,
-      "label": "코드조회",
-      "bgColor": "bg-sub",
-    },
-    {
-      "href": "/page-d",
-      "icon": FaFileDownload,
-      "label": "매뉴얼 다운로드",
-      "bgColor": "bg-signature",
-    }
-  ];
+  // const cardData = [
+  //   {
+  //     "href": "/contract",
+  //     "icon": FaFileContract,
+  //     "label": "계약관리",
+  //     "bgColor": "bg-signature",
+  //   },
+  //   {
+  //     "href": "/tender",
+  //     "icon": MdCalculate,
+  //     "label": "입찰관리",
+  //     "bgColor": "bg-sub",
+  //   },
+  //   {
+  //     "href": "/equipment",
+  //     "icon": FiTool,
+  //     "label": "장비관리",
+  //     "bgColor": "bg-signature",
+  //   },
+  //   {
+  //     "href": "/category/major",
+  //     "icon": RiCheckboxMultipleLine,
+  //     "label": "코드조회",
+  //     "bgColor": "bg-sub",
+  //   },
+  //   {
+  //     "href": "/page-d",
+  //     "icon": FaFileDownload,
+  //     "label": "매뉴얼 다운로드",
+  //     "bgColor": "bg-signature",
+  //   }
+  // ];
 
   const deadlineItems = [
     {
@@ -114,22 +114,14 @@ const DashboardBody = () => {
 
   // 컴포넌트가 마운트될 때 로컬 스토리지에 cardData와 deadlineItems 저장
   useEffect(() => {
-    setLocal({ key: "cardData", value: cardData });
+    // setLocal({ key: "cardData", value: cardData });
     setLocal({ key: "deadlineItems", value: deadlineItems });
   }, []);
 
   return (
     <div className="flex flex-col ">
       <div className="grid grid-cols-5 gap-4 w-[90%] p-5 mx-auto">
-        {cardData.map((card, index) => (
-          <DashCard
-            key={index}
-            href={card.href}
-            icon={card.icon}
-            label={card.label}
-            bgColor={card.bgColor}
-          />
-        ))}
+
       </div>
 
       <DashboardSection icon={FaUserClock} title="유효 계약 건수">
