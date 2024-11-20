@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ManagementHeader from "@/components/ui/molecules/header/ManagementHeader";
 import colors from "@/styles/colors";
 import { useDarkMode } from "@/context/DarkModeContext";
@@ -15,6 +15,28 @@ const EquipmentPage = () => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const { isDarkMode } = useDarkMode();
   const [rows, setRows] = useState<RepairRow[]>(equipData);
+  const [isLoading, setIsLoading] = useState<boolean>(true); 
+
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        // 데이터 로드 (여기서는 더미 데이터를 사용)
+        // 실제 API 호출이 필요할 경우, 아래 주석을 해제하고 URL을 변경하세요
+        // const response = await fetch("/api/equipData");
+        // const data: RepairRow[] = await response.json();
+        
+        // 더미 데이터 사용
+        const data: RepairRow[] = equipData; // 더미 데이터로 초기화
+        setRows(data);
+      } catch (error) {
+        console.error("Error loading data:", error);
+      } finally {
+        setIsLoading(false); // 데이터 로드 완료 후 로딩 상태 변경
+      }
+    };
+
+    loadData();
+  }, []);
 
   const addRow = () => {
     setRows([
@@ -144,13 +166,13 @@ const EquipmentPage = () => {
                         key={field}
                         className="w-[140px] border-b-Grey_Darken_4"
                       >
-                        {/* <EditableRender
+                        <EditableRender
                           row={row}
                           field={field}
                           index={index}
                           isEditing={isEditing}
                           handleInputChange={handleInputChange}
-                        /> */}
+                        />
                       </td>
                     ) : null
                   )
