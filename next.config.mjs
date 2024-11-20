@@ -20,6 +20,9 @@ const nextConfig = {
     return config;
   },
   reactStrictMode: true,
+  experimental: {
+    disableOptimisticRendering: true, // 익명 데이터 수집 비활성화
+  },
 };
 
 export default nextConfig;
