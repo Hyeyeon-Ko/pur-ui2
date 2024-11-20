@@ -144,13 +144,13 @@ const EquipmentPage = () => {
                         key={field}
                         className="w-[140px] border-b-Grey_Darken_4"
                       >
-                        <EditableRender
+                        {/* <EditableRender
                           row={row}
                           field={field}
                           index={index}
                           isEditing={isEditing}
                           handleInputChange={handleInputChange}
-                        />
+                        /> */}
                       </td>
                     ) : null
                   )
