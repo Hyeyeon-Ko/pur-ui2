@@ -12,16 +12,8 @@ export default function DashboardLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { isDarkMode } = useDarkMode();
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
-
-  useEffect(() => {
-    // 로컬 스토리지에서 사이드바 상태 가져오기
-    const storedSidebarState = getLocal("sidebar");
-    if (storedSidebarState !== null) {
-      setIsSidebarOpen(storedSidebarState === "true");
-    }
-  }, []);
+  const { isDarkMode } = useDarkMode();
 
   const toggleSidebar = () => {
     setIsSidebarOpen((prev) => {
@@ -50,6 +42,11 @@ export default function DashboardLayout({
     };
   }, []);
 
+  useEffect(() => {
+    const storedSidebarState = getLocal("sidebar");
+    setIsSidebarOpen(storedSidebarState === "true" ? true : false);
+  }, []);
+
   return (
     <div
       className={`h-screen flex ${
@@ -68,7 +65,7 @@ export default function DashboardLayout({
 
       <div className="flex flex-col flex-1">
         {/* 네비게이션 바 */}
-        <Navbar />
+        <Navbar /> {/* isDarkMode는 Navbar에서 사용할 수 있음 */}
         {/* 컨텐츠 영역 */}
         <div className="flex-1 overflow-auto flex flex-col mb-4">
           {children}

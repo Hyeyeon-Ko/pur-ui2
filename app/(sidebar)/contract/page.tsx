@@ -22,10 +22,10 @@ const ContractPage = () => {
     contractData.map((item) => ({
       센터: formatCenterData(item.centerName || []) || "-",
       계약일자: formatDate(item.contractDate || "") || "-",
-      계약시작일: formatDate(item.contractStartDate|| "") || "-",
-      계약완료일: formatDate(item.contractEndDate|| "") || "-",
-      낙찰기준가: formatCurrency(item.baseBidPrice|| "") || "-",
-      계약금액: formatCurrency(item.contractAmount|| "") || "-",
+      계약시작일: formatDate(item.contractStartDate || "") || "-",
+      계약완료일: formatDate(item.contractEndDate || "") || "-",
+      낙찰기준가: formatCurrency(item.baseBidPrice || "") || "-",
+      계약금액: formatCurrency(item.contractAmount || "") || "-",
       입찰번호: item.bidNumber || "-",
       계약번호: item.contractNumber || "-",
       계약종류: item.contractType || "-",
@@ -68,10 +68,10 @@ const ContractPage = () => {
       (item) => item.id !== undefined && !selectedRows.includes(item.id)
     );
     if (confirm("선택한 항목을 정말 삭제하시겠습니까?")) {
-        setFormattedData(newFormattedData);
-        setSelectedRows([]);
+      setFormattedData(newFormattedData);
+      setSelectedRows([]);
     }
-};
+  };
 
   const handleRowSelect = useCallback((selectedRowIds: string[]) => {
     const uniqueSelectedRows = Array.from(new Set(selectedRowIds));

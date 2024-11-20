@@ -229,8 +229,10 @@ const SideMenu = ({
                         className={`flex items-center text-gray-500 py-1 px-6 mx-2 gap-1 rounded-md transition-colors duration-200`}
                         onMouseEnter={(e) => {
                           e.currentTarget.style.backgroundColor = colors.sub;
-                          const svgElement = e.currentTarget.querySelector("svg");
-                          const spanElement = e.currentTarget.querySelector("span");
+                          const svgElement =
+                            e.currentTarget.querySelector("svg");
+                          const spanElement =
+                            e.currentTarget.querySelector("span");
 
                           if (svgElement) {
                             svgElement.style.fill = colors.white;
@@ -242,8 +244,10 @@ const SideMenu = ({
                         }}
                         onMouseLeave={(e) => {
                           e.currentTarget.style.backgroundColor = "transparent";
-                          const svgElement = e.currentTarget.querySelector("svg");
-                          const spanElement = e.currentTarget.querySelector("span");
+                          const svgElement =
+                            e.currentTarget.querySelector("svg");
+                          const spanElement =
+                            e.currentTarget.querySelector("span");
 
                           if (svgElement) {
                             svgElement.style.fill = colors.white;
@@ -259,7 +263,13 @@ const SideMenu = ({
                           style={{ fill: colors.white }}
                           className={`transition-transform duration-300 cursor-pointer m-2`}
                         />
-                        <span style={{ color: colors.white }}>{subItem.label}</span>
+
+                        {/* 메뉴가 열렸을 때만 레이블을 보여주기 */}
+                        {isOpen && (
+                          <span style={{ color: colors.white }}>
+                            {subItem.label}
+                          </span>
+                        )}
                       </Link>
                     ))}
                   </div>
