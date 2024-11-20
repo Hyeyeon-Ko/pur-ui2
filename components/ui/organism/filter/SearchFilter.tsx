@@ -41,9 +41,11 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
     setSearchData((prev) => ({ ...prev, [name]: date }));
   };
 
-  const handleSearch = () => {
+const handleSearch = () => {
+  if (onSearch) {
     onSearch(searchData);
-  };
+  }
+};
 
   const handleReset = () => {
     setSearchData(

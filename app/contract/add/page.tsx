@@ -7,13 +7,8 @@ import useSaveData from "@/hooks/useSaveData";
 import useTenderSearch from "@/hooks/useTenderSearch";
 import { contractDetailData as initialContractDetailData } from "@/lib/contractDatas";
 
-interface TenderDetailProps {
-  params: {
-    id: string;
-  };
-}
 
-const ContractAddPage: React.FC<TenderDetailProps> = () => {
+const ContractAddPage = () => {
   const [checkedItems, setCheckedItems] = useState<{ [key: string]: boolean }>(
     {}
   );

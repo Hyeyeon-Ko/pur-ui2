@@ -19,13 +19,9 @@ import {
   contractListLabels,
 } from "@/lib/contractDatas";
 
-interface TenderDetailProps {
-  params: {
-    id: string;
-  };
-}
 
-const TenderDetail: React.FC<TenderDetailProps> = () => {
+const TenderDetail = () => {
+
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
 
   const { downloadFile } = useFileDownload();
@@ -36,10 +32,10 @@ const TenderDetail: React.FC<TenderDetailProps> = () => {
 
   const formattedData: { [key: string]: string }[] = contractListData.map(
     (item) => ({
-      센터: formatCenterData(item.centerName) || "-",
-      낙찰기준가: formatCurrency(item.baseBidPrice),
-      계약단가: formatCurrency(item.contractUnitPrice),
-      계약금액: formatCurrency(item.contractAmount),
+      센터: formatCenterData(item.centerName || []) || "-",
+      낙찰기준가: formatCurrency(item.baseBidPrice || ""),
+      계약단가: formatCurrency(item.contractUnitPrice|| ""),
+      계약금액: formatCurrency(item.contractAmount|| ""),
       ERP코드: item.erpCode || "-",
       ERP품목: item.erpItem || "-",
       입찰번호: item.bidNumber || "-",

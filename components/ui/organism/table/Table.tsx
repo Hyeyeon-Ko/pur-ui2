@@ -31,16 +31,16 @@ const Table: React.FC<TableProps> = ({
   customStyle,
   data,
   columns,
-  showCheckbox,
+  showCheckbox = false,
   rowsPerPage = 10,
   pagination = false,
   onRowSelect,
   onRowDoubleClick,
   sorter = null,
-  setSorter,
+  setSorter = undefined,
   showHeader = false,
   headerTitle,
-  loading,
+  loading = false,
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedRows, setSelectedRows] = useState<string[]>([]);

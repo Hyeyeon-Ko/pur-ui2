@@ -220,7 +220,7 @@ const SideMenu = ({
                 </div>
 
                 {/* 하위 메뉴 조건부 렌더링 */}
-                {item.label === "코드조회" && codeMenuOpen && isOpen && (
+                {item.part && item.part.length > 0 && (
                   <div className="flex flex-col gap-2">
                     {item.part.map((subItem) => (
                       <Link
@@ -229,10 +229,8 @@ const SideMenu = ({
                         className={`flex items-center text-gray-500 py-1 px-6 mx-2 gap-1 rounded-md transition-colors duration-200`}
                         onMouseEnter={(e) => {
                           e.currentTarget.style.backgroundColor = colors.sub;
-                          const svgElement =
-                            e.currentTarget.querySelector("svg");
-                          const spanElement =
-                            e.currentTarget.querySelector("span");
+                          const svgElement = e.currentTarget.querySelector("svg");
+                          const spanElement = e.currentTarget.querySelector("span");
 
                           if (svgElement) {
                             svgElement.style.fill = colors.white;
@@ -244,10 +242,8 @@ const SideMenu = ({
                         }}
                         onMouseLeave={(e) => {
                           e.currentTarget.style.backgroundColor = "transparent";
-                          const svgElement =
-                            e.currentTarget.querySelector("svg");
-                          const spanElement =
-                            e.currentTarget.querySelector("span");
+                          const svgElement = e.currentTarget.querySelector("svg");
+                          const spanElement = e.currentTarget.querySelector("span");
 
                           if (svgElement) {
                             svgElement.style.fill = colors.white;
@@ -263,9 +259,7 @@ const SideMenu = ({
                           style={{ fill: colors.white }}
                           className={`transition-transform duration-300 cursor-pointer m-2`}
                         />
-                        <span style={{ color: colors.white }}>
-                          {subItem.label}
-                        </span>
+                        <span style={{ color: colors.white }}>{subItem.label}</span>
                       </Link>
                     ))}
                   </div>

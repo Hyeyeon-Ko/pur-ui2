@@ -17,7 +17,7 @@ interface SearchRenderProps {
   onChange: (
     e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
   ) => void;
-  onDateChange: (name: string, date: Date | null) => void;
+  onDateChange: (name: string, date: Date | undefined) => void;
   customStyles?: {
     select?: React.CSSProperties;
     input?: React.CSSProperties;
@@ -83,8 +83,7 @@ const SearchRender: React.FC<SearchRenderProps> = ({
       />
       <SingleDatePicker
         selectedDate={value as Date | undefined}
-        onDateChange={(date) => onDateChange(field.name, date)}
-        aria-label={field.label} 
+        onDateChange={(date) => onDateChange(field.name, date ?? undefined)} 
       />
     </div>
   );

@@ -20,19 +20,19 @@ const ContractPage = () => {
 
   const [formattedData, setFormattedData] = useState<contractDataType[]>(() =>
     contractData.map((item) => ({
-      센터: formatCenterData(item.centerName) || "-",
-      계약일자: formatDate(item.contractDate) || "-",
-      계약시작일: formatDate(item.contractStartDate) || "-",
-      계약완료일: formatDate(item.contractEndDate) || "-",
-      낙찰기준가: formatCurrency(item.baseBidPrice) || "-",
-      계약금액: formatCurrency(item.contractAmount) || "-",
+      센터: formatCenterData(item.centerName || []) || "-",
+      계약일자: formatDate(item.contractDate || "") || "-",
+      계약시작일: formatDate(item.contractStartDate|| "") || "-",
+      계약완료일: formatDate(item.contractEndDate|| "") || "-",
+      낙찰기준가: formatCurrency(item.baseBidPrice|| "") || "-",
+      계약금액: formatCurrency(item.contractAmount|| "") || "-",
       입찰번호: item.bidNumber || "-",
       계약번호: item.contractNumber || "-",
       계약종류: item.contractType || "-",
       계정명: item.accountName || "-",
       계약명: item.contractName || "-",
       공급사: item.supplier || "-",
-      계약방법: item.contractNumber || "-",
+      계약방법: item.contractMethod || "-",
       SN: item.sn || "-",
       계약증권: item.contractBond || "-",
       하자증권: item.defectBond || "-",
@@ -65,12 +65,13 @@ const ContractPage = () => {
 
   const handleDeleteSelected = () => {
     const newFormattedData = formattedData.filter(
-      (item) => !selectedRows.includes(item.id)
+      (item) => item.id !== undefined && !selectedRows.includes(item.id)
     );
-    confirm("선택한 항목을 정말 삭제하시겠습니까?");
-    setFormattedData(newFormattedData);
-    setSelectedRows([]);
-  };
+    if (confirm("선택한 항목을 정말 삭제하시겠습니까?")) {
+        setFormattedData(newFormattedData);
+        setSelectedRows([]);
+    }
+};
 
   const handleRowSelect = useCallback((selectedRowIds: string[]) => {
     const uniqueSelectedRows = Array.from(new Set(selectedRowIds));

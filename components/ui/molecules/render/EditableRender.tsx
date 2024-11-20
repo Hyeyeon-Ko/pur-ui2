@@ -51,7 +51,7 @@ const EditableRender: React.FC<EditableRenderProps> = ({
   } else if (inputType === "datepicker") {
     return (
       <SingleDatePicker
-        selectedDate={row.repairDate ? new Date(row.repairDate) : null}
+        selectedDate={row.repairDate ? new Date(row.repairDate) : undefined} // null 대신 undefined 사용
         onDateChange={(date) =>
           handleInputChange(index, field, date ? date.toISOString() : null)
         }
@@ -67,7 +67,7 @@ const EditableRender: React.FC<EditableRenderProps> = ({
             ? String(row[field])
             : field === "repairDate" && row[field]
             ? new Date(row[field] as string).toLocaleDateString()
-            : row[field]
+            : row[field] ?? ""  // null 또는 undefined일 경우 빈 문자열로 처리
         }
         onChange={(e) => handleInputChange(index, field, e.target.value)}
         customStyle={{

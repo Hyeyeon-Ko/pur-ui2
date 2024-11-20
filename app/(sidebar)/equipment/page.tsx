@@ -160,12 +160,9 @@ const EquipmentPage = () => {
               </td>
               <td className="py-2 border-b-Grey_Darken_4">{index + 1}</td>
               {isEditing && row.isSelected
-                ? Object.keys(row).map((field: keyof RepairRow) =>
+                ? (Object.keys(row) as (keyof RepairRow)[]).map((field) =>
                     field !== "isNew" && field !== "isSelected" ? (
-                      <td
-                        key={field}
-                        className="w-[140px] border-b-Grey_Darken_4"
-                      >
+                      <td key={field} className="w-[140px] border-b-Grey_Darken_4">
                         <EditableRender
                           row={row}
                           field={field}
@@ -176,12 +173,12 @@ const EquipmentPage = () => {
                       </td>
                     ) : null
                   )
-                : Object.keys(row).map((field: keyof RepairRow) =>
+                : (Object.keys(row) as (keyof RepairRow)[]).map((field) =>
                     field !== "isNew" && field !== "isSelected" ? (
                       <td key={field} className="border-b-Grey_Darken_4">
                         {field === "repairDate"
                           ? row[field]
-                            ? new Date(row[field]).toLocaleDateString()
+                            ? new Date(row[field] as string).toLocaleDateString()
                             : "N/A"
                           : row[field]}
                       </td>

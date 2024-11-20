@@ -66,12 +66,19 @@ const VerticalRender: React.FC<VerticalRenderProps> = ({
   const handleChipClick = (label: string) => {
     if (selectedCenters) {
       if (selectedCenters.includes(label)) {
-        setSelectedCenters(selectedCenters.filter((item) => item !== label));
+        if (setSelectedCenters) {
+          setSelectedCenters(selectedCenters.filter((item) => item !== label));
+        }
       } else {
-        setSelectedCenters([...selectedCenters, label]);
+        if (setSelectedCenters) {
+          setSelectedCenters([...selectedCenters, label]);
+        }
       }
     }
-    onChipClick?.(label, row.title);
+  
+    if (onChipClick) {
+      onChipClick(label, row.title);
+    }
   };
 
   const handleRadioChange = (value: string) => {
@@ -136,19 +143,19 @@ const VerticalRender: React.FC<VerticalRenderProps> = ({
 
     return (
       <SingleDatePicker
-        selectedDate={row.contents ? new Date(row.contents as string) : null}
+        selectedDate={row.contents ? new Date(row.contents as string) : undefined} 
         onDateChange={handleDateChange}
         minDate={
           row.id === 9
             ? announcementDate
-              ? new Date(announcementDate.getTime() + 24 * 60 * 60 * 1000)
-              : null
-            : null
+              ? new Date(announcementDate.getTime() + 24 * 60 * 60 * 1000) 
+              : undefined 
+            : undefined 
         }
         minDateForBid={
           minDateForBid
             ? new Date(minDateForBid.getTime() + 24 * 60 * 60 * 1000)
-            : null
+            : undefined 
         }
       />
     );

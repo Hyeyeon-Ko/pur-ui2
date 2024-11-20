@@ -6,7 +6,7 @@ import { useDarkMode } from "@/context/DarkModeContext";
 
 interface SingleDatePickerProps {
   selectedDate: Date | undefined;
-  onDateChange: (date: Date | undefined) => void;
+  onDateChange: (date: Date | null) => void; 
   minDate?: Date;
   maxDate?: Date;
   minDateForBid?: Date;
@@ -36,9 +36,8 @@ const SingleDatePicker: React.FC<SingleDatePickerProps> = ({
           showIcon
           dateFormat="yyyy.MM.dd"
           selected={selectedDate}
-          onChange={(date: Date | null) => onDateChange(date || undefined)}
-          minDate={minDateForBid || minDate} // minDateForBid를 먼저 사용하고 없으면 minDate를 사용
-          // maxDate={maxDate}
+          onChange={(date: Date | null) => onDateChange(date)}  // Accept Date | null here
+          minDate={minDateForBid || minDate} // minDateForBid을 우선 사용하고 없으면 minDate를 사용
           locale={ko}
           className={`m-1 block w-full p-2 border rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-500 ${
             isDarkMode
@@ -52,7 +51,6 @@ const SingleDatePicker: React.FC<SingleDatePickerProps> = ({
           showMonthDropdown
           showYearDropdown
           dropdownMode="select"
-          // label={label}
         />
       </div>
     </div>

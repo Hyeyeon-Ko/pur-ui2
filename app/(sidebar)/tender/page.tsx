@@ -47,7 +47,7 @@ const TenderPage = () => {
   const bidColumns = Object.keys(fieldLabels)
     .filter((field) => field !== "id") // "id"를 제외
     .map((field) => ({
-      title: fieldLabels[field as keyof typeof fieldLabels],
+      title: fieldLabels[field as keyof typeof fieldLabels] || "기본 제목", // Fallback to a default value if undefined
       dataIndex: field,
       key: field,
     }));

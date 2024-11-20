@@ -9,7 +9,7 @@ interface TableHeaderProps {
   isAllSelected: boolean;
   onSelectAll: (checked: boolean) => void;
   sorter: Sorter | null;
-  setSorter: React.Dispatch<React.SetStateAction<Sorter | null>>;
+  setSorter?: React.Dispatch<React.SetStateAction<Sorter | null>>;
   isDarkMode: boolean;
   data: Array<{ [key: string]: string }>;
 }
@@ -30,11 +30,13 @@ const TableHeader: React.FC<TableHeaderProps> = ({
   };
 
   const handleSortToggle = (columnTitle: string) => {
-    const newOrder =
-      sorter?.field === columnTitle && sorter.order === "ascend"
-        ? "descend"
-        : "ascend";
-    setSorter({ field: columnTitle, order: newOrder });
+    if (setSorter) {
+      const newOrder =
+        sorter?.field === columnTitle && sorter.order === "ascend"
+          ? "descend"
+          : "ascend";
+      setSorter({ field: columnTitle, order: newOrder });
+    }
   };
 
   return (
@@ -55,23 +57,20 @@ const TableHeader: React.FC<TableHeaderProps> = ({
         {columns.map((column) => (
           <th key={column.title} className="text-center py-4">
             {column.title}
-            {setSorter && (
-              <span
-                className="cursor-pointer"
-                onClick={() => handleSortToggle(column.title)}
-              >
-                {isDate(data[0][column.title]) && (
-                  <>
-                    {sorter?.field === column.title && sorter.order === "ascend"
-                      ? " ▲"
-                      : sorter?.field === column.title &&
-                        sorter.order === "descend"
-                      ? " ▼"
-                      : " ▲"}
-                  </>
-                )}
-              </span>
-            )}
+            <span
+              className="cursor-pointer"
+              onClick={() => handleSortToggle(column.title)}
+            >
+              {isDate(data[0][column.title]) && (
+                <>
+                  {sorter?.field === column.title && sorter.order === "ascend"
+                    ? " ▲"
+                    : sorter?.field === column.title && sorter.order === "descend"
+                    ? " ▼"
+                    : " ▲"}
+                </>
+              )}
+            </span>
           </th>
         ))}
       </tr>
