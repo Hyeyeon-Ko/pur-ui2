@@ -57,20 +57,23 @@ const TableHeader: React.FC<TableHeaderProps> = ({
         {columns.map((column) => (
           <th key={column.title} className="text-center py-4">
             {column.title}
-            <span
-              className="cursor-pointer"
-              onClick={() => handleSortToggle(column.title)}
-            >
-              {isDate(data[0][column.title]) && (
-                <>
-                  {sorter?.field === column.title && sorter.order === "ascend"
-                    ? " ▲"
-                    : sorter?.field === column.title && sorter.order === "descend"
-                    ? " ▼"
-                    : " ▲"}
-                </>
-              )}
-            </span>
+            {setSorter && (
+              <span
+                className="cursor-pointer"
+                onClick={() => handleSortToggle(column.title)}
+              >
+                {isDate(data[0][column.title]) && (
+                  <>
+                    {sorter?.field === column.title && sorter.order === "ascend"
+                      ? " ▲"
+                      : sorter?.field === column.title &&
+                        sorter.order === "descend"
+                      ? " ▼"
+                      : " ▲"}
+                  </>
+                )}
+              </span>
+            )}
           </th>
         ))}
       </tr>
