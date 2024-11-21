@@ -1,11 +1,11 @@
 // src/components/ui/inputs/CategoryItemInput.tsx
 import React, { useState, useEffect } from "react";
-import Label from "../../atoms/label/Label";
 import { CategoryItemInputProps } from "@/types/categoryTypes";
 import { useCategoryVisibility } from "@/context/CategoryVisibilityContext";
-import CategorySelect from "../../molecules/category/CategorySelect";
-import FieldInputs from "../../molecules/category/FieldInputs";
-import ActionButtons from "../../molecules/category/ActionButtons";
+import CategorySelect from "../../../../app/(sidebar)/category/_components/CategorySelect";
+import FieldInputs from "../../../../app/(sidebar)/category/_components/FieldInputs";
+import ActionButtons from "../../../../app/(sidebar)/category/_components/ActionButtons";
+import Label from "@/components/ui/atoms/label/Label";
 
 const CategoryItemInput: React.FC<CategoryItemInputProps> = ({
   item,

@@ -2,11 +2,10 @@
 
 import React, { useState } from "react";
 import { contractAddOptions } from "@/lib/optionDatas";
-import AddCommonForm from "@/components/ui/templates/AddCommonForm";
+import AddCommonForm from "@/app/contract/add/_components/AddCommonForm";
 import useSaveData from "@/hooks/useSaveData";
 import useTenderSearch from "@/hooks/useTenderSearch";
 import { contractDetailData as initialContractDetailData } from "@/lib/contractDatas";
-
 
 const ContractAddPage = () => {
   const [checkedItems, setCheckedItems] = useState<{ [key: string]: boolean }>(

@@ -1,6 +1,6 @@
 import Link from "next/link";
-import Label from "../../atoms/label/Label";
 import colors from "@/styles/colors";
+import Label from "@/components/ui/atoms/label/Label";
 
 interface ListItemProps {
   href: string;

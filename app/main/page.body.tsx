@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { FaUserClock } from "react-icons/fa";
-import DashCard from "@/components/ui/atoms/dashboard/DashCard";
-import ListItem from "@/components/ui/molecules/dashboard/ListItem";
-import { getLocal, setLocal } from "@/utils/localStorage";
-import DashboardSection from "@/components/ui/organism/dashboard/DashboardSection";
+import { getLocal } from "@/utils/localStorage";
+import DashboardSection from "@/app/main/_components/DashboardSection";
 import { MdCalculate } from "react-icons/md";
 import { FaFileContract, FaFileDownload } from "react-icons/fa";
 import { RiCheckboxMultipleLine } from "react-icons/ri";
 import { FiTool } from "react-icons/fi";
+import DashCard from "./_components/DashCard";
+import ListItem from "./_components/ListItem";
 
 const DashboardBody = () => {
   const [user, setUser] = useState(null);
