@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import ThemeToggle from "@/components/ui/molecules/buttons/ThemeToggle";
+import React from "react";
 import CheckOption from "@/components/ui/organism/option/CheckOption";
 import PageTitle from "@/components/ui/molecules/titles/PageTitle";
 import VerticalTable from "@/components/ui/organism/verticalTable/VerticalTable";
 import TableButton from "../molecules/buttons/TableButton";
 import useChipHandler from "@/hooks/useChipHandler";
+import ThemeToggle from "@/components/layouts/_components/ThemeToggle";
 
 interface AddCommonFormProps {
   title: string;

@@ -5,7 +5,6 @@ import Table from "@/components/ui/organism/table/Table";
 import PageTitle from "@/components/ui/molecules/titles/PageTitle";
 import VerticalTable from "@/components/ui/organism/verticalTable/VerticalTable";
 import useFormatHandler from "@/hooks/useFormatHandler";
-import ThemeToggle from "@/components/ui/molecules/buttons/ThemeToggle";
 import TableButton from "@/components/ui/molecules/buttons/TableButton";
 import FileUploadButton from "@/components/ui/molecules/buttons/FileUploadButton";
 // import { tenderVerticalResult } from "@/lib/data";
@@ -21,6 +20,7 @@ import {
   bidResultData,
 } from "@/lib/bidDatas";
 import { bidListDataType } from "@/types/bidTypes";
+import ThemeToggle from "@/components/layouts/_components/ThemeToggle";
 
 const TenderDetail: React.FC = () => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
@@ -118,14 +118,9 @@ const TenderDetail: React.FC = () => {
 
   return (
     <div>
-      <ThemeToggle
-        customStyle={{
-          display: "flex",
-          justifyContent: "end",
-          marginTop: "24px",
-          marginRight: "24px",
-        }}
-      />
+      <div className="py-10">
+        <ThemeToggle />
+      </div>
       <PageTitle pageTitle="입찰상세조회" mode="xl" fontWeight="bold" />
       <TableButton
         showSaveButton

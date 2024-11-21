@@ -3,7 +3,6 @@
 import Toast from "@/components/commons/Toast";
 import FileUploadButton from "@/components/ui/molecules/buttons/FileUploadButton";
 import TableButton from "@/components/ui/molecules/buttons/TableButton";
-import ThemeToggle from "@/components/ui/molecules/buttons/ThemeToggle";
 import Table from "@/components/ui/organism/table/Table";
 import PageTitle from "@/components/ui/molecules/titles/PageTitle";
 import VerticalTable from "@/components/ui/organism/verticalTable/VerticalTable";
@@ -18,10 +17,9 @@ import {
   contractListData,
   contractListLabels,
 } from "@/lib/contractDatas";
-
+import ThemeToggle from "@/components/layouts/_components/ThemeToggle";
 
 const TenderDetail = () => {
-
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
 
   const { downloadFile } = useFileDownload();
@@ -34,8 +32,8 @@ const TenderDetail = () => {
     (item) => ({
       센터: formatCenterData(item.centerName || []) || "-",
       낙찰기준가: formatCurrency(item.baseBidPrice || ""),
-      계약단가: formatCurrency(item.contractUnitPrice|| ""),
-      계약금액: formatCurrency(item.contractAmount|| ""),
+      계약단가: formatCurrency(item.contractUnitPrice || ""),
+      계약금액: formatCurrency(item.contractAmount || ""),
       ERP코드: item.erpCode || "-",
       ERP품목: item.erpItem || "-",
       입찰번호: item.bidNumber || "-",
@@ -114,7 +112,9 @@ const TenderDetail = () => {
 
   return (
     <div>
-      <ThemeToggle />
+      <div className="py-10">
+        <ThemeToggle />
+      </div>
       <PageTitle pageTitle="계약상세조회" mode="xl" fontWeight="bold" />
       <TableButton
         showSaveButton
