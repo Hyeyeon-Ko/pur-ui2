@@ -2,9 +2,9 @@
 import React, { useState, useEffect } from "react";
 import { CategoryItemInputProps } from "@/types/categoryTypes";
 import { useCategoryVisibility } from "@/context/CategoryVisibilityContext";
-import CategorySelect from "../../../../app/(sidebar)/category/_components/CategorySelect";
-import FieldInputs from "../../../../app/(sidebar)/category/_components/FieldInputs";
-import ActionButtons from "../../../../app/(sidebar)/category/_components/ActionButtons";
+import CategorySelect from "@/app/(sidebar)/category/_components/CategorySelect";
+import FieldInputs from "@/app/(sidebar)/category/_components/FieldInputs";
+import ActionButtons from "@/app/(sidebar)/category/_components/ActionButtons";
 import Label from "@/components/ui/atoms/label/Label";
 
 const CategoryItemInput: React.FC<CategoryItemInputProps> = ({
