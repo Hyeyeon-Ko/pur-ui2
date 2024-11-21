@@ -16,7 +16,6 @@ const ThemeToggle: React.FC<ThemeProps> = () => {
       style={{
         display: "flex",
         justifyContent: "end",
-        marginTop: "24px",
         marginRight: "24px",
       }}
     >
