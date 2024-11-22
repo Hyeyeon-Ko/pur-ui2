@@ -29,7 +29,7 @@ const DashboardSection: React.FC<DashboardSectionProps> = ({
           mode="lg"
         />
       </div>
-      <div className="grid grid-cols-7 w-[100%] mx-auto mb-5 h-50 rounded-lg text-white shadow-lg">
+      <div className="flex justify-center mb-5 rounded-lg text-white">
         {children}
       </div>
     </div>
