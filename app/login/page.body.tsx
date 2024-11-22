@@ -107,6 +107,7 @@ const LoginBody = () => {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "flex-start",
+                color: isDarkMode ? colors.signature : colors.signature,
               }}
             />
           </div>
