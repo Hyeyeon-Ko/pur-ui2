@@ -16,7 +16,7 @@ const LoginBody = () => {
   const router = useRouter();
   const { isDarkMode } = useDarkMode();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // 로그인 로직 (예시)
@@ -39,29 +39,30 @@ const LoginBody = () => {
     //   });
 
     //   if (!response.ok) {
-    //     throw new Error('로그인 실패!');
+    //     throw new Error('로그인 실패! 사원번호 또는 비밀번호를 확인하세요.');
     //   }
 
     //   const data = await response.json();
-    //   localStorage.setItem('token', data.token); // JWT 토큰 저장
-    //   router.push('/tender'); // 로그인 성공 시 홈으로 리다이렉트
+    //   localStorage.setItem('token', data.token);
+    //   Toast.notify("로그인에 성공했습니다!", ToastType.SUCCESS);
+    //   router.push('/main');
     // } catch (error) {
-    //   alert(error.message);
+    //   Toast.notify("사원번호 혹은 비밀번호를 확인해주세요.", ToastType.ERROR);
     // }
   };
 
   return (
     <div
       style={{ backgroundColor: colors.signature }}
-      className="flex items-center justify-center h-screen shadow-lg"
+      className="flex h-screen items-center justify-center shadow-lg"
     >
       <form
         onSubmit={handleSubmit}
-        className="space-y-4 w-96 py-12 px-6 rounded-3xl"
+        className="w-96 space-y-4 rounded-3xl px-6 py-12"
         style={{ backgroundColor: colors.white }}
       >
         <div
-          className="flex justify-center border rounded-3xl w-[70%] mx-auto shadow-lg"
+          className="mx-auto flex w-[70%] justify-center rounded-3xl border shadow-lg"
           style={{ backgroundColor: colors.signature }}
         >
           <Label
@@ -70,7 +71,7 @@ const LoginBody = () => {
             customStyle={{ color: colors.white, padding: "8px" }}
           />
         </div>
-        <div className="py-16 flex flex-col">
+        <div className="flex flex-col py-16">
           <div>
             <LabelInput
               labelMode="sm"
@@ -82,7 +83,7 @@ const LoginBody = () => {
               inputType="text"
               placeholder="사원번호를 입력하세요"
               value={employeeId}
-              onChange={(e) => setEmployeeId(e.target.value)}
+              onChange={e => setEmployeeId(e.target.value)}
               customStyle={{
                 display: "flex",
                 flexDirection: "column",
@@ -102,7 +103,7 @@ const LoginBody = () => {
               inputType="password"
               placeholder="비밀번호를 입력하세요"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={e => setPassword(e.target.value)}
               customStyle={{
                 display: "flex",
                 flexDirection: "column",

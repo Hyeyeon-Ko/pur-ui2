@@ -16,7 +16,7 @@ export default function DashboardLayout({
   const { isDarkMode } = useDarkMode();
 
   const toggleSidebar = () => {
-    setIsSidebarOpen((prev) => {
+    setIsSidebarOpen(prev => {
       const newState = !prev;
       setLocal({ key: "sidebar", value: newState }); // 로컬 스토리지에 상태 저장
       return newState;
@@ -49,25 +49,25 @@ export default function DashboardLayout({
 
   return (
     <div
-      className={`h-screen flex ${
+      className={`flex h-screen ${
         isDarkMode ? "dark:bg-dark-Grey_Darken_5" : "bg-white"
       }`}
     >
       {/* 사이드바 */}
       <div
         style={{ backgroundColor: colors.signature }}
-        className={`transition-all duration-300 pl-1 border-r ${
+        className={`border-r pl-1 transition-all duration-300 ${
           isSidebarOpen ? "w-60" : "w-16"
         }`}
       >
         <SideMenu isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
       </div>
 
-      <div className="flex flex-col flex-1">
+      <div className="flex flex-1 flex-col">
         {/* 네비게이션 바 */}
         <Navbar /> {/* isDarkMode는 Navbar에서 사용할 수 있음 */}
         {/* 컨텐츠 영역 */}
-        <div className="flex-1 overflow-auto flex flex-col mb-4">
+        <div className="mb-4 flex flex-1 flex-col overflow-auto">
           {children}
         </div>
       </div>
