@@ -22,7 +22,7 @@ export const initialState: State = {
 
 export const reducer = (
   state: State,
-  action: { type: string; payload?: any }
+  action: { type: string; payload?: any },
 ) => {
   switch (action.type) {
     case "SET_FILE":

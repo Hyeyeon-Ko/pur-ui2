@@ -19,7 +19,7 @@ const CheckBoxHeader: React.FC<CheckBoxHeaderProps> = ({
       <Checkbox
         mode="sm"
         checked={isAllSelected}
-        onChange={(e) => onSelectAll(e.target.checked)}
+        onChange={e => onSelectAll(e.target.checked)}
       />
     </th>
   );

@@ -25,7 +25,7 @@ interface VerticalRenderProps {
   announcementDate?: Date | null; // 공고일
   deadlineDate?: Date | null; // 마감일
   selectedCenters?: string[]; // 선택된 센터 배열
-  setSelectedCenters?: React.Dispatch<React.SetStateAction<string[]>>; 
+  setSelectedCenters?: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 const VerticalRender: React.FC<VerticalRenderProps> = ({
@@ -56,18 +56,18 @@ const VerticalRender: React.FC<VerticalRenderProps> = ({
   };
 
   const handleFileUpload = (id: number, file: File) => {
-    setUploadedFiles((prev) => ({ ...prev, [id]: file }));
+    setUploadedFiles(prev => ({ ...prev, [id]: file }));
   };
 
   const handleReasonChange = (id: number, value: string) => {
-    setReasons((prev) => ({ ...prev, [id]: value }));
+    setReasons(prev => ({ ...prev, [id]: value }));
   };
 
   const handleChipClick = (label: string) => {
     if (selectedCenters) {
       if (selectedCenters.includes(label)) {
         if (setSelectedCenters) {
-          setSelectedCenters(selectedCenters.filter((item) => item !== label));
+          setSelectedCenters(selectedCenters.filter(item => item !== label));
         }
       } else {
         if (setSelectedCenters) {
@@ -75,7 +75,7 @@ const VerticalRender: React.FC<VerticalRenderProps> = ({
         }
       }
     }
-  
+
     if (onChipClick) {
       onChipClick(label, row.title);
     }
@@ -87,7 +87,7 @@ const VerticalRender: React.FC<VerticalRenderProps> = ({
 
   // 모든 항목에 대해 미제출 체크박스를 초기화
   if (!(row.id in isNotSubmitted)) {
-    setIsNotSubmitted((prev) => ({ ...prev, [row.id]: false }));
+    setIsNotSubmitted(prev => ({ ...prev, [row.id]: false }));
   }
 
   // 각 타입별로 컴포넌트 렌더링하는 함수들
@@ -143,19 +143,21 @@ const VerticalRender: React.FC<VerticalRenderProps> = ({
 
     return (
       <SingleDatePicker
-        selectedDate={row.contents ? new Date(row.contents as string) : undefined} 
+        selectedDate={
+          row.contents ? new Date(row.contents as string) : undefined
+        }
         onDateChange={handleDateChange}
         minDate={
           row.id === 9
             ? announcementDate
-              ? new Date(announcementDate.getTime() + 24 * 60 * 60 * 1000) 
-              : undefined 
-            : undefined 
+              ? new Date(announcementDate.getTime() + 24 * 60 * 60 * 1000)
+              : undefined
+            : undefined
         }
         minDateForBid={
           minDateForBid
             ? new Date(minDateForBid.getTime() + 24 * 60 * 60 * 1000)
-            : undefined 
+            : undefined
         }
       />
     );
@@ -172,7 +174,7 @@ const VerticalRender: React.FC<VerticalRenderProps> = ({
   const renderUpload = () => (
     <div className="flex items-center gap-2">
       <FileUploadButton
-        onFileUpload={(event) => {
+        onFileUpload={event => {
           const file = event.target.files?.[0];
           if (file) handleFileUpload(row.id, file);
         }}
@@ -197,7 +199,7 @@ const VerticalRender: React.FC<VerticalRenderProps> = ({
       {!isNotSubmitted[row.id] ? (
         <>
           <FileUploadButton
-            onFileUpload={(event) => {
+            onFileUpload={event => {
               const file = event.target.files?.[0];
               if (file) handleFileUpload(row.id, file);
             }}
@@ -225,13 +227,13 @@ const VerticalRender: React.FC<VerticalRenderProps> = ({
           color="primary"
           checked={isNotSubmitted[row.id] || false}
           onChange={() => {
-            setIsNotSubmitted((prev) => ({
+            setIsNotSubmitted(prev => ({
               ...prev,
               [row.id]: !prev[row.id],
             }));
             if (!isNotSubmitted[row.id]) {
-              setUploadedFiles((prev) => ({ ...prev, [row.id]: null }));
-              setReasons((prev) => ({ ...prev, [row.id]: "" }));
+              setUploadedFiles(prev => ({ ...prev, [row.id]: null }));
+              setReasons(prev => ({ ...prev, [row.id]: "" }));
             }
           }}
           label="미제출"
@@ -245,7 +247,7 @@ const VerticalRender: React.FC<VerticalRenderProps> = ({
             type="text"
             placeholder="미제출 사유를 입력하세요"
             value={reasons[row.id] || ""}
-            onChange={(e) => handleReasonChange(row.id, e.target.value)}
+            onChange={e => handleReasonChange(row.id, e.target.value)}
           />
         )}
       </div>

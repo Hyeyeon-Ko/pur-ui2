@@ -17,42 +17,48 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
   const [searchData, setSearchData] = useState<{
     [key: string]: string | Date | undefined;
   }>(
-    fieldsConfig.reduce((acc, field) => {
-      if (field.type === "date") {
-        // acc[field.name] = new Date(); // 오늘 날짜
-        acc[field.name] = undefined; // 오늘 날짜
-      } else {
-        acc[field.name] = "";
-      }
-      return acc;
-    }, {} as { [key: string]: string | Date | undefined })
+    fieldsConfig.reduce(
+      (acc, field) => {
+        if (field.type === "date") {
+          // acc[field.name] = new Date(); // 오늘 날짜
+          acc[field.name] = undefined; // 오늘 날짜
+        } else {
+          acc[field.name] = "";
+        }
+        return acc;
+      },
+      {} as { [key: string]: string | Date | undefined },
+    ),
   );
 
   const { isDarkMode } = useDarkMode();
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
+    e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>,
   ) => {
     const { name, value } = e.target;
-    setSearchData((prev) => ({ ...prev, [name]: value }));
+    setSearchData(prev => ({ ...prev, [name]: value }));
   };
 
   const handleDateChange = (name: string, date: Date | undefined) => {
-    setSearchData((prev) => ({ ...prev, [name]: date }));
+    setSearchData(prev => ({ ...prev, [name]: date }));
   };
 
-const handleSearch = () => {
-  if (onSearch) {
-    onSearch(searchData);
-  }
-};
+  const handleSearch = () => {
+    if (onSearch) {
+      onSearch(searchData);
+    }
+  };
 
   const handleReset = () => {
     setSearchData(
-      fieldsConfig.reduce((acc, field) => {
-        acc[field.name] = field.type === "date" ? new Date() : "";
-        return acc;
-      }, {} as { [key: string]: string | Date | undefined })
+      fieldsConfig.reduce(
+        (acc, field) => {
+          acc[field.name] = field.type === "date" ? new Date() : "";
+          return acc;
+        },
+        {} as { [key: string]: string | Date | undefined },
+      ),
     );
   };
 
@@ -64,14 +70,14 @@ const handleSearch = () => {
         }}
         className={`${
           isDarkMode ? "bg-dark-Grey_Darken_5" : "bg-white"
-        } border mx-auto rounded-full shadow-lg w-[90%]`}
+        } mx-auto w-[90%] rounded-full border shadow-lg`}
       >
         <div>
           <div className="flex flex-wrap">
             {fieldsConfig.map((field, index) => (
               <div
                 key={field.name}
-                className={`flex flex-1 p-2 bg-gray-50 items-center ${
+                className={`bg-gray-50 flex flex-1 items-center p-2 ${
                   index !== fieldsConfig.length - 1 ? "border-r" : ""
                 }`}
                 style={{

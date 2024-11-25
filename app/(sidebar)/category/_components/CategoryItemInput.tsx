@@ -38,7 +38,7 @@ const CategoryItemInput: React.FC<CategoryItemInputProps> = ({
   };
 
   return (
-    <div className="flex justify-between items-center space-x-2 px-4">
+    <div className="flex items-center justify-between space-x-2 px-4">
       {item.isEditing ? (
         <div className="flex flex-grow justify-between">
           <CategorySelect
@@ -58,12 +58,12 @@ const CategoryItemInput: React.FC<CategoryItemInputProps> = ({
           />
         </div>
       ) : (
-        <div className="flex flex-grow justify-between items-center">
+        <div className="flex flex-grow items-center justify-between">
           {majorCategory && <Label mode="xs" content={selectedLargeCategory} />}
           {middleCategory && (
             <Label mode="xs" content={selectedMiddleCategory} />
           )}
-          {fields.map((field) => (
+          {fields.map(field => (
             <Label
               key={field.field}
               mode="xs"

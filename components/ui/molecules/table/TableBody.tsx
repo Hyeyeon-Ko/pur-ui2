@@ -29,7 +29,7 @@ const TableBody: React.FC<TableBodyProps> = ({
         <tr>
           <td
             colSpan={columns.length + (showCheckbox ? 1 : 0)}
-            className="text-center py-4"
+            className="py-4 text-center"
           >
             <Loading />
           </td>

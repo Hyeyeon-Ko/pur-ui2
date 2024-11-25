@@ -3,7 +3,7 @@ import React from "react";
 
 const loading = () => {
   return (
-    <div className="h-full items-center mx-auto">
+    <div className="mx-auto h-full items-center">
       <Loading />
     </div>
   );

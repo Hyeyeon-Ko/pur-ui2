@@ -13,7 +13,7 @@ export const useCategoryVisibility = () => {
   const context = useContext(CategoryVisibilityContext);
   if (!context) {
     throw new Error(
-      "useCategoryVisibility는 반드시 CategoryVisibilityProvider내에서 사용되어야 함"
+      "useCategoryVisibility는 반드시 CategoryVisibilityProvider내에서 사용되어야 함",
     );
   }
   return context;

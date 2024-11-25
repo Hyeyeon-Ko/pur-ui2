@@ -29,7 +29,7 @@ const useFileUpload = () => {
         Toast.errorUploadNotify();
       }
     },
-    []
+    [],
   );
 
   return { handleFileUpload };

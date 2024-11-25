@@ -16,7 +16,7 @@ interface UserInfoProps {
 
 const UserInfo: React.FC<UserInfoProps> = ({ user, onLogout, isDarkMode }) => {
   return (
-    <div className="flex gap-4 items-center">
+    <div className="flex items-center gap-4">
       <Label
         customStyle={{
           color: isDarkMode ? colors.white : colors["Grey_Darken-5"],

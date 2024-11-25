@@ -17,9 +17,9 @@ const CategoryItemList: React.FC<CategoryItemListProps> = ({
       <div
         className={`${
           isDarkMode ? "bg-dark-Grey_Darken_5" : "transparent"
-        } mx-auto space-y-4 shadow-lg rounded-lg w-[80%] p-4`}
+        } mx-auto w-[80%] space-y-4 rounded-lg p-4 shadow-lg`}
       >
-        {items.map((item) => (
+        {items.map(item => (
           <CategoryItemInput
             key={item.id}
             item={item}

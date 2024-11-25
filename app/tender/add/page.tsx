@@ -9,7 +9,7 @@ import { bidDetailData as initialBidDetailData } from "@/lib/bidDatas";
 
 const AddItemPage = () => {
   const [checkedItems, setCheckedItems] = useState<{ [key: string]: boolean }>(
-    {}
+    {},
   );
   const [bidDetailData, setBidDetailData] =
     useState<any[]>(initialBidDetailData);

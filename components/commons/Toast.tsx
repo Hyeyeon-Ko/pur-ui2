@@ -57,7 +57,7 @@ const Toast = {
   errorTenderNotify: () =>
     Toast.notify(
       "조회에 실패했습니다. 입찰번호를 확인해 주세요.",
-      ToastType.ERROR
+      ToastType.ERROR,
     ),
   warningTenderNotify: () =>
     Toast.notify("입찰번호를 입력해 주세요.", ToastType.WARNING),

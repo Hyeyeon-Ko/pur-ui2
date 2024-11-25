@@ -75,19 +75,23 @@ const Modal: React.FC<ModalProps> = ({
         style={{
           backgroundColor: isDarkMode ? colors["Grey_Darken-5"] : colors.white,
         }}
-        className={`relative rounded-2xl shadow-lg z-10 pt-6 ${modeClasses[mode]} ${colorClass}`}
-        onClick={(e) => e.stopPropagation()}
+        className={`relative z-10 rounded-2xl pt-6 shadow-lg ${modeClasses[mode]} ${colorClass}`}
+        onClick={e => e.stopPropagation()}
       >
-        <ModalHeader title={title} titleFontSize={titleFontSize} closeModal={closeModal} />
+        <ModalHeader
+          title={title}
+          titleFontSize={titleFontSize}
+          closeModal={closeModal}
+        />
         {children}
-        <ModalFooter 
-          showCancelButton={showCancelButton} 
-          showConfirmButton={showConfirmButton} 
-          cancelText={cancelText} 
-          confirmText={confirmText} 
-          confirmButtonDisabled={confirmButtonDisabled} 
-          onCancelClick={onCancelClick || closeModal} 
-          onConfirmClick={onConfirmClick} 
+        <ModalFooter
+          showCancelButton={showCancelButton}
+          showConfirmButton={showConfirmButton}
+          cancelText={cancelText}
+          confirmText={confirmText}
+          confirmButtonDisabled={confirmButtonDisabled}
+          onCancelClick={onCancelClick || closeModal}
+          onConfirmClick={onConfirmClick}
         />
       </div>
     </div>

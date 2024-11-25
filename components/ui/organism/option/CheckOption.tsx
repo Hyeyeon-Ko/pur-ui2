@@ -26,7 +26,7 @@ const CheckOption: React.FC<CheckOptionProps> = ({
 
   const notifySearch = (
     bidNumber: string,
-    onSearch: (bidNumber: string) => void
+    onSearch: (bidNumber: string) => void,
   ) => {
     if (bidNumber) {
       onSearch(bidNumber);
@@ -37,7 +37,7 @@ const CheckOption: React.FC<CheckOptionProps> = ({
 
   return (
     <div className="flex p-4">
-      <div className="flex items-center gap-2 mr-1">
+      <div className="mr-1 flex items-center gap-2">
         <Radio
           options={options}
           selectedValue={selectedOption}
@@ -48,7 +48,7 @@ const CheckOption: React.FC<CheckOptionProps> = ({
       {selectedOption === searchOptionValue && (
         <SearchInput
           bidNumber={bidNumber}
-          onChange={(e) => {
+          onChange={e => {
             setBidNumber(e.target.value);
           }}
           onSearch={() => notifySearch(bidNumber, onSearch)}

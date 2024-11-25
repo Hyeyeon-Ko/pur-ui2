@@ -19,7 +19,7 @@ const ContractPage = () => {
   const { formatCenterData, formatDate, formatCurrency } = useFormatHandler();
 
   const [formattedData, setFormattedData] = useState<contractDataType[]>(() =>
-    contractData.map((item) => ({
+    contractData.map(item => ({
       센터: formatCenterData(item.centerName || []) || "-",
       계약일자: formatDate(item.contractDate || "") || "-",
       계약시작일: formatDate(item.contractStartDate || "") || "-",
@@ -41,12 +41,12 @@ const ContractPage = () => {
       담당자: item.manager || "-",
       기타: item.etc || "-",
       열람: item.viewStatus || "-",
-    }))
+    })),
   );
 
   const contractColumns = Object.keys(fieldLabels)
-    .filter((field) => field !== "id") // "id"를 제외
-    .map((field) => ({
+    .filter(field => field !== "id") // "id"를 제외
+    .map(field => ({
       title: fieldLabels[field as keyof typeof fieldLabels],
       dataIndex: field,
       key: field,
@@ -65,7 +65,7 @@ const ContractPage = () => {
 
   const handleDeleteSelected = () => {
     const newFormattedData = formattedData.filter(
-      (item) => item.id !== undefined && !selectedRows.includes(item.id)
+      item => item.id !== undefined && !selectedRows.includes(item.id),
     );
     if (confirm("선택한 항목을 정말 삭제하시겠습니까?")) {
       setFormattedData(newFormattedData);
@@ -80,13 +80,13 @@ const ContractPage = () => {
   }, []);
 
   return (
-    <div className="flex flex-col mb-4">
+    <div className="mb-4 flex flex-col">
       <PageTitle pageTitle="계약조회" mode="xl" fontWeight="bold" />
 
       <div>
         <SearchFilter fieldsConfig={contractSearchFields} />
       </div>
-      <div className="flex justify-end mr-6">
+      <div className="mr-6 flex justify-end">
         <TableButton
           showDelButton={false}
           onOpenAddPage={handleOpenAddPage}

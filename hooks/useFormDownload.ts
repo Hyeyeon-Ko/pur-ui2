@@ -28,7 +28,7 @@ const useFormDownload = () => {
         Toast.errorDownNotify();
       }
     },
-    []
+    [],
   );
 
   return { handleFormDown };

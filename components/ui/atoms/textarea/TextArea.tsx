@@ -8,7 +8,7 @@ const TextArea: React.FC<TextareaHTMLAttributes<HTMLTextAreaElement>> = ({
     <div className={`flex flex-col ${className}`}>
       <textarea
         {...props}
-        className="w-full p-3 rounded-md bg-dark-transparent focus:outline-none"
+        className="w-full rounded-md bg-dark-transparent p-3 focus:outline-none"
       />
     </div>
   );

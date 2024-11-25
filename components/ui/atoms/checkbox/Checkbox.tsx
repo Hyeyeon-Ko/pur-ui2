@@ -76,8 +76,8 @@ const Checkbox: React.FC<CheckboxProps> = ({
               disabled
                 ? "text-gray-400"
                 : isDarkMode
-                ? "text-white"
-                : "text-black"
+                  ? "text-white"
+                  : "text-black"
             }`}
           >
             {label}

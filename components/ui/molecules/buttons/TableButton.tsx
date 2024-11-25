@@ -31,7 +31,7 @@ const TableButton: React.FC<TableButtonProps> = ({
   showModifyButton = false,
 }) => {
   return (
-    <div className="flex justify-end mr-4">
+    <div className="mr-4 flex justify-end">
       {showAddButton && (
         <Button
           mode="sm"

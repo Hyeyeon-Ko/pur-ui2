@@ -12,17 +12,17 @@ export default function MainLayout({
 
   return (
     <div
-      className={`h-screen flex ${
+      className={`flex h-screen ${
         isDarkMode ? "dark:bg-dark-Grey_Darken_5" : "bg-Table_header"
       }`}
     >
-      <div className="flex flex-col flex-1">
-        <div className="mx-28 my-6 border border-none rounded-xl shadow-md bg-white dark:bg-Grey_Background">
+      <div className="flex flex-1 flex-col">
+        <div className="mx-28 my-6 rounded-xl border border-none bg-white shadow-md dark:bg-Grey_Background">
           {/* 네비게이션 바 */}
           <Navbar /> {/* isDarkMode는 Navbar에서 사용할 수 있음 */}
           {/* 컨텐츠 영역 */}
         </div>
-        <div className="flex-1 overflow-auto flex flex-col my-4">
+        <div className="my-4 flex flex-1 flex-col overflow-auto">
           {children}
         </div>
       </div>

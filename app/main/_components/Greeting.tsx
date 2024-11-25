@@ -20,7 +20,7 @@ const Greeting: React.FC<GreetingProps> = ({ user }) => {
           color: isDarkMode ? colors.white : colors["Grey_Darken-5"],
         }}
       />
-      <SiNicehash className="text-3xl p-1" />
+      <SiNicehash className="p-1 text-3xl" />
     </div>
   );
 };

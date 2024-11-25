@@ -54,8 +54,8 @@ const TableHeader: React.FC<TableHeaderProps> = ({
           isAllSelected={isAllSelected}
           onSelectAll={onSelectAll}
         />
-        {columns.map((column) => (
-          <th key={column.title} className="text-center py-4">
+        {columns.map(column => (
+          <th key={column.title} className="py-4 text-center">
             {column.title}
             {setSorter && (
               <span
@@ -67,9 +67,9 @@ const TableHeader: React.FC<TableHeaderProps> = ({
                     {sorter?.field === column.title && sorter.order === "ascend"
                       ? " ▲"
                       : sorter?.field === column.title &&
-                        sorter.order === "descend"
-                      ? " ▼"
-                      : " ▲"}
+                          sorter.order === "descend"
+                        ? " ▼"
+                        : " ▲"}
                   </>
                 )}
               </span>
@@ -77,33 +77,33 @@ const TableHeader: React.FC<TableHeaderProps> = ({
           </th>
         ))}
       </tr>
-      {columns.some((column) => column.subColumns) && (
+      {columns.some(column => column.subColumns) && (
         <>
           <tr>
-            {columns.map((column) => (
+            {columns.map(column => (
               <th
                 key={column.title}
                 colSpan={column.subColumns?.length || 1}
-                className="text-center py-2"
+                className="py-2 text-center"
               >
                 {column.title}
               </th>
             ))}
           </tr>
           <tr>
-            {columns.map((column) =>
+            {columns.map(column =>
               column.subColumns ? (
                 column.subColumns.map((subColumn, subIndex) => (
                   <th
                     key={`${column.title}-${subIndex}`}
-                    className="text-center py-2"
+                    className="py-2 text-center"
                   >
                     {subColumn}
                   </th>
                 ))
               ) : (
                 <th key={column.title}></th>
-              )
+              ),
             )}
           </tr>
         </>

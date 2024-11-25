@@ -15,7 +15,7 @@ interface SearchRenderProps {
   };
   value: string | Date | undefined;
   onChange: (
-    e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
+    e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>,
   ) => void;
   onDateChange: (name: string, date: Date | undefined) => void;
   customStyles?: {
@@ -48,7 +48,7 @@ const SearchRender: React.FC<SearchRenderProps> = ({
         backgroundColor: isDarkMode ? colors["Grey_Darken-5"] : "transparent",
         ...customStyles?.select,
       }}
-      aria-label={field.label} 
+      aria-label={field.label}
     />
   );
 
@@ -67,13 +67,13 @@ const SearchRender: React.FC<SearchRenderProps> = ({
         height: "40px",
         ...customStyles?.input,
       }}
-      aria-label={field.label} 
+      aria-label={field.label}
     />
   );
 
   const renderDatePicker = () => (
     <div
-      className="flex flex-col justify-around items-start"
+      className="flex flex-col items-start justify-around"
       style={customStyles?.datePicker}
     >
       <Label
@@ -83,7 +83,7 @@ const SearchRender: React.FC<SearchRenderProps> = ({
       />
       <SingleDatePicker
         selectedDate={value as Date | undefined}
-        onDateChange={(date) => onDateChange(field.name, date ?? undefined)} 
+        onDateChange={date => onDateChange(field.name, date ?? undefined)}
       />
     </div>
   );

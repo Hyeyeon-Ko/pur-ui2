@@ -43,8 +43,8 @@ const Label: React.FC<LabelProps> = ({
     fontWeight === "bold"
       ? "font-bold"
       : fontWeight === "medium"
-      ? "font-medium"
-      : "font-normal";
+        ? "font-medium"
+        : "font-normal";
 
   return (
     <label

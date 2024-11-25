@@ -8,7 +8,7 @@ interface SearchButtonProps {
 
 const SearchButton: React.FC<SearchButtonProps> = ({ onSearch, onReset }) => {
   return (
-    <div className="flex justify-end py-6 w-[92%] mb-10">
+    <div className="mb-10 flex w-[92%] justify-end py-6">
       <div className="flex space-x-2">
         <Button mode="sm" color="signature" onClick={onSearch} content="조회" />
         <Button

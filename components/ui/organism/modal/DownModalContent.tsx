@@ -39,7 +39,7 @@ const DownModalContent: React.FC<ModalContentProps> = ({
       type="text"
       placeholder="사유를 입력하세요"
       value={state.otherReason}
-      onChange={(e) => handleOtherReasonChange(e.target.value)}
+      onChange={e => handleOtherReasonChange(e.target.value)}
       customStyle={{ width: "330px" }}
     />
   );
@@ -51,7 +51,7 @@ const DownModalContent: React.FC<ModalContentProps> = ({
         label="다운로드 파일"
         placeholder="파일다운로드"
         value={state.selectedFile}
-        onChange={(e) => handleFileChange(e.target.value)}
+        onChange={e => handleFileChange(e.target.value)}
         options={fileOptions}
         customStyle={{ width: "220px", borderColor: colors.Button_Default }}
       />
@@ -59,7 +59,7 @@ const DownModalContent: React.FC<ModalContentProps> = ({
         selectMode="sm"
         label="다운로드 사유"
         value={state.selectedReason}
-        onChange={(e) => handleReasonChange(e.target.value)}
+        onChange={e => handleReasonChange(e.target.value)}
         options={reasonOptions}
         placeholder="다운로드 사유"
         customStyle={{ width: "220px", borderColor: colors.Button_Default }}

@@ -25,7 +25,7 @@ const Navbar: React.FC = () => {
   }
 
   return (
-    <nav className="p-4 mx-8 flex gap-4 justify-end items-center">
+    <nav className="mx-8 flex items-center justify-end gap-4 p-4">
       <div>
         {user ? (
           <UserInfo

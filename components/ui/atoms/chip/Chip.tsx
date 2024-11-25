@@ -36,36 +36,36 @@ const Chip: React.FC<ChipProps> = ({
   const backgroundColor = disabled
     ? "gray"
     : variant === "outline"
-    ? "transparent"
-    : color
-    ? colors[color]
-    : "#2563EB";
+      ? "transparent"
+      : color
+        ? colors[color]
+        : "#2563EB";
 
   const textColor = disabled
     ? "lightgray"
     : variant === "outline"
-    ? isDarkMode
-      ? colors.Grey_Default
-      : color
-      ? colors[color]
-      : "black"
-    : isDarkMode
-    ? "white"
-    : "white";
+      ? isDarkMode
+        ? colors.Grey_Default
+        : color
+          ? colors[color]
+          : "black"
+      : isDarkMode
+        ? "white"
+        : "white";
 
   const border = disabled
     ? "lightgray"
     : isDarkMode && variant === "inline"
-    ? "transparent"
-    : isDarkMode
-    ? colors.Grey_Default
-    : color
-    ? colors[color]
-    : "transparent";
+      ? "transparent"
+      : isDarkMode
+        ? colors.Grey_Default
+        : color
+          ? colors[color]
+          : "transparent";
 
   return (
     <button
-      className={`transition-all duration-100 ease-in-out rounded-full p-2 shadow-sm ${
+      className={`rounded-full p-2 shadow-sm transition-all duration-100 ease-in-out ${
         modeClasses[mode]
       } ${disabled ? "cursor-not-allowed" : "cursor-pointer"}`}
       style={{

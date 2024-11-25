@@ -45,32 +45,32 @@ const Button: React.FC<ButtonProps> = ({
   const backgroundColor = disabled
     ? "lightgray"
     : variant === "outline"
-    ? "transparent"
-    : color
-    ? colors[color]
-    : "#2563EB";
+      ? "transparent"
+      : color
+        ? colors[color]
+        : "#2563EB";
 
   const textColor = disabled
     ? "gray"
     : variant === "outline"
-    ? color
-      ? colors[color]
-      : "black"
-    : "#e1e1e1";
+      ? color
+        ? colors[color]
+        : "black"
+      : "#e1e1e1";
 
   const border = disabled
     ? "lightgray"
     : variant === "outline"
-    ? color
-      ? colors[color]
-      : "black"
-    : color
-    ? colors[color]
-    : "transparent";
+      ? color
+        ? colors[color]
+        : "black"
+      : color
+        ? colors[color]
+        : "transparent";
 
   return (
     <button
-      className={`m-1 transition-all duration-100 ease-in-out rounded shadow ${
+      className={`m-1 rounded shadow transition-all duration-100 ease-in-out ${
         modeClasses[mode]
       } ${
         disabled

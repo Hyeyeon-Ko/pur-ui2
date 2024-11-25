@@ -24,7 +24,7 @@ const CategorySelect: React.FC<CategorySelectProps> = ({
 }) => {
   const { isDarkMode } = useDarkMode();
   const selectedLargeCategoryData = categoryData.find(
-    (cat) => cat.value === selectedLargeCategory
+    cat => cat.value === selectedLargeCategory,
   );
   const middleCategories = selectedLargeCategoryData
     ? selectedLargeCategoryData.middleCategories
@@ -35,12 +35,12 @@ const CategorySelect: React.FC<CategorySelectProps> = ({
       {majorCategory && (
         <SelectBox
           mode="xs"
-          options={categoryData.map((cat) => ({
+          options={categoryData.map(cat => ({
             value: cat.value,
             label: cat.label,
           }))}
           value={selectedLargeCategory}
-          onChange={(e) => onLargeCategoryChange(e.target.value)}
+          onChange={e => onLargeCategoryChange(e.target.value)}
           placeholder="대분류 선택"
           customStyle={{
             backgroundColor: isDarkMode
@@ -52,12 +52,12 @@ const CategorySelect: React.FC<CategorySelectProps> = ({
       {middleCategory && (
         <SelectBox
           mode="xs"
-          options={middleCategories.map((middle) => ({
+          options={middleCategories.map(middle => ({
             value: middle.value,
             label: middle.label,
           }))}
           value={selectedMiddleCategory}
-          onChange={(e) => onMiddleCategoryChange(e.target.value)}
+          onChange={e => onMiddleCategoryChange(e.target.value)}
           placeholder="중분류 선택"
           customStyle={{
             backgroundColor: isDarkMode

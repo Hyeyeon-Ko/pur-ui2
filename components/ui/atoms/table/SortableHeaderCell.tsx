@@ -16,7 +16,7 @@ const SortableHeaderCell: React.FC<SortableHeaderCellProps> = ({
   isDate,
 }) => {
   return (
-    <th className="text-center py-4" onClick={onSort}>
+    <th className="py-4 text-center" onClick={onSort}>
       {title}
       {isDate && (
         <span className="cursor-pointer">

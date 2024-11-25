@@ -31,7 +31,7 @@ const Pagination: React.FC<PaginationProps> = ({
   };
 
   return (
-    <div className="flex items-center justify-center mt-6 py-10">
+    <div className="mt-6 flex items-center justify-center py-10">
       <div className="flex items-center gap-2">
         <button
           onClick={() => handlePageChange(1)}
@@ -54,7 +54,7 @@ const Pagination: React.FC<PaginationProps> = ({
         </button>
 
         <div className="flex items-center gap-2">
-          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
             <button
               key={page}
               onClick={() => handlePageChange(page)}

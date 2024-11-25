@@ -128,13 +128,13 @@ const TestBody: React.FC = () => {
         }
       },
     }),
-    [isDarkMode]
+    [isDarkMode],
   );
 
   return (
     <div className="flex flex-col">
       {/* Dash Cards */}
-      <div className="grid grid-cols-5 gap-4 w-[90%] p-5 mx-auto">
+      <div className="mx-auto grid w-[90%] grid-cols-5 gap-4 p-5">
         {cardData.map((card, index) => (
           <DashCard
             key={index}
@@ -148,7 +148,7 @@ const TestBody: React.FC = () => {
 
       {/* Dashboard Section - 파이 Chart */}
       <DashboardSection icon={FaUserClock} title="계약 건수 현황">
-        <div className="w-[550px] h-[550px]">
+        <div className="h-[550px] w-[550px]">
           <Pie data={pieChartData} options={pieChartOptions} />
         </div>
       </DashboardSection>

@@ -47,7 +47,7 @@ const VerticalTableRow: React.FC<VerticalTableRowProps> = ({
             : `1px solid ${colors["Grey_Lighten-4"]}`,
           borderLeft: "1px solid transparent",
         }}
-        className="text-sm uppercase text-center"
+        className="text-center text-sm uppercase"
       >
         {row.title}
       </th>
@@ -57,7 +57,7 @@ const VerticalTableRow: React.FC<VerticalTableRowProps> = ({
           onChipClick={onChipClick}
           checkedItems={checkedItems}
           onInputChange={onInputChange}
-          onDateChange={(date) => onDateChange(date, row.id)}
+          onDateChange={date => onDateChange(date, row.id)}
           announcementDate={announcementDate}
           deadlineDate={deadlineDate}
         />

@@ -15,7 +15,7 @@ interface EditableRenderProps {
   handleInputChange: <K extends keyof RepairRow>(
     index: number,
     field: K,
-    value: RepairRow[K]
+    value: RepairRow[K],
   ) => void;
 }
 
@@ -35,7 +35,7 @@ const EditableRender: React.FC<EditableRenderProps> = ({
         mode="xs"
         placeholder="선택"
         value={row[field] as string}
-        onChange={(e) => handleInputChange(index, field, e.target.value)}
+        onChange={e => handleInputChange(index, field, e.target.value)}
         options={equipTypeOption}
         customStyle={{
           border: "none",
@@ -52,7 +52,7 @@ const EditableRender: React.FC<EditableRenderProps> = ({
     return (
       <SingleDatePicker
         selectedDate={row.repairDate ? new Date(row.repairDate) : undefined} // null 대신 undefined 사용
-        onDateChange={(date) =>
+        onDateChange={date =>
           handleInputChange(index, field, date ? date.toISOString() : null)
         }
         minDate={new Date("2000-01-01")}
@@ -66,10 +66,10 @@ const EditableRender: React.FC<EditableRenderProps> = ({
           typeof row[field] === "boolean"
             ? String(row[field])
             : field === "repairDate" && row[field]
-            ? new Date(row[field] as string).toLocaleDateString()
-            : row[field] ?? ""  // null 또는 undefined일 경우 빈 문자열로 처리
+              ? new Date(row[field] as string).toLocaleDateString()
+              : (row[field] ?? "") // null 또는 undefined일 경우 빈 문자열로 처리
         }
-        onChange={(e) => handleInputChange(index, field, e.target.value)}
+        onChange={e => handleInputChange(index, field, e.target.value)}
         customStyle={{
           textAlign: "center",
           border: "none",

@@ -15,7 +15,7 @@ const EquipmentPage = () => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const { isDarkMode } = useDarkMode();
   const [rows, setRows] = useState<RepairRow[]>(equipData);
-  const [isLoading, setIsLoading] = useState<boolean>(true); 
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const loadData = async () => {
@@ -24,7 +24,7 @@ const EquipmentPage = () => {
         // 실제 API 호출이 필요할 경우, 아래 주석을 해제하고 URL을 변경하세요
         // const response = await fetch("/api/equipData");
         // const data: RepairRow[] = await response.json();
-        
+
         // 더미 데이터 사용
         const data: RepairRow[] = equipData; // 더미 데이터로 초기화
         setRows(data);
@@ -63,7 +63,7 @@ const EquipmentPage = () => {
   };
 
   const toggleEdit = () => {
-    const anyRowSelected = rows.some((row) => row.isSelected);
+    const anyRowSelected = rows.some(row => row.isSelected);
     if (!anyRowSelected) {
       setIsEditing(false);
     } else {
@@ -72,18 +72,18 @@ const EquipmentPage = () => {
 
     if (isEditing) {
       setRows(
-        rows.map((row) =>
-          row.isSelected ? { ...row, isNew: false } : { ...row }
-        )
+        rows.map(row =>
+          row.isSelected ? { ...row, isNew: false } : { ...row },
+        ),
       );
-      setRows(rows.map((row) => ({ ...row, isSelected: false })));
+      setRows(rows.map(row => ({ ...row, isSelected: false })));
     }
   };
 
   const handleInputChange = <K extends keyof RepairRow>(
     index: number,
     field: K,
-    value: RepairRow[K]
+    value: RepairRow[K],
   ) => {
     const updatedRows = [...rows];
     updatedRows[index][field] = value;
@@ -95,7 +95,7 @@ const EquipmentPage = () => {
     updatedRows[index].isSelected = !updatedRows[index].isSelected;
     setRows(updatedRows);
 
-    const anyRowSelected = updatedRows.some((row) => row.isSelected);
+    const anyRowSelected = updatedRows.some(row => row.isSelected);
     if (!anyRowSelected) {
       setIsEditing(false);
     }
@@ -109,7 +109,7 @@ const EquipmentPage = () => {
         showButton={false}
         isFullWidth
       />
-      <table className="table-auto text-xs text-center text-gray-500 w-full">
+      <table className="text-gray-500 w-full table-auto text-center text-xs">
         <thead
           className="p-2 text-sm"
           style={{
@@ -123,16 +123,16 @@ const EquipmentPage = () => {
               <Checkbox
                 mode="sm"
                 onChange={() => {
-                  const allSelected = rows.every((row) => row.isSelected);
+                  const allSelected = rows.every(row => row.isSelected);
                   setRows(
-                    rows.map((row) => ({ ...row, isSelected: !allSelected }))
+                    rows.map(row => ({ ...row, isSelected: !allSelected })),
                   );
                 }}
-                checked={rows.every((row) => row.isSelected)}
+                checked={rows.every(row => row.isSelected)}
               />
             </th>
             <th className="px-4">NO</th>
-            {fields.map((field) => (
+            {fields.map(field => (
               <th key={field} className="px-4 py-2">
                 {fieldLabel[field as keyof RepairRow]}
               </th>
@@ -143,7 +143,7 @@ const EquipmentPage = () => {
           {rows.map((row, index) => (
             <tr
               key={index}
-              className="text-center transition duration-150 ease-in-out hover:bg-gray-200 hover:shadow-md"
+              className="hover:bg-gray-200 text-center transition duration-150 ease-in-out hover:shadow-md"
               style={{
                 color: isDarkMode
                   ? colors["Grey_Default"]
@@ -151,18 +151,21 @@ const EquipmentPage = () => {
                 borderBottom: `1px solid ${colors["Grey_Lighten-2"]}`,
               }}
             >
-              <td className="px-4 border-b-Grey_Darken_4">
+              <td className="border-b-Grey_Darken_4 px-4">
                 <Checkbox
                   mode="sm"
                   onChange={() => handleCheckboxChange(index)}
                   checked={row.isSelected}
                 />
               </td>
-              <td className="py-2 border-b-Grey_Darken_4">{index + 1}</td>
+              <td className="border-b-Grey_Darken_4 py-2">{index + 1}</td>
               {isEditing && row.isSelected
-                ? (Object.keys(row) as (keyof RepairRow)[]).map((field) =>
+                ? (Object.keys(row) as (keyof RepairRow)[]).map(field =>
                     field !== "isNew" && field !== "isSelected" ? (
-                      <td key={field} className="w-[140px] border-b-Grey_Darken_4">
+                      <td
+                        key={field}
+                        className="w-[140px] border-b-Grey_Darken_4"
+                      >
                         <EditableRender
                           row={row}
                           field={field}
@@ -171,24 +174,26 @@ const EquipmentPage = () => {
                           handleInputChange={handleInputChange}
                         />
                       </td>
-                    ) : null
+                    ) : null,
                   )
-                : (Object.keys(row) as (keyof RepairRow)[]).map((field) =>
+                : (Object.keys(row) as (keyof RepairRow)[]).map(field =>
                     field !== "isNew" && field !== "isSelected" ? (
                       <td key={field} className="border-b-Grey_Darken_4">
                         {field === "repairDate"
                           ? row[field]
-                            ? new Date(row[field] as string).toLocaleDateString()
+                            ? new Date(
+                                row[field] as string,
+                              ).toLocaleDateString()
                             : "N/A"
                           : row[field]}
                       </td>
-                    ) : null
+                    ) : null,
                   )}
             </tr>
           ))}
         </tbody>
       </table>
-      <div className="flex items-center mt-4">
+      <div className="mt-4 flex items-center">
         <Button mode="sm" onClick={addRow} content="추가" color="signature" />
         <Button mode="sm" onClick={toggleEdit} color="Button_Default">
           {isEditing ? "완료" : "수정"}

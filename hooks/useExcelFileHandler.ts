@@ -28,7 +28,7 @@ const useExcelFileHandler = () => {
         Toast.errorUploadNotify();
       }
     },
-    []
+    [],
   );
 
   // 파일 다운로드 핸들러
@@ -39,15 +39,15 @@ const useExcelFileHandler = () => {
     }
 
     try {
-      const csvData: string[][] = data.map((item) =>
-        Object.values(item).map((value) =>
-          typeof value === "string" ? `"${value}"` : `${value}`
-        )
+      const csvData: string[][] = data.map(item =>
+        Object.values(item).map(value =>
+          typeof value === "string" ? `"${value}"` : `${value}`,
+        ),
       );
 
       // CSV 문자열 생성 (UTF-8 BOM 포함)
       const csvContent = `\uFEFF${csvData
-        .map((row) => row.join(","))
+        .map(row => row.join(","))
         .join("\n")}`;
       const encodedUri = encodeURI(`data:text/csv;charset=utf-8,${csvContent}`);
       const link = document.createElement("a");

@@ -70,14 +70,14 @@ const Input: React.FC<InputProps> = ({
   const borderColor = disabled
     ? "#D1D5DB"
     : isFocused
-    ? "#2563EB"
-    : isValid === false
-    ? "#EF4444"
-    : isValid === true
-    ? "#10B981"
-    : color
-    ? colors[color]
-    : "#2563EB";
+      ? "#2563EB"
+      : isValid === false
+        ? "#EF4444"
+        : isValid === true
+          ? "#10B981"
+          : color
+            ? colors[color]
+            : "#2563EB";
 
   const backgroundColor = isDarkMode ? colors["transparent"] : "white";
   const textColor = isDarkMode ? "Button_Default" : "black";
@@ -97,7 +97,7 @@ const Input: React.FC<InputProps> = ({
       )}
       <input
         id={id} // 라벨과 연결될 ID
-        className={`m-1 border rounded transition-all duration-150 ease-in-out focus:outline-0 ${
+        className={`m-1 rounded border transition-all duration-150 ease-in-out focus:outline-0 ${
           modeClasses[mode]
         } ${disabled ? `bg-${disabledColor} cursor-not-allowed` : ""}`}
         style={{
@@ -124,7 +124,7 @@ const Input: React.FC<InputProps> = ({
 
       {errorMessage && (
         <label
-          className={`text-xs ml-2 mt-1 mb-1 ${
+          className={`mb-1 ml-2 mt-1 text-xs ${
             isValid === false ? "!text-red-500" : "!text-green-500"
           }`}
           style={{ display: "block", color: textColor }}

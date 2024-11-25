@@ -21,7 +21,7 @@ const ManagementHeader: React.FC<ManagementHeaderProps> = ({
   return (
     <>
       {showButton && (
-        <div className="flex justify-end mx-auto py-2 w-[80%]">
+        <div className="mx-auto flex w-[80%] justify-end py-2">
           <Button
             color="Button_Default"
             mode="sm"
@@ -36,8 +36,8 @@ const ManagementHeader: React.FC<ManagementHeaderProps> = ({
         <div
           style={{ ...customStyle }}
           className={`${
-            isFullWidth ? "w-full" : "w-[80%] mx-auto"
-          } border-signature bg-signature rounded-tl-lg rounded-tr-lg p-4 text-white`}
+            isFullWidth ? "w-full" : "mx-auto w-[80%]"
+          } rounded-tl-lg rounded-tr-lg border-signature bg-signature p-4 text-white`}
         >
           {headerTitle}
         </div>

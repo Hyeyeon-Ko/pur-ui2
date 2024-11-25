@@ -21,7 +21,7 @@ const MenuItem = ({
   >
     <Link href={item.href || "#"} passHref>
       <div
-        className={`relative flex items-center justify-start text-gray-500 py-2 mx-2 rounded-md transition-colors duration-200 cursor-pointer ${
+        className={`text-gray-500 relative mx-2 flex cursor-pointer items-center justify-start rounded-md py-2 transition-colors duration-200 ${
           isOpen ? "hover:bg-sub" : ""
         }`}
       >
@@ -33,7 +33,7 @@ const MenuItem = ({
           }`}
         />
         <span
-          className={`p-1 mt-1 text-white font-medium ${
+          className={`mt-1 p-1 font-medium text-white ${
             isOpen ? "inline-block" : "hidden"
           }`}
         >

@@ -22,13 +22,13 @@ const ListItem: React.FC<ListItemProps> = ({
   const borderRadiusClass = isFirst
     ? "rounded-l-xl"
     : isLast
-    ? "rounded-r-xl"
-    : "";
+      ? "rounded-r-xl"
+      : "";
 
   return (
     <Link
       href={href}
-      className={`dark:opacity-75 flex flex-col p-5 justify-center items-center ${gradientClass} ${borderRadiusClass} h-full hover:scale-101 hover:shadow-xl transform `}
+      className={`flex flex-col items-center justify-center p-5 dark:opacity-75 ${gradientClass} ${borderRadiusClass} hover:scale-101 h-full transform hover:shadow-xl`}
     >
       <Label mode="lg" content={title} customStyle={{ color: colors.white }} />
       <Label

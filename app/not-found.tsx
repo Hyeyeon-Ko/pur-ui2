@@ -16,7 +16,7 @@ const NotFoundPage = () => {
   return (
     <div
       style={{ backgroundColor: colors.signature, color: colors.white }}
-      className="flex flex-col gap-4 items-center justify-center h-screen"
+      className="flex h-screen flex-col items-center justify-center gap-4"
     >
       <FaExclamationTriangle size={36} style={{ color: colors.warning }} />
       <h1 className="text-4xl font-bold text-white">

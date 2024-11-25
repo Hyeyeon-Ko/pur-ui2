@@ -29,7 +29,7 @@ const TenderDetail = () => {
   const { checkedItems, handleChipClick } = useChipHandler();
 
   const formattedData: { [key: string]: string }[] = contractListData.map(
-    (item) => ({
+    item => ({
       센터: formatCenterData(item.centerName || []) || "-",
       낙찰기준가: formatCurrency(item.baseBidPrice || ""),
       계약단가: formatCurrency(item.contractUnitPrice || ""),
@@ -45,12 +45,12 @@ const TenderDetail = () => {
       제조사: item.manufacturer || "-",
       공급사: item.supplier || "-",
       수량: item.quantity || "-",
-    })
+    }),
   );
 
   const contractColumns = Object.keys(contractListLabels)
-    .filter((field) => field !== "id")
-    .map((field) => ({
+    .filter(field => field !== "id")
+    .map(field => ({
       title: contractListLabels[field as keyof typeof contractListLabels],
       dataIndex: field,
       key: field,
@@ -134,7 +134,7 @@ const TenderDetail = () => {
         headerTitle="계약사항"
       />
       <div className="py-20">
-        <div className="flex justify-end mr-2">
+        <div className="mr-2 flex justify-end">
           <FileUploadButton
             onFileUpload={handleUpload}
             buttonText="업로드"

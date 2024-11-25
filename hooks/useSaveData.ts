@@ -6,13 +6,13 @@ const useSaveData = () => {
     async (
       checkedItems: { [key: string]: boolean },
       verticalData: any[],
-      endpoint: string
+      endpoint: string,
     ) => {
       const selectedItems = Object.keys(checkedItems).filter(
-        (key) => checkedItems[key]
+        key => checkedItems[key],
       );
-      const dataToSave = verticalData.filter((item) =>
-        selectedItems.includes(item.id)
+      const dataToSave = verticalData.filter(item =>
+        selectedItems.includes(item.id),
       ); // 임시: 'id'는 데이터의 고유 식별자
 
       try {
@@ -34,7 +34,7 @@ const useSaveData = () => {
         Toast.errorSaveNotify();
       }
     },
-    []
+    [],
   );
 
   return { saveData };

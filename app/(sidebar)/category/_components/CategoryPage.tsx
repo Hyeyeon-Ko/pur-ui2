@@ -39,7 +39,7 @@ const CategoryPage: React.FC<CategoryPageProps> = ({
         onRemove={handleRemove}
         onEdit={handleEdit}
       />
-      <div className="flex justify-start mx-auto py-2 w-[80%]">
+      <div className="mx-auto flex w-[80%] justify-start py-2">
         <Button
           color="signature"
           mode="sm"

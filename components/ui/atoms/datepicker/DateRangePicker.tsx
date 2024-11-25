@@ -25,9 +25,9 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({
   endLabel = "End Date",
 }) => {
   return (
-    <div className="flex p-4 gap-4">
+    <div className="flex gap-4 p-4">
       <div>
-        <label className="block text-xs text-gray-700">{startLabel}</label>
+        <label className="text-gray-700 block text-xs">{startLabel}</label>
         <DatePicker
           showIcon
           dateFormat="yyyy.MM.dd"
@@ -39,13 +39,13 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({
           minDate={minDate}
           maxDate={maxDate}
           locale={ko}
-          className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-500"
+          className="border-gray-300 focus:ring-blue-500 mt-1 block w-full rounded-md border p-2 shadow-sm focus:outline-none focus:ring"
           calendarClassName="custom-calendar"
         />
       </div>
 
       <div>
-        <label className="block text-xs text-gray-700">{endLabel}</label>
+        <label className="text-gray-700 block text-xs">{endLabel}</label>
         <DatePicker
           showIcon
           dateFormat="yyyy.MM.dd"
@@ -57,7 +57,7 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({
           minDate={startDate || minDate}
           maxDate={maxDate}
           locale={ko}
-          className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-500"
+          className="border-gray-300 focus:ring-blue-500 mt-1 block w-full rounded-md border p-2 shadow-sm focus:outline-none focus:ring"
           calendarClassName="custom-calendar"
         />
       </div>

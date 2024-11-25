@@ -16,14 +16,14 @@ const TableRender: React.FC<TableRenderProps> = ({ row, column }) => {
       <span
         className={`cursor-pointer border-b ${
           isDarkMode
-            ? "text-blue border-blue-500 hover:text-white"
-            : "text-blue border-blue-500 hover:text-blue-600"
+            ? "border-blue-500 text-blue hover:text-white"
+            : "border-blue-500 hover:text-blue-600 text-blue"
         }`}
         onClick={() => {
           const newWindow = window.open(
             `/tender/${row[column]}`,
             `_tender_${row[column]}`,
-            "fullscreen"
+            "fullscreen",
           );
           if (newWindow) newWindow.opener = null;
         }}
@@ -38,14 +38,14 @@ const TableRender: React.FC<TableRenderProps> = ({ row, column }) => {
       <span
         className={`cursor-pointer border-b ${
           isDarkMode
-            ? "text-blue border-blue-500 hover:text-white"
-            : "text-blue border-blue-500 hover:text-blue-600"
+            ? "border-blue-500 text-blue hover:text-white"
+            : "border-blue-500 hover:text-blue-600 text-blue"
         }`}
         onClick={() => {
           const newWindow = window.open(
             `/contract/${row[column]}`,
             `_contract_${row[column]}`,
-            "fullscreen"
+            "fullscreen",
           );
           if (newWindow) newWindow.opener = null;
         }}

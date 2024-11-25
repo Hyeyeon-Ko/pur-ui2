@@ -31,7 +31,7 @@ const TenderDetail: React.FC = () => {
   const { handleFormDown } = useFormDownload();
   const { checkedItems, handleChipClick } = useChipHandler();
 
-  const formattedData: bidListDataType[] = bidListData.map((item) => ({
+  const formattedData: bidListDataType[] = bidListData.map(item => ({
     ...item,
     센터명: formatCenterData(item.centerName) || "-",
     낙찰기준단가: formatCurrency(item.bidBaseUnitPrice),
@@ -46,8 +46,8 @@ const TenderDetail: React.FC = () => {
   }));
 
   const bidColumns = Object.keys(bidListFieldLabel)
-    .filter((field) => field !== "id") // "id"를 제외
-    .map((field) => ({
+    .filter(field => field !== "id") // "id"를 제외
+    .map(field => ({
       title: bidListFieldLabel[field as keyof typeof bidListFieldLabel],
       dataIndex: field,
       key: field,
@@ -139,7 +139,7 @@ const TenderDetail: React.FC = () => {
         headerTitle="입찰사항"
       />
       <div className="py-20">
-        <div className="flex justify-end mr-6">
+        <div className="mr-6 flex justify-end">
           <FileUploadButton
             onFileUpload={handleUpload}
             buttonText="업로드"

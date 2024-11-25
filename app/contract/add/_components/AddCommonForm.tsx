@@ -15,7 +15,7 @@ interface AddCommonFormProps {
   onSearch: (bidNumber: string) => void;
   onSave: (
     checkedItems: { [key: string]: boolean },
-    verticalData: any[]
+    verticalData: any[],
   ) => void;
 }
 

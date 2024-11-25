@@ -64,8 +64,8 @@ const Table: React.FC<TableProps> = ({
           ? 1
           : -1
         : aValue < bValue
-        ? 1
-        : -1;
+          ? 1
+          : -1;
     });
   }, [data, sorter]);
 
@@ -78,10 +78,8 @@ const Table: React.FC<TableProps> = ({
   };
 
   const handleRowSelect = (rowId: string) => {
-    setSelectedRows((prev) =>
-      prev.includes(rowId)
-        ? prev.filter((id) => id !== rowId)
-        : [...prev, rowId]
+    setSelectedRows(prev =>
+      prev.includes(rowId) ? prev.filter(id => id !== rowId) : [...prev, rowId],
     );
   };
 
@@ -99,7 +97,7 @@ const Table: React.FC<TableProps> = ({
     <div className="mx-5" style={customStyle}>
       <div className="pb-2">
         <span
-          className={`text-sm font-bold ml-2 ${
+          className={`ml-2 text-sm font-bold ${
             isDarkMode ? "text-grey-lighten-1" : "text-signature"
           }`}
         >
@@ -115,8 +113,8 @@ const Table: React.FC<TableProps> = ({
         />
       )}
 
-      <div className="mx-auto rounded-lg shadow-lg w-full">
-        <table className="table-auto text-xs text-left text-gray-500 w-full">
+      <div className="mx-auto w-full rounded-lg shadow-lg">
+        <table className="text-gray-500 w-full table-auto text-left text-xs">
           <TableHeader
             columns={columns}
             showCheckbox={showCheckbox}

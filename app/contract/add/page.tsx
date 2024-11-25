@@ -9,10 +9,10 @@ import { contractDetailData as initialContractDetailData } from "@/lib/contractD
 
 const ContractAddPage = () => {
   const [checkedItems, setCheckedItems] = useState<{ [key: string]: boolean }>(
-    {}
+    {},
   );
   const [contractDetailData, setContractDetailData] = useState<any[]>(
-    initialContractDetailData
+    initialContractDetailData,
   );
   const { saveData } = useSaveData();
   const { tenderSearch } = useTenderSearch();

@@ -22,7 +22,7 @@ const NextBreadcrumb = ({
   menuItems,
 }: TBreadCrumbProps) => {
   const paths = usePathname();
-  const pathNames = paths.split("/").filter((path) => path);
+  const pathNames = paths.split("/").filter(path => path);
 
   return (
     <div>
@@ -38,14 +38,12 @@ const NextBreadcrumb = ({
             paths === href ? `${listClasses} ${activeClasses}` : listClasses;
 
           // menuItems에서 label을 찾기
-          const menuItem = menuItems.find((item) => item.href === href);
+          const menuItem = menuItems.find(item => item.href === href);
           let displayLabel = menuItem ? menuItem.label : link; // 기본적으로 경로 링크 이름
 
           // 대분류, 중분류, 소분류를 위한 추가 처리
           if (index >= 2 && pathNames[index - 1] === "category") {
-            const subCategoryLabel = menuItems.find(
-              (item) => item.href === href
-            );
+            const subCategoryLabel = menuItems.find(item => item.href === href);
             if (subCategoryLabel) {
               displayLabel = subCategoryLabel.label; // 하위 메뉴 항목의 레이블로 변경
             }

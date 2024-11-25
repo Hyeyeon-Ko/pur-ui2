@@ -29,13 +29,13 @@ const TableRow: React.FC<TableRowProps> = ({
         color: isDarkMode ? colors["Grey_Default"] : colors["Grey_Darken-4"],
         borderBottom: `1px solid ${colors["Grey_Lighten-2"]}`,
       }}
-      className="text-center transition duration-150 ease-in-out hover:bg-gray-200 hover:shadow-md"
+      className="hover:bg-gray-200 text-center transition duration-150 ease-in-out hover:shadow-md"
     >
       {showCheckbox && (
         <CheckBoxCell isChecked={isChecked} onChange={onRowSelect} />
       )}
-      {columns.map((column) => (
-        <td key={column.title} className="py-2 text-gray-700">
+      {columns.map(column => (
+        <td key={column.title} className="text-gray-700 py-2">
           {column.subColumns ? (
             column.subColumns.map((subColumn, subIndex) => (
               <div key={`${subColumn}-${subIndex}`}>

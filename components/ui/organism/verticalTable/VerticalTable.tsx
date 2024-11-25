@@ -31,18 +31,18 @@ const VerticalTable: React.FC<VerticalTableProps> = ({
   const [deadlineDate, setDeadlineDate] = useState<Date | null>(null);
 
   const handleInputChange = (id: number, value: string) => {
-    setTableData((prevData) =>
-      prevData.map((row) => (row.id === id ? { ...row, contents: value } : row))
+    setTableData(prevData =>
+      prevData.map(row => (row.id === id ? { ...row, contents: value } : row)),
     );
   };
 
   const handleDateChange = (date: Date | null, id: number) => {
-    setTableData((prevData) =>
-      prevData.map((row) =>
+    setTableData(prevData =>
+      prevData.map(row =>
         row.id === id
           ? { ...row, contents: date ? date.toISOString() : null }
-          : row
-      )
+          : row,
+      ),
     );
     if (id === 8) {
       setAnnouncementDate(date); // 공고일
@@ -54,9 +54,9 @@ const VerticalTable: React.FC<VerticalTableProps> = ({
   return (
     <div className="mx-5 my-2 rounded-lg shadow-lg">
       <VerticalTableHeader showHeader={showHeader} headerTitle={headerTitle} />
-      <table className="table-auto w-full">
+      <table className="w-full table-auto">
         <tbody className="divide-x">
-          {tableData.map((row) => (
+          {tableData.map(row => (
             <VerticalTableRow
               key={row.id}
               row={row}

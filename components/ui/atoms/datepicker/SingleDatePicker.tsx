@@ -6,7 +6,7 @@ import { useDarkMode } from "@/context/DarkModeContext";
 
 interface SingleDatePickerProps {
   selectedDate: Date | undefined;
-  onDateChange: (date: Date | null) => void; 
+  onDateChange: (date: Date | null) => void;
   minDate?: Date;
   maxDate?: Date;
   minDateForBid?: Date;
@@ -36,13 +36,13 @@ const SingleDatePicker: React.FC<SingleDatePickerProps> = ({
           showIcon
           dateFormat="yyyy.MM.dd"
           selected={selectedDate}
-          onChange={(date: Date | null) => onDateChange(date)}  // Accept Date | null here
+          onChange={(date: Date | null) => onDateChange(date)} // Accept Date | null here
           minDate={minDateForBid || minDate} // minDateForBid을 우선 사용하고 없으면 minDate를 사용
           locale={ko}
-          className={`m-1 block w-full p-2 border rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-500 ${
+          className={`focus:ring-blue-500 m-1 block w-full rounded-md border p-2 shadow-sm focus:outline-none focus:ring ${
             isDarkMode
-              ? "bg-dark-transparent border-gray-600 text-dark-white"
-              : "bg-white border-gray-300 text-gray-700"
+              ? "border-gray-600 bg-dark-transparent text-dark-white"
+              : "border-gray-300 text-gray-700 bg-white"
           }`}
           calendarClassName="custom-calendar"
           isClearable

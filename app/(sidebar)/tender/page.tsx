@@ -20,7 +20,7 @@ const TenderPage = () => {
   const { formatCenterData, formatDate, formatCurrency } = useFormatHandler();
   const { downloadFile } = useFileDownload();
 
-  const formattedData: { [key: string]: string }[] = bidData.map((item) => ({
+  const formattedData: { [key: string]: string }[] = bidData.map(item => ({
     센터: formatCenterData(item.centerName) || "-",
     공고일: formatDate(item.announcementDate),
     마감일: formatDate(item.closingDate),
@@ -45,8 +45,8 @@ const TenderPage = () => {
   }));
 
   const bidColumns = Object.keys(fieldLabels)
-    .filter((field) => field !== "id") // "id"를 제외
-    .map((field) => ({
+    .filter(field => field !== "id") // "id"를 제외
+    .map(field => ({
       title: fieldLabels[field as keyof typeof fieldLabels] || "기본 제목", // Fallback to a default value if undefined
       dataIndex: field,
       key: field,
@@ -85,13 +85,13 @@ const TenderPage = () => {
         data={formattedData as { [key: string]: string }[]}
         columns={bidColumns}
         onRowSelect={handleRowSelect}
-        onRowDoubleClick={(row) => {
+        onRowDoubleClick={row => {
           const id = row.id;
           const url = `/tender/${id}`;
           window.open(
             url,
             "_blank",
-            "noopener,noreferrer,width=1920,height=1080"
+            "noopener,noreferrer,width=1920,height=1080",
           );
         }}
         showCheckbox={false}

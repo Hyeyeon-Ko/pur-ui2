@@ -29,7 +29,7 @@ const PageTitle: React.FC<TitleProps> = ({
 
   return (
     <div
-      className={`p-10 m-2 transition-colors duration-200`}
+      className={`m-2 p-10 transition-colors duration-200`}
       style={{
         ...customStyle,
         color: customStyle?.color || (isDarkMode ? darkTextColor : textColor), // customStyle에 color가 있으면 우선 사용

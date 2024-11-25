@@ -36,10 +36,10 @@ const Radio: React.FC<RadioProps> = ({
 
   return (
     <div className="flex gap-1" style={customStyle}>
-      {options.map((option) => (
+      {options.map(option => (
         <label
           key={option.value}
-          className={`flex items-center cursor-pointer ${sizeClasses[mode]}`}
+          className={`flex cursor-pointer items-center ${sizeClasses[mode]}`}
           style={{ color: fontColor }}
         >
           <input

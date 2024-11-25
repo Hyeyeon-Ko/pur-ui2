@@ -9,11 +9,15 @@ interface ModalHeaderProps {
   closeModal: () => void;
 }
 
-const ModalHeader: React.FC<ModalHeaderProps> = ({ title, titleFontSize, closeModal }) => {
+const ModalHeader: React.FC<ModalHeaderProps> = ({
+  title,
+  titleFontSize,
+  closeModal,
+}) => {
   const { isDarkMode } = useDarkMode();
 
   return (
-    <div className="flex w-[100%] justify-between items-center px-6 pb-6">
+    <div className="flex w-[100%] items-center justify-between px-6 pb-6">
       {title && (
         <Label
           mode="lg"

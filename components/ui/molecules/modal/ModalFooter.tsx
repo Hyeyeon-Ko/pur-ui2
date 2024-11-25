@@ -21,7 +21,7 @@ const ModalFooter: React.FC<ModalFooterProps> = ({
   onConfirmClick,
 }) => {
   return (
-    <div className="flex justify-end mt-4 pt-4 pb-2">
+    <div className="mt-4 flex justify-end pb-2 pt-4">
       {showCancelButton && (
         <Button
           mode="sm"

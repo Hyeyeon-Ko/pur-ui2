@@ -30,7 +30,7 @@ const LabelSelect: React.FC<LabelSelectProps> = ({
   const selectBorder = isDarkMode ? "transparent" : colors.Button_Default;
 
   return (
-    <div className="flex items-center justify-between mt-2 gap-2">
+    <div className="mt-2 flex items-center justify-between gap-2">
       <Label mode="md" content={label} customStyle={{ color: labelColor }} />{" "}
       <SelectBox
         mode={selectMode}

@@ -1,14 +1,14 @@
 import { useState } from "react";
 
 const useChipHandler = (
-  initialCheckedItems: { [key: string]: boolean } = {}
+  initialCheckedItems: { [key: string]: boolean } = {},
 ) => {
   const [checkedItems, setCheckedItems] = useState<{ [key: string]: boolean }>(
-    initialCheckedItems
+    initialCheckedItems,
   );
 
   const handleChipClick = (label: string, title: string) => {
-    setCheckedItems((prev) => {
+    setCheckedItems(prev => {
       const newCheckedItems = { ...prev };
       const isChecked = !prev[label];
 

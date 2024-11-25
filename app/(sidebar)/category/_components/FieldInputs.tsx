@@ -14,7 +14,7 @@ const FieldInputs: React.FC<FieldInputsProps> = ({
   onChange,
 }) => (
   <>
-    {fields.map((field) => {
+    {fields.map(field => {
       const value = item[field.field as keyof typeof item];
       if (field.type === "input") {
         return (
@@ -24,7 +24,7 @@ const FieldInputs: React.FC<FieldInputsProps> = ({
             color="transparent"
             type="text"
             value={String(value)}
-            onChange={(e) => onChange(item.id, field.field, e.target.value)}
+            onChange={e => onChange(item.id, field.field, e.target.value)}
             placeholder={field.placeholder}
           />
         );
