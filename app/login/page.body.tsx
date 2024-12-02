@@ -19,36 +19,40 @@ const LoginBody = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // 로그인 로직 (예시)
-    if (employeeId === "user" && password === "password") {
-      localStorage.setItem("user", JSON.stringify({ employeeId }));
-      Toast.notify("로그인에 성공했습니다!", ToastType.SUCCESS);
-      router.push("/main"); // 로그인 성공 시 홈으로 리다이렉트
-    } else {
-      Toast.notify("아이디 혹은 비밀번호를 확인해주세요.", ToastType.ERROR);
+    // 입력 값 검증
+    if (!employeeId || !password) {
+      Toast.notify("사원번호와 비밀번호를 입력하세요.", ToastType.ERROR);
+      return;
     }
 
-    /** api 방식 로그인 구현 */
-    // try {
-    //   const response = await fetch('/api/login', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({ employeeId, password }),
-    //   });
+    try {
+      const response = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId: employeeId, userPw: password }),
+      });
 
-    //   if (!response.ok) {
-    //     throw new Error('로그인 실패! 사원번호 또는 비밀번호를 확인하세요.');
-    //   }
+      const data = await response.json();
 
-    //   const data = await response.json();
-    //   localStorage.setItem('token', data.token);
-    //   Toast.notify("로그인에 성공했습니다!", ToastType.SUCCESS);
-    //   router.push('/main');
-    // } catch (error) {
-    //   Toast.notify("사원번호 혹은 비밀번호를 확인해주세요.", ToastType.ERROR);
-    // }
+      // 응답 상태 확인
+      if (response.ok) {
+        // 로그인 성공 처리
+        localStorage.setItem(
+          "user",
+          JSON.stringify({ userId: employeeId, token: data.token }),
+        );
+        Toast.notify("로그인에 성공했습니다!", ToastType.SUCCESS);
+        router.push("/main"); // 로그인 성공 후 메인 페이지로 이동
+      } else {
+        // 로그인 실패 처리
+        Toast.notify("아이디와 비밀번호를 확인하세요.", ToastType.ERROR);
+      }
+    } catch (error) {
+      console.error("로그인 요청 처리 중 오류:", error);
+      Toast.notify("서버 오류가 발생했습니다.", ToastType.ERROR);
+    }
   };
 
   return (

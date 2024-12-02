@@ -9,10 +9,12 @@ const nextConfig = {
         minChunks: 1,
       };
     }
-
     return config;
   },
   reactStrictMode: true,
+  env: {
+    BASE_LOCAL_URL: process.env.BASE_LOCAL_URL || "http://localhost:10024",
+  },
 };
 
 export default nextConfig;

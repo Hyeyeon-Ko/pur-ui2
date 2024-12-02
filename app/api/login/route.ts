@@ -1,34 +1,49 @@
 import { NextResponse } from "next/server";
 
 interface LoginRequest {
-  employeeId: string;
-  password: string;
+  userId: string;
+  userPw: string;
 }
 
 export async function POST(request: Request) {
   try {
     const body: LoginRequest = await request.json();
 
-    // 여기서 사원번호와 비밀번호를 검증하는 로직을 추가합니다.
-    const { employeeId, password } = body;
+    const { userId, userPw } = body;
 
-    // 예시: 간단한 검증 로직
-    if (!employeeId || !password) {
+    if (!userId || !userPw) {
       return NextResponse.json(
-        { message: "사원번호와 비밀번호를 입력하세요." },
+        { message: "userId와 userPw는 필수입니다." },
         { status: 400 },
       );
     }
 
-    // 실제 로그인 로직 (예: 데이터베이스에서 사용자 확인)
-    // const user = await findUserByEmployeeId(employeeId);
-    // if (!user || !isValidPassword(user, password)) {
-    //   return NextResponse.json({ message: '잘못된 사원번호 또는 비밀번호입니다.' }, { status: 401 });
-    // }
+    const baseUrl = process.env.BASE_LOCAL_URL || "http://localhost:10024";
+    const endpoint = `${baseUrl}/pur/login`;
 
-    // 로그인 성공 시
-    return NextResponse.json({ message: "로그인 성공!" }, { status: 200 });
+    const response = await fetch(endpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId, userPw }),
+    });
+
+    const result = await response.json();
+
+    if (!response.ok || result.message !== "로그인 성공") {
+      return NextResponse.json(
+        { message: result.message || "로그인 실패" },
+        { status: response.status },
+      );
+    }
+
+    return NextResponse.json(
+      { message: "로그인 성공!", token: result.token },
+      { status: 200 },
+    );
   } catch (error) {
+    console.error("로그인 요청 처리 중 오류 발생:", error);
     return NextResponse.json(
       { message: "서버 오류가 발생했습니다." },
       { status: 500 },
