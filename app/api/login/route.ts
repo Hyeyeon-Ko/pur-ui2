@@ -18,8 +18,8 @@ export async function POST(request: Request) {
       );
     }
 
-    const baseUrl = process.env.BASE_LOCAL_URL || "http://localhost:10024";
-    const endpoint = `${baseUrl}/pur/login`;
+    // const baseUrl = process.env.BASE_LOCAL_URL || "http://localhost:10024";
+    const endpoint = "http://172.16.250.84/mis/pur/login";
 
     const response = await fetch(endpoint, {
       method: "POST",

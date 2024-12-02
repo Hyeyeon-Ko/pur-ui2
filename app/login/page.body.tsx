@@ -35,9 +35,10 @@ const LoginBody = () => {
       });
 
       const data = await response.json();
+      console.log("data:", data.message);
 
       // 응답 상태 확인
-      if (response.ok) {
+      if (data.message === "성공") {
         // 로그인 성공 처리
         localStorage.setItem(
           "user",
