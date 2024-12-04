@@ -55,7 +55,7 @@ const TableRender: React.FC<TableRenderProps> = ({ row, column }) => {
     );
   }
 
-  if (column === "열람" && row[column] === "저장") {
+  if (column === "열람" && row[column]) {
     return (
       <div>
         <DownButton fileOptions={fileOptions} reasonOptions={reasonOptions} />
