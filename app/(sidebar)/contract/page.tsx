@@ -10,6 +10,7 @@ import useFileDownload from "@/hooks/useFileDownload";
 import { fieldLabels } from "@/lib/contractDatas";
 import { ContractMasterWithDetailsType } from "@/types/contractTypes";
 import { contractSearchFields } from "@/lib/searchDatas";
+import { mappings } from "@/lib/mappings";
 
 const ContractPage: React.FC = () => {
   const [data, setData] = useState<ContractMasterWithDetailsType[]>([]);
@@ -58,7 +59,7 @@ const ContractPage: React.FC = () => {
             센터: detail.inst_cd || "-",
             입찰번호: contract.bid_id || "-",
             계약번호: contract.cont_no || "-",
-            계약종류: detail.cont_type || "-",
+            계약종류: mappings.PUR003[detail.cont_type || ""] || "-",
             계약명: contract.cont_nm || "-",
             계약일자: contract.cont_dt ? formatDate(contract.cont_dt) : "-",
             계약시작일: contract.start_dt ? formatDate(contract.start_dt) : "-",
@@ -67,7 +68,7 @@ const ContractPage: React.FC = () => {
             계약금액: detail.cont_price
               ? formatCurrency(parseFloat(detail.cont_price))
               : "-",
-            계약방법: detail.cont_method || "-",
+            계약방법: mappings.PUR007[detail.cont_method || ""] || "-",
             SN: detail.cont_sn || "-",
             계약증권: detail.cont_deposit
               ? formatCurrency(parseFloat(detail.cont_deposit))
@@ -76,7 +77,7 @@ const ContractPage: React.FC = () => {
               ? formatCurrency(parseFloat(detail.war_bond))
               : "-",
             계약품의번호: contract.cont_app_no || "-",
-            계약구분: detail.cont_div || "-",
+            계약구분: mappings.PUR008[detail.cont_div || ""] || "-",
             담당자: contract.resp_id || "-",
             기타: detail.notes ? "Y" : "N",
             열람: detail.attach_id || "-",
