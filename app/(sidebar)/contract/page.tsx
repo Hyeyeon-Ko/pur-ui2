@@ -15,14 +15,14 @@ import { mappings } from "@/lib/mappings";
 const ContractPage: React.FC = () => {
   const [data, setData] = useState<ContractMasterWithDetailsType[]>([]);
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
-  const [error, setError] = useState<string | null>(null);
+  // const [error, setError] = useState<string | null>(null);
 
   const { downloadFile } = useFileDownload();
   const { formatDate, formatCurrency } = useFormatHandler();
 
   useEffect(() => {
     const fetchContracts = async () => {
-      setError(null);
+      // setError(null);
 
       try {
         const response = await fetch("/api/contract");
@@ -37,11 +37,11 @@ const ContractPage: React.FC = () => {
           setData(result.data);
         } else {
           console.error("데이터 존재하지 않음:", result);
-          setError("데이터 존재하지 않음");
+          // setError("데이터 존재하지 않음");
         }
       } catch (error) {
         console.error("데이터 로딩 실패:", error);
-        setError("데이터 로딩 실패");
+        // setError("데이터 로딩 실패");
       } finally {
       }
     };
@@ -143,9 +143,9 @@ const ContractPage: React.FC = () => {
     setSelectedRows(Array.from(new Set(selectedRowIds)));
   }, []);
 
-  if (error) {
-    return <div className="text-red-500 text-center">{error}</div>;
-  }
+  // if (error) {
+  //   return <div className="text-red-500 text-center">{error}</div>;
+  // }
 
   return (
     <div className="mb-4 flex flex-col">
