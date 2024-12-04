@@ -35,7 +35,6 @@ const LoginBody = () => {
       });
 
       const data = await response.json();
-      console.log("data:", data.message);
 
       // 응답 상태 확인
       if (data.message === "성공") {
