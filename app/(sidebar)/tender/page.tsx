@@ -1,16 +1,19 @@
 "use client";
 
 import Table from "@/components/ui/organism/table/Table";
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import useFormatHandler from "@/hooks/useFormatHandler";
 import SearchFilter from "@/components/ui/organism/filter/SearchFilter";
 import PageTitle from "@/components/ui/molecules/titles/PageTitle";
 import TableButton from "@/components/ui/molecules/buttons/TableButton";
 import useFileDownload from "@/hooks/useFileDownload";
-import { bidData, fieldLabels } from "@/lib/bidDatas";
+import { fieldLabels } from "@/lib/bidDatas";
 import { tenderSearchFields } from "@/lib/searchDatas";
+import { BidMasterWithDetailsType } from "@/types/contractTypes";
+import { mappings } from "@/lib/mappings";
 
 const TenderPage = () => {
+  const [data, setData] = useState<BidMasterWithDetailsType[]>([]);
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
   const [sorter, setSorter] = useState<{
     field: string;
@@ -20,34 +23,67 @@ const TenderPage = () => {
   const { formatCenterData, formatDate, formatCurrency } = useFormatHandler();
   const { downloadFile } = useFileDownload();
 
-  const formattedData: { [key: string]: string }[] = bidData.map(item => ({
-    센터: formatCenterData(item.centerName) || "-",
-    공고일: formatDate(item.announcementDate),
-    마감일: formatDate(item.closingDate),
-    응찰일: formatDate(item.bidDate),
-    낙찰기준가: formatCurrency(item.baseBidPrice),
-    낙찰금액: formatCurrency(item.winningBidPrice),
-    누리장터: item.nuriMarket || "-",
-    계약구분: item.contractCategory || "-",
-    입찰번호: item.bidNumber,
-    계약종류: item.contractType,
-    낙찰방법: item.bidMethod,
-    계정명: item.accountName,
-    공고구분: item.announcementType,
-    입찰명: item.bidName,
-    낙찰자: item.winner,
-    입찰결과: item.bidResult,
-    입찰증권: item.bidBond,
-    입찰품의번호: item.bidProposalNumber,
-    담당자: item.manager,
-    기타: item.etc || "-",
-    열람: item.viewStatus,
-  }));
+  useEffect(() => {
+    const fetchBids = async () => {
+      try {
+        const response = await fetch("/api/bid");
+        if (!response.ok) {
+          throw new Error("입찰 데이터를 불러오는데 실패했습니다.");
+        }
+        const result = await response.json();
+
+        if (Array.isArray(result.data)) {
+          setData(result.data);
+        } else {
+          console.error("데이터 형식이 잘못되었습니다:", result);
+        }
+      } catch (error) {
+        console.error("데이터 로딩 실패:", error);
+      }
+    };
+
+    fetchBids();
+  }, []);
+
+  const formattedData =
+    data.length > 0
+      ? data.flatMap(bidItem => {
+          const bid = bidItem.bid || {};
+          const details = bidItem.details || [];
+
+          return details.map(detail => ({
+            센터: detail.inst_cd || "-",
+            입찰번호: bid.bid_no || "-",
+            누리장터: bid.nuri_no || "-",
+            계약종류: mappings.PUR003[detail.cont_type || ""] || "-",
+            낙찰방법: mappings.PUR005[detail.bid_method || ""] || "-",
+            계정명: mappings.PUR006[detail.acc_cd || "-"] || "-",
+            공고구분: mappings.PUR002[detail.ann_cat || ""] || "-",
+            입찰명: bid.bid_nm || "-",
+            공고일: bid.announce_dt ? formatDate(bid.announce_dt) : "-",
+            마감일: bid.close_dt ? formatDate(bid.close_dt) : "-",
+            낙찰기준가: detail.win_price
+              ? formatCurrency(parseFloat(detail.win_price))
+              : "-",
+            낙찰금액: detail.win_price
+              ? formatCurrency(parseFloat(detail.win_price))
+              : "-",
+            낙찰자: detail.win_bid || "-",
+            입찰결과: mappings.PUR001[bid.bid_res || ""] || "-",
+            입찰증권: detail.deposit_at || "-",
+            입찰품의번호: detail.app_no || "-",
+            담당자: bid.resp_id || "-",
+            계약구분: mappings.PUR003[detail.cont_type || "-"] || "-",
+            기타: detail.notes ? "Y" : "N",
+            열람: detail.attach_id || "-",
+          }));
+        })
+      : [{ 센터: "-", 입찰번호: "-", ...fieldLabels }];
 
   const bidColumns = Object.keys(fieldLabels)
-    .filter(field => field !== "id") // "id"를 제외
+    .filter(field => field !== "id")
     .map(field => ({
-      title: fieldLabels[field as keyof typeof fieldLabels] || "기본 제목", // Fallback to a default value if undefined
+      title: fieldLabels[field as keyof typeof fieldLabels] || "기본 제목",
       dataIndex: field,
       key: field,
     }));
@@ -57,14 +93,10 @@ const TenderPage = () => {
     setSelectedRows(uniqueSelectedRows);
   }, []);
 
-  /** 전체내역 다운로드
-   * TODO: endpoint
-   */
   const handleDownloadAll = () => {
-    downloadFile("/api/endpoint", "입찰내역(전체).csv");
+    downloadFile("/api/bid/export", "입찰내역(전체).csv");
   };
 
-  /** 추가 버튼 로직(새창열기) */
   const handleOpenAddPage = () => {
     window.open("/tender/add", "_blank", "noopener,noreferrer,fullscreen");
   };
@@ -82,7 +114,7 @@ const TenderPage = () => {
         onDownloadAll={handleDownloadAll}
       />
       <Table
-        data={formattedData as { [key: string]: string }[]}
+        data={formattedData}
         columns={bidColumns}
         onRowSelect={handleRowSelect}
         onRowDoubleClick={row => {
