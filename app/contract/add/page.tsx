@@ -28,7 +28,6 @@ const ContractAddPage = () => {
 
     if (data) {
       setContractDetailData(data);
-      console.log("조회된 데이터:", data);
     }
   };
 

@@ -18,7 +18,7 @@ const ContractPage: React.FC = () => {
   // const [error, setError] = useState<string | null>(null);
 
   const { downloadFile } = useFileDownload();
-  const { formatDate, formatCurrency } = useFormatHandler();
+  const { formatCenterData, formatDate, formatCurrency } = useFormatHandler();
 
   useEffect(() => {
     const fetchContracts = async () => {
@@ -56,7 +56,7 @@ const ContractPage: React.FC = () => {
           const details = contractItem.details || [];
 
           return details.map(detail => ({
-            센터: detail.inst_cd || "-",
+            센터: mappings.CMM001[detail.inst_cd || "-"] || "-",
             입찰번호: contract.bid_id || "-",
             계약번호: contract.cont_no || "-",
             계약종류: mappings.PUR003[detail.cont_type || ""] || "-",
@@ -83,29 +83,7 @@ const ContractPage: React.FC = () => {
             열람: detail.attach_id || "-",
           }));
         })
-      : [
-          {
-            센터: "-",
-            입찰번호: "-",
-            계약번호: "-",
-            계약종류: "-",
-            계약명: "-",
-            계약일자: "-",
-            계약시작일: "-",
-            계약완료일: "-",
-            공급사: "-",
-            계약금액: "-",
-            계약방법: "-",
-            SN: "-",
-            계약증권: "-",
-            하자증권: "-",
-            계약품의번호: "-",
-            계약구분: "-",
-            담당자: "-",
-            기타: "-",
-            열람: "-",
-          },
-        ];
+      : [];
 
   const contractColumns = Object.keys(fieldLabels)
     .filter(field => field !== "id")

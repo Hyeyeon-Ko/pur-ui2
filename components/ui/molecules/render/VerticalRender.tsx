@@ -47,8 +47,8 @@ const VerticalRender: React.FC<VerticalRenderProps> = ({
     [key: number]: boolean;
   }>({});
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onInputChange?.(row.id, e.target.value);
+  const handleInputChange = (value: string) => {
+    onInputChange?.(row.id, value);
   };
 
   const handleDateChange = (date: Date | null) => {
@@ -85,13 +85,18 @@ const VerticalRender: React.FC<VerticalRenderProps> = ({
     onInputChange?.(row.id, value);
   };
 
-  // 모든 항목에 대해 미제출 체크박스를 초기화
   if (!(row.id in isNotSubmitted)) {
     setIsNotSubmitted(prev => ({ ...prev, [row.id]: false }));
   }
 
-  // 각 타입별로 컴포넌트 렌더링하는 함수들
-  const renderTextArea = () => <TextArea placeholder={row.title} rows={4} />;
+  const renderTextArea = () => (
+    <TextArea
+      placeholder={row.title}
+      rows={4}
+      value={row.contents as string}
+      onChange={e => handleInputChange(e.target.value)}
+    />
+  );
 
   const renderInput = () => (
     <Input
@@ -99,7 +104,7 @@ const VerticalRender: React.FC<VerticalRenderProps> = ({
       color="transparent"
       placeholder={row.title}
       value={row.contents as string}
-      onChange={handleInputChange}
+      onChange={e => handleInputChange(e.target.value)}
       customStyle={{
         padding: 0,
         margin: 0,
@@ -163,14 +168,20 @@ const VerticalRender: React.FC<VerticalRenderProps> = ({
     );
   };
 
-  const renderRadio = () => (
-    <Radio
-      options={row.options || []}
-      selectedValue={row.contents as string}
-      onChange={handleRadioChange}
-    />
-  );
+  const renderRadio = () => {
+    if (!row.options || !Array.isArray(row.options)) {
+      console.error("Radio 렌더링 에러: options가 존재하지 않습니다.", row);
+      return null;
+    }
 
+    return (
+      <Radio
+        options={row.options}
+        selectedValue={row.contents as string}
+        onChange={handleRadioChange}
+      />
+    );
+  };
   const renderUpload = () => (
     <div className="flex items-center gap-2">
       <FileUploadButton

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDarkMode } from "@/context/DarkModeContext";
 import VerticalTableRow from "../../molecules/verticalTable/VerticalTableRow";
 import VerticalTableHeader from "../../molecules/verticalTable/VerticalTableHeader";
@@ -29,6 +29,10 @@ const VerticalTable: React.FC<VerticalTableProps> = ({
   const [tableData, setTableData] = useState(data);
   const [announcementDate, setAnnouncementDate] = useState<Date | null>(null);
   const [deadlineDate, setDeadlineDate] = useState<Date | null>(null);
+
+  useEffect(() => {
+    setTableData(data);
+  }, [data]);
 
   const handleInputChange = (id: number, value: string) => {
     setTableData(prevData =>

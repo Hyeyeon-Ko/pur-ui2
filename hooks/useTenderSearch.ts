@@ -16,7 +16,6 @@ const useTenderSearch = () => {
           throw new Error("조회 실패");
         }
         const data = await response.json();
-        console.log("조회한 데이터:", data);
         Toast.successTenderNotify();
         return data;
       } catch (error) {

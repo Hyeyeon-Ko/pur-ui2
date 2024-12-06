@@ -37,3 +37,22 @@ export type bidListDataType = {
   bidBasePrice: string;
   [key: string]: any;
 };
+
+export type ErpItemsType = {
+  erp_item_id?: string;
+  inst_cd?: string;
+  erp_cd?: string;
+  erp_item_nm?: string;
+  acc_cat?: string;
+  model_nm?: string;
+  use_at?: string;
+  spec?: string;
+  mfr?: string;
+  qty?: string;
+  std_price?: string;
+  ref_price?: string;
+  regist_id?: string;
+  regist_dt?: string;
+  updusr_id?: string;
+  updt_dt?: string;
+};

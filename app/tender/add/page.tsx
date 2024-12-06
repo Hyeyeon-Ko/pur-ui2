@@ -26,7 +26,6 @@ const AddItemPage = () => {
 
     if (data) {
       setBidDetailData(data);
-      console.log("조회된 데이터:", data);
     }
   };
   /**

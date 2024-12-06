@@ -1,52 +1,80 @@
 "use client";
 
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Table from "@/components/ui/organism/table/Table";
 import PageTitle from "@/components/ui/molecules/titles/PageTitle";
 import VerticalTable from "@/components/ui/organism/verticalTable/VerticalTable";
 import useFormatHandler from "@/hooks/useFormatHandler";
 import TableButton from "@/components/ui/molecules/buttons/TableButton";
 import FileUploadButton from "@/components/ui/molecules/buttons/FileUploadButton";
-// import { tenderVerticalResult } from "@/lib/data";
 import Toast from "@/components/commons/Toast";
 import useFileDownload from "@/hooks/useFileDownload";
 import useFileUpload from "@/hooks/useFileUpload";
 import useFormDownload from "@/hooks/useFormDownload";
 import useChipHandler from "@/hooks/useChipHandler";
-import {
-  bidDetailData,
-  bidListData,
-  bidListFieldLabel,
-  bidResultData,
-} from "@/lib/bidDatas";
-import { bidListDataType } from "@/types/bidTypes";
+import { bidListFieldLabel } from "@/lib/bidDatas";
+import { ErpItemsType } from "@/types/bidTypes";
 import ThemeToggle from "@/components/layouts/_components/ThemeToggle";
+import { formatErpData } from "@/utils/formatErpData";
+import { BidMasterWithDetailsType } from "@/types/contractTypes";
+import { formatBidResultData } from "@/utils/formatBidResultData";
+import { useRouter } from "next/navigation";
+import { formatBidDetailData } from "@/lib/formatBidDetailData";
 
 const TenderDetail: React.FC = () => {
+  const [erpData, setErpData] = useState<ErpItemsType[]>([]);
+  const [bidData, setBidData] = useState<BidMasterWithDetailsType[]>([]);
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const { formatCenterData, formatCurrency } = useFormatHandler();
+  const { formatCenterData, formatCurrency, formatDate } = useFormatHandler();
   const { downloadFile } = useFileDownload();
   const { handleFileUpload } = useFileUpload();
   const { handleFormDown } = useFormDownload();
   const { checkedItems, handleChipClick } = useChipHandler();
 
-  const formattedData: bidListDataType[] = bidListData.map(item => ({
-    ...item,
-    센터명: formatCenterData(item.centerName) || "-",
-    낙찰기준단가: formatCurrency(item.bidBaseUnitPrice),
-    낙찰기준가격: formatCurrency(item.bidBasePrice),
-    ERP코드: item.erpCode,
-    ERP품목명: item.erpItemName,
-    계정구분: item.accountType,
-    모델명: item.modelName,
-    규격: item.standard,
-    제조사: item.manufacturer,
-    수량: item.quantity,
-  }));
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [bidResponse, erpResponse] = await Promise.all([
+          fetch("/api/bid"),
+          fetch("/api/erp"),
+        ]);
+
+        if (!bidResponse.ok || !erpResponse.ok) {
+          throw new Error("데이터 로딩 실패");
+        }
+
+        const [bidResult, erpResult] = await Promise.all([
+          bidResponse.json(),
+          erpResponse.json(),
+        ]);
+        console.log("Fetched bid data:", bidResult.data);
+        console.log("Fetched erp data:", erpResult.data);
+        setBidData(bidResult.data || []);
+        setErpData(erpResult.data || []);
+      } catch (error) {
+        console.error("데이터 로딩 실패:", error);
+      } finally {
+        setIsLoading(false); // 로딩 상태 해제
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const formattedErpData = erpData.length
+    ? formatErpData(erpData, formatDate, formatCurrency)
+    : [];
+  const formattedBidResult = bidData.length
+    ? formatBidResultData(bidData[0], { formatCurrency, formatDate })
+    : [];
+  const formattedBidDetail = bidData.length
+    ? formatBidDetailData(bidData[0], { formatCurrency, formatDate })
+    : [];
 
   const bidColumns = Object.keys(bidListFieldLabel)
-    .filter(field => field !== "id") // "id"를 제외
+    .filter(field => field !== "id")
     .map(field => ({
       title: bidListFieldLabel[field as keyof typeof bidListFieldLabel],
       dataIndex: field,
@@ -73,7 +101,7 @@ const TenderDetail: React.FC = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ data: formattedData }),
+        body: JSON.stringify({ data: formattedErpData }),
       });
       if (!response.ok) throw new Error("Data save failed");
       Toast.successSaveNotify();
@@ -132,7 +160,14 @@ const TenderDetail: React.FC = () => {
         onModify={handleModify}
       />
       <VerticalTable
-        data={bidDetailData}
+        data={formattedBidDetail.map(item => ({
+          ...item,
+          contents:
+            item.type === "datepicker" &&
+            (!item.contents || item.contents === "-")
+              ? null
+              : item.contents,
+        }))}
         onChipClick={handleChipClick}
         checkedItems={checkedItems}
         showHeader={true}
@@ -154,7 +189,7 @@ const TenderDetail: React.FC = () => {
           />
         </div>
         <Table
-          data={formattedData}
+          data={formattedErpData}
           columns={bidColumns}
           onRowSelect={handleRowSelect}
           showCheckbox={false}
@@ -164,7 +199,7 @@ const TenderDetail: React.FC = () => {
       </div>
       <div className="pb-20">
         <VerticalTable
-          data={bidResultData}
+          data={formattedBidResult}
           showHeader={true}
           headerTitle="입찰결과"
         />

@@ -52,6 +52,7 @@ const TenderPage = () => {
           const details = bidItem.details || [];
 
           return details.map(detail => ({
+            bid_id: bid.bid_id || "-",
             센터: detail.inst_cd || "-",
             입찰번호: bid.bid_no || "-",
             누리장터: bid.nuri_no || "-",
@@ -101,6 +102,17 @@ const TenderPage = () => {
     window.open("/tender/add", "_blank", "noopener,noreferrer,fullscreen");
   };
 
+  const handleRowDoubleClick = (row: { bid_id?: string }) => {
+    const id = row.bid_id;
+    if (!id || id === "-") {
+      console.error("Bid ID가 없습니다.");
+      alert("유효한 입찰 번호가 없습니다.");
+      return;
+    }
+    const url = `/tender/${id}`;
+    window.open(url, "_blank", "noopener,noreferrer,width=1920,height=1080");
+  };
+
   return (
     <div>
       <PageTitle pageTitle="입찰조회" mode="xl" fontWeight="bold" />
@@ -117,15 +129,7 @@ const TenderPage = () => {
         data={formattedData}
         columns={bidColumns}
         onRowSelect={handleRowSelect}
-        onRowDoubleClick={row => {
-          const id = row.id;
-          const url = `/tender/${id}`;
-          window.open(
-            url,
-            "_blank",
-            "noopener,noreferrer,width=1920,height=1080",
-          );
-        }}
+        onRowDoubleClick={handleRowDoubleClick}
         showCheckbox={false}
         pagination={true}
         sorter={sorter}

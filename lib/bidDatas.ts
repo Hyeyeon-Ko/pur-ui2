@@ -288,7 +288,7 @@ export const bidDetailData = [
     id: 10,
     title: bidDetailLabel["biddingDate"], // "응찰일"
     type: "datepicker",
-    contents: "",
+    contents: "2024.12.01",
   },
   {
     id: 11,
