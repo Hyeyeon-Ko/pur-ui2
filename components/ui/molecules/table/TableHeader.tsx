@@ -62,7 +62,7 @@ const TableHeader: React.FC<TableHeaderProps> = ({
                 className="cursor-pointer"
                 onClick={() => handleSortToggle(column.title)}
               >
-                {isDate(data[0][column.title]) && (
+                {data[0] && isDate(data[0][column.title]) && (
                   <>
                     {sorter?.field === column.title && sorter.order === "ascend"
                       ? " ▲"
