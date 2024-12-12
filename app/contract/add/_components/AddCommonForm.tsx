@@ -1,4 +1,3 @@
-import React from "react";
 import CheckOption from "@/components/ui/organism/option/CheckOption";
 import PageTitle from "@/components/ui/molecules/titles/PageTitle";
 import VerticalTable from "@/components/ui/organism/verticalTable/VerticalTable";

@@ -2,7 +2,9 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
-    const res = await fetch("http://localhost:10024/pur/bid");
+    const baseUrl = process.env.BASE_LOCAL_URL;
+
+    const res = await fetch(`${baseUrl}/pur/bid`);
     if (!res.ok) {
       throw new Error(`데이터를 불러오는데 실패했습니다. ${res.statusText}`);
     }

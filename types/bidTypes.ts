@@ -39,6 +39,7 @@ export type bidListDataType = {
 };
 
 export type ErpItemsType = {
+  bid_id?: string;
   erp_item_id?: string;
   inst_cd?: string;
   erp_cd?: string;
@@ -55,4 +56,56 @@ export type ErpItemsType = {
   regist_dt?: string;
   updusr_id?: string;
   updt_dt?: string;
+  bid_no?: string;
+  cont_no?: string;
+  cont_price?: string;
+  supplier?: string;
+  cont_type?: string;
+  cont_unit_price?: string;
 };
+
+interface Detail {
+  bid_detail_id?: string;
+  bid_id?: string;
+  inst_cd?: string;
+  ann_cat?: string;
+  bid_type?: string;
+  bid_method?: string;
+  cont_type?: string;
+  deposit_at?: string;
+  deposit_rsn?: string;
+  app_no?: string;
+  acc_cd?: string;
+  win_price?: string;
+  win_bid?: string;
+  use_at?: string;
+  notes?: string;
+  attach_id?: string;
+  regist_id?: string;
+  regist_dt?: string;
+  updusr_id?: string;
+  updt_dt?: string;
+  // bid_no?: string;
+  // method?: string;
+}
+
+interface Bid {
+  bid_id?: string;
+  bid_no?: string;
+  bid_nm?: string;
+  announce_dt?: string;
+  close_dt?: string;
+  bid_res?: string;
+  use_at?: string;
+  resp_id?: string;
+  nuri_no?: string;
+  regist_id?: string;
+  regist_dt?: string;
+  updusr_id?: string;
+  updt_dt?: string;
+}
+
+export interface BidItem {
+  bid?: Bid;
+  details?: Detail[];
+}

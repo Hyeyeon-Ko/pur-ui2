@@ -20,9 +20,10 @@ const TableRender: React.FC<TableRenderProps> = ({ row, column }) => {
             : "border-blue-500 hover:text-blue-600 text-blue"
         }`}
         onClick={() => {
+          const bidId = row["bid_id"];
           const newWindow = window.open(
-            `/tender/${row[column]}`,
-            `_tender_${row[column]}`,
+            `/tender/${bidId}`,
+            `_tender_${bidId}`,
             "fullscreen",
           );
           if (newWindow) newWindow.opener = null;
@@ -42,12 +43,17 @@ const TableRender: React.FC<TableRenderProps> = ({ row, column }) => {
             : "border-blue-500 hover:text-blue-600 text-blue"
         }`}
         onClick={() => {
-          const newWindow = window.open(
-            `/contract/${row[column]}`,
-            `_contract_${row[column]}`,
-            "fullscreen",
-          );
-          if (newWindow) newWindow.opener = null;
+          const bidId = row["bid_id"];
+          if (bidId) {
+            const newWindow = window.open(
+              `/contract/${bidId}`,
+              `_contract_${bidId}`,
+              "fullscreen",
+            );
+            if (newWindow) newWindow.opener = null;
+          } else {
+            console.error("cont_id가 존재하지 않습니다.");
+          }
         }}
       >
         {row[column]}

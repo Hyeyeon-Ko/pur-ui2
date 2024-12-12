@@ -155,9 +155,9 @@ export const contractListFields = [
 ];
 
 export const contractListLabels: { [key in keyof contractDataType]: string } = {
-  centerName: "센터",
+  centerName: "센터명",
   erpCode: "ERP코드",
-  erpItem: "ERP품목",
+  erpItem: "ERP품목명",
   bidNumber: "입찰번호",
   contractNumber: "계약번호",
   contractType: "계약종류",
@@ -170,6 +170,7 @@ export const contractListLabels: { [key in keyof contractDataType]: string } = {
   baseBidPrice: "낙찰기준가",
   contractUnitPrice: "계약단가",
   contractAmount: "계약금액",
+  baseBidUnitPrice: "낙찰기준단가",
 };
 
 //
@@ -298,6 +299,6 @@ export const contractDetailData = [
     id: 14,
     title: contractDetailLabel["contractOther"], // "계약기타사항"
     type: "textarea",
-    contents: null,
+    contents: "-",
   },
 ];

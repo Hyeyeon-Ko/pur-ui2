@@ -29,7 +29,7 @@ const useCategoryItems = () => {
       ...items,
       {
         id: Date.now(),
-        largeCategory: "", // Adjusted to match the new structure
+        largeCategory: "",
         middleCategory: "",
         content: "",
         name: "",

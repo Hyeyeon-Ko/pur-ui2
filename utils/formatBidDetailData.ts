@@ -1,34 +1,35 @@
 import useFormatHandler from "@/hooks/useFormatHandler";
 import { bidDetailLabel } from "@/lib/bidDatas";
 import { mappings } from "@/lib/mappings";
+import { BidItem } from "@/types/bidTypes";
 
 export const formatBidDetailData = (
-  bidItem: any,
+  bidItem: BidItem,
   formatHandlers: ReturnType<typeof useFormatHandler>,
 ) => {
   const { formatCurrency, formatDate } = formatHandlers;
 
+  const details = bidItem.details?.find(detail => detail.inst_cd) || {};
   const bid = bidItem.bid || {};
-  const details = bidItem.details || [];
 
   return [
     {
       id: 0,
       title: bidDetailLabel["centerName"], // "센터명"
       type: "chip",
-      contents: mappings.CMM001[details[0]?.inst_code || ""] || "-",
+      contents: mappings.CMM001[details.inst_cd || ""] || "-",
     },
     {
       id: 1,
       title: bidDetailLabel["tenderNumber"], // "입찰번호"
       type: "input",
-      contents: details[0]?.bid_no || "",
+      contents: bid.bid_no || "",
     },
     {
       id: 2,
       title: bidDetailLabel["announcementType"], // "공고구분"
       type: "input",
-      contents: details[0]?.ann_cat || "",
+      contents: mappings.PUR002[details.ann_cat || ""] || "",
     },
     {
       id: 3,
@@ -42,7 +43,7 @@ export const formatBidDetailData = (
         { value: "005", label: "매각계약" },
         { value: "006", label: "기타계약" },
       ],
-      contents: details[0]?.cont_type,
+      contents: details.bid_method,
     },
     {
       id: 4,
@@ -53,7 +54,7 @@ export const formatBidDetailData = (
         { value: "002", label: "제한경쟁" },
         { value: "003", label: "지명경쟁" },
       ],
-      contents: details[0]?.bid_type || "",
+      contents: details.bid_type || "",
     },
     {
       id: 5,
@@ -64,13 +65,13 @@ export const formatBidDetailData = (
         { value: "002", label: "2단계경쟁" },
         { value: "003", label: "협상에의한계약" },
       ],
-      contents: details[0]?.method || "",
+      contents: details.bid_method || "",
     },
     {
       id: 6,
       title: bidDetailLabel["accountName"], // "계정명"
       type: "chip",
-      contents: mappings.PUR006[details[0]?.acc_cd || ""] || "-",
+      contents: mappings.PUR006[details.acc_cd || ""] || "-",
     },
     {
       id: 7,
@@ -107,7 +108,7 @@ export const formatBidDetailData = (
       id: 12,
       title: bidDetailLabel["tenderProposalNumber"], // "입찰품의번호"
       type: "input",
-      contents: details[0]?.app_no || "",
+      contents: details.app_no || "",
     },
     {
       id: 13,

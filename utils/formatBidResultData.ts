@@ -1,7 +1,8 @@
 import { bidResultLabel } from "@/lib/bidDatas";
+import { BidItem } from "@/types/bidTypes";
 
 export const formatBidResultData = (
-  bidItem: any,
+  bidItem: BidItem,
   formatHandlers: {
     formatCurrency: (amount: string | number) => string;
     formatDate: (dateString: string) => string;
@@ -23,7 +24,7 @@ export const formatBidResultData = (
       id: 1,
       title: bidResultLabel["tenderResult"], // 입찰결과
       type: "radio",
-      contents: bid.bid_res, 
+      contents: bid.bid_res,
       options: [
         { value: "001", label: "낙찰" },
         { value: "002", label: "유찰" },

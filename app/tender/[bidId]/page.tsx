@@ -18,59 +18,76 @@ import ThemeToggle from "@/components/layouts/_components/ThemeToggle";
 import { formatErpData } from "@/utils/formatErpData";
 import { BidMasterWithDetailsType } from "@/types/contractTypes";
 import { formatBidResultData } from "@/utils/formatBidResultData";
-import { useRouter } from "next/navigation";
 import { formatBidDetailData } from "@/lib/formatBidDetailData";
+import { useParams } from "next/navigation";
 
 const TenderDetail: React.FC = () => {
-  const [erpData, setErpData] = useState<ErpItemsType[]>([]);
-  const [bidData, setBidData] = useState<BidMasterWithDetailsType[]>([]);
-  const [selectedRows, setSelectedRows] = useState<string[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const { bidId } = useParams();
 
-  const { formatCenterData, formatCurrency, formatDate } = useFormatHandler();
-  const { downloadFile } = useFileDownload();
+  const [erpData, setErpData] = useState<ErpItemsType[]>([]);
+  const [bidDetailData, setBidDetailData] = useState<
+    BidMasterWithDetailsType[]
+  >([]);
+  const [selectedRows, setSelectedRows] = useState<string[]>([]);
+
+  const { formatCurrency, formatDate } = useFormatHandler();
   const { handleFileUpload } = useFileUpload();
   const { handleFormDown } = useFormDownload();
   const { checkedItems, handleChipClick } = useChipHandler();
 
   useEffect(() => {
     const fetchData = async () => {
+      if (!bidId) {
+        console.error("bidId가 없습니다.");
+        return;
+      }
+
       try {
-        const [bidResponse, erpResponse] = await Promise.all([
-          fetch("/api/bid"),
-          fetch("/api/erp"),
+        const [bidDetailResponse, erpResponse] = await Promise.all([
+          fetch(`/api/bid-detail?bid_id=${bidId}`),
+          fetch(`/api/erp-detail?bid_id=${bidId}`),
         ]);
 
-        if (!bidResponse.ok || !erpResponse.ok) {
-          throw new Error("데이터 로딩 실패");
+        if (!bidDetailResponse.ok) {
+          throw new Error("입찰 상세 데이터를 불러오는데 실패했습니다.");
         }
 
-        const [bidResult, erpResult] = await Promise.all([
-          bidResponse.json(),
+        if (!erpResponse.ok) {
+          throw new Error("ERP 데이터를 불러오는데 실패했습니다.");
+        }
+
+        const [bidDetailResult, erpResult] = await Promise.all([
+          bidDetailResponse.json(),
           erpResponse.json(),
         ]);
-        console.log("Fetched bid data:", bidResult.data);
-        console.log("Fetched erp data:", erpResult.data);
-        setBidData(bidResult.data || []);
-        setErpData(erpResult.data || []);
+
+        if (bidDetailResult.data) {
+          setBidDetailData(bidDetailResult.data);
+        } else {
+          console.error("입찰 상세 데이터가 없습니다.");
+        }
+
+        if (erpResult.data) {
+          setErpData(erpResult.data);
+        } else {
+          console.error("ERP 데이터가 없습니다.");
+        }
       } catch (error) {
         console.error("데이터 로딩 실패:", error);
-      } finally {
-        setIsLoading(false); // 로딩 상태 해제
       }
     };
 
     fetchData();
-  }, []);
+  }, [bidId]);
 
+  const formattedBidResult = bidDetailData.length
+    ? formatBidResultData(bidDetailData[0], { formatCurrency, formatDate })
+    : [];
+  const formattedBidDetail = bidDetailData.length
+    ? formatBidDetailData(bidDetailData[0], { formatCurrency, formatDate })
+    : [];
   const formattedErpData = erpData.length
     ? formatErpData(erpData, formatDate, formatCurrency)
-    : [];
-  const formattedBidResult = bidData.length
-    ? formatBidResultData(bidData[0], { formatCurrency, formatDate })
-    : [];
-  const formattedBidDetail = bidData.length
-    ? formatBidDetailData(bidData[0], { formatCurrency, formatDate })
     : [];
 
   const bidColumns = Object.keys(bidListFieldLabel)
@@ -86,11 +103,47 @@ const TenderDetail: React.FC = () => {
     setSelectedRows(uniqueSelectedRows);
   }, []);
 
-  /** 전체내역 다운로드
-   * TODO: endpoint
-   */
   const handleDownloadAll = () => {
-    downloadFile("/api/endpoint", "입찰내역(전체).csv");
+    if (!formattedErpData || formattedErpData.length === 0) {
+      console.error("다운로드할 데이터가 없습니다.");
+      return;
+    }
+
+    const keyMapping = {
+      centerName: "센터명",
+      erpCode: "ERP코드",
+      erpItemName: "ERP품목명",
+      accountType: "계정구분",
+      modelName: "모델명",
+      standard: "규격",
+      manufacturer: "제조사",
+      quantity: "수량",
+      bidBaseUnitPrice: "낙찰기준단가",
+      bidBasePrice: "낙찰기준가격",
+    };
+
+    const headers = bidColumns.map(col => col.title);
+    const dataKeys = bidColumns.map(
+      col => keyMapping[col.dataIndex as keyof typeof keyMapping],
+    );
+
+    const rows = formattedErpData.map(data =>
+      dataKeys.map(key => `"${data[key as keyof typeof data] || "-"}"`),
+    );
+
+    const csvContent = [headers.map(header => `"${header}"`).join(",")]
+      .concat(rows.map(row => row.join(",")))
+      .join("\n");
+
+    const blob = new Blob(["\uFEFF" + csvContent], {
+      type: "text/csv;charset=utf-8;",
+    });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "입찰내역(전체).csv";
+    link.click();
+    URL.revokeObjectURL(url);
   };
 
   /** TODO: 저장버튼에 대한 임시 이벤트 추후에 엔드포인트 수정 필요*/
@@ -101,7 +154,7 @@ const TenderDetail: React.FC = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ data: formattedErpData }),
+        body: JSON.stringify({ data: formattedBidDetail }),
       });
       if (!response.ok) throw new Error("Data save failed");
       Toast.successSaveNotify();
@@ -129,15 +182,15 @@ const TenderDetail: React.FC = () => {
     }
   };
 
-  /**TODO: 서버에 저장된 파일을 불러올 예정, 엔드포인트 수정 필요 */
+  // /**TODO: 서버에 저장된 파일을 불러올 예정, 엔드포인트 수정 필요 */
   const handleFormDownload = async () => {
-    const endpoint = "/api/download-form-template";
+    const endpoint = "/templates/erp_contract_template.xlsx";
     const fileName = "입찰양식.csv";
     handleFormDown(endpoint, fileName);
   };
 
   /** TODO: 엔드포인트 수정
-   *    * 파일업로드 버튼 로직
+   *    파일업로드 버튼 로직
    */
   const handleUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const endpoint = "/api/upload";
@@ -152,12 +205,10 @@ const TenderDetail: React.FC = () => {
       <PageTitle pageTitle="입찰상세조회" mode="xl" fontWeight="bold" />
       <TableButton
         showSaveButton
-        showModifyButton
         showAddButton={false}
         showDelButton={false}
         showAllDownButton={false}
         onSave={handleSave}
-        onModify={handleModify}
       />
       <VerticalTable
         data={formattedBidDetail.map(item => ({
@@ -196,13 +247,13 @@ const TenderDetail: React.FC = () => {
           showHeader={true}
           headerTitle="입찰내역"
         />
-      </div>
-      <div className="pb-20">
-        <VerticalTable
-          data={formattedBidResult}
-          showHeader={true}
-          headerTitle="입찰결과"
-        />
+        <div className="pb-20 pt-20">
+          <VerticalTable
+            data={formattedBidResult}
+            showHeader={true}
+            headerTitle="입찰결과"
+          />
+        </div>
       </div>
     </div>
   );

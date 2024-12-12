@@ -1,7 +1,9 @@
 import { bidDetailLabel } from "@/lib/bidDatas";
+import { BidItem } from "@/types/bidTypes";
+import { mappings } from "./mappings";
 
 export const formatBidDetailData = (
-  bidItem: any,
+  bidItem: BidItem,
   formatHandlers: {
     formatCurrency: (amount: string | number) => string;
     formatDate: (dateString: string) => string;
@@ -17,7 +19,7 @@ export const formatBidDetailData = (
       id: 0,
       title: bidDetailLabel["centerName"],
       type: "chip",
-      contents: details.map((detail: any) => detail.inst_cd || "-"),
+      contents: details.map(detail => detail.inst_cd || "-"),
     },
     {
       id: 1,
@@ -29,7 +31,7 @@ export const formatBidDetailData = (
       id: 2,
       title: bidDetailLabel["announcementType"],
       type: "input",
-      contents: details.map((detail: any) => detail.ann_cat || "-").join(", "),
+      contents: mappings.PUR002[details[0]?.ann_cat || "-"] || "-",
     },
     {
       id: 3,
@@ -42,7 +44,7 @@ export const formatBidDetailData = (
         { value: "004", label: "공사계약" },
         { value: "005", label: "기타계약" },
       ],
-      selected: details[0]?.cont_type || "",
+      contents: details[0]?.cont_type || "",
     },
     {
       id: 4,
@@ -53,7 +55,7 @@ export const formatBidDetailData = (
         { value: "002", label: "제한경쟁" },
         { value: "003", label: "지명경쟁" },
       ],
-      selected: details[0]?.bid_type || "",
+      contents: details[0]?.bid_type || "",
     },
     {
       id: 5,
@@ -64,13 +66,13 @@ export const formatBidDetailData = (
         { value: "002", label: "2단계경쟁" },
         { value: "003", label: "협상에의한계약" },
       ],
-      selected: details[0]?.bid_method || "",
+      contents: details[0]?.bid_method || "",
     },
     {
       id: 6,
       title: bidDetailLabel["accountName"],
       type: "chip",
-      contents: details.map((detail: any) => detail.acc_cd || "-"),
+      contents: details.map(detail => detail.acc_cd || "-"),
     },
     {
       id: 7,
@@ -94,7 +96,7 @@ export const formatBidDetailData = (
       id: 10,
       title: bidDetailLabel["biddingDate"],
       type: "datepicker",
-      contents: details[0]?.bidding_date || "-",
+      contents: "-",
     },
     {
       id: 11,

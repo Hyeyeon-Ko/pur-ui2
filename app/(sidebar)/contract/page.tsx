@@ -18,7 +18,7 @@ const ContractPage: React.FC = () => {
   // const [error, setError] = useState<string | null>(null);
 
   const { downloadFile } = useFileDownload();
-  const { formatCenterData, formatDate, formatCurrency } = useFormatHandler();
+  const { formatDate, formatCurrency } = useFormatHandler();
 
   useEffect(() => {
     const fetchContracts = async () => {
@@ -56,6 +56,8 @@ const ContractPage: React.FC = () => {
           const details = contractItem.details || [];
 
           return details.map(detail => ({
+            bid_id: contract.bid_id || "-",
+            cont_id: contract.cont_id || "-",
             센터: mappings.CMM001[detail.inst_cd || "-"] || "-",
             입찰번호: contract.bid_id || "-",
             계약번호: contract.cont_no || "-",
@@ -95,7 +97,7 @@ const ContractPage: React.FC = () => {
 
   // 전체 다운로드
   const handleDownloadAll = () => {
-    downloadFile("/api/contract/export", "계약내역(전체).csv");
+    downloadFile("/pur/contract/download", "계약내역(전체).csv");
   };
 
   // 계약 추가 페이지 열기
