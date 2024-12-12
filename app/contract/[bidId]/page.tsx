@@ -7,22 +7,19 @@ import Table from "@/components/ui/organism/table/Table";
 import PageTitle from "@/components/ui/molecules/titles/PageTitle";
 import VerticalTable from "@/components/ui/organism/verticalTable/VerticalTable";
 import useChipHandler from "@/hooks/useChipHandler";
-import useFileDownload from "@/hooks/useFileDownload";
 import useFileUpload from "@/hooks/useFileUpload";
 import useFormatHandler from "@/hooks/useFormatHandler";
 import useFormDownload from "@/hooks/useFormDownload";
-import React, { Key, useCallback, useEffect, useState } from "react";
-import {
-  contractDetailLabel,
-  contractListData,
-  contractListLabels,
-} from "@/lib/contractDatas";
+import React, { useCallback, useEffect, useState } from "react";
+import { contractDetailLabel, contractListLabels } from "@/lib/contractDatas";
 import ThemeToggle from "@/components/layouts/_components/ThemeToggle";
 import { ContractMasterWithDetailsType } from "@/types/contractTypes";
 import { useParams } from "next/navigation";
 import { formatErpData } from "@/utils/formatErpData";
 import { ErpItemsType } from "@/types/bidTypes";
 import { formatContractVerticalData } from "@/utils/formatContractVerticalData";
+import useDownloadAll from "@/hooks/useDownloadAll";
+import { contractErpMapping } from "@/lib/keyMapping";
 
 const ContractDetail = () => {
   /** 파라미터 값으로 데이터 받아오고 있음: bid_id 값 */
@@ -35,10 +32,9 @@ const ContractDetail = () => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
 
   /* hooks 임포트 */
-  const { downloadFile } = useFileDownload();
   const { handleFileUpload } = useFileUpload();
   const { handleFormDown } = useFormDownload();
-  const { formatCenterData, formatDate, formatCurrency } = useFormatHandler();
+  const { formatDate, formatCurrency } = useFormatHandler();
   const { checkedItems, handleChipClick } = useChipHandler();
 
   /** 데이터 요청 1. contract-detail, erp-detail */
@@ -109,53 +105,11 @@ const ContractDetail = () => {
     setSelectedRows(uniqueSelectedRows);
   }, []);
 
-  const handleDownloadAll = () => {
-    if (!formattedErpData || formattedErpData.length === 0) {
-      return;
-    }
-
-    const keyMapping = {
-      centerName: "센터명",
-      erpCode: "ERP코드",
-      erpItemNm: "ERP품목명",
-      bidNumber: "입찰번호",
-      contractNumber: "계약번호",
-      contractType: "계약종류",
-      accountCategory: "계정구분",
-      modelName: "모델명",
-      standard: "규격",
-      manufacturer: "제조사",
-      supplier: "공급사",
-      quantity: "수량",
-      baseBidPrice: "낙찰기준가",
-      contractUnitPrice: "계약단가",
-      contractAmount: "계약금액",
-      baseBidUnitPrice: "낙찰기준단가",
-    };
-
-    const headers = contractColumns.map(col => col.title);
-    const dataKeys = contractColumns.map(
-      col => keyMapping[col.dataIndex as keyof typeof keyMapping],
-    );
-
-    const rows = formattedErpData.map(data =>
-      dataKeys.map(key => `"${data[key as keyof typeof data] || "-"}"`),
-    );
-
-    const csvContent = [headers.join(",")]
-      .concat(rows.map(row => row.join(",")))
-      .join("\n");
-
-    const blob = new Blob([`\ufeff${csvContent}`], {
-      type: "text/csv;charset=utf-8;",
-    });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "계약내역(전체).csv";
-    link.click();
-    URL.revokeObjectURL(url);
-  };
+  const handleDownloadAll = useDownloadAll(
+    formattedErpData,
+    contractErpMapping,
+    contractColumns,
+  );
 
   const handleSave = async () => {
     try {
@@ -210,13 +164,11 @@ const ContractDetail = () => {
       <PageTitle pageTitle="계약상세조회" mode="xl" fontWeight="bold" />
       <TableButton
         showSaveButton
-        // showModifyButton
         showAddButton={false}
         showDelButton={false}
-        showAllDownButton={false}
-        onDownloadAll={handleDownloadAll}
+        showAllDownButton={true}
+        onDownloadAll={() => handleDownloadAll("계약내역(전체).csv")}
         onSave={handleSave}
-        // onModify={handleModify}
       />
       <VerticalTable
         data={formattedVerticalData}

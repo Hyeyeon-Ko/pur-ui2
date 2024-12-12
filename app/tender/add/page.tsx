@@ -8,7 +8,6 @@ import useTenderSearch from "@/hooks/useTenderSearch";
 import { bidDetailData as initialBidDetailData } from "@/lib/bidDatas";
 import FileUploadButton from "@/components/ui/molecules/buttons/FileUploadButton";
 import Table from "@/components/ui/organism/table/Table";
-import useFileDownload from "@/hooks/useFileDownload";
 import useFormDownload from "@/hooks/useFormDownload";
 import { bidListFieldLabel } from "@/lib/bidDatas";
 import TableButton from "@/components/ui/molecules/buttons/TableButton";
@@ -23,12 +22,11 @@ const AddItemPage = () => {
     useState<any[]>(initialBidDetailData);
   const { saveData } = useSaveData();
   const { tenderSearch } = useTenderSearch();
-  const { downloadFile } = useFileDownload();
   const { handleFormDown } = useFormDownload();
   const { parsedData, parseCsvFile } = useCsvParser();
 
   const bidColumns = Object.keys(bidListFieldLabel)
-    .filter(field => field !== "id") // ID는 제외
+    .filter(field => field !== "id")
     .map(field => ({
       title: bidListFieldLabel[field as keyof typeof bidListFieldLabel],
       dataIndex: field,
@@ -70,13 +68,6 @@ const AddItemPage = () => {
     await saveData(checkedItems, bidDetailData, endpoint);
   };
 
-  /** 전체내역 다운로드
-   * TODO: endpoint
-   */
-  // const handleDownloadAll = () => {
-  //   downloadFile("/api/endpoint", "입찰내역(전체).csv");
-  // };
-
   // /**TODO: 서버에 저장된 파일을 불러올 예정, 엔드포인트 수정 필요 */
   const handleFormDownload = async () => {
     const endpoint = "/templates/erp_contract_template.xlsx";
@@ -111,7 +102,6 @@ const AddItemPage = () => {
             showAddButton={false}
             showDelButton={false}
             showFormDownButton={false}
-            // onDownloadAll={handleDownloadAll}
             onFormDownload={handleFormDownload}
           />
         </div>

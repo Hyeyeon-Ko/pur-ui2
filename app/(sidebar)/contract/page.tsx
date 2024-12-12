@@ -6,24 +6,21 @@ import useFormatHandler from "@/hooks/useFormatHandler";
 import SearchFilter from "@/components/ui/organism/filter/SearchFilter";
 import PageTitle from "@/components/ui/molecules/titles/PageTitle";
 import TableButton from "@/components/ui/molecules/buttons/TableButton";
-import useFileDownload from "@/hooks/useFileDownload";
 import { fieldLabels } from "@/lib/contractDatas";
 import { ContractMasterWithDetailsType } from "@/types/contractTypes";
 import { contractSearchFields } from "@/lib/searchDatas";
 import { mappings } from "@/lib/mappings";
+import useDownloadAll from "@/hooks/useDownloadAll";
+import { contractMapping } from "@/lib/keyMapping";
 
 const ContractPage: React.FC = () => {
   const [data, setData] = useState<ContractMasterWithDetailsType[]>([]);
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
-  // const [error, setError] = useState<string | null>(null);
 
-  const { downloadFile } = useFileDownload();
   const { formatDate, formatCurrency } = useFormatHandler();
 
   useEffect(() => {
     const fetchContracts = async () => {
-      // setError(null);
-
       try {
         const response = await fetch("/api/contract");
         if (!response.ok) {
@@ -32,17 +29,13 @@ const ContractPage: React.FC = () => {
 
         const result = await response.json();
 
-        // 응답 데이터 검증
         if (Array.isArray(result.data)) {
           setData(result.data);
         } else {
           console.error("데이터 존재하지 않음:", result);
-          // setError("데이터 존재하지 않음");
         }
       } catch (error) {
         console.error("데이터 로딩 실패:", error);
-        // setError("데이터 로딩 실패");
-      } finally {
       }
     };
 
@@ -95,17 +88,16 @@ const ContractPage: React.FC = () => {
       key: field,
     }));
 
-  // 전체 다운로드
-  const handleDownloadAll = () => {
-    downloadFile("/pur/contract/download", "계약내역(전체).csv");
-  };
+  const handleDownloadAll = useDownloadAll(
+    formattedData,
+    contractMapping,
+    contractColumns,
+  );
 
-  // 계약 추가 페이지 열기
   const handleOpenAddPage = () => {
     window.open("/contract/add", "_blank", "noopener,noreferrer,fullscreen");
   };
 
-  // 선택된 데이터 삭제
   const handleDeleteSelected = () => {
     if (confirm("선택한 항목을 삭제하시겠습니까?")) {
       const updatedData = data.filter(
@@ -118,14 +110,9 @@ const ContractPage: React.FC = () => {
     }
   };
 
-  // 행 선택 핸들러
   const handleRowSelect = useCallback((selectedRowIds: string[]) => {
     setSelectedRows(Array.from(new Set(selectedRowIds)));
   }, []);
-
-  // if (error) {
-  //   return <div className="text-red-500 text-center">{error}</div>;
-  // }
 
   return (
     <div className="mb-4 flex flex-col">
@@ -143,7 +130,8 @@ const ContractPage: React.FC = () => {
           showDelButton={false}
           onOpenAddPage={handleOpenAddPage}
           onDeleteSelected={handleDeleteSelected}
-          onDownloadAll={handleDownloadAll}
+          onDownloadAll={() => handleDownloadAll("계약조회(전체).csv")}
+          // onDownloadAll={handleDownloadAll}
         />
       </div>
 

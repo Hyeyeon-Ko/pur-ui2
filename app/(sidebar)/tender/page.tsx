@@ -6,11 +6,12 @@ import useFormatHandler from "@/hooks/useFormatHandler";
 import SearchFilter from "@/components/ui/organism/filter/SearchFilter";
 import PageTitle from "@/components/ui/molecules/titles/PageTitle";
 import TableButton from "@/components/ui/molecules/buttons/TableButton";
-import useFileDownload from "@/hooks/useFileDownload";
 import { fieldLabels } from "@/lib/bidDatas";
 import { tenderSearchFields } from "@/lib/searchDatas";
 import { BidMasterWithDetailsType } from "@/types/contractTypes";
 import { mappings } from "@/lib/mappings";
+import useDownloadAll from "@/hooks/useDownloadAll";
+import { tenderMapping } from "@/lib/keyMapping";
 
 const TenderPage = () => {
   const [data, setData] = useState<BidMasterWithDetailsType[]>([]);
@@ -20,8 +21,7 @@ const TenderPage = () => {
     order: "ascend" | "descend" | undefined;
   } | null>(null);
 
-  const { formatCenterData, formatDate, formatCurrency } = useFormatHandler();
-  const { downloadFile } = useFileDownload();
+  const { formatDate, formatCurrency } = useFormatHandler();
 
   useEffect(() => {
     const fetchBids = async () => {
@@ -79,7 +79,7 @@ const TenderPage = () => {
             열람: detail.attach_id || "-",
           }));
         })
-      : [{ 센터: "-", 입찰번호: "-", ...fieldLabels }];
+      : [];
 
   const bidColumns = Object.keys(fieldLabels)
     .filter(field => field !== "id")
@@ -89,14 +89,16 @@ const TenderPage = () => {
       key: field,
     }));
 
+  const handleDownloadAll = useDownloadAll(
+    formattedData,
+    tenderMapping,
+    bidColumns,
+  );
+
   const handleRowSelect = useCallback((selectedRowIds: string[]) => {
     const uniqueSelectedRows = Array.from(new Set(selectedRowIds));
     setSelectedRows(uniqueSelectedRows);
   }, []);
-
-  const handleDownloadAll = () => {
-    downloadFile("/api/bid/export", "입찰내역(전체).csv");
-  };
 
   const handleOpenAddPage = () => {
     window.open("/tender/add", "_blank", "noopener,noreferrer,fullscreen");
@@ -123,7 +125,7 @@ const TenderPage = () => {
       <TableButton
         showDelButton={false}
         onOpenAddPage={handleOpenAddPage}
-        onDownloadAll={handleDownloadAll}
+        onDownloadAll={() => handleDownloadAll("입찰조회(전체).csv")}
       />
       <Table
         data={formattedData}

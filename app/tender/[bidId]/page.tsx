@@ -7,9 +7,7 @@ import VerticalTable from "@/components/ui/organism/verticalTable/VerticalTable"
 import useFormatHandler from "@/hooks/useFormatHandler";
 import TableButton from "@/components/ui/molecules/buttons/TableButton";
 import FileUploadButton from "@/components/ui/molecules/buttons/FileUploadButton";
-import Toast from "@/components/commons/Toast";
-import useFileDownload from "@/hooks/useFileDownload";
-import useFileUpload from "@/hooks/useFileUpload";
+import Toast from "@/components/commons/Toast";import useFileUpload from "@/hooks/useFileUpload";
 import useFormDownload from "@/hooks/useFormDownload";
 import useChipHandler from "@/hooks/useChipHandler";
 import { bidListFieldLabel } from "@/lib/bidDatas";
@@ -20,6 +18,8 @@ import { BidMasterWithDetailsType } from "@/types/contractTypes";
 import { formatBidResultData } from "@/utils/formatBidResultData";
 import { formatBidDetailData } from "@/lib/formatBidDetailData";
 import { useParams } from "next/navigation";
+import useDownloadAll from "@/hooks/useDownloadAll";
+import { tenderErpMapping } from "@/lib/keyMapping";
 
 const TenderDetail: React.FC = () => {
   const { bidId } = useParams();
@@ -103,48 +103,11 @@ const TenderDetail: React.FC = () => {
     setSelectedRows(uniqueSelectedRows);
   }, []);
 
-  const handleDownloadAll = () => {
-    if (!formattedErpData || formattedErpData.length === 0) {
-      console.error("다운로드할 데이터가 없습니다.");
-      return;
-    }
-
-    const keyMapping = {
-      centerName: "센터명",
-      erpCode: "ERP코드",
-      erpItemName: "ERP품목명",
-      accountType: "계정구분",
-      modelName: "모델명",
-      standard: "규격",
-      manufacturer: "제조사",
-      quantity: "수량",
-      bidBaseUnitPrice: "낙찰기준단가",
-      bidBasePrice: "낙찰기준가격",
-    };
-
-    const headers = bidColumns.map(col => col.title);
-    const dataKeys = bidColumns.map(
-      col => keyMapping[col.dataIndex as keyof typeof keyMapping],
-    );
-
-    const rows = formattedErpData.map(data =>
-      dataKeys.map(key => `"${data[key as keyof typeof data] || "-"}"`),
-    );
-
-    const csvContent = [headers.map(header => `"${header}"`).join(",")]
-      .concat(rows.map(row => row.join(",")))
-      .join("\n");
-
-    const blob = new Blob(["\uFEFF" + csvContent], {
-      type: "text/csv;charset=utf-8;",
-    });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "입찰내역(전체).csv";
-    link.click();
-    URL.revokeObjectURL(url);
-  };
+  const handleDownloadAll = useDownloadAll(
+    formattedErpData,
+    tenderErpMapping,
+    bidColumns,
+  );
 
   /** TODO: 저장버튼에 대한 임시 이벤트 추후에 엔드포인트 수정 필요*/
   const handleSave = async () => {
@@ -235,7 +198,7 @@ const TenderDetail: React.FC = () => {
             showAddButton={false}
             showDelButton={false}
             showFormDownButton={true}
-            onDownloadAll={handleDownloadAll}
+            onDownloadAll={() => handleDownloadAll("입찰내역(전체).csv")}
             onFormDownload={handleFormDownload}
           />
         </div>
