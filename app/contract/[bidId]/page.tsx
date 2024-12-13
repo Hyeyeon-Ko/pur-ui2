@@ -166,8 +166,7 @@ const ContractDetail = () => {
         showSaveButton
         showAddButton={false}
         showDelButton={false}
-        showAllDownButton={true}
-        onDownloadAll={() => handleDownloadAll("계약내역(전체).csv")}
+        showAllDownButton={false}
         onSave={handleSave}
       />
       <VerticalTable
@@ -188,7 +187,7 @@ const ContractDetail = () => {
             showAddButton={false}
             showDelButton={false}
             showFormDownButton={true}
-            onDownloadAll={handleDownloadAll}
+            onDownloadAll={() => handleDownloadAll("계약내역(전체).csv")}
             onFormDownload={handleFormDownload}
           />
         </div>
