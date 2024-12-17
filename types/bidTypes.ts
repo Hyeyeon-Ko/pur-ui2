@@ -34,7 +34,7 @@ export type bidListDataType = {
   manufacturer: string;
   quantity: string;
   bidBaseUnitPrice: string;
-  bidBasePrice: string;
+  baseBidPrice: string;
   [key: string]: any;
 };
 
@@ -50,18 +50,18 @@ export type ErpItemsType = {
   spec?: string;
   mfr?: string;
   qty?: string;
-  std_price?: string;
-  ref_price?: string;
+  std_price?: string | number;
+  ref_price?: string | number;
   regist_id?: string;
   regist_dt?: string;
   updusr_id?: string;
   updt_dt?: string;
   bid_no?: string;
   cont_no?: string;
-  cont_price?: string;
+  cont_price?: string | number;
   supplier?: string;
   cont_type?: string;
-  cont_unit_price?: string;
+  cont_unit_price?: string | number;
 };
 
 interface Detail {

@@ -11,13 +11,13 @@ export const formatContractVerticalData = (
       id: 0,
       title: contractDetailLabel["centerName"],
       type: "chip",
-      contents: [contractData.details[0]?.inst_cd || "전국"],
+      contents: [contractData.centerName || "전국"],
     },
     {
       id: 1,
       title: contractDetailLabel["contractNumber"],
       type: "input",
-      contents: contractData.contract.cont_no || "",
+      contents: contractData.cont_no || "",
     },
     {
       id: 2,
@@ -28,49 +28,49 @@ export const formatContractVerticalData = (
         { value: "002", label: "연장계약" },
         { value: "003", label: "변경계약" },
       ],
-      contents: contractData.details[0]?.cont_div || "",
+      contents: contractData.cont_type || "",
     },
     {
       id: 3,
       title: contractDetailLabel["contractName"],
       type: "input",
-      contents: contractData.contract.cont_nm || "",
+      contents: contractData.cont_nm || "",
     },
     {
       id: 4,
       title: contractDetailLabel["contractDate"],
       type: "datepicker",
-      contents: contractData.contract.cont_dt || "",
+      contents: contractData.cont_dt || "",
     },
     {
       id: 5,
       title: contractDetailLabel["contractStartDate"],
       type: "datepicker",
-      contents: contractData.contract.start_dt || "",
+      contents: contractData.start_dt || "",
     },
     {
       id: 6,
       title: contractDetailLabel["contractEndDate"],
       type: "datepicker",
-      contents: contractData.contract.end_dt || "",
+      contents: contractData.end_dt || "",
     },
     {
       id: 7,
       title: contractDetailLabel["sn"],
       type: "input",
-      contents: contractData.details[0]?.cont_sn || "",
+      contents: contractData.cont_sn || "",
     },
     {
       id: 8,
       title: contractDetailLabel["supplier"],
       type: "input",
-      contents: contractData.details[0]?.supplier || "",
+      contents: contractData.supplier || "",
     },
     {
       id: 9,
       title: contractDetailLabel["contractPrice"],
       type: "input",
-      contents: contractData.details[0]?.cont_price || "",
+      contents: contractData.cont_price || "",
     },
     {
       id: 10,
@@ -88,19 +88,19 @@ export const formatContractVerticalData = (
       id: 12,
       title: contractDetailLabel["contractGuarantee"], // "계약보증금"
       type: "upload-message",
-      contents: contractData.details[0]?.cont_deposit || "",
+      contents: contractData.deposit_rsn || "",
     },
     {
       id: 13,
       title: contractDetailLabel["defectsGuarantee"], // "하자이행보증금"
       type: "upload-message",
-      contents: contractData.details[0]?.war_bond || "",
+      contents: contractData.war_bond || "",
     },
     {
       id: 14,
       title: contractDetailLabel["contractOther"], // "계약기타사항"
       type: "textarea",
-      contents: contractData.details[0]?.notes || "",
+      contents: contractData.notes || "",
     },
   ];
 };

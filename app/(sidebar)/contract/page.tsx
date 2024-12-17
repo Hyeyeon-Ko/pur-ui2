@@ -9,7 +9,6 @@ import TableButton from "@/components/ui/molecules/buttons/TableButton";
 import { fieldLabels } from "@/lib/contractDatas";
 import { ContractMasterWithDetailsType } from "@/types/contractTypes";
 import { contractSearchFields } from "@/lib/searchDatas";
-import { mappings } from "@/lib/mappings";
 import useDownloadAll from "@/hooks/useDownloadAll";
 import { contractMapping } from "@/lib/keyMapping";
 
@@ -28,6 +27,7 @@ const ContractPage: React.FC = () => {
         }
 
         const result = await response.json();
+        console.log(result);
 
         if (Array.isArray(result.data)) {
           setData(result.data);
@@ -44,40 +44,35 @@ const ContractPage: React.FC = () => {
 
   const formattedData =
     data.length > 0
-      ? data.flatMap(contractItem => {
-          const contract = contractItem.contract || {};
-          const details = contractItem.details || [];
-
-          return details.map(detail => ({
-            bid_id: contract.bid_id || "-",
-            cont_id: contract.cont_id || "-",
-            센터: mappings.CMM001[detail.inst_cd || "-"] || "-",
-            입찰번호: contract.bid_id || "-",
-            계약번호: contract.cont_no || "-",
-            계약종류: mappings.PUR003[detail.cont_type || ""] || "-",
-            계약명: contract.cont_nm || "-",
-            계약일자: contract.cont_dt ? formatDate(contract.cont_dt) : "-",
-            계약시작일: contract.start_dt ? formatDate(contract.start_dt) : "-",
-            계약완료일: contract.end_dt ? formatDate(contract.end_dt) : "-",
-            공급사: detail.supplier || "-",
-            계약금액: detail.cont_price
-              ? formatCurrency(parseFloat(detail.cont_price))
-              : "-",
-            계약방법: mappings.PUR007[detail.cont_method || ""] || "-",
-            SN: detail.cont_sn || "-",
-            계약증권: detail.cont_deposit
-              ? formatCurrency(parseFloat(detail.cont_deposit))
-              : "-",
-            하자증권: detail.war_bond
-              ? formatCurrency(parseFloat(detail.war_bond))
-              : "-",
-            계약품의번호: contract.cont_app_no || "-",
-            계약구분: mappings.PUR008[detail.cont_div || ""] || "-",
-            담당자: contract.resp_id || "-",
-            기타: detail.notes ? "Y" : "N",
-            열람: detail.attach_id || "-",
-          }));
-        })
+      ? data.map(contractItem => ({
+          bid_id: contractItem.bid_id || "",
+          센터: contractItem.centerName || "-",
+          bid_detail_id: contractItem.bid_detail_id || "-",
+          입찰번호: contractItem.bid_no || "-",
+          계약번호: contractItem.cont_no || "-",
+          계약종류: contractItem.contType || "-",
+          계정명: contractItem.accCd || "-",
+          계약명: contractItem.cont_nm || "-",
+          계약일자: formatDate(contractItem.cont_dt) || "-",
+          계약시작일: formatDate(contractItem.start_dt) || "-",
+          계약완료일: formatDate(contractItem.end_dt) || "-",
+          공급사: contractItem.supplier || "-",
+          계약금액: contractItem.cont_price
+            ? formatCurrency(contractItem.cont_price)
+            : "-",
+          계약방법: contractItem.contMethod || "-",
+          계약증권: contractItem.cont_deposit
+            ? formatCurrency(contractItem.cont_deposit)
+            : "-",
+          하자증권: contractItem.war_bond
+            ? formatCurrency(contractItem.war_bond)
+            : "-",
+          계약품의번호: contractItem.cont_app_no || "-",
+          계약구분: contractItem.contDiv || "-",
+          담당자: contractItem.resp_id || "-",
+          기타: contractItem.notes ? "Y" : "N",
+          열람: contractItem.attach_id || "-",
+        }))
       : [];
 
   const contractColumns = Object.keys(fieldLabels)
@@ -98,17 +93,17 @@ const ContractPage: React.FC = () => {
     window.open("/contract/add", "_blank", "noopener,noreferrer,fullscreen");
   };
 
-  const handleDeleteSelected = () => {
-    if (confirm("선택한 항목을 삭제하시겠습니까?")) {
-      const updatedData = data.filter(
-        item =>
-          item.contract?.cont_id &&
-          !selectedRows.includes(item.contract.cont_id),
-      );
-      setData(updatedData);
-      setSelectedRows([]);
-    }
-  };
+  // const handleDeleteSelected = () => {
+  //   if (confirm("선택한 항목을 삭제하시겠습니까?")) {
+  //     const updatedData = data.filter(
+  //       item =>
+  //         item.contract?.cont_id &&
+  //         !selectedRows.includes(item.contract.cont_id),
+  //     );
+  //     setData(updatedData);
+  //     setSelectedRows([]);
+  //   }
+  // };
 
   const handleRowSelect = useCallback((selectedRowIds: string[]) => {
     setSelectedRows(Array.from(new Set(selectedRowIds)));
@@ -129,7 +124,7 @@ const ContractPage: React.FC = () => {
         <TableButton
           showDelButton={false}
           onOpenAddPage={handleOpenAddPage}
-          onDeleteSelected={handleDeleteSelected}
+          // onDeleteSelected={handleDeleteSelected}
           onDownloadAll={() => handleDownloadAll("계약조회(전체).csv")}
           // onDownloadAll={handleDownloadAll}
         />

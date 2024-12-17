@@ -47,38 +47,33 @@ const TenderPage = () => {
 
   const formattedData =
     data.length > 0
-      ? data.flatMap(bidItem => {
-          const bid = bidItem.bid || {};
-          const details = bidItem.details || [];
-
-          return details.map(detail => ({
-            bid_id: bid.bid_id || "-",
-            센터: detail.inst_cd || "-",
-            입찰번호: bid.bid_no || "-",
-            누리장터: bid.nuri_no || "-",
-            계약종류: mappings.PUR003[detail.cont_type || ""] || "-",
-            낙찰방법: mappings.PUR005[detail.bid_method || ""] || "-",
-            계정명: mappings.PUR006[detail.acc_cd || "-"] || "-",
-            공고구분: mappings.PUR002[detail.ann_cat || ""] || "-",
-            입찰명: bid.bid_nm || "-",
-            공고일: bid.announce_dt ? formatDate(bid.announce_dt) : "-",
-            마감일: bid.close_dt ? formatDate(bid.close_dt) : "-",
-            낙찰기준가: detail.win_price
-              ? formatCurrency(parseFloat(detail.win_price))
-              : "-",
-            낙찰금액: detail.win_price
-              ? formatCurrency(parseFloat(detail.win_price))
-              : "-",
-            낙찰자: detail.win_bid || "-",
-            입찰결과: mappings.PUR001[bid.bid_res || ""] || "-",
-            입찰증권: detail.deposit_at || "-",
-            입찰품의번호: detail.app_no || "-",
-            담당자: bid.resp_id || "-",
-            계약구분: mappings.PUR003[detail.cont_type || "-"] || "-",
-            기타: detail.notes ? "Y" : "N",
-            열람: detail.attach_id || "-",
-          }));
-        })
+      ? data.map(bidItem => ({
+          bid_id: bidItem.bid_id || "-",
+          센터: bidItem.centerName || "-",
+          입찰번호: bidItem.bid_no || "-",
+          누리장터: bidItem.nuri_no || "-",
+          계약종류: bidItem.contType || "",
+          낙찰방법: bidItem.bidMethod || "",
+          계정명: bidItem.accCd || "-",
+          공고구분: bidItem.annCat || "",
+          입찰명: bidItem.bid_nm || "-",
+          공고일: bidItem.announce_dt ? formatDate(bidItem.announce_dt) : "-",
+          마감일: bidItem.close_dt ? formatDate(bidItem.close_dt) : "-",
+          낙찰기준가: bidItem.win_price
+            ? formatCurrency(parseFloat(bidItem.win_price))
+            : "-",
+          낙찰금액: bidItem.win_price
+            ? formatCurrency(parseFloat(bidItem.win_price))
+            : "-",
+          낙찰자: bidItem.win_bid || "-",
+          입찰결과: bidItem.bid_res || "",
+          입찰증권: bidItem.deposit_at || "-",
+          입찰품의번호: bidItem.app_no || "-",
+          담당자: bidItem.resp_id || "-",
+          계약구분: bidItem.contDiv || "-",
+          기타: bidItem.notes ? "Y" : "N",
+          열람: bidItem.attach_id || "-",
+        }))
       : [];
 
   const bidColumns = Object.keys(fieldLabels)

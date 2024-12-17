@@ -112,7 +112,7 @@ export const bidListData: bidListDataType[] = [
     manufacturer: "제조사",
     quantity: "수량",
     bidBaseUnitPrice: "2525000",
-    bidBasePrice: "2323000",
+    baseBidPrice: "2323000",
   },
   {
     id: "2",
@@ -125,7 +125,7 @@ export const bidListData: bidListDataType[] = [
     manufacturer: "제조사",
     quantity: "수량",
     bidBaseUnitPrice: "5588000",
-    bidBasePrice: "5500000",
+    baseBidPrice: "5500000",
   },
 ];
 
@@ -154,7 +154,7 @@ export const bidListFieldLabel: { [key in keyof bidListDataType]: string } = {
   manufacturer: "제조사",
   quantity: "수량",
   bidBaseUnitPrice: "낙찰기준단가",
-  bidBasePrice: "낙찰기준가격",
+  baseBidPrice: "낙찰기준가",
 };
 
 //

@@ -77,6 +77,7 @@ const ContractAddPage = () => {
     });
   };
 
+
   const handleRowSelect = useCallback((selectedRowIds: string[]) => {
     const uniqueSelectedRows = Array.from(new Set(selectedRowIds));
     setSelectedRows(uniqueSelectedRows);

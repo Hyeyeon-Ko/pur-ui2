@@ -1,96 +1,88 @@
-import { bidDetailLabel } from "@/lib/bidDatas";
-import { BidItem } from "@/types/bidTypes";
-import { mappings } from "./mappings";
+import { BidMasterWithDetailsType } from "@/types/contractTypes";
 
 export const formatBidDetailData = (
-  bidItem: BidItem,
-  formatHandlers: {
-    formatCurrency: (amount: string | number) => string;
-    formatDate: (dateString: string) => string;
-  },
+  bidData: BidMasterWithDetailsType | null,
+  bidDetailLabel: { [key: string]: string },
 ) => {
-  const { formatCurrency, formatDate } = formatHandlers;
-
-  const bid = bidItem.bid || {};
-  const details = bidItem.details || [];
+  if (!bidData) return [];
 
   return [
     {
       id: 0,
       title: bidDetailLabel["centerName"],
       type: "chip",
-      contents: details.map(detail => detail.inst_cd || "-"),
+      contents: [bidData.centerName || "전국"],
     },
     {
       id: 1,
       title: bidDetailLabel["tenderNumber"],
       type: "input",
-      contents: bid.bid_no || "-",
+      contents: bidData.bid_no || "-",
     },
     {
       id: 2,
       title: bidDetailLabel["announcementType"],
       type: "input",
-      contents: mappings.PUR002[details[0]?.ann_cat || "-"] || "-",
+      contents: bidData.annCat || "-",
     },
     {
       id: 3,
       title: bidDetailLabel["contractType"],
       type: "radio",
       options: [
-        { value: "001", label: "일반계약" },
-        { value: "002", label: "단가계약" },
-        { value: "003", label: "임대계약" },
-        { value: "004", label: "공사계약" },
-        { value: "005", label: "기타계약" },
+        { value: "일반계약", label: "일반계약" },
+        { value: "단가계약", label: "단가계약" },
+        { value: "임대계약", label: "임대계약" },
+        { value: "공사계약", label: "공사계약" },
+        { value: "기타계약", label: "기타계약" },
       ],
-      contents: details[0]?.cont_type || "",
+      contents: bidData.contType || "",
     },
     {
       id: 4,
       title: bidDetailLabel["tenderType"],
       type: "radio",
       options: [
-        { value: "001", label: "일반경쟁" },
-        { value: "002", label: "제한경쟁" },
-        { value: "003", label: "지명경쟁" },
+        { value: "일반경쟁", label: "일반경쟁" },
+        { value: "제한경쟁", label: "제한경쟁" },
+        { value: "지명경쟁", label: "지명경쟁" },
       ],
-      contents: details[0]?.bid_type || "",
+      contents: bidData.bidType || "",
     },
     {
       id: 5,
       title: bidDetailLabel["awardMethod"],
       type: "radio",
       options: [
-        { value: "001", label: "최저가격" },
-        { value: "002", label: "2단계경쟁" },
-        { value: "003", label: "협상에의한계약" },
+        { value: "최저가격", label: "최저가격" },
+        { value: "2단계경쟁", label: "2단계경쟁" },
+        { value: "협상에의한계약", label: "협상에의한계약" },
       ],
-      contents: details[0]?.bid_method || "",
+      contents: bidData.bidMethod || "",
     },
     {
       id: 6,
       title: bidDetailLabel["accountName"],
       type: "chip",
-      contents: details.map(detail => detail.acc_cd || "-"),
+      contents: bidData.accCd || "-",
     },
     {
       id: 7,
       title: bidDetailLabel["tenderName"],
       type: "input",
-      contents: bid.bid_nm || "-",
+      contents: bidData.bid_nm || "-",
     },
     {
       id: 8,
       title: bidDetailLabel["announcementDate"],
       type: "datepicker",
-      contents: bid.announce_dt ? formatDate(bid.announce_dt) : "-",
+      contents: bidData.announce_dt || "-",
     },
     {
       id: 9,
       title: bidDetailLabel["closingDate"],
       type: "datepicker",
-      contents: bid.close_dt ? formatDate(bid.close_dt) : "-",
+      contents: bidData.close_dt || "-",
     },
     {
       id: 10,
@@ -102,27 +94,25 @@ export const formatBidDetailData = (
       id: 11,
       title: bidDetailLabel["awardedPrice"],
       type: "input",
-      contents: details[0]?.win_price
-        ? formatCurrency(parseFloat(details[0]?.win_price))
-        : "-",
+      contents: bidData.win_price || "-",
     },
     {
       id: 12,
       title: bidDetailLabel["tenderProposalNumber"],
       type: "input",
-      contents: details[0]?.app_no || "-",
+      contents: bidData.app_no || "-",
     },
     {
       id: 13,
       title: bidDetailLabel["tenderProposal"],
       type: "upload",
-      contents: details[0]?.attach_id || null,
+      contents: bidData.attach_id || null,
     },
     {
       id: 14,
       title: bidDetailLabel["tenderAnnouncement"],
       type: "upload",
-      contents: details[0]?.attach_id || null,
+      contents: bidData.attach_id || null,
     },
   ];
 };

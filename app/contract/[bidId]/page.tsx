@@ -7,7 +7,6 @@ import Table from "@/components/ui/organism/table/Table";
 import PageTitle from "@/components/ui/molecules/titles/PageTitle";
 import VerticalTable from "@/components/ui/organism/verticalTable/VerticalTable";
 import useChipHandler from "@/hooks/useChipHandler";
-import useFileUpload from "@/hooks/useFileUpload";
 import useFormatHandler from "@/hooks/useFormatHandler";
 import useFormDownload from "@/hooks/useFormDownload";
 import React, { useCallback, useEffect, useState } from "react";
@@ -20,6 +19,7 @@ import { ErpItemsType } from "@/types/bidTypes";
 import { formatContractVerticalData } from "@/utils/formatContractVerticalData";
 import useDownloadAll from "@/hooks/useDownloadAll";
 import { contractErpMapping } from "@/lib/keyMapping";
+import Papa from "papaparse";
 
 const ContractDetail = () => {
   /** 파라미터 값으로 데이터 받아오고 있음: bid_id 값 */
@@ -32,7 +32,6 @@ const ContractDetail = () => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
 
   /* hooks 임포트 */
-  const { handleFileUpload } = useFileUpload();
   const { handleFormDown } = useFormDownload();
   const { formatDate, formatCurrency } = useFormatHandler();
   const { checkedItems, handleChipClick } = useChipHandler();
@@ -63,6 +62,7 @@ const ContractDetail = () => {
           erpResponse.json(),
         ]);
 
+        console.log("contractResult", contractResult);
         if (contractResult.data && contractResult.data.length > 0) {
           setContractData(contractResult.data[0]);
         } else {
@@ -92,13 +92,11 @@ const ContractDetail = () => {
     contractDetailLabel,
   );
 
-  const contractColumns = Object.keys(contractListLabels)
-    .filter(field => field !== "id")
-    .map(field => ({
-      title: contractListLabels[field as keyof typeof contractListLabels],
-      dataIndex: field,
-      key: field,
-    }));
+  const contractColumns = Object.keys(contractListLabels).map(field => ({
+    title: contractListLabels[field],
+    dataIndex: field,
+    key: field,
+  }));
 
   const handleRowSelect = useCallback((selectedRowIds: string[]) => {
     const uniqueSelectedRows = Array.from(new Set(selectedRowIds));
@@ -151,9 +149,43 @@ const ContractDetail = () => {
     handleFormDown(endpoint, fileName);
   };
 
-  const handleUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const endpoint = "/api/upload";
-    handleFileUpload(event, endpoint);
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    Papa.parse(file, {
+      header: true, // 첫 줄 헤더로 사용
+      skipEmptyLines: true, // 빈 값은 넘김
+      complete: result => {
+        const csvData = result.data as Record<string, string>[];
+
+        const formattedCsvData: ErpItemsType[] = csvData.map(item => ({
+          inst_cd: item["센터명"] || "",
+          erp_cd: item["ERP코드"] || "",
+          erp_item_nm: item["ERP품목명"] || "",
+          bid_no: item["입찰번호"] || "",
+          cont_no: item["계약번호"] || "",
+          cont_type: item["계약종류"] || "",
+          acc_cat: item["계정구분"] || "",
+          model_nm: item["모델명"] || "",
+          spec: item["규격"] || "",
+          mfr: item["제조사"] || "",
+          supplier: item["공급사"] || "",
+          qty: item["수량"] || "",
+          ref_price: item["낙찰기준가"] || "",
+          std_price: item["낙찰기준단가"] || "-",
+          cont_unit_price: item["계약단가"] || "-",
+          cont_price: item["계약금액"] || "-",
+        }));
+
+        setErpData(prev => [...prev, ...formattedCsvData]);
+      },
+      error: err => {
+        console.error("파일 읽기 오류:", err.message);
+      },
+    });
+
+    event.target.value = "";
   };
 
   return (
@@ -179,7 +211,7 @@ const ContractDetail = () => {
       <div className="py-20">
         <div className="mr-2 flex justify-end">
           <FileUploadButton
-            onFileUpload={handleUpload}
+            onFileUpload={handleFileUpload}
             buttonText="업로드"
             accept=".csv, .xls, .xlsx"
           />

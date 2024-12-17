@@ -33,19 +33,23 @@ const useFormatHandler = () => {
   };
 
   const formatCurrency = (amount: string | number) => {
-    // 입력값을 숫자로 변환
-    const validAmount = Number(amount);
+    if (!amount || amount === "유효하지 않은 금액") return "-";
 
-    // 숫자로 변환한 값이 유효한지 확인
-    if (isNaN(validAmount)) {
-      return "유효하지 않은 금액";
+    // 문자열이 이미 ₩로 시작하면 그대로 반환
+    if (typeof amount === "string" && amount.startsWith("₩")) {
+      return amount;
     }
 
-    // 유효한 숫자일 경우 원화 형식으로 포맷팅
-    return validAmount.toLocaleString("ko-KR", {
-      style: "currency",
-      currency: "KRW",
-    });
+    // 숫자나 문자열을 원화 형식으로 변환
+    const validAmount = Number(amount);
+    if (!isNaN(validAmount)) {
+      return validAmount.toLocaleString("ko-KR", {
+        style: "currency",
+        currency: "KRW",
+      });
+    }
+
+    return "-";
   };
 
   return {

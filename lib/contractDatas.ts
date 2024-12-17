@@ -91,7 +91,7 @@ export const fieldLabels: { [key in keyof contractDataType]: string } = {
   baseBidPrice: "낙찰기준가",
   contractAmount: "계약금액",
   contractMethod: "계약방법",
-  sn: "SN",
+  // sn: "SN",
   contractBond: "계약증권",
   defectBond: "하자증권",
   contractProposalNumber: "계약품의번호",
@@ -99,6 +99,7 @@ export const fieldLabels: { [key in keyof contractDataType]: string } = {
   manager: "담당자",
   etc: "기타",
   viewStatus: "열람",
+  // erpItemNm: "ERP품목명",
 };
 
 //
@@ -108,7 +109,7 @@ export const contractListData: contractDataType[] = [
     id: "0",
     centerName: ["본원", "제주"],
     erpCode: "ERP코드",
-    erpItem: "ERP품목",
+    erpItem: "ERP품목명",
     bidNumber: "입찰번호",
     contractNumber: "계약번호",
     contractType: "계약종류",
@@ -126,7 +127,7 @@ export const contractListData: contractDataType[] = [
     id: "1",
     centerName: ["본원", "제주"],
     erpCode: "ERP코드",
-    erpItem: "ERP품목",
+    erpItem: "ERP품목명",
     bidNumber: "입찰번호",
     contractNumber: "계약번호",
     contractType: "계약종류",
@@ -157,7 +158,7 @@ export const contractListFields = [
 export const contractListLabels: { [key in keyof contractDataType]: string } = {
   centerName: "센터명",
   erpCode: "ERP코드",
-  erpItem: "ERP품목명",
+  erpItemNm: "ERP품목명",
   bidNumber: "입찰번호",
   contractNumber: "계약번호",
   contractType: "계약종류",

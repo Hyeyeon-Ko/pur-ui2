@@ -14,8 +14,8 @@ export async function GET(req: NextRequest) {
     const data = await res.json();
 
     const filteredData = bid_id
-      ? data.data.filter((item: any) => item.contract.bid_id === bid_id)
-      : [];
+      ? data.data.filter((item: any) => item.bid_id === bid_id)
+      : data.data;
 
     return NextResponse.json({
       code: 200,

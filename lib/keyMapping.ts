@@ -25,19 +25,20 @@ export const tenderMapping = {
 export const tenderErpMapping = {
   centerName: "센터명",
   erpCode: "ERP코드",
-  erpItemName: "ERP품목명",
+  erpItemNm: "ERP품목명",
   accountType: "계정구분",
   modelName: "모델명",
   standard: "규격",
   manufacturer: "제조사",
   quantity: "수량",
   bidBaseUnitPrice: "낙찰기준단가",
-  bidBasePrice: "낙찰기준가격",
+  baseBidPrice: "낙찰기준가",
 };
 
 export const contractMapping = {
   centerName: "센터",
   bidNumber: "입찰번호",
+  erpItemNm: "ERP품목명",
   contractNumber: "계약번호",
   contractType: "계약종류",
   accountName: "계정명",
