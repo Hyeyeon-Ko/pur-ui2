@@ -8,16 +8,19 @@ import useFormatHandler from "@/hooks/useFormatHandler";
 import TableButton from "@/components/ui/molecules/buttons/TableButton";
 import FileUploadButton from "@/components/ui/molecules/buttons/FileUploadButton";
 import Toast from "@/components/commons/Toast";
-import useFileUpload from "@/hooks/useFileUpload";
 import useFormDownload from "@/hooks/useFormDownload";
 import useChipHandler from "@/hooks/useChipHandler";
-import { bidDetailLabel, bidListFieldLabel } from "@/lib/bidDatas";
+import {
+  bidDetailLabel,
+  bidListFieldLabel,
+  bidResultLabel,
+} from "@/lib/bidDatas";
 import { ErpItemsType } from "@/types/bidTypes";
 import ThemeToggle from "@/components/layouts/_components/ThemeToggle";
 import { formatErpData } from "@/utils/formatErpData";
 import { BidMasterWithDetailsType } from "@/types/contractTypes";
 import { formatBidResultData } from "@/utils/formatBidResultData";
-import { formatBidDetailData } from "@/lib/formatBidDetailData";
+import { formatBidDetailData } from "@/utils/formatBidDetailData";
 import { useParams } from "next/navigation";
 import useDownloadAll from "@/hooks/useDownloadAll";
 import { tenderErpMapping } from "@/lib/keyMapping";
@@ -82,11 +85,17 @@ const TenderDetail: React.FC = () => {
     fetchData();
   }, [bidId]);
 
-  // const formattedBidResult = bidDetailData.length
-  //   ? formatBidResultData(bidDetailData[0], { formatCurrency, formatDate })
-  //   : [];
+  const formattedBidResult = bidDetailData.length
+    ? formatBidResultData(bidDetailData[0], bidResultLabel, {
+        formatCurrency,
+        formatDate,
+      })
+    : [];
   const formattedBidDetail = bidDetailData.length
-    ? formatBidDetailData(bidDetailData[0], bidDetailLabel)
+    ? formatBidDetailData(bidDetailData[0], bidDetailLabel, {
+        formatCurrency,
+        formatDate,
+      })
     : [];
   const formattedErpData = erpData.length
     ? formatErpData(erpData, formatDate, formatCurrency)
@@ -247,11 +256,11 @@ const TenderDetail: React.FC = () => {
           headerTitle="입찰내역"
         />
         <div className="pb-20 pt-20">
-          {/* <VerticalTable
+          <VerticalTable
             data={formattedBidResult}
             showHeader={true}
             headerTitle="입찰결과"
-          /> */}
+          />
         </div>
       </div>
     </div>

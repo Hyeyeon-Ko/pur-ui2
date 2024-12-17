@@ -147,4 +147,5 @@ export type BidMasterWithDetailsType = {
   attach_id?: string; // 첨부 파일 ID
   contDiv?: string; // 계약구분
   bidType?: string; // 입찰종류
+  bidRes?: string; //입찰결과
 };
