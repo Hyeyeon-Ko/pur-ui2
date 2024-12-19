@@ -56,7 +56,7 @@ const CategoryPage: React.FC<CategoryPageProps> = ({
             `데이터를 불러오는데 실패했습니다: ${res.statusText}`,
           );
         }
-        const jsonResponse: { data: ApiResponseItem[] } = await res.json(); // 타입 명시
+        const jsonResponse: { data: ApiResponseItem[] } = await res.json();
 
         // 대분류 데이터만 추출
         const uniqueLargeCategories = Array.from(
@@ -100,8 +100,8 @@ const CategoryPage: React.FC<CategoryPageProps> = ({
     <div>
       <PageTitle pageTitle={title} mode="xl" fontWeight="bold" />
       <ManagementHeader onSaveAll={() => {}} headerTitle={headerTitle} />
-      {loading && <p>로딩 중...</p>}
-      {error && <p className="text-red-500">{error}</p>}
+      {/* {loading && <p>로딩 중...</p>}
+      {error && <p className="text-red-500">{error}</p>} */}
       <CategoryItemList
         items={items}
         fields={fields}
@@ -109,7 +109,7 @@ const CategoryPage: React.FC<CategoryPageProps> = ({
         onSave={handleSave}
         onRemove={handleRemove}
         onEdit={handleEdit}
-        largeCategories={largeCategories} // 대분류 데이터 전달
+        largeCategories={largeCategories}
       />
       <div className="mx-auto flex w-[80%] justify-start py-2">
         <Button

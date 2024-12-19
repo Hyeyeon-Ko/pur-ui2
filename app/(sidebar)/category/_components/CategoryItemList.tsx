@@ -31,7 +31,7 @@ const CategoryItemList: React.FC<CategoryItemListProps> = ({
           onSave={onSave}
           onRemove={onRemove}
           onEdit={onEdit}
-          largeCategories={largeCategories} // 전달
+          largeCategories={largeCategories} 
         />
       ))}
     </div>

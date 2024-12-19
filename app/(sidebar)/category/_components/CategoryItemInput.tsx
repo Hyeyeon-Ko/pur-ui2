@@ -13,7 +13,7 @@ const CategoryItemInput: React.FC<CategoryItemInputProps> = ({
   onSave,
   onRemove,
   onEdit,
-  largeCategories = [], // 대분류 데이터 전달
+  largeCategories = [],
 }) => {
   const [selectedLargeCategory, setSelectedLargeCategory] = useState("");
   const [selectedMiddleCategory, setSelectedMiddleCategory] = useState("");
@@ -30,9 +30,6 @@ const CategoryItemInput: React.FC<CategoryItemInputProps> = ({
   // 초기값 설정
   useEffect(() => {
     if (item) {
-      console.log("Item 데이터:", item);
-      console.log("Large Categories 데이터:", largeCategories);
-
       setSelectedLargeCategory(item.largeCategory || "");
       setSelectedMiddleCategory(item.middleCategory || "");
     }
@@ -50,7 +47,7 @@ const CategoryItemInput: React.FC<CategoryItemInputProps> = ({
   };
 
   return (
-    <div className="flex items-center justify-between space-x-2 px-4">
+    <div className="flex items-center space-x-2 px-4">
       {item.isEditing ? (
         <div className="flex flex-grow justify-between">
           <CategorySelect
@@ -60,7 +57,7 @@ const CategoryItemInput: React.FC<CategoryItemInputProps> = ({
             selectedMiddleCategory={selectedMiddleCategory}
             onLargeCategoryChange={handleLargeCategoryChange}
             onMiddleCategoryChange={handleMiddleCategoryChange}
-            endpoint="/api/category-group" // API 엔드포인트
+            endpoint="/api/category-group"
           />
           <FieldInputs item={item} fields={fields} onChange={onChange} />
           <ActionButtons
@@ -71,32 +68,53 @@ const CategoryItemInput: React.FC<CategoryItemInputProps> = ({
           />
         </div>
       ) : (
-        <div className="flex flex-grow items-center justify-between">
+        <div className="flex w-full items-center">
+          {/* 대분류 */}
           {majorCategory && (
-            <Label
-              mode="xs"
-              content={selectedLargeCategoryName || "대분류 없음"}
-            />
+            <div className="flex-1 text-center">
+              <Label
+                mode="xs"
+                customStyle={{ textAlign: "center" }}
+                content={selectedLargeCategoryName || "대분류 없음"}
+              />
+            </div>
           )}
+
+          {/* 중분류 */}
           {middleCategory && (
-            <Label
-              mode="xs"
-              content={selectedMiddleCategory || "중분류 없음"}
-            />
+            <div className="flex-1 text-center">
+              <Label
+                mode="xs"
+                customStyle={{ justifyContent: "center", textAlign: "center" }}
+                content={selectedMiddleCategory || "중분류 없음"}
+              />
+            </div>
           )}
+
+          {/* 필드 렌더링 */}
           {fields.map(field => (
-            <Label
-              key={field.field}
-              mode="xs"
-              content={String(item[field.field as keyof typeof item] || "")}
-            />
+            <div key={field.field} className="flex-1 text-center">
+              <Label
+                mode="xs"
+                customStyle={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+                content={String(item[field.field as keyof typeof item] || "")}
+              />
+            </div>
           ))}
-          <ActionButtons
-            isEditing={false}
-            onSave={() => {}}
-            onRemove={() => onRemove(item.id)}
-            onEdit={() => onEdit(item.id)}
-          />
+
+          {/* ActionButtons */}
+          <div className="flex-1 text-center">
+            <ActionButtons
+              isEditing={false}
+              onSave={() => {}}
+              onRemove={() => onRemove(item.id)}
+              onEdit={() => onEdit(item.id)}
+            />
+          </div>
         </div>
       )}
     </div>

@@ -52,7 +52,7 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
       ];
 
   return (
-    <div className="flex space-x-2">
+    <div className="flex justify-center space-x-2">
       {buttons.map(({ color, content, variant, onClick }, index) => (
         <Button
           key={index}
