@@ -19,6 +19,9 @@ interface ApiResponseItem {
   groupCd?: string;
   groupNm?: string;
   groupDc?: string;
+  detailCd?: string;
+  detailNm?: string;
+  detailDc?: string;
 }
 
 const CategoryPage: React.FC<CategoryPageProps> = ({
@@ -79,8 +82,11 @@ const CategoryPage: React.FC<CategoryPageProps> = ({
               groupContent: item.groupCd,
               groupName: item.groupNm,
               groupDesc: item.groupDc,
+              detailContent: item.detailCd,
+              detailName: item.detailNm,
+              detailDesc: item.detailDc,
               largeCategory: item.classCd,
-              middleCategory: item.groupCd,
+              middleCategory: item.groupNm,
               isEditing: false,
             }))
           : [];
