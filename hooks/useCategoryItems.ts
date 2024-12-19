@@ -2,27 +2,7 @@ import { CategoryItem } from "@/types/categoryTypes";
 import { useState } from "react";
 
 const useCategoryItems = () => {
-  const [items, setItems] = useState<CategoryItem[]>([
-    // 초기 데이터 예시
-    {
-      id: 1,
-      largeCategory: "대분류1",
-      middleCategory: "중분류1",
-      content: "내용1",
-      name: "이름1",
-      description: "설명1",
-      isEditing: false,
-    },
-    {
-      id: 2,
-      largeCategory: "대분류2",
-      middleCategory: "중분류2",
-      content: "내용2",
-      name: "이름2",
-      description: "설명2",
-      isEditing: false,
-    },
-  ]);
+  const [items, setItems] = useState<CategoryItem[]>([]);
 
   const handleAddItem = () => {
     setItems([
@@ -65,6 +45,7 @@ const useCategoryItems = () => {
 
   return {
     items,
+    setItems,
     handleAddItem,
     handleChange,
     handleSave,

@@ -6,6 +6,7 @@ export interface CategoryItem {
   isEditing: boolean;
   largeCategory?: string;
   middleCategory?: string;
+  classCd?: string;
 }
 
 export interface CategoryField {
@@ -22,6 +23,7 @@ export interface CategoryItemInputProps {
   onSave: (id: number) => void;
   onRemove: (id: number) => void;
   onEdit: (id: number) => void;
+  largeCategories: Array<{ classCd: string; classNm: string }>;
 }
 
 export interface CategoryItemListProps {
@@ -31,6 +33,7 @@ export interface CategoryItemListProps {
   onSave: (id: number) => void;
   onRemove: (id: number) => void;
   onEdit: (id: number) => void;
+  largeCategories: Array<{ classCd: string; classNm: string }>;
 }
 
 export interface SmallCategory {

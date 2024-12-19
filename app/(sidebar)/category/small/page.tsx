@@ -9,7 +9,7 @@ const SmallPage = () => {
   const endpoint = "/api/save-middle";
 
   return (
-    <CategoryVisibilityProvider majorCategory={true} middleCategory={true}>
+    <CategoryVisibilityProvider majorCategory={false} middleCategory={true}>
       <CategoryPage
         title="소분류"
         headerTitle="소분류 코드관리"

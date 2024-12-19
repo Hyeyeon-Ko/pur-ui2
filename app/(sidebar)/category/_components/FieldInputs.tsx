@@ -15,7 +15,7 @@ const FieldInputs: React.FC<FieldInputsProps> = ({
 }) => (
   <>
     {fields.map(field => {
-      const value = item[field.field as keyof typeof item];
+      const value = item[field.field as keyof typeof item] || "";
       if (field.type === "input") {
         return (
           <Input

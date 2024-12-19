@@ -6,7 +6,7 @@ import { middleFields } from "@/lib/categoryDatas";
 import CategoryPage from "../_components/CategoryPage";
 
 const MiddlePage = () => {
-  const endpoint = "/api/save-middle";
+  const endpoint = "/api/category-group";
 
   return (
     <CategoryVisibilityProvider majorCategory={true} middleCategory={false}>

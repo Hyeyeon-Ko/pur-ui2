@@ -9,21 +9,37 @@ export const majorFields = [
 ];
 
 export const middleFields = [
-  { type: "input", field: "content", placeholder: "공통 코드를 입력하세요." },
-  { type: "input", field: "name", placeholder: "코드 이름을 입력하세요." },
   {
     type: "input",
-    field: "description",
+    field: "groupContent",
+    placeholder: "공통 코드를 입력하세요.",
+  },
+  {
+    type: "input",
+    field: "groupName",
+    placeholder: "코드 이름을 입력하세요.",
+  },
+  {
+    type: "input",
+    field: "groupDesc",
     placeholder: "코드 내용을 입력하세요.",
   },
 ];
 
 export const smallFields = [
-  { type: "input", field: "content", placeholder: "공통 코드를 입력하세요." },
-  { type: "input", field: "name", placeholder: "코드 이름을 입력하세요." },
   {
     type: "input",
-    field: "description",
+    field: "detailContent",
+    placeholder: "공통 코드를 입력하세요.",
+  },
+  {
+    type: "input",
+    field: "detailName",
+    placeholder: "코드 이름을 입력하세요.",
+  },
+  {
+    type: "input",
+    field: "detailDesc",
     placeholder: "코드 내용을 입력하세요.",
   },
 ];

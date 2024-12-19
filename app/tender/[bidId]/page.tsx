@@ -91,15 +91,18 @@ const TenderDetail: React.FC = () => {
         formatDate,
       })
     : [];
+
   const formattedBidDetail = bidDetailData.length
     ? formatBidDetailData(bidDetailData[0], bidDetailLabel, {
         formatCurrency,
         formatDate,
       })
     : [];
+
   const formattedErpData = erpData.length
     ? formatErpData(erpData, formatDate, formatCurrency)
     : [];
+
   console.log(formattedErpData);
   const bidColumns = Object.keys(bidListFieldLabel)
     .filter(field => field !== "id")

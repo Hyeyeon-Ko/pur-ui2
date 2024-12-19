@@ -14,7 +14,7 @@ export const formatErpData = (
     입찰번호: item.bid_no || "-",
     계약번호: item.cont_no || "-",
     계약종류: item.cont_type || "-",
-    계정구분: mappings.PUR002[item.acc_cat || "-"] || "-",
+    계정구분: item.acc_cat || "-" || "-",
     모델명: item.model_nm || "-",
     규격: item.spec || "-",
     제조사: item.mfr || "-",

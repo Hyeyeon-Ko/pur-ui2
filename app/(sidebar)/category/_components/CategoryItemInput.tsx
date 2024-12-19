@@ -1,4 +1,3 @@
-// src/components/ui/inputs/CategoryItemInput.tsx
 import React, { useState, useEffect } from "react";
 import { CategoryItemInputProps } from "@/types/categoryTypes";
 import { useCategoryVisibility } from "@/context/CategoryVisibilityContext";
@@ -14,21 +13,34 @@ const CategoryItemInput: React.FC<CategoryItemInputProps> = ({
   onSave,
   onRemove,
   onEdit,
+  largeCategories = [], // 대분류 데이터 전달
 }) => {
   const [selectedLargeCategory, setSelectedLargeCategory] = useState("");
   const [selectedMiddleCategory, setSelectedMiddleCategory] = useState("");
   const { majorCategory, middleCategory } = useCategoryVisibility();
 
+  // 선택된 대분류 이름 찾기
+  const selectedLargeCategoryName =
+    Array.isArray(largeCategories) &&
+    largeCategories.find(
+      (category: { classCd: string; classNm: string }) =>
+        category.classCd === selectedLargeCategory,
+    )?.classNm;
+
+  // 초기값 설정
   useEffect(() => {
     if (item) {
+      console.log("Item 데이터:", item);
+      console.log("Large Categories 데이터:", largeCategories);
+
       setSelectedLargeCategory(item.largeCategory || "");
       setSelectedMiddleCategory(item.middleCategory || "");
     }
-  }, [item]);
+  }, [item, largeCategories]);
 
   const handleLargeCategoryChange = (value: string) => {
     setSelectedLargeCategory(value);
-    setSelectedMiddleCategory("");
+    setSelectedMiddleCategory(""); // 중분류 초기화
     onChange(item.id, "largeCategory", value);
   };
 
@@ -48,6 +60,7 @@ const CategoryItemInput: React.FC<CategoryItemInputProps> = ({
             selectedMiddleCategory={selectedMiddleCategory}
             onLargeCategoryChange={handleLargeCategoryChange}
             onMiddleCategoryChange={handleMiddleCategoryChange}
+            endpoint="/api/category-group" // API 엔드포인트
           />
           <FieldInputs item={item} fields={fields} onChange={onChange} />
           <ActionButtons
@@ -59,15 +72,23 @@ const CategoryItemInput: React.FC<CategoryItemInputProps> = ({
         </div>
       ) : (
         <div className="flex flex-grow items-center justify-between">
-          {majorCategory && <Label mode="xs" content={selectedLargeCategory} />}
+          {majorCategory && (
+            <Label
+              mode="xs"
+              content={selectedLargeCategoryName || "대분류 없음"}
+            />
+          )}
           {middleCategory && (
-            <Label mode="xs" content={selectedMiddleCategory} />
+            <Label
+              mode="xs"
+              content={selectedMiddleCategory || "중분류 없음"}
+            />
           )}
           {fields.map(field => (
             <Label
               key={field.field}
               mode="xs"
-              content={String(item[field.field as keyof typeof item])}
+              content={String(item[field.field as keyof typeof item] || "")}
             />
           ))}
           <ActionButtons
