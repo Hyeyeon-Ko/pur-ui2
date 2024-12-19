@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import axios from "axios";
 
 interface LoginRequest {
   userId: string;
@@ -21,17 +22,12 @@ export async function POST(request: Request) {
     // const baseUrl = process.env.BASE_LOCAL_URL || "http://localhost:10024";
     const endpoint = "http://172.16.250.84/mis/pur/login";
 
-    const response = await fetch(endpoint, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ userId, userPw }),
-    });
+    // Axios를 사용하여 POST 요청
+    const response = await axios.post(endpoint, { userId, userPw });
 
-    const result = await response.json();
+    const result = response.data;
 
-    if (!response.ok || result.message !== "로그인 성공") {
+    if (response.status !== 200 || result.message !== "로그인 성공") {
       return NextResponse.json(
         { message: result.message || "로그인 실패" },
         { status: response.status },
@@ -42,11 +38,18 @@ export async function POST(request: Request) {
       { message: "로그인 성공!", token: result.token },
       { status: 200 },
     );
-  } catch (error) {
+  } catch (error: any) {
     console.error("로그인 요청 처리 중 오류 발생:", error);
+
+    // 에러 처리: Axios 에러 메시지 및 상태를 반환
     return NextResponse.json(
-      { message: "서버 오류가 발생했습니다." },
-      { status: 500 },
+      {
+        message:
+          error.response?.data?.message ||
+          error.message ||
+          "서버 오류가 발생했습니다.",
+      },
+      { status: error.response?.status || 500 },
     );
   }
 }

@@ -1,3 +1,4 @@
+import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
 import * as XLSX from "xlsx";
 
@@ -9,12 +10,9 @@ export async function GET(req: NextRequest) {
     const bid_id = searchParams.get("bid_id");
     const baseUrl = process.env.BASE_LOCAL_URL;
 
-    const res = await fetch(`${baseUrl}/pur/erp`);
-    if (!res.ok) {
-      throw new Error(`데이터를 가져오는 데 실패했습니다: ${res.statusText}`);
-    }
+    const res = await axios.get(`${baseUrl}/pur/erp`);
 
-    const data = await res.json();
+    const data = res.data;
 
     if (!data || !data.data) {
       return NextResponse.json({
@@ -34,11 +32,19 @@ export async function GET(req: NextRequest) {
       data: filteredData,
     });
   } catch (error: any) {
-    console.error("API 에러:", error.message);
-    return NextResponse.json({
-      code: 500,
-      message: error.message || "예기치 못한 에러가 발생했습니다.",
-    });
+    console.error("API 요청 실패:", error);
+
+    // 에러 처리
+    return NextResponse.json(
+      {
+        status: 500,
+        message:
+          error.response?.data?.message ||
+          error.message ||
+          "알 수 없는 오류가 발생했습니다.",
+      },
+      { status: 500 },
+    );
   }
 }
 
