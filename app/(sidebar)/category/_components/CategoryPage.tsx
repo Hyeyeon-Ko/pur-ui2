@@ -74,8 +74,8 @@ const CategoryPage: React.FC<CategoryPageProps> = ({
         setLargeCategories(uniqueLargeCategories);
 
         const transformedData = Array.isArray(jsonResponse.data)
-          ? jsonResponse.data.map((item: ApiResponseItem) => ({
-              id: parseInt(item.groupCd || item.classCd),
+          ? jsonResponse.data.map((item: ApiResponseItem, index: number) => ({
+              id: index + 1,
               content: item.classCd,
               name: item.classNm,
               description: item.classDc,
@@ -90,6 +90,8 @@ const CategoryPage: React.FC<CategoryPageProps> = ({
               isEditing: false,
             }))
           : [];
+
+        console.log(transformedData);
 
         setItems(transformedData);
       } catch (error: any) {

@@ -12,7 +12,7 @@ import colors from "@/styles/colors";
 export type ButtonMode = "sm" | "xs" | "lg" | "md" | undefined;
 export type ButtonVariant = "inline" | "outline";
 
-interface ButtonProps {
+export interface ButtonProps {
   type?: "button" | "submit" | "reset";
   mode?: ButtonMode;
   color?: keyof typeof colors;

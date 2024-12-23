@@ -5,6 +5,7 @@ import CategorySelect from "@/app/(sidebar)/category/_components/CategorySelect"
 import FieldInputs from "@/app/(sidebar)/category/_components/FieldInputs";
 import ActionButtons from "@/app/(sidebar)/category/_components/ActionButtons";
 import Label from "@/components/ui/atoms/label/Label";
+import useCategoryItems from "@/hooks/useCategoryItems";
 
 const CategoryItemInput: React.FC<CategoryItemInputProps> = ({
   item,
@@ -18,6 +19,7 @@ const CategoryItemInput: React.FC<CategoryItemInputProps> = ({
   const [selectedLargeCategory, setSelectedLargeCategory] = useState("");
   const [selectedMiddleCategory, setSelectedMiddleCategory] = useState("");
   const { majorCategory, middleCategory } = useCategoryVisibility();
+  const { handleEdit } = useCategoryItems();
 
   // 선택된 대분류 이름 찾기
   const selectedLargeCategoryName =
@@ -61,10 +63,10 @@ const CategoryItemInput: React.FC<CategoryItemInputProps> = ({
           />
           <FieldInputs item={item} fields={fields} onChange={onChange} />
           <ActionButtons
-            isEditing={true}
+            isEditing={item.isEditing}
             onSave={() => onSave(item.id)}
             onRemove={() => onRemove(item.id)}
-            onEdit={() => {}}
+            onEdit={() => handleEdit(item.id)}
           />
         </div>
       ) : (
@@ -114,6 +116,13 @@ const CategoryItemInput: React.FC<CategoryItemInputProps> = ({
               onRemove={() => onRemove(item.id)}
               onEdit={() => onEdit(item.id)}
             />
+
+            {/* <ActionButtons
+              isEditing={item.isEditing}
+              onSave={() => onSave(item.id)}
+              onRemove={() => onRemove(item.id)}
+              onEdit={() => handleEdit(item.id)}
+            /> */}
           </div>
         </div>
       )}

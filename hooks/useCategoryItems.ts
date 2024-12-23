@@ -34,8 +34,11 @@ const useCategoryItems = () => {
   };
 
   const handleEdit = (id: number) => {
-    setItems(
-      items.map(item => (item.id === id ? { ...item, isEditing: true } : item)),
+    // console.log("Editing item ID:", id);
+    setItems(prevItems =>
+      prevItems.map(item =>
+        item.id === id ? { ...item, isEditing: true } : item,
+      ),
     );
   };
 
