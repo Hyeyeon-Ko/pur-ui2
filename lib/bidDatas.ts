@@ -219,7 +219,6 @@ export const bidDetailData = [
       { value: "기타계약", label: "기타계약" },
     ],
     contents: "",
-    selected: "",
   },
   {
     id: 4,
@@ -231,7 +230,6 @@ export const bidDetailData = [
       { value: "지명경쟁", label: "지명경쟁" },
     ],
     contents: "",
-    selected: "",
   },
   {
     id: 5,
@@ -243,7 +241,6 @@ export const bidDetailData = [
       { value: "협상에의한계약", label: "협상에의한계약" },
     ],
     contents: "",
-    selected: "",
   },
   {
     id: 6,
@@ -288,7 +285,7 @@ export const bidDetailData = [
     id: 10,
     title: bidDetailLabel["biddingDate"], // "응찰일"
     type: "datepicker",
-    contents: "2024.12.01",
+    contents: "",
   },
   {
     id: 11,
